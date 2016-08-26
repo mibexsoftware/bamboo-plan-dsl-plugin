@@ -9,11 +9,13 @@ The first step is to add the provided Bamboo task "Seed task" to a build plan of
 
 ![Adding a seed task to a build plan](seed_task.png)
 
-In this build plan you have your DSL scripts with which you want to populate your build plans with the settings provided from your DSL script(s).
+In this build plan you have your DSL scripts with which you want to populate your build plans with the settings provided from your DSL script(s). The task configuration looks like follows:
 
 ![Configuring the seed task](highlight1_task.png)
 
-You can choose between adding a DSL script inline or by providing an Ant pattern for the location of your DSL files in the task configuration (the latter files are taken from the checkout out sources of the assoicated repository from this build plan). In the screenshot you see the Ant pattern "scripts/**/*.groovy" which means that all files with a .groovy suffix in the directory `script` and below are taken and executed when the build plan with this seed task is run. For testing, you can also define the DSL script inline. Here's an example of a DSL script to create a basic build plan:
+You can choose between adding a DSL script inline or by providing an Ant pattern for the location of your DSL files in the task configuration (the latter files are taken from the checked out sources of the associated repository from this build plan). In the screenshot you see the Ant pattern "scripts/**/*.groovy" which means that all files with a `.groovy` suffix in the directory `script` and below are taken and executed when the build plan with this seed task is run. 
+
+For testing, you can also define the DSL script inline. Here's an example of a DSL script to create a basic build plan:
 
 ```groovy
 project("MYPROJECT") {
