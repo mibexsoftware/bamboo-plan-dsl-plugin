@@ -1,0 +1,46 @@
+apply plugin: 'groovy'
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+apply plugin: 'codenarc'
+
+group = 'com.github.mibexsoftware' // necessary for jitpack
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+
+            groupId 'ch.mibex.bamboo.plandsl'
+            artifactId 'plan-dsl-lib'
+            version '1.1.1'
+            artifact groovydocsJar
+            artifact sourcesJar
+        }
+    }
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task groovydocsJar(type: Jar, dependsOn: 'groovydoc') {
+    from project.groovydoc.destinationDir
+    classifier = 'groovydoc'
+}
+
+codenarc {
+    toolVersion = '0.25.2'
+    configFile = file('config/codenarc/rules.groovy')
+    sourceSets = [project.sourceSets.main] // currently restricted to src/main/groovy/** files
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.4.6'
+    compile group: 'org.apache.ant', name: 'ant', version: '1.8.2'
+    testCompile('org.spockframework:spock-core:1.0-groovy-2.4')
+}

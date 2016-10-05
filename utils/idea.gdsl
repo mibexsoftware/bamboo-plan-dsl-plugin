@@ -1,0 +1,8 @@
+// enable DSL support in IDEA, see https://confluence.jetbrains.com/display/GRVY/Scripting+IDE+for+DSL+awareness
+// inspired by Jenkins job DSL plug-in
+
+def jobPath = /.*\/dsls\/.*\.groovy/
+def ctx = context(pathRegexp: jobPath)
+contributor(ctx, {
+    delegatesTo(findClass('ch.mibex.bamboo.plandsl.dsl.DslFactory'))
+})
