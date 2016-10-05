@@ -1,4 +1,4 @@
-# Plan DSL for Atlassian Bamboo - Treat your build plans as code!
+# Plan DSL for Bamboo - Treat your build plans as code!
 
 [![Release](https://img.shields.io/github/release/mibexsoftware/bamboo-plan-dsl.svg?label=maven version)](https://jitpack.io/#mibexsoftware/bamboo-plan-dsl)
 ![Travis build status](https://travis-ci.org/mibexsoftware/bamboo-plan-dsl-plugin.svg?branch=master)
