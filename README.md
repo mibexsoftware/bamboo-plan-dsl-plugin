@@ -1,6 +1,6 @@
 # Plan DSL for Bamboo - Treat your build plans as code!
 
-[![Release](https://img.shields.io/github/release/mibexsoftware/bamboo-plan-dsl.svg?label=maven version)](https://jitpack.io/#mibexsoftware/bamboo-plan-dsl)
+[![Release](https://img.shields.io/github/release/mibexsoftware/bamboo-plan-dsl-plugin.svg?label=maven version)](https://jitpack.io/#mibexsoftware/bamboo-plan-dsl-plugin)
 ![Travis build status](https://travis-ci.org/mibexsoftware/bamboo-plan-dsl-plugin.svg?branch=master)
 
 Note that this repository only contains the source for the plan DSL which allows you write your build
