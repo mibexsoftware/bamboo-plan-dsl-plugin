@@ -21,14 +21,14 @@ class DslScriptSpec extends Specification {
         file << findDslFiles()
     }
 
-    private static List<File> findDslFiles() {
-        List<File> files = []
+    private static def findDslFiles() {
+        List<File> dslFiles = []
         new File('src/test/resources').eachFileRecurse {
             if (it.name.endsWith('.groovy')) {
-                files << it
+                dslFiles << it
             }
         }
-        files
+        dslFiles
     }
 
 }
