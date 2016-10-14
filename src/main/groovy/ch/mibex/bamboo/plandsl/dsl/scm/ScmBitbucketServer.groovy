@@ -1,5 +1,6 @@
 package ch.mibex.bamboo.plandsl.dsl.scm
 
+import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import ch.mibex.bamboo.plandsl.dsl.scm.options.AdvancedGitRepoOptions
 import groovy.transform.EqualsAndHashCode
@@ -15,6 +16,13 @@ class ScmBitbucketServer extends ScmType {
     String repoId
     AdvancedGitRepoOptions advancedOptions
     String branch
+
+    ScmBitbucketServer(BambooFacade bambooFacade) {
+        super(bambooFacade)
+    }
+
+    // for tests:
+    protected ScmBitbucketServer() {}
 
     void serverName(String server) {
         this.serverName = server

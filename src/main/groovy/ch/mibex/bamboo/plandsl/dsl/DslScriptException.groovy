@@ -12,7 +12,7 @@ class DslScriptException extends DslException {
 
     @Override
     String getMessage() {
-        "${DslScriptHelper.collectSourceDetails(cause ? cause.stackTrace : stackTrace)} ${super.message}"
+        "${DslScriptHelper.collectSourceDetails((cause ? cause.stackTrace : stackTrace) as List<StackTraceElement>)} ${super.message}"
     }
 
 }

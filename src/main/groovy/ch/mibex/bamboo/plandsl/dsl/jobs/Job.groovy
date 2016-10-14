@@ -1,12 +1,14 @@
 package ch.mibex.bamboo.plandsl.dsl.jobs
 
+import ch.mibex.bamboo.plandsl.dsl.AbstractBambooElement
+import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.DslParentElement
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import ch.mibex.bamboo.plandsl.dsl.Validations
 import ch.mibex.bamboo.plandsl.dsl.tasks.Task
 import ch.mibex.bamboo.plandsl.dsl.tasks.Tasks
 
-class Job implements DslParentElement<Task> {
+class Job extends AbstractBambooElement implements DslParentElement<Task> {
     String key
     String name
     String description
@@ -14,13 +16,20 @@ class Job implements DslParentElement<Task> {
     Tasks tasksList = new Tasks()
     Artifacts artifacts = new Artifacts()
 
+    protected Job(BambooFacade bambooFacade) {
+        super(bambooFacade)
+    }
+
+    // for testing:
+    protected Job() {}
+
     /**
      * Creates a job definition.
      *
      * @param key the key of the plan consisting of an uppercase letter followed by one or more uppercase
      * alphanumeric characters. Eg. CORE (for a module called core)
      */
-    Job(String key) {
+    void key(String key) {
         Validations.isNotNullOrEmpty(key, 'job key must be specified')
         Validations.isTrue(
                 key ==~ /[A-Z][A-Z0-9]*/,
@@ -28,8 +37,6 @@ class Job implements DslParentElement<Task> {
         )
         this.key = key
     }
-
-    protected Job() {}
 
     /**
      * Specifies the name of the job.

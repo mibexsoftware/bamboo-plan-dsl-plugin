@@ -2,22 +2,27 @@ package ch.mibex.bamboo.plandsl.dsl
 
 import ch.mibex.bamboo.plandsl.dsl.jobs.Job
 
-class Stage implements DslParentElement<Job> {
+class Stage extends AbstractBambooElement implements DslParentElement<Job> {
     String name
     String description
     boolean manual
     protected Set<Job> jobs = new LinkedHashSet<>()
+
+    protected Stage(BambooFacade bambooFacade) {
+        super(bambooFacade)
+    }
+
+    // for testing
+    protected Stage() {}
 
     /**
      * How do you want to identify the new plan stage?
      *
      * @param name the name of the stage
      */
-    Stage(String name) {
+    void name(String name) {
         this.name = name
     }
-
-    protected Stage() {}
 
     /**
      * Choose a meaningful description for this plan stage.
@@ -38,7 +43,8 @@ class Stage implements DslParentElement<Job> {
      * Specifies a job for this stage. If the stage has multiple jobs, call this multiple times.
      */
     Job job(String key, @DelegatesTo(Job) Closure closure) {
-        def job = new Job(key)
+        def job = new Job(bambooFacade)
+        job.key(key)
         DslScriptHelper.execute(closure, job)
         jobs << job
         job

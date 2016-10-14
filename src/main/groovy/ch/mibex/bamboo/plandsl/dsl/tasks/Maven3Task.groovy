@@ -1,5 +1,6 @@
 package ch.mibex.bamboo.plandsl.dsl.tasks
 
+import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
@@ -18,20 +19,25 @@ class Maven3Task extends Task {
     WithTests withTests
     private boolean hasTests
 
-    Maven3Task() {
-        super(TASK_ID)
+    //for tests
+    protected Maven3Task() {}
+
+    Maven3Task(BambooFacade bambooFacade) {
+        super(bambooFacade, TASK_ID)
     }
 
     void goal(String goal) {
         this.goal = goal
     }
 
-    void executable(String executable) {
-        this.executable = executable
+    void executable(String executableLabel) {
+        bambooFacade.requireExecutable(executableLabel)
+        this.executable = executableLabel
     }
 
-    void buildJdk(String buildJdk) {
-        this.buildJdk = buildJdk
+    void buildJdk(String buildJdkLabel) {
+        bambooFacade.requireJdk(buildJdkLabel)
+        this.buildJdk = buildJdkLabel
     }
 
     void withTests(@DelegatesTo(WithTests) Closure closure) {

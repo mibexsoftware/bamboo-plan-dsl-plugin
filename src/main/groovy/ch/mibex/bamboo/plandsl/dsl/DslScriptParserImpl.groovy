@@ -13,30 +13,30 @@ import org.codehaus.groovy.control.customizers.ImportCustomizer
 import org.codehaus.groovy.runtime.InvokerHelper
 
 class DslScriptParserImpl implements DslScriptParser {
-    private final Map<String, Object> exportedBambooObjects
+    private Map<String, Object> exportedBambooObjects
+    private BambooFacade bambooFacade
 
-    DslScriptParserImpl(Map<String, Object> exportedBambooObjects) {
-        this.exportedBambooObjects = exportedBambooObjects
+    DslScriptParserImpl(BambooFacade bambooFacade) {
+        this.bambooFacade = bambooFacade
     }
 
     DslScriptParserImpl() {
-        this([:])
+        this(new NullBambooFacade())
     }
 
-    DslScript parse(DslScriptContext scriptContext,
-                    Logger logger = new NullLogger(),
-                    EnvVariableContext envContext = new NullEnvVariableContext()) {
+    DslScript parse(DslScriptContext scriptContext) {
         CompilerConfiguration config = createCompilerConfig()
         Class clazz = parseScript(config, scriptContext)
-        Binding binding = createBinding(logger, envContext)
+        Binding binding = createBinding()
         evaluateScript(clazz, binding)
     }
 
-    private static DslScript evaluateScript(Class<Script> clazz, Binding binding) {
+    private DslScript evaluateScript(Class<Script> clazz, Binding binding) {
         try {
-            Script script = InvokerHelper.createScript(clazz, binding)
+            DslScript script = InvokerHelper.createScript(clazz, binding) as DslScript
+            script.setBambooFacade(bambooFacade)
             script.run()
-            script as DslScript
+            script
         } catch (GroovyRuntimeException e) {
             throw new DslScriptException(e.message, e)
         }
@@ -55,10 +55,10 @@ class DslScriptParserImpl implements DslScriptParser {
         clazz
     }
 
-    private Binding createBinding(Logger logger, EnvVariableContext envContext) {
+    private Binding createBinding() {
         Binding binding = new Binding()
-        binding.setVariable('out', logger)
-        binding.setVariable('bamboo', envContext)
+        binding.setVariable('out', bambooFacade.getBuildLogger())
+        binding.setVariable('bamboo', bambooFacade.getVariableContext())
 
         exportedBambooObjects.each { key, value ->
             binding.setVariable(key, value)
@@ -84,6 +84,7 @@ class DslScriptParserImpl implements DslScriptParser {
         importCustomizer.addStaticImport(ScriptTask.name, ScriptTask.ScriptInterpreter.simpleName)
 
         config.addCompilationCustomizers(importCustomizer)
+        // would not allow usage of variables like bamboo or configure block:
         // config.addCompilationCustomizers(new ASTTransformationCustomizer(TypeChecked))
         config
     }
@@ -98,13 +99,6 @@ class DslScriptParserImpl implements DslScriptParser {
         URL loadGroovySource(String className) {
             def filename = className.replaceAll(/\./, '/') + '.groovy'
             new URL(base, filename)
-        }
-    }
-
-    // this is used to allow checking of DSL scripts without throwing errors
-    static class NullEnvVariableContext implements EnvVariableContext {
-        String getAt(String key) {
-            key
         }
     }
 

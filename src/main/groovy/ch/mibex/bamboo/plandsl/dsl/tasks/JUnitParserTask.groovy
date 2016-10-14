@@ -1,5 +1,6 @@
 package ch.mibex.bamboo.plandsl.dsl.tasks
 
+import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
@@ -11,8 +12,8 @@ class JUnitParserTask extends Task {
     String testResultsDirectory
     boolean pickUpTestResultsCreatedOutsideOfBuild
 
-    JUnitParserTask() {
-        super(TASK_ID)
+    JUnitParserTask(BambooFacade bambooFacade) {
+        super(bambooFacade, TASK_ID)
     }
 
     void testResultsDirectory(String testResultsDirectory) {

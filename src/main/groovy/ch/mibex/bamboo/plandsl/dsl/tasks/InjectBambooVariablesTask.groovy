@@ -1,5 +1,6 @@
 package ch.mibex.bamboo.plandsl.dsl.tasks
 
+import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
@@ -11,8 +12,11 @@ class InjectBambooVariablesTask extends Task {
     String namespace
     VariablesScope variablesScope
 
-    InjectBambooVariablesTask() {
-        super(TASK_ID)
+    // for tests:
+    protected InjectBambooVariablesTask() {}
+
+    InjectBambooVariablesTask(BambooFacade bambooFacade) {
+        super(bambooFacade, TASK_ID)
     }
 
     void propertiesFilePath(String propertiesFilePath) {

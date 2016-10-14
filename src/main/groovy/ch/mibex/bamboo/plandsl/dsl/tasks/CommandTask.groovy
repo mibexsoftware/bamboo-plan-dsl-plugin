@@ -1,5 +1,6 @@
 package ch.mibex.bamboo.plandsl.dsl.tasks
 
+import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
@@ -12,12 +13,16 @@ class CommandTask extends Task {
     String environmentVariables
     String workingSubDirectory
 
-    CommandTask() {
-        super(TASK_ID)
+    //for tests
+    protected CommandTask() {}
+
+    protected CommandTask(BambooFacade bambooFacade) {
+        super(bambooFacade, TASK_ID)
     }
 
-    void executable(String executable) {
-        this.executable = executable
+    void executable(String executableLabel) {
+        bambooFacade.requireExecutable(executableLabel)
+        this.executable = executableLabel
     }
 
     void argument(String argument) {

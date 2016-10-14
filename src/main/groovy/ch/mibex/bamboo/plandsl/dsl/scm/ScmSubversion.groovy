@@ -1,5 +1,6 @@
 package ch.mibex.bamboo.plandsl.dsl.scm
 
+import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import ch.mibex.bamboo.plandsl.dsl.scm.auth.AuthType
 import ch.mibex.bamboo.plandsl.dsl.scm.auth.PasswordAuth
@@ -16,6 +17,13 @@ class ScmSubversion extends ScmType {
     String userName
     AuthType authType
     AdvancedSvnOptions advancedOptions
+
+    // for tests:
+    protected ScmSubversion() {}
+
+    ScmSubversion(BambooFacade bambooFacade) {
+        super(bambooFacade)
+    }
 
     void repositoryUrl(String repositoryUrl) {
         this.repositoryUrl = repositoryUrl

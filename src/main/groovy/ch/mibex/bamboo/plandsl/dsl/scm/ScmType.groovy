@@ -1,7 +1,20 @@
 package ch.mibex.bamboo.plandsl.dsl.scm
 
+import ch.mibex.bamboo.plandsl.dsl.BambooFacade
+import ch.mibex.bamboo.plandsl.dsl.NullBambooFacade
+
 class ScmType {
     String displayName
+    final BambooFacade bambooFacade
+
+    // for tests:
+    ScmType() {
+        bambooFacade = new NullBambooFacade()
+    }
+
+    ScmType(BambooFacade bambooFacade) {
+        this.bambooFacade = bambooFacade
+    }
 
     static enum MatchType {
         INCLUDE_ONLY_MATCHING_CHANGES('includeOnly'),

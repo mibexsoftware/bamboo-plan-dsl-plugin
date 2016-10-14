@@ -10,7 +10,7 @@ class PlanSpec extends Specification {
 
         when:
         def testLogger = new NullLogger()
-        def results = loader.parse(new DslScriptContext(getClass().getResource('/dsls/plans/SimplePlan.groovy').text), testLogger)
+        def results = loader.parse(new DslScriptContext(getClass().getResource('/dsls/plans/SimplePlan.groovy').text))
 
         then:
         results != null
@@ -31,11 +31,11 @@ class PlanSpec extends Specification {
 
         when:
         def testLogger = new NullLogger()
-        loader.parse(new DslScriptContext(getClass().getResource('/dsls/plans/InvalidPlanKey.txt').text), testLogger)
+        loader.parse(new DslScriptContext(getClass().getResource('/dsls/plans/InvalidPlanKey.txt').text))
 
         then:
         Exception e = thrown(DslScriptException)
-        e.message == '[DSL script, line 6]: plan key must consist of an uppercase letter followed by one or more uppercase alphanumeric characters.'
+        e.message == '(script:6): plan key must consist of an uppercase letter followed by one or more uppercase alphanumeric characters.'
     }
 
 
@@ -46,11 +46,11 @@ class PlanSpec extends Specification {
         when:
         def testLogger = new NullLogger()
         def resource = getClass().getResource('/dsls/plans/InvalidPlanKey.txt')
-        loader.parse(new DslScriptContext(new File(resource.toURI()).absolutePath, null, null), testLogger)
+        loader.parse(new DslScriptContext(new File(resource.toURI()).absolutePath, null, null))
 
         then:
         Exception e = thrown(DslScriptException)
-        e.message == '[InvalidPlanKey.txt, line 6]: plan key must consist of an uppercase letter followed by one or more uppercase alphanumeric characters.'
+        e.message == '(InvalidPlanKey.txt:6): plan key must consist of an uppercase letter followed by one or more uppercase alphanumeric characters.'
     }
 
 }

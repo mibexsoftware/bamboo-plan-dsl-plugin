@@ -1,9 +1,7 @@
-package ch.mibex.bamboo.plandsl.dsl.scms
+package ch.mibex.bamboo.plandsl.dsl.scm
 
 import ch.mibex.bamboo.plandsl.dsl.DslScriptContext
 import ch.mibex.bamboo.plandsl.dsl.DslScriptParserImpl
-import ch.mibex.bamboo.plandsl.dsl.NullLogger
-import ch.mibex.bamboo.plandsl.dsl.scm.*
 import ch.mibex.bamboo.plandsl.dsl.scm.auth.*
 import ch.mibex.bamboo.plandsl.dsl.scm.options.*
 import ch.mibex.bamboo.plandsl.dsl.scm.web.BitbucketWebRepository
@@ -19,7 +17,7 @@ class ScmsSpec extends Specification {
         def dsl = getClass().getResource('/dsls/scms/GitPassword.groovy').text
 
         when:
-        def results = loader.parse(new DslScriptContext(dsl), new NullLogger())
+        def results = loader.parse(new DslScriptContext(dsl))
 
         then:
         results.projects[0].plans[0].scm.children()[0] == new ScmGit(
@@ -60,7 +58,7 @@ class ScmsSpec extends Specification {
         def dsl = getClass().getResource('/dsls/scms/BitbucketServer.groovy').text
 
         when:
-        def results = loader.parse(new DslScriptContext(dsl), new NullLogger())
+        def results = loader.parse(new DslScriptContext(dsl))
 
         then:
         results.projects[0].plans[0].scm.children()[0] == new ScmBitbucketServer(
@@ -103,7 +101,7 @@ class ScmsSpec extends Specification {
         def dsl = getClass().getResource('/dsls/scms/BitbucketGitPassword.groovy').text
 
         when:
-        def results = loader.parse(new DslScriptContext(dsl), new NullLogger())
+        def results = loader.parse(new DslScriptContext(dsl))
 
         then:
         results.projects[0].plans[0].scm.children()[0] == new ScmBitbucketCloud(
@@ -145,7 +143,7 @@ class ScmsSpec extends Specification {
         def dsl = getClass().getResource('/dsls/scms/BitbucketHgPassword.groovy').text
 
         when:
-        def results = loader.parse(new DslScriptContext(dsl), new NullLogger())
+        def results = loader.parse(new DslScriptContext(dsl))
 
         then:
         results.projects[0].plans[0].scm.children()[0] == new ScmBitbucketCloud(
@@ -185,7 +183,7 @@ class ScmsSpec extends Specification {
         def dsl = getClass().getResource('/dsls/scms/GithubPassword.groovy').text
 
         when:
-        def results = loader.parse(new DslScriptContext(dsl), new NullLogger())
+        def results = loader.parse(new DslScriptContext(dsl))
 
         then:
         results.projects[0].plans[0].scm.children()[0] == new ScmGithub(
@@ -225,7 +223,7 @@ class ScmsSpec extends Specification {
         def loader = new DslScriptParserImpl()
         def dsl = getClass().getResource('/dsls/scms/LinkedRepository.groovy').text
         when:
-        def results = loader.parse(new DslScriptContext(dsl), new NullLogger())
+        def results = loader.parse(new DslScriptContext(dsl))
 
         then:
         results.projects[0].plans[0].scm.children()[0] == new ScmLinkedRepository(displayName: "myGlobalRepo1")
@@ -237,7 +235,7 @@ class ScmsSpec extends Specification {
         def dsl = getClass().getResource('/dsls/scms/MercurialDefaultCredentials.groovy').text
 
         when:
-        def results = loader.parse(new DslScriptContext(dsl), new NullLogger())
+        def results = loader.parse(new DslScriptContext(dsl))
 
         then:
         results.projects[0].plans[0].scm.children()[0] == new ScmMercurial(
@@ -270,7 +268,7 @@ class ScmsSpec extends Specification {
         def dsl = getClass().getResource('/dsls/scms/SvnPassword.groovy').text
 
         when:
-        def results = loader.parse(new DslScriptContext(dsl), new NullLogger())
+        def results = loader.parse(new DslScriptContext(dsl))
 
         then:
         results.projects[0].plans[0].scm.children()[0] == new ScmSubversion(
@@ -310,7 +308,7 @@ class ScmsSpec extends Specification {
         def loader = new DslScriptParserImpl()
         def dsl = getClass().getResource('/dsls/scms/SvnSsh.groovy').text
         when:
-        def results = loader.parse(new DslScriptContext(dsl), new NullLogger())
+        def results = loader.parse(new DslScriptContext(dsl))
 
         then:
         results.projects[0].plans[0].scm.children()[0] == new ScmSubversion(
@@ -342,7 +340,7 @@ class ScmsSpec extends Specification {
         def dsl = getClass().getResource('/dsls/scms/SvnSslClientCertificate.groovy').text
 
         when:
-        def results = loader.parse(new DslScriptContext(dsl), new NullLogger())
+        def results = loader.parse(new DslScriptContext(dsl))
 
         then:
         results.projects[0].plans[0].scm.children()[0] == new ScmSubversion(
@@ -358,7 +356,7 @@ class ScmsSpec extends Specification {
         def dsl = getClass().getResource('/dsls/scms/CvsPassword.groovy').text
 
         when:
-        def results = loader.parse(new DslScriptContext(dsl), new NullLogger())
+        def results = loader.parse(new DslScriptContext(dsl))
 
         then:
         results.projects[0].plans[0].scm.children()[0] == new ScmCvs(
@@ -391,7 +389,7 @@ class ScmsSpec extends Specification {
         def dsl = getClass().getResource('/dsls/scms/PerforcePassword.groovy').text
 
         when:
-        def results = loader.parse(new DslScriptContext(dsl), new NullLogger())
+        def results = loader.parse(new DslScriptContext(dsl))
 
         then:
         results.projects[0].plans[0].scm.children()[0] == new ScmPerforce(

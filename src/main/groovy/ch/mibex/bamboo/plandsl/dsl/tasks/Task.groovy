@@ -1,12 +1,19 @@
 package ch.mibex.bamboo.plandsl.dsl.tasks
 
-abstract class Task {
+import ch.mibex.bamboo.plandsl.dsl.AbstractBambooElement
+import ch.mibex.bamboo.plandsl.dsl.BambooFacade
+
+abstract class Task extends AbstractBambooElement {
     boolean enabled = true // we want tasks to be enabled by default
     boolean isFinal
     String description
-    final String pluginKey
+    String pluginKey
 
-    protected Task(String pluginKey) {
+    // for tests
+    protected Task() {}
+
+    protected Task(BambooFacade bambooFacade, String pluginKey) {
+        super(bambooFacade)
         this.pluginKey = pluginKey
     }
 

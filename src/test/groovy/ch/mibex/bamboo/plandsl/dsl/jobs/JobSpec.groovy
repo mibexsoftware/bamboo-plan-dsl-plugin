@@ -1,8 +1,7 @@
 package ch.mibex.bamboo.plandsl.dsl.jobs
 
-import ch.mibex.bamboo.plandsl.dsl.DslScriptParserImpl
 import ch.mibex.bamboo.plandsl.dsl.DslScriptContext
-import ch.mibex.bamboo.plandsl.dsl.NullLogger
+import ch.mibex.bamboo.plandsl.dsl.DslScriptParserImpl
 import spock.lang.Specification
 
 class JobSpec extends Specification {
@@ -13,7 +12,7 @@ class JobSpec extends Specification {
         def dsl = getClass().getResource('/dsls/jobs/MultipleJobs.groovy').text
 
         when:
-        def results = loader.parse(new DslScriptContext(dsl), new NullLogger())
+        def results = loader.parse(new DslScriptContext(dsl))
 
         then:
         results.projects[0].plans[0].stages[0].jobs.size() == 3

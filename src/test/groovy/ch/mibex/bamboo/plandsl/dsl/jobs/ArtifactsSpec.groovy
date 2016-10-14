@@ -1,8 +1,7 @@
 package ch.mibex.bamboo.plandsl.dsl.jobs
 
-import ch.mibex.bamboo.plandsl.dsl.DslScriptParserImpl
 import ch.mibex.bamboo.plandsl.dsl.DslScriptContext
-import ch.mibex.bamboo.plandsl.dsl.NullLogger
+import ch.mibex.bamboo.plandsl.dsl.DslScriptParserImpl
 import spock.lang.Specification
 
 class ArtifactsSpec extends Specification {
@@ -13,7 +12,7 @@ class ArtifactsSpec extends Specification {
         def dsl = getClass().getResource('/dsls/jobs/ArtifactDefinitions.groovy').text
 
         when:
-        def results = loader.parse(new DslScriptContext(dsl), new NullLogger())
+        def results = loader.parse(new DslScriptContext(dsl))
         def artifactDefinitions = results.projects[0].plans[0].stages[0].jobs[0].artifacts.artifactDefinitions
 
         then:
@@ -37,7 +36,7 @@ class ArtifactsSpec extends Specification {
         def dsl = getClass().getResource('/dsls/jobs/ArtifactDependency.groovy').text
 
         when:
-        def results = loader.parse(new DslScriptContext(dsl), new NullLogger())
+        def results = loader.parse(new DslScriptContext(dsl))
         def plan = results.projects[0].plans[0]
 
         then:

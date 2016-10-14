@@ -8,12 +8,16 @@ class BambooEnvAccessSpec extends Specification {
 
     def 'Bamboo environment variable access'() {
         setup:
-        def loader = new DslScriptParserImpl()
-        def testLogger = new NullLogger()
-        def context = new StrictEnvVariableContext(['my.key': 'my.value'])
+        def context = new NullBambooFacade() {
+            @Override
+            EnvVariableContext getVariableContext() {
+                new StrictEnvVariableContext(['my.key': 'my.value'])
+            }
+        }
+        def loader = new DslScriptParserImpl(context)
 
         when:
-        def results = loader.parse(new DslScriptContext(getClass().getResource('/dsls/BambooEnvAccess.groovy').text), testLogger, context)
+        def results = loader.parse(new DslScriptContext(getClass().getResource('/dsls/BambooEnvAccess.groovy').text))
 
         then:
         (results.projects[0].plans[0].notifications.notifications[0] as HipChatNotification).room == 'my.value'

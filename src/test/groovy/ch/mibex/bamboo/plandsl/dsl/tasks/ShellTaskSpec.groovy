@@ -2,7 +2,6 @@ package ch.mibex.bamboo.plandsl.dsl.tasks
 
 import ch.mibex.bamboo.plandsl.dsl.DslScriptContext
 import ch.mibex.bamboo.plandsl.dsl.DslScriptParserImpl
-import ch.mibex.bamboo.plandsl.dsl.NullLogger
 import spock.lang.Specification
 
 class ShellTaskSpec extends Specification {
@@ -13,7 +12,7 @@ class ShellTaskSpec extends Specification {
         def dsl = getClass().getResource('/dsls/tasks/InlineShellTask.groovy').text
 
         when:
-        def results = loader.parse(new DslScriptContext(dsl), new NullLogger())
+        def results = loader.parse(new DslScriptContext(dsl))
 
         then:
         results.projects[0].plans[0].stages[0].jobs[0].tasksList.tasks[0] == new ScriptTask(
@@ -36,7 +35,7 @@ class ShellTaskSpec extends Specification {
         def dsl = getClass().getResource('/dsls/tasks/FileScriptShellTask.groovy').text
 
         when:
-        def results = loader.parse(new DslScriptContext(dsl), new NullLogger())
+        def results = loader.parse(new DslScriptContext(dsl))
 
         then:
         results.projects[0].plans[0].stages[0].jobs[0].tasksList.tasks[0] == new ScriptTask(

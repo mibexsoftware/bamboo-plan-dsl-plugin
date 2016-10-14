@@ -2,7 +2,6 @@ package ch.mibex.bamboo.plandsl.dsl.triggers
 
 import ch.mibex.bamboo.plandsl.dsl.DslScriptContext
 import ch.mibex.bamboo.plandsl.dsl.DslScriptParserImpl
-import ch.mibex.bamboo.plandsl.dsl.NullLogger
 import spock.lang.Specification
 
 class PlansWithTriggersSpec extends Specification {
@@ -12,7 +11,7 @@ class PlansWithTriggersSpec extends Specification {
         def loader = new DslScriptParserImpl()
         def dsl = getClass().getResource('/dsls/triggers/ScheduledTrigger.groovy').text
         when:
-        def results = loader.parse(new DslScriptContext(dsl), new NullLogger())
+        def results = loader.parse(new DslScriptContext(dsl))
 
         then:
         results.projects[0].plans[0].triggers.children()[0] == new ScheduledTrigger(
@@ -28,7 +27,7 @@ class PlansWithTriggersSpec extends Specification {
         def dsl = getClass().getResource('/dsls/triggers/PollingScheduledTrigger.groovy').text
 
         when:
-        def results = loader.parse(new DslScriptContext(dsl), new NullLogger())
+        def results = loader.parse(new DslScriptContext(dsl))
 
         then:
         results.projects[0].plans[0].triggers.children()[0] == new PollingTrigger(
@@ -46,7 +45,7 @@ class PlansWithTriggersSpec extends Specification {
         def dsl = getClass().getResource('/dsls/triggers/PollingPeriodicallyTrigger.groovy').text
 
         when:
-        def results = loader.parse(new DslScriptContext(dsl), new NullLogger())
+        def results = loader.parse(new DslScriptContext(dsl))
 
         then:
         results.projects[0].plans[0].triggers.children()[0] == new PollingTrigger(
@@ -64,7 +63,7 @@ class PlansWithTriggersSpec extends Specification {
         def dsl = getClass().getResource('/dsls/triggers/WhenCommitedTrigger.groovy').text
 
         when:
-        def results = loader.parse(new DslScriptContext(dsl), new NullLogger())
+        def results = loader.parse(new DslScriptContext(dsl))
 
         then:
         results.projects[0].plans[0].triggers.children()[0] == new RemoteTrigger(

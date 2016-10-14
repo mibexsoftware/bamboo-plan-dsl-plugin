@@ -2,7 +2,6 @@ package ch.mibex.bamboo.plandsl.dsl.branches
 
 import ch.mibex.bamboo.plandsl.dsl.DslScriptContext
 import ch.mibex.bamboo.plandsl.dsl.DslScriptParserImpl
-import ch.mibex.bamboo.plandsl.dsl.NullLogger
 import spock.lang.Specification
 
 class PlansWithBranchesSpec extends Specification {
@@ -13,7 +12,7 @@ class PlansWithBranchesSpec extends Specification {
         def dsl = getClass().getResource('/dsls/branches/AutoBranchManagement.groovy').text
 
         when:
-        def results = loader.parse(new DslScriptContext(dsl), new NullLogger())
+        def results = loader.parse(new DslScriptContext(dsl))
 
         then:
         results.projects[0].plans[0].branches == new Branches(
@@ -34,7 +33,7 @@ class PlansWithBranchesSpec extends Specification {
         def dsl = getClass().getResource('/dsls/branches/BranchesMergingConfig.groovy').text
 
         when:
-        def results = loader.parse(new DslScriptContext(dsl), new NullLogger())
+        def results = loader.parse(new DslScriptContext(dsl))
 
         then:
         results.projects[0].plans[0].branches == new Branches(
@@ -53,7 +52,7 @@ class PlansWithBranchesSpec extends Specification {
         def dsl = getClass().getResource('/dsls/branches/BranchesNotificationSettings.groovy').text
 
         when:
-        def results = loader.parse(new DslScriptContext(dsl), new NullLogger())
+        def results = loader.parse(new DslScriptContext(dsl))
 
         then:
         results.projects[0].plans[0].branches == new Branches(
@@ -67,7 +66,7 @@ class PlansWithBranchesSpec extends Specification {
         def dsl = getClass().getResource('/dsls/branches/BranchesTriggerSettings.groovy').text
 
         when:
-        def results = loader.parse(new DslScriptContext(dsl), new NullLogger())
+        def results = loader.parse(new DslScriptContext(dsl))
 
         then:
         results.projects[0].plans[0].branches == new Branches(
@@ -81,7 +80,7 @@ class PlansWithBranchesSpec extends Specification {
         def dsl = getClass().getResource('/dsls/branches/MultipleBranches.groovy').text
 
         when:
-        def results = loader.parse(new DslScriptContext(dsl), new NullLogger())
+        def results = loader.parse(new DslScriptContext(dsl))
 
         then:
         results.projects[0].plans[0].branches == new Branches(

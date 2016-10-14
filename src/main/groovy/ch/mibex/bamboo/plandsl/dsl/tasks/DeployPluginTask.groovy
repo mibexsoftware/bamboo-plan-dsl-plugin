@@ -1,5 +1,6 @@
 package ch.mibex.bamboo.plandsl.dsl.tasks
 
+import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
@@ -17,8 +18,8 @@ class DeployPluginTask extends Task {
 
     static final TASK_ID = 'com.atlassian.bamboo.plugins.deploy.continuous-plugin-deployment:deploy-task'
 
-    DeployPluginTask() {
-        super(TASK_ID)
+    DeployPluginTask(BambooFacade bambooFacade) {
+        super(bambooFacade, TASK_ID)
     }
 
     void deployArtifactName(String deployArtifactName) {

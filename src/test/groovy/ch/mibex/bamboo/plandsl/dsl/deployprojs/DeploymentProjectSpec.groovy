@@ -2,7 +2,6 @@ package ch.mibex.bamboo.plandsl.dsl.deployprojs
 
 import ch.mibex.bamboo.plandsl.dsl.DslScriptContext
 import ch.mibex.bamboo.plandsl.dsl.DslScriptParserImpl
-import ch.mibex.bamboo.plandsl.dsl.NullLogger
 import ch.mibex.bamboo.plandsl.dsl.tasks.CommandTask
 import ch.mibex.bamboo.plandsl.dsl.tasks.Tasks
 import spock.lang.Specification
@@ -15,7 +14,7 @@ class DeploymentProjectSpec extends Specification {
         def dsl = getClass().getResource('/dsls/deployprojs/DeploymentProject.groovy').text
 
         when:
-        def results = loader.parse(new DslScriptContext(dsl), new NullLogger())
+        def results = loader.parse(new DslScriptContext(dsl))
 
         then:
         results.projects[0].plans[0].deploymentProjects[0] == new DeploymentProject(
@@ -47,7 +46,7 @@ class DeploymentProjectSpec extends Specification {
         def dsl = getClass().getResource('/dsls/deployprojs/Environments.groovy').text
 
         when:
-        def results = loader.parse(new DslScriptContext(dsl), new NullLogger())
+        def results = loader.parse(new DslScriptContext(dsl))
 
         then:
         results.projects[0].plans[0].deploymentProjects[0] == new DeploymentProject(

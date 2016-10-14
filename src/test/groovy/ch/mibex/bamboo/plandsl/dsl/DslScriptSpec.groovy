@@ -12,7 +12,7 @@ class DslScriptSpec extends Specification {
 
         when:
         def loader = new DslScriptParserImpl()
-        loader.parse(new DslScriptContext(file.text), null)
+        loader.parse(new DslScriptContext(file.text))
 
         then:
         noExceptionThrown()

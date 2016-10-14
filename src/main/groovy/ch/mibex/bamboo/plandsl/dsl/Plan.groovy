@@ -10,7 +10,7 @@ import groovy.transform.ToString
 
 @ToString
 @EqualsAndHashCode
-class Plan implements DslParentElement<Stage> {
+class Plan extends AbstractBambooElement implements DslParentElement<Stage> {
     String key
     String name
     String description
@@ -22,19 +22,25 @@ class Plan implements DslParentElement<Stage> {
     Branches branches = new Branches()
     Notifications notifications = new Notifications()
 
-    protected Plan() {} // just to allow unit tests to use map constructor
+    // for testing
+    protected Plan() {}
+
+    protected Plan(BambooFacade bambooFacade) {
+        super(bambooFacade)
+    }
 
     /**
-     * Creates a plan definition.
+     * Specifies the key of the plan.
      *
      * @param key the key of the plan consisting of an uppercase letter followed by one or more uppercase
      * alphanumeric characters
      */
-    Plan(String key) {
+    void key(String key) {
+        bambooFacade.requireSharedCredentials("jdk8")
         Validations.isNotNullOrEmpty(key, 'plan key must be specified')
         Validations.isTrue(
-            key ==~ /[A-Z][A-Z0-9]*/,
-            'plan key must consist of an uppercase letter followed by one or more uppercase alphanumeric characters.'
+                key ==~ /[A-Z][A-Z0-9]*/,
+                'plan key must consist of an uppercase letter followed by one or more uppercase alphanumeric characters.'
         )
         this.key = key
     }
@@ -42,6 +48,7 @@ class Plan implements DslParentElement<Stage> {
     /**
      * Specifies the name of the plan.
      */
+    @Deprecated
     void name(String name) {
         this.name = name
     }
@@ -105,7 +112,8 @@ class Plan implements DslParentElement<Stage> {
      */
     Stage stage(String name, @DelegatesTo(Stage) Closure closure) {
         Validations.isNotNullOrEmpty(name, 'name must be specified')
-        def stage = new Stage(name)
+        def stage = new Stage(bambooFacade)
+        stage.name(name)
         DslScriptHelper.execute(closure, stage)
         stages << stage
         stage

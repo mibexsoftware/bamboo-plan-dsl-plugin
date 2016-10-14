@@ -1,8 +1,7 @@
 package ch.mibex.bamboo.plandsl.dsl.tasks
 
-import ch.mibex.bamboo.plandsl.dsl.DslScriptParserImpl
 import ch.mibex.bamboo.plandsl.dsl.DslScriptContext
-import ch.mibex.bamboo.plandsl.dsl.NullLogger
+import ch.mibex.bamboo.plandsl.dsl.DslScriptParserImpl
 import spock.lang.Specification
 
 class CustomTaskSpec extends Specification {
@@ -13,7 +12,7 @@ class CustomTaskSpec extends Specification {
         def dsl = getClass().getResource('/dsls/tasks/CustomTaskMapSyntax.groovy').text
 
         when:
-        def results = loader.parse(new DslScriptContext(dsl), new NullLogger())
+        def results = loader.parse(new DslScriptContext(dsl))
         def customTask = results.projects[0].plans[0].stages[0].jobs[0].tasksList.children()[0]
 
         then:
@@ -45,7 +44,7 @@ class CustomTaskSpec extends Specification {
         def dsl = getClass().getResource('/dsls/tasks/CustomTaskMethodSyntax.groovy').text
 
         when:
-        def results = loader.parse(new DslScriptContext(dsl), new NullLogger())
+        def results = loader.parse(new DslScriptContext(dsl))
         def customTask = results.projects[0].plans[0].stages[0].jobs[0].tasksList.children()[0]
 
         then:

@@ -1,5 +1,6 @@
 package ch.mibex.bamboo.plandsl.dsl.tasks
 
+import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
@@ -8,8 +9,8 @@ import groovy.transform.ToString
 class CustomTask extends Task {
     Map<String, String> buildConfig = [:]
 
-    CustomTask(String pluginKey) {
-        super(pluginKey)
+    CustomTask(BambooFacade bambooFacade, String pluginKey) {
+        super(bambooFacade, pluginKey)
     }
 
     def methodMissing(String methodName, args) {

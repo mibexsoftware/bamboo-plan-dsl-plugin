@@ -1,5 +1,6 @@
 package ch.mibex.bamboo.plandsl.dsl.scm
 
+import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import ch.mibex.bamboo.plandsl.dsl.scm.auth.PasswordAuth
 import ch.mibex.bamboo.plandsl.dsl.scm.options.AdvancedGitOptions
@@ -13,6 +14,13 @@ class ScmGithub extends ScmType {
     String branch
     PasswordAuth authType
     AdvancedGitOptions advancedOptions
+
+    // for tests:
+    protected ScmGithub() {}
+
+    ScmGithub(BambooFacade bambooFacade) {
+        super(bambooFacade)
+    }
 
     void repoSlug(String repoSlug) {
         this.repoSlug = repoSlug

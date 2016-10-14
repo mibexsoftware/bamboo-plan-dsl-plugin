@@ -1,14 +1,24 @@
 package ch.mibex.bamboo.plandsl.dsl.tasks
 
+import ch.mibex.bamboo.plandsl.dsl.AbstractBambooElement
+import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.DslParentElement
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
+import ch.mibex.bamboo.plandsl.dsl.RequiresPlugin
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
 @ToString
 @EqualsAndHashCode
-class Tasks implements DslParentElement<Task> {
+class Tasks extends AbstractBambooElement implements DslParentElement<Task> {
     List<Task> tasks = []
+
+    // for tests
+    protected Tasks() {}
+
+    protected Tasks(BambooFacade bambooFacade) {
+        super(bambooFacade)
+    }
 
     void script(String description, @DelegatesTo(ScriptTask) Closure closure) {
         handleTask(closure, ScriptTask, description)
@@ -34,6 +44,7 @@ class Tasks implements DslParentElement<Task> {
         handleTask(closure, ArtifactDownloaderTask, description)
     }
 
+    @RequiresPlugin(key = "com.atlassian.bamboo.plugins.deploy.continuous-plugin-deployment")
     void deployPlugin(String description, @DelegatesTo(DeployPluginTask) Closure closure) {
         handleTask(closure, DeployPluginTask, description)
     }
@@ -43,13 +54,13 @@ class Tasks implements DslParentElement<Task> {
     }
 
     void custom(String pluginKey, @DelegatesTo(CustomTask) Closure closure) {
-        def task = new CustomTask(pluginKey)
+        def task = new CustomTask(bambooFacade, pluginKey)
         DslScriptHelper.execute(closure, task)
         tasks << task
     }
 
     private void handleTask(Closure closure, Class<? extends Task> clazz, String description) {
-        def task = clazz.newInstance()
+        def task = clazz.newInstance(bambooFacade)
         task.description = description
         DslScriptHelper.execute(closure, task)
         tasks << task

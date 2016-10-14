@@ -1,8 +1,7 @@
 package ch.mibex.bamboo.plandsl.dsl.tasks
 
-import ch.mibex.bamboo.plandsl.dsl.DslScriptParserImpl
 import ch.mibex.bamboo.plandsl.dsl.DslScriptContext
-import ch.mibex.bamboo.plandsl.dsl.NullLogger
+import ch.mibex.bamboo.plandsl.dsl.DslScriptParserImpl
 import spock.lang.Specification
 
 class CommandTaskSpec extends Specification {
@@ -13,7 +12,7 @@ class CommandTaskSpec extends Specification {
         def dsl = getClass().getResource('/dsls/tasks/CommandTask.groovy').text
 
         when:
-        def results = loader.parse(new DslScriptContext(dsl), new NullLogger())
+        def results = loader.parse(new DslScriptContext(dsl))
 
         then:
         results.projects[0].plans[0].stages[0].jobs[0].tasksList.tasks[0] == new CommandTask(

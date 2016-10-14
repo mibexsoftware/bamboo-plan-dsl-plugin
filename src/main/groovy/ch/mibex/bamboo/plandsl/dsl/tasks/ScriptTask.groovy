@@ -1,5 +1,6 @@
 package ch.mibex.bamboo.plandsl.dsl.tasks
 
+import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
@@ -14,8 +15,11 @@ class ScriptTask extends Task {
     ScriptFile scriptFile
     InlineScript inlineScript
 
-    ScriptTask() {
-        super(TASK_ID)
+    //for tests
+    protected ScriptTask() {}
+
+    ScriptTask(BambooFacade bambooFacade) {
+        super(bambooFacade, TASK_ID)
     }
 
     void file(@DelegatesTo(ScriptFile) Closure closure) {

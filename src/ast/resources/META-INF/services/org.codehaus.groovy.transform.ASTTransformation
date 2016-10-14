@@ -1,0 +1,3 @@
+ch.mibex.bamboo.plandsl.dsl.transform.DeprecationWarningAstTransformation
+ch.mibex.bamboo.plandsl.dsl.transform.BambooMinVersionCheckAstTransformation
+ch.mibex.bamboo.plandsl.dsl.transform.RequiresPluginCheckAstTransformation

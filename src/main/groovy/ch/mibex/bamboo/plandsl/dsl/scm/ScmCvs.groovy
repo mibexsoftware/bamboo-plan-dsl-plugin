@@ -1,5 +1,6 @@
 package ch.mibex.bamboo.plandsl.dsl.scm
 
+import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import ch.mibex.bamboo.plandsl.dsl.scm.auth.AdvancedCvsOptions
 import ch.mibex.bamboo.plandsl.dsl.scm.auth.AuthType
@@ -16,6 +17,13 @@ class ScmCvs extends ScmType {
     String module
     CvsModuleVersion moduleVersion
     AdvancedCvsOptions advancedOptions
+
+    // for tests:
+    protected ScmCvs() {}
+
+    ScmCvs(BambooFacade bambooFacade) {
+        super(bambooFacade)
+    }
 
     void cvsRoot(String cvsRoot) {
         this.cvsRoot = cvsRoot

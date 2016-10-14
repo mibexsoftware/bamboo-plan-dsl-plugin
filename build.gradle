@@ -12,11 +12,23 @@ publishing {
 
             groupId 'ch.mibex.bamboo.plandsl'
             artifactId 'plan-dsl-lib'
-            version '1.1.1'
+            version version
             artifact groovydocsJar
             artifact sourcesJar
         }
     }
+}
+sourceSets {
+    ast {
+        groovy {
+            srcDir 'src/ast/groovy'
+        }
+        resources {
+            srcDir 'src/ast/resources'
+        }
+    }
+    main.compileClasspath += sourceSets.ast.output
+    test.compileClasspath += sourceSets.ast.output
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
@@ -40,7 +52,8 @@ repositories {
 }
 
 dependencies {
-    compile 'org.codehaus.groovy:groovy-all:2.4.6'
+    astCompile "org.codehaus.groovy:groovy-all:${groovyVersion}"
+    compile "org.codehaus.groovy:groovy-all:${groovyVersion}"
     compile group: 'org.apache.ant', name: 'ant', version: '1.8.2'
     testCompile('org.spockframework:spock-core:1.0-groovy-2.4')
 }

@@ -1,5 +1,6 @@
 package ch.mibex.bamboo.plandsl.dsl.scm
 
+import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import ch.mibex.bamboo.plandsl.dsl.scm.auth.PasswordAuth
 import ch.mibex.bamboo.plandsl.dsl.scm.options.AdvancedPerforceOptions
@@ -17,6 +18,13 @@ class ScmPerforce extends ScmType {
     boolean useClientMapping
     PasswordAuth passwordAuth
     AdvancedPerforceOptions advancedOptions
+
+    // for tests:
+    protected ScmPerforce() {}
+
+    protected ScmPerforce(BambooFacade bambooFacade) {
+        super(bambooFacade)
+    }
 
     void port(String port) {
         this.port = port

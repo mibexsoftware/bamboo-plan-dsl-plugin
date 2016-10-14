@@ -2,7 +2,6 @@ package ch.mibex.bamboo.plandsl.dsl.branches
 
 import ch.mibex.bamboo.plandsl.dsl.DslScriptContext
 import ch.mibex.bamboo.plandsl.dsl.DslScriptParserImpl
-import ch.mibex.bamboo.plandsl.dsl.NullLogger
 import ch.mibex.bamboo.plandsl.dsl.triggers.*
 import spock.lang.Specification
 
@@ -14,7 +13,7 @@ class BranchSpecificSettingsSpec extends Specification {
         def dsl = getClass().getResource('/dsls/branches/BranchSpecificSettings.groovy').text
 
         when:
-        def results = loader.parse(new DslScriptContext(dsl), new NullLogger())
+        def results = loader.parse(new DslScriptContext(dsl))
 
         then:
         results.projects[0].plans[0].branches == new Branches(
@@ -33,7 +32,7 @@ class BranchSpecificSettingsSpec extends Specification {
         def dsl = getClass().getResource('/dsls/branches/BranchSpecificScheduledTrigger.groovy').text
 
         when:
-        def results = loader.parse(new DslScriptContext(dsl), new NullLogger())
+        def results = loader.parse(new DslScriptContext(dsl))
 
         then:
         results.projects[0].plans[0].branches == new Branches(
@@ -57,7 +56,7 @@ class BranchSpecificSettingsSpec extends Specification {
         def dsl = getClass().getResource('/dsls/branches/BranchSpecificPollingTrigger.groovy').text
 
         when:
-        def results = loader.parse(new DslScriptContext(dsl), new NullLogger())
+        def results = loader.parse(new DslScriptContext(dsl))
 
         then:
         results.projects[0].plans[0].branches == new Branches(

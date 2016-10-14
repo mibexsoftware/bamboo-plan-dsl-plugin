@@ -1,6 +1,8 @@
 package ch.mibex.bamboo.plandsl.dsl.tasks
 
+import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
+import ch.mibex.bamboo.plandsl.dsl.Validations
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
@@ -11,8 +13,8 @@ class VcsCheckoutTask extends Task {
     boolean forceCleanBuild
     Set<CheckoutRepository> repositories = new LinkedHashSet<>()
 
-    VcsCheckoutTask() {
-        super(TASK_ID)
+    VcsCheckoutTask(BambooFacade bambooFacade) {
+        super(bambooFacade, TASK_ID)
     }
 
     void forceCleanBuild(boolean forceCleanBuild) {
@@ -29,10 +31,12 @@ class VcsCheckoutTask extends Task {
     @Override
     def Map<String, String> getConfig(Map<Object, Object> context) {
         def config = [:]
+        def repoIdMappings = context.get('repositories') as Map<String, String>
         repositories.eachWithIndex { item, index ->
             config.put('checkoutDir_' + index, item.checkoutDirectory)
-            config.put('selectedRepository_' + index, (
-                    context.get('repositories') as Map<String, String>).get(item.name))
+            def id = repoIdMappings.get(item.name)
+            Validations.isNotNullOrEmpty(id, "could not find a repository for ${item.name}")
+            config.put('selectedRepository_' + index, id)
         }
         config.put('cleanCheckout', forceCleanBuild.toString())
         config
