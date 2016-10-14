@@ -20,7 +20,7 @@ This was the time where we decided to build this plug-in.
 The Atlassian Bamboo plug-in allows you to specify your build plan configurations with a Groovy-based DSL. It is 
 conceptually similar and inspired by the well-known Job DSL plug-in for Jenkins. By using Groovy, you have the 
 flexibility of a programming language that is well-known for its strong meta-programming and scripting support. With our
-Groovy-baed DSL, you can textually describe your build plans and all its associated Bamboo concepts like stages, jobs, 
+Groovy-based DSL, you can textually describe your build plans and all its associated Bamboo concepts like stages, jobs, 
 tasks, build variables, etc. Here's an example of a simple build plan to run `mvn install`:
 
 ```groovy
