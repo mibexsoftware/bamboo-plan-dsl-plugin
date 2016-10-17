@@ -1,4 +1,4 @@
-package ch.mibex.bamboo.plandsl.dsl.branches
+package ch.mibex.bamboo.plandsl.dsl
 
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString

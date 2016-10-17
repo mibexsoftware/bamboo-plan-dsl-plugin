@@ -2,6 +2,7 @@ package ch.mibex.bamboo.plandsl.dsl.branches
 
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import ch.mibex.bamboo.plandsl.dsl.Validations
+import ch.mibex.bamboo.plandsl.dsl.Variables
 import ch.mibex.bamboo.plandsl.dsl.triggers.Triggers
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
@@ -15,7 +16,7 @@ class Branch {
     boolean cleanupAutomatically
     Triggers triggers = new Triggers()
     BranchMerging branchMerging
-    Variables variables
+    Variables variables = new Variables()
     NotifyOnNewBranchesType notificationsType = NotifyOnNewBranchesType.NOTIFY_COMMITTERS_FOR_FAVOURITED_BRANCHES
     BranchSourceRepository sourceRepository
 

@@ -21,6 +21,7 @@ class Plan extends AbstractBambooElement implements DslParentElement<Stage> {
     Triggers triggers = new Triggers()
     Branches branches = new Branches()
     Notifications notifications = new Notifications()
+    Variables variables = new Variables()
 
     // for testing
     protected Plan() {}
@@ -123,6 +124,15 @@ class Plan extends AbstractBambooElement implements DslParentElement<Stage> {
     void notifications(@DelegatesTo(Notifications) Closure closure) {
         this.notifications = new Notifications()
         DslScriptHelper.execute(closure, notifications)
+    }
+
+    /**
+     * Specifies the variables for this plan.
+     */
+    void variables(@DelegatesTo(Variables) Closure closure) {
+        def variables = new Variables()
+        DslScriptHelper.execute(closure, variables)
+        this.variables =  variables
     }
 
     void validate() {

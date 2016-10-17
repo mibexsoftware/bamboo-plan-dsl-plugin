@@ -93,7 +93,7 @@ supported by the plug-in, they can still be used with the
     - [ ] Dependencies
     - [ ] Permissions
     - [x] Notifications
-    - [ ] Variables
+    - [x] Variables
     - [ ] Miscellaneous
 - Stage
     - [x] Stage details

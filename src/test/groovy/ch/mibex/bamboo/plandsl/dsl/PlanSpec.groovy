@@ -62,4 +62,24 @@ class PlanSpec extends Specification {
         e.message == '(script:6): Plan must have a name attribute'
     }
 
+    def 'plan with variables'() {
+        setup:
+        def loader = new DslScriptParserImpl()
+
+        when:
+        def results = loader.parse(new DslScriptContext(getClass().getResource('/dsls/plans/PlanVariables.groovy').text))
+
+        then:
+        results != null
+        results.projects.size() == 1
+        results.projects[0].key == "SIMPLEPROJECT"
+        results.projects[0].name == "Simple project"
+        results.projects[0].plans[0] == new Plan(
+                key: "SIMPLEPLAN",
+                name: "Simple plan",
+                enabled: true,
+                description: "this is a simple plan",
+                variables: new Variables(variables: [new Variable('key1', 'value1'), new Variable('key2', 'value2')])
+        )
+    }
 }
