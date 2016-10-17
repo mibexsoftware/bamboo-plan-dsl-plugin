@@ -52,6 +52,47 @@ class ScmsSpec extends Specification {
         )
     }
 
+    def 'plan with Git pw shared credentials'() {
+        setup:
+        def loader = new DslScriptParserImpl()
+        def dsl = getClass().getResource('/dsls/scms/GitPwSharedCredentials.groovy').text
+
+        when:
+        def results = loader.parse(new DslScriptContext(dsl))
+
+        then:
+        results.projects[0].plans[0].scm.children()[0] == new ScmGit(
+                advancedOptions: new AdvancedGitOptions(
+                        useShallowClones: true,
+                        enableRepositoryCachingOnRemoteAgents: true,
+                        useSubmodules: true,
+                        commandTimeoutInMinutes: 20,
+                        verboseLogs: true,
+                        fetchWholeRepository: true,
+                        quietPeriod: new QuietPeriod(
+                                waitTimeInSeconds: 120,
+                                maximumRetries: 3
+                        ),
+                        includeExcludeFiles: new IncludeExcludeFiles(
+                                matchType: ScmType.MatchType.EXCLUDE_ALL_MATCHING_CHANGES,
+                                filePattern: 'exe'
+                        ),
+                        excludeChangesetsRegex: 'FIXES .*',
+                        webRepository: new WebRepository(
+                                type: new FisheyeWebRepository(
+                                        url: "http://localhost:7990",
+                                        repositoryPath: "a/b/c",
+                                        repositoryName: "d"
+                                )
+                        )
+                ),
+                displayName: "myGitRepo",
+                url: "http://localhost:7990/bitbucket/scm/project_1/java-maven-simple.git",
+                branch: "master",
+                authType: new SharedCredentialsAuth(SharedCredentialsAuth.SharedCredentialsType.USERNAMEPW, 'sharedpw')
+        )
+    }
+
     def 'plan with Bitbucket Server SCM'() {
         setup:
         def loader = new DslScriptParserImpl()

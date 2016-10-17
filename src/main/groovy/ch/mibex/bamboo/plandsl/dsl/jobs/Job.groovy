@@ -16,7 +16,7 @@ class Job extends AbstractBambooElement implements DslParentElement<Task> {
     Tasks tasksList = new Tasks()
     Artifacts artifacts = new Artifacts()
 
-    protected Job(BambooFacade bambooFacade) {
+    Job(BambooFacade bambooFacade) {
         super(bambooFacade)
     }
 
@@ -77,6 +77,10 @@ class Job extends AbstractBambooElement implements DslParentElement<Task> {
         def newTaskList = new Tasks()
         DslScriptHelper.execute(closure, newTaskList)
         tasksList = newTaskList
+    }
+
+    void validate() {
+        Validations.isNotNullOrEmpty(name, "Job must have a name attribute")
     }
 
     @Override

@@ -14,7 +14,7 @@ class Plan extends AbstractBambooElement implements DslParentElement<Stage> {
     String key
     String name
     String description
-    Scm scm = new Scm()
+    Scm scm = new Scm(bambooFacade)
     boolean enabled = true
     protected Set<Stage> stages = new LinkedHashSet<>()
     Set<DeploymentProject> deploymentProjects = new LinkedHashSet<>()
@@ -36,7 +36,6 @@ class Plan extends AbstractBambooElement implements DslParentElement<Stage> {
      * alphanumeric characters
      */
     void key(String key) {
-        bambooFacade.requireSharedCredentials("jdk8")
         Validations.isNotNullOrEmpty(key, 'plan key must be specified')
         Validations.isTrue(
                 key ==~ /[A-Z][A-Z0-9]*/,
@@ -48,7 +47,6 @@ class Plan extends AbstractBambooElement implements DslParentElement<Stage> {
     /**
      * Specifies the name of the plan.
      */
-    @Deprecated
     void name(String name) {
         this.name = name
     }
@@ -85,7 +83,7 @@ class Plan extends AbstractBambooElement implements DslParentElement<Stage> {
      * Specifies the repositories for this plan.
      */
     void scm(@DelegatesTo(Scm) Closure closure) {
-        def scm = new Scm()
+        def scm = new Scm(bambooFacade)
         DslScriptHelper.execute(closure, scm)
         this.scm = scm
         scm
@@ -125,6 +123,10 @@ class Plan extends AbstractBambooElement implements DslParentElement<Stage> {
     void notifications(@DelegatesTo(Notifications) Closure closure) {
         this.notifications = new Notifications()
         DslScriptHelper.execute(closure, notifications)
+    }
+
+    void validate() {
+        Validations.isNotNullOrEmpty(name, "Stage must have a name attribute")
     }
 
     @Override

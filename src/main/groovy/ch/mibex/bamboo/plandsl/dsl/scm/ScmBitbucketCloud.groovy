@@ -6,6 +6,7 @@ import ch.mibex.bamboo.plandsl.dsl.RequiresBambooVersion
 import ch.mibex.bamboo.plandsl.dsl.scm.auth.AuthType
 import ch.mibex.bamboo.plandsl.dsl.scm.auth.PasswordAuth
 import ch.mibex.bamboo.plandsl.dsl.scm.auth.SharedCredentialsAuth
+import ch.mibex.bamboo.plandsl.dsl.scm.auth.SshAuth
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
@@ -48,6 +49,18 @@ class ScmBitbucketCloud extends ScmType {
     void sharedCredentialsPasswordAuth(String name) {
         bambooFacade.requireSharedCredentials(name)
         authType = new SharedCredentialsAuth(SharedCredentialsAuth.SharedCredentialsType.USERNAMEPW, name)
+    }
+
+    @RequiresBambooVersion(minimumVersion = "5.13")
+    void sshPrivateKey(@DelegatesTo(SshAuth) Closure closure) {
+        authType = new SshAuth()
+        DslScriptHelper.execute(closure, authType)
+    }
+
+    @RequiresBambooVersion(minimumVersion = "5.13")
+    void sshSharedCredentials(String name) {
+        bambooFacade.requireSharedCredentials(name)
+        authType = new SharedCredentialsAuth(SharedCredentialsAuth.SharedCredentialsType.SSH, name)
     }
 
     void passwordAuth(@DelegatesTo(PasswordAuth) Closure closure) {

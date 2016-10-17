@@ -9,6 +9,7 @@ abstract class DslScript extends Script implements DslFactory {
         def project = new Project(bambooFacade)
         project.key(key)
         DslScriptHelper.execute(closure, project)
+        project.validate()
         projects << project
         project
     }

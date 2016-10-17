@@ -10,6 +10,8 @@ interface BambooFacade {
 
     void requireExecutable(String executableName)
 
+    void requirePlan(String planKey)
+
     void requireJdk(String jdkName)
 
     void requireLinkedRepository(String repoName)
@@ -17,6 +19,8 @@ interface BambooFacade {
     void requireBambooVersion(String version)
 
     void requireSharedCredentials(String name)
+
+    void requireApplicationLink(String name)
 
     Map<String, Object> getExportedBambooObjects()
 

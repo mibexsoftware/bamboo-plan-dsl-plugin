@@ -1,5 +1,6 @@
 package ch.mibex.bamboo.plandsl.dsl.scm
 
+import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.DslParentElement
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import groovy.transform.EqualsAndHashCode
@@ -7,8 +8,12 @@ import groovy.transform.ToString
 
 @ToString
 @EqualsAndHashCode
-class Scm implements DslParentElement<ScmType> {
+class Scm extends ScmType implements DslParentElement<ScmType> {
     final Set<ScmType> scms = new LinkedHashSet<>()
+
+    Scm(BambooFacade bambooFacade) {
+        super(bambooFacade)
+    }
 
     void bitbucketCloud(String displayName, @DelegatesTo(ScmBitbucketCloud) Closure closure) {
         handleScm(closure, displayName, ScmBitbucketCloud)
@@ -43,13 +48,13 @@ class Scm implements DslParentElement<ScmType> {
     }
 
     void linkedRepository(String name) {
-        def linkedRepo = new ScmLinkedRepository()
+        def linkedRepo = new ScmLinkedRepository(bambooFacade)
         linkedRepo.displayName = name
         scms << linkedRepo
     }
 
     private void handleScm(Closure closure, String displayName, Class<? extends ScmType> clazz) {
-        def scm = clazz.newInstance()
+        def scm = clazz.newInstance(bambooFacade)
         scm.displayName = displayName
         DslScriptHelper.execute(closure, scm)
         scms << scm

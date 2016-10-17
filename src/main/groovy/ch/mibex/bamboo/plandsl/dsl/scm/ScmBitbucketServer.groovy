@@ -24,8 +24,10 @@ class ScmBitbucketServer extends ScmType {
     // for tests:
     protected ScmBitbucketServer() {}
 
-    void serverName(String server) {
-        this.serverName = server
+    // if not given, the primary application link will be used
+    void serverName(String linkName) {
+        bambooFacade.requireApplicationLink(linkName)
+        this.serverName = linkName
     }
 
     void repositoryUrl(String repositoryUrl) {

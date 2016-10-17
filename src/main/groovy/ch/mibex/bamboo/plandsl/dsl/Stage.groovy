@@ -46,6 +46,7 @@ class Stage extends AbstractBambooElement implements DslParentElement<Job> {
         def job = new Job(bambooFacade)
         job.key(key)
         DslScriptHelper.execute(closure, job)
+        job.validate()
         jobs << job
         job
     }

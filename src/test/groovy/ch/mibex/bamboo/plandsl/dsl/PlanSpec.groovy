@@ -9,7 +9,6 @@ class PlanSpec extends Specification {
         def loader = new DslScriptParserImpl()
 
         when:
-        def testLogger = new NullLogger()
         def results = loader.parse(new DslScriptContext(getClass().getResource('/dsls/plans/SimplePlan.groovy').text))
 
         then:
@@ -30,7 +29,6 @@ class PlanSpec extends Specification {
         def loader = new DslScriptParserImpl()
 
         when:
-        def testLogger = new NullLogger()
         loader.parse(new DslScriptContext(getClass().getResource('/dsls/plans/InvalidPlanKey.txt').text))
 
         then:
@@ -44,13 +42,24 @@ class PlanSpec extends Specification {
         def loader = new DslScriptParserImpl()
 
         when:
-        def testLogger = new NullLogger()
         def resource = getClass().getResource('/dsls/plans/InvalidPlanKey.txt')
         loader.parse(new DslScriptContext(new File(resource.toURI()).absolutePath, null, null))
 
         then:
         Exception e = thrown(DslScriptException)
         e.message == '(InvalidPlanKey.txt:6): plan key must consist of an uppercase letter followed by one or more uppercase alphanumeric characters.'
+    }
+
+    def 'plan without name should yield exception'() {
+        setup:
+        def loader = new DslScriptParserImpl()
+
+        when:
+        loader.parse(new DslScriptContext(getClass().getResource('/dsls/plans/PlanWithoutName.groovy').text))
+
+        then:
+        Exception e = thrown(DslScriptException)
+        e.message == '(script:6): Plan must have a name attribute'
     }
 
 }

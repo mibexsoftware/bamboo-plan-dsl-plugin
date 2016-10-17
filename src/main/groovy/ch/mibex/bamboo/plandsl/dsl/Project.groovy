@@ -10,7 +10,7 @@ class Project extends AbstractBambooElement implements DslParentElement<Plan> {
     }
 
     /**
-     * Specifies the project key.
+     * Specifies the mandatory project key.
      *
      * @param key the key of the project consisting of 2 or more upper case alphanumeric characters
      */
@@ -24,7 +24,8 @@ class Project extends AbstractBambooElement implements DslParentElement<Plan> {
     }
 
     /**
-     * Specifies the name of the project.
+     * Specifies the mandatory name of the project.
+     *
      */
     void name(String name) {
         Validations.isNotNullOrEmpty(key, 'a project name must be specified')
@@ -38,8 +39,13 @@ class Project extends AbstractBambooElement implements DslParentElement<Plan> {
         def plan = new Plan(bambooFacade)
         plan.key(key)
         DslScriptHelper.execute(closure, plan)
+        plan.validate()
         plans << plan
         plan
+    }
+
+    void validate() {
+        Validations.isNotNullOrEmpty(name, 'Project must have a name attribute')
     }
 
     @Override

@@ -24,6 +24,11 @@ class NullBambooFacade implements BambooFacade {
     }
 
     @Override
+    void requirePlan(String planKey) {
+        // nop
+    }
+
+    @Override
     void requireJdk(String jdkName) {
         // nop
     }
@@ -40,6 +45,11 @@ class NullBambooFacade implements BambooFacade {
 
     @Override
     void requireSharedCredentials(String name) {
+        // nop
+    }
+
+    @Override
+    void requireApplicationLink(String name) {
         // nop
     }
 
