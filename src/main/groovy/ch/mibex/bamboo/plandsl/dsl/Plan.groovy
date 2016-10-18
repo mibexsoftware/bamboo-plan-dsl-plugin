@@ -147,7 +147,7 @@ class Plan extends AbstractBambooElement implements DslParentElement<Stage> {
         this.dependencies =  dependencies
     }
 
-    void validate() {
+    protected void validate() {
         Validations.isNotNullOrEmpty(name, 'Plan must have a name attribute')
     }
 

@@ -34,6 +34,9 @@ class ScmGit extends ScmType {
         this.branch = branch
     }
 
+    /**
+     * @since 1.2.0
+     */
     @RequiresBambooVersion(minimumVersion = '5.13')
     void sharedCredentialsPasswordAuth(String name) {
         bambooFacade.requireSharedCredentials(name)

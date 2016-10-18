@@ -44,7 +44,7 @@ class Project extends AbstractBambooElement implements DslParentElement<Plan> {
         plan
     }
 
-    void validate() {
+    protected void validate() {
         Validations.isNotNullOrEmpty(name, 'Project must have a name attribute')
     }
 

@@ -11,7 +11,7 @@ project("SIMPLEPROJECT") {
 
         notifications {
             hipchat(NotificationConditions.ALL_BUILDS_COMPLETED) {
-                apiToken ""
+                apiToken "test"
                 room bamboo['my.key']
                 notify true
             }
