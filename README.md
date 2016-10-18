@@ -90,7 +90,7 @@ supported by the plug-in, they can still be used with the
         - [ ] Source repository
         - [ ] Notifications
         - [x] Variables
-    - [ ] Dependencies
+    - [x] Dependencies
     - [ ] Permissions
     - [x] Notifications
     - [x] Variables
