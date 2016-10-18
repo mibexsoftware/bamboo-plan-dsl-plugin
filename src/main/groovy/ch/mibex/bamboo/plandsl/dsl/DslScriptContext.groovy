@@ -50,7 +50,7 @@ class DslScriptContext {
     @Override
     String toString() {
         if (body) {
-            "inline script: ${body.take(80)}..."
+            "inline script: ${body.take(80).replaceAll('\n', ' ')}..."
         } else {
             "script file from ${location}"
         }
