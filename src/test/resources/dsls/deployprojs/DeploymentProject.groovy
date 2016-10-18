@@ -1,7 +1,10 @@
 package dsls.deployprojs
 
 project("SIMPLEPROJECT") {
+    name "simple project"
+
     plan("SIMPLEPLAN") {
+        name "simple plan"
 
         deploymentProject("dp1") {
             description "desc1"

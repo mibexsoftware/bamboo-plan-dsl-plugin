@@ -82,6 +82,7 @@ class DslScriptParserImpl implements DslScriptParser {
         importCustomizer.addStaticImport(ScmType.name, ScmType.MatchType.simpleName)
         importCustomizer.addStaticImport(ScmCvs.name, ScmCvs.CvsModuleVersion.simpleName)
         importCustomizer.addStaticImport(ScriptTask.name, ScriptTask.ScriptInterpreter.simpleName)
+        importCustomizer.addStaticImport(Dependencies.name, Dependencies.DependencyBlockingStrategy.simpleName)
 
         config.addCompilationCustomizers(importCustomizer)
         // would not allow usage of variables like bamboo or configure block:

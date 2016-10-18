@@ -2,8 +2,8 @@ package ch.mibex.bamboo.plandsl.dsl
 
 import ch.mibex.bamboo.plandsl.dsl.branches.Branches
 import ch.mibex.bamboo.plandsl.dsl.deployprojs.DeploymentProject
-import ch.mibex.bamboo.plandsl.dsl.scm.Scm
 import ch.mibex.bamboo.plandsl.dsl.notifications.Notifications
+import ch.mibex.bamboo.plandsl.dsl.scm.Scm
 import ch.mibex.bamboo.plandsl.dsl.triggers.Triggers
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
@@ -22,6 +22,7 @@ class Plan extends AbstractBambooElement implements DslParentElement<Stage> {
     Branches branches = new Branches()
     Notifications notifications = new Notifications()
     Variables variables = new Variables()
+    Dependencies dependencies = new Dependencies()
 
     // for testing
     protected Plan() {}
@@ -135,8 +136,17 @@ class Plan extends AbstractBambooElement implements DslParentElement<Stage> {
         this.variables =  variables
     }
 
+    /**
+     * Specifies the dependencies for this plan.
+     */
+    void dependencies(@DelegatesTo(Dependencies) Closure closure) {
+        def dependencies = new Dependencies()
+        DslScriptHelper.execute(closure, dependencies)
+        this.dependencies =  dependencies
+    }
+
     void validate() {
-        Validations.isNotNullOrEmpty(name, "Stage must have a name attribute")
+        Validations.isNotNullOrEmpty(name, "Plan must have a name attribute")
     }
 
     @Override

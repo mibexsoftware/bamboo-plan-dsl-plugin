@@ -22,7 +22,7 @@ class JobSpec extends Specification {
     def 'job without name'() {
         setup:
         def loader = new DslScriptParserImpl()
-        def dsl = getClass().getResource('/dsls/jobs/JobWithoutName.groovy').text
+        def dsl = getClass().getResource('/dsls/jobs/JobWithoutName.txt').text
 
         when:
         loader.parse(new DslScriptContext(dsl))

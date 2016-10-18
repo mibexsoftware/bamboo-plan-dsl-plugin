@@ -55,7 +55,7 @@ class PlanSpec extends Specification {
         def loader = new DslScriptParserImpl()
 
         when:
-        loader.parse(new DslScriptContext(getClass().getResource('/dsls/plans/PlanWithoutName.groovy').text))
+        loader.parse(new DslScriptContext(getClass().getResource('/dsls/plans/PlanWithoutName.txt').text))
 
         then:
         Exception e = thrown(DslScriptException)
@@ -80,6 +80,35 @@ class PlanSpec extends Specification {
                 enabled: true,
                 description: "this is a simple plan",
                 variables: new Variables(variables: [new Variable('key1', 'value1'), new Variable('key2', 'value2')])
+        )
+    }
+
+    def 'plan with dependencies'() {
+        setup:
+        def loader = new DslScriptParserImpl()
+
+        when:
+        def results = loader.parse(new DslScriptContext(getClass().getResource('/dsls/plans/PlanDependencies.groovy').text))
+
+        then:
+        results != null
+        results.projects.size() == 1
+        results.projects[0].key == "SIMPLEPROJECT"
+        results.projects[0].name == "Simple project"
+        results.projects[0].plans[0] == new Plan(
+                key: "SIMPLEPLAN",
+                name: "Simple plan",
+                enabled: true,
+                description: "this is a simple plan",
+                dependencies: new Dependencies(
+                        dependencies: [new Dependency('HELLO-HELLO'), new Dependency('SEED-SEED')],
+                        blockingStrategy: Dependencies.DependencyBlockingStrategy.BLOCK_BUILD_IF_PARENT_BUILDS_ARE_QUEUED,
+                        advancedOptions: new AdvancedDependencyOptions(
+                                triggerDependenciesOnlyWhenAllStagesHaveRunSuccessfully: true,
+                                autoDependencyManagement: true,
+                                enableDependenciesForAllBranches: true
+                        )
+                )
         )
     }
 }

@@ -4,6 +4,7 @@ project("SIMPLEPROJECT") {
     name "Simple project"
 
     plan("SIMPLEPLAN") {
+        name "simple plan"
         stage("simple stage") {
             description "this is a simple stage"
             manual false

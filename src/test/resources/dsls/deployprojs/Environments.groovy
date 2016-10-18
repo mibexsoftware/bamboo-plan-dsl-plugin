@@ -1,7 +1,11 @@
 package dsls.deployprojs
 
 project("SIMPLEPROJECT") {
+    name "simple project"
+
     plan("SIMPLEPLAN") {
+        name "simple plan"
+
         deploymentProject("name") {
             description "desc"
             useCustomPlanBranch "develop"

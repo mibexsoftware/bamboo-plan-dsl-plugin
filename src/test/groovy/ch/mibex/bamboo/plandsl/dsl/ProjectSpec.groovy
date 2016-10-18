@@ -9,7 +9,7 @@ class ProjectSpec extends Specification {
         def loader = new DslScriptParserImpl()
 
         when:
-        loader.parse(new DslScriptContext(getClass().getResource('/dsls/projects/ProjectWithoutName.groovy').text))
+        loader.parse(new DslScriptContext(getClass().getResource('/dsls/projects/ProjectWithoutName.txt').text))
 
         then:
         Exception e = thrown(DslScriptException)
