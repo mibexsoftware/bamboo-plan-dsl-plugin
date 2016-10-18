@@ -2,6 +2,7 @@ package ch.mibex.bamboo.plandsl.dsl
 
 import ch.mibex.bamboo.plandsl.dsl.branches.Branch
 import ch.mibex.bamboo.plandsl.dsl.branches.Branches
+import ch.mibex.bamboo.plandsl.dsl.dependencies.Dependencies
 import ch.mibex.bamboo.plandsl.dsl.notifications.Notifications
 import ch.mibex.bamboo.plandsl.dsl.scm.ScmCvs
 import ch.mibex.bamboo.plandsl.dsl.scm.ScmType
@@ -13,8 +14,8 @@ import org.codehaus.groovy.control.customizers.ImportCustomizer
 import org.codehaus.groovy.runtime.InvokerHelper
 
 class DslScriptParserImpl implements DslScriptParser {
+    private final BambooFacade bambooFacade
     private Map<String, Object> exportedBambooObjects
-    private BambooFacade bambooFacade
 
     DslScriptParserImpl(BambooFacade bambooFacade) {
         this.bambooFacade = bambooFacade
@@ -57,8 +58,8 @@ class DslScriptParserImpl implements DslScriptParser {
 
     private Binding createBinding() {
         Binding binding = new Binding()
-        binding.setVariable('out', bambooFacade.getBuildLogger())
-        binding.setVariable('bamboo', bambooFacade.getVariableContext())
+        binding.setVariable('out', bambooFacade.buildLogger)
+        binding.setVariable('bamboo', bambooFacade.variableContext)
 
         exportedBambooObjects.each { key, value ->
             binding.setVariable(key, value)

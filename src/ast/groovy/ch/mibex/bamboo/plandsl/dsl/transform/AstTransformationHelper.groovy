@@ -7,7 +7,6 @@ import org.codehaus.groovy.control.SourceUnit
 import org.codehaus.groovy.syntax.CSTNode
 import org.codehaus.groovy.syntax.Token
 
-
 class AstTransformationHelper {
     private AstTransformationHelper() {}
 

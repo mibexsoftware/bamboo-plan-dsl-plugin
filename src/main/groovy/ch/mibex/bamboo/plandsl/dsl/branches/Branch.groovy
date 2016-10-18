@@ -2,7 +2,7 @@ package ch.mibex.bamboo.plandsl.dsl.branches
 
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import ch.mibex.bamboo.plandsl.dsl.Validations
-import ch.mibex.bamboo.plandsl.dsl.Variables
+import ch.mibex.bamboo.plandsl.dsl.variables.Variables
 import ch.mibex.bamboo.plandsl.dsl.triggers.Triggers
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString

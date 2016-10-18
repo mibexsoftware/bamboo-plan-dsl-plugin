@@ -1,6 +1,5 @@
 package ch.mibex.bamboo.plandsl.dsl
 
-
 class NullBambooFacade implements BambooFacade {
 
     @Override
@@ -55,7 +54,7 @@ class NullBambooFacade implements BambooFacade {
 
     @Override
     Map<String, Object> getExportedBambooObjects() {
-        return [:]
+        [:]
     }
 
     @Override
@@ -65,18 +64,36 @@ class NullBambooFacade implements BambooFacade {
 
     @Override
     Logger getBuildLogger() {
-        return new NullLogger()
+        new NullLogger()
     }
 
     @Override
     EnvVariableContext getVariableContext() {
-        return new NullEnvVariableContext()
+        new NullEnvVariableContext()
     }
 
     // this is used to allow checking of DSL scripts without throwing errors
     static class NullEnvVariableContext implements EnvVariableContext {
         String getAt(String key) {
             key
+        }
+    }
+
+    static class NullLogger implements Logger {
+
+        @Override
+        void println(String s) {
+            //nop
+        }
+
+        @Override
+        void info(String s) {
+            //nop
+        }
+
+        @Override
+        void error(String s) {
+            //nop
         }
     }
 

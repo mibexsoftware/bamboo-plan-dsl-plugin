@@ -10,8 +10,10 @@ import org.codehaus.groovy.ast.stmt.ExpressionStatement
 import org.codehaus.groovy.control.CompilePhase
 import org.codehaus.groovy.control.SourceUnit
 import org.codehaus.groovy.syntax.CSTNode
+import org.codehaus.groovy.syntax.Token
 import org.codehaus.groovy.transform.ASTTransformation
 import org.codehaus.groovy.transform.GroovyASTTransformation
+
 // inspired by Jenkins job DSL plug-in
 @GroovyASTTransformation(phase = CompilePhase.SEMANTIC_ANALYSIS)
 class DeprecationWarningAstTransformation implements ASTTransformation {
@@ -28,9 +30,9 @@ class DeprecationWarningAstTransformation implements ASTTransformation {
         classes.methods.flatten().each { MethodNode method ->
             List<AnnotationNode> annotations = method.getAnnotations(DEPRECATED_ANNOTATION)
             if (annotations) {
-                def tokenContext = AstTransformationHelper.createTokenContext(annotations[0])
+                Token tokenContext = AstTransformationHelper.createTokenContext(annotations[0])
                 ConstantExpression deprecationRef = createLogDeprecationRef(sourceUnit, method.declaringClass, tokenContext)
-                def deprecationStmt = new ExpressionStatement(new MethodCallExpression(
+                ExpressionStatement deprecationStmt = new ExpressionStatement(new MethodCallExpression(
                     new VariableExpression("this"),
                     deprecationRef,
                     new ArgumentListExpression()

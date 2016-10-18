@@ -1,10 +1,12 @@
 package ch.mibex.bamboo.plandsl.dsl
 
 import ch.mibex.bamboo.plandsl.dsl.branches.Branches
+import ch.mibex.bamboo.plandsl.dsl.dependencies.Dependencies
 import ch.mibex.bamboo.plandsl.dsl.deployprojs.DeploymentProject
 import ch.mibex.bamboo.plandsl.dsl.notifications.Notifications
 import ch.mibex.bamboo.plandsl.dsl.scm.Scm
 import ch.mibex.bamboo.plandsl.dsl.triggers.Triggers
+import ch.mibex.bamboo.plandsl.dsl.variables.Variables
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
@@ -40,8 +42,8 @@ class Plan extends AbstractBambooElement implements DslParentElement<Stage> {
     void key(String key) {
         Validations.isNotNullOrEmpty(key, 'plan key must be specified')
         Validations.isTrue(
-                key ==~ /[A-Z][A-Z0-9]*/,
-                'plan key must consist of an uppercase letter followed by one or more uppercase alphanumeric characters.'
+            key ==~ /[A-Z][A-Z0-9]*/,
+            'plan key must consist of an uppercase letter followed by one or more uppercase alphanumeric characters.'
         )
         this.key = key
     }
@@ -146,7 +148,7 @@ class Plan extends AbstractBambooElement implements DslParentElement<Stage> {
     }
 
     void validate() {
-        Validations.isNotNullOrEmpty(name, "Plan must have a name attribute")
+        Validations.isNotNullOrEmpty(name, 'Plan must have a name attribute')
     }
 
     @Override

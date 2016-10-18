@@ -1,5 +1,6 @@
 package ch.mibex.bamboo.plandsl.dsl.dependencies
 
+import ch.mibex.bamboo.plandsl.dsl.DslParentElement
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import ch.mibex.bamboo.plandsl.dsl.Validations
 import groovy.transform.EqualsAndHashCode
@@ -7,7 +8,7 @@ import groovy.transform.ToString
 
 @ToString
 @EqualsAndHashCode
-class Dependencies {
+class Dependencies implements DslParentElement<Dependency> {
     Set<Dependency> dependencies = new LinkedHashSet<>()
     DependencyBlockingStrategy blockingStrategy
     AdvancedDependencyOptions advancedOptions
@@ -32,5 +33,10 @@ class Dependencies {
         Validations.isNotNullOrEmpty(planKey, 'Dependency plan key must not be empty')
         def dependency = new Dependency(planKey)
         dependencies << dependency
+    }
+
+    @Override
+    Collection<Dependency> children() {
+        dependencies
     }
 }

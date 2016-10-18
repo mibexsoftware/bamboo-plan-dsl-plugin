@@ -36,7 +36,7 @@ class ScmMercurial extends ScmType {
         this.branch = branch
     }
 
-    @RequiresBambooVersion(minimumVersion = "5.13")
+    @RequiresBambooVersion(minimumVersion = '5.13')
     void sharedCredentialsPasswordAuth(String name) {
         bambooFacade.requireSharedCredentials(name)
         authType = new SharedCredentialsAuth(SharedCredentialsAuth.SharedCredentialsType.USERNAMEPW, name)

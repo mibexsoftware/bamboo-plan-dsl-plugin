@@ -1,5 +1,10 @@
 package ch.mibex.bamboo.plandsl.dsl
 
+import ch.mibex.bamboo.plandsl.dsl.dependencies.AdvancedDependencyOptions
+import ch.mibex.bamboo.plandsl.dsl.dependencies.Dependencies
+import ch.mibex.bamboo.plandsl.dsl.dependencies.Dependency
+import ch.mibex.bamboo.plandsl.dsl.variables.Variable
+import ch.mibex.bamboo.plandsl.dsl.variables.Variables
 import spock.lang.Specification
 
 class PlanSpec extends Specification {

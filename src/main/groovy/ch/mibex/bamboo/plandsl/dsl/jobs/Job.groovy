@@ -80,7 +80,7 @@ class Job extends AbstractBambooElement implements DslParentElement<Task> {
     }
 
     void validate() {
-        Validations.isNotNullOrEmpty(name, "Job must have a name attribute")
+        Validations.isNotNullOrEmpty(name, 'Job must have a name attribute')
     }
 
     @Override

@@ -1,15 +1,14 @@
 package ch.mibex.bamboo.plandsl.dsl
 
-
 abstract class AbstractBambooElement implements BambooElement {
     protected final BambooFacade bambooFacade
 
     // for testing
-    AbstractBambooElement() {
+    protected AbstractBambooElement() {
         bambooFacade = new NullBambooFacade()
     }
 
-    AbstractBambooElement(BambooFacade bambooFacade) {
+    protected AbstractBambooElement(BambooFacade bambooFacade) {
         this.bambooFacade = bambooFacade
     }
 

@@ -1,6 +1,5 @@
 package ch.mibex.bamboo.plandsl.dsl
 
-
 interface BambooFacade {
     void requirePlugin(String pluginKey)
 

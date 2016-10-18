@@ -44,7 +44,7 @@ class Tasks extends AbstractBambooElement implements DslParentElement<Task> {
         handleTask(closure, ArtifactDownloaderTask, description)
     }
 
-    @RequiresPlugin(key = "com.atlassian.bamboo.plugins.deploy.continuous-plugin-deployment")
+    @RequiresPlugin(key = 'com.atlassian.bamboo.plugins.deploy.continuous-plugin-deployment')
     void deployPlugin(String description, @DelegatesTo(DeployPluginTask) Closure closure) {
         handleTask(closure, DeployPluginTask, description)
     }

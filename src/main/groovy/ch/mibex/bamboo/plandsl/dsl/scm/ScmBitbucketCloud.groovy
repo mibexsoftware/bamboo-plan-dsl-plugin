@@ -45,19 +45,19 @@ class ScmBitbucketCloud extends ScmType {
         scmType = hg
     }
 
-    @RequiresBambooVersion(minimumVersion = "5.13")
+    @RequiresBambooVersion(minimumVersion = '5.13')
     void sharedCredentialsPasswordAuth(String name) {
         bambooFacade.requireSharedCredentials(name)
         authType = new SharedCredentialsAuth(SharedCredentialsAuth.SharedCredentialsType.USERNAMEPW, name)
     }
 
-    @RequiresBambooVersion(minimumVersion = "5.13")
+    @RequiresBambooVersion(minimumVersion = '5.13')
     void sshPrivateKey(@DelegatesTo(SshAuth) Closure closure) {
         authType = new SshAuth()
         DslScriptHelper.execute(closure, authType)
     }
 
-    @RequiresBambooVersion(minimumVersion = "5.13")
+    @RequiresBambooVersion(minimumVersion = '5.13')
     void sshSharedCredentials(String name) {
         bambooFacade.requireSharedCredentials(name)
         authType = new SharedCredentialsAuth(SharedCredentialsAuth.SharedCredentialsType.SSH, name)

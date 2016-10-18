@@ -1,4 +1,4 @@
-package ch.mibex.bamboo.plandsl.dsl
+package ch.mibex.bamboo.plandsl.dsl.variables
 
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
@@ -13,5 +13,4 @@ class Variable {
         this.key = key
         this.value = value
     }
-
 }
