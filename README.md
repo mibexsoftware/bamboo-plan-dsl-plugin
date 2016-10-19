@@ -24,24 +24,24 @@ Groovy-based DSL, you can textually describe your build plans and all its associ
 tasks, build variables, etc. Here's an example of a simple build plan to run `mvn install`:
 
 ```groovy
-project("MYPROJECT") {
-    name "My project"
+project('MYPROJECT') {
+    name 'My project'
 
-    plan("MYPLAN") {
-        name "My plan"
-        
-        stage("My stage") {
-            description "My stage"
+    plan('MYPLAN') {
+        name 'My plan'
+
+        stage('My stage') {
+            description 'My stage'
             manual false
 
-            job("BUILD") {
-                name "Maven build job"
+            job('BUILD') {
+                name 'Maven build job'
 
                 tasks {
-                    maven3("build plug-in") {
-                        goal "install"
-                        executable "maven323"
-                        buildJdk "jdk8"
+                    maven3('build plug-in') {
+                        goal 'install'
+                        executable 'maven323'
+                        buildJdk 'jdk8'
                         environmentVariables 'MAVEN_OPTS="-Xmx1024m -XX:MaxPermSize=128m"'
                     }
                 }
