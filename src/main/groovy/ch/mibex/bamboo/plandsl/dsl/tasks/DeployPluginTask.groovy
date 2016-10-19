@@ -54,27 +54,6 @@ class DeployPluginTask extends Task {
         this.useAtlassianIdWebSudo = useAtlassianIdWebSudo
     }
 
-//    custom('com.atlassian.bamboo.plugins.deploy.continuous-plugin-deployment:deploy-task') {
-//        enabled true
-//        description 'Deploy plug-in to staging server'
-//        configure(
-//                'bcpd.config.productType': 'bcpd.product.stash',
-//                useAtlassianId: false,
-//                confDeployJar: 'v2:23658500:2:0:Activity Streams for Bitbucket Server',
-//                confDeployURL: 'https://46.4.34.132/bitbucket',
-//                confDeployUsername: 'mrueegg',
-//                enableTrafficLogging: false,
-//                confDeployPasswordVariableCheck: true,
-//                confDeployPasswordVariable: '${bamboo.bitbucket_server_password}',
-//                deployBranchEnabled: true,
-//                certificateCheckDisabled: true,
-//                multiProduct: true,
-//                atlassianIdPasswordVariableCheck: false,
-//                useAtlassianIdWebSudo: false
-//        )
-//    }
-//}
-
     @Override
     Map<String, String> getConfig(Map<Object, Object> context) {
         Map<String, String> config = [:]
