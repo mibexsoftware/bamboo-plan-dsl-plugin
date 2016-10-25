@@ -36,10 +36,16 @@ class Environment {
         tasks = newTaskList
     }
 
-    void triggers(@DelegatesTo(DeploymentTriggers) Closure closure) {
+    void deploymentTriggers(@DelegatesTo(DeploymentTriggers) Closure closure) {
         def triggers = new DeploymentTriggers()
         DslScriptHelper.execute(closure, triggers)
         this.triggers = triggers
+    }
+
+    // deprecated because IntelliJ confused this with plan#triggers
+    @Deprecated
+    void triggers(@DelegatesTo(DeploymentTriggers) Closure closure) {
+        deploymentTriggers(closure)
     }
 
 }

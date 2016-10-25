@@ -32,6 +32,7 @@ class DslScriptHelper {
         StackTraceElement element = stackTrace.find {
             (StackTraceUtils.isApplicationClass(it.className)
             && !it.className.startsWith('ch.mibex.bamboo.plandsl')
+            && !it.className.startsWith('org.springframework')
             && !it.className.startsWith('com.atlassian'))
         }
         sourceDetailsForScript(element?.fileName, element ? element.lineNumber : -1)
