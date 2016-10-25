@@ -26,8 +26,8 @@ class Job extends AbstractBambooElement implements DslParentElement<Task> {
     /**
      * Creates a job definition.
      *
-     * @param key the key of the plan consisting of an uppercase letter followed by one or more uppercase
-     * alphanumeric characters. Eg. CORE (for a module called core)
+     * @param key the key of the job consisting of an uppercase letter followed by one or more uppercase
+     * alphanumeric characters. E. g. CORE (for a module called core)
      */
     void key(String key) {
         Validations.isNotNullOrEmpty(key, 'job key must be specified')

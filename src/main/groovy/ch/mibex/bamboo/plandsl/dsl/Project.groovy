@@ -34,6 +34,9 @@ class Project extends AbstractBambooElement implements DslParentElement<Plan> {
 
     /**
      * Specifies a plan for this project. If the project has multiple plans, call this multiple times.
+     *
+     * @param key the key of the plan consisting of an uppercase letter followed by one or more uppercase
+     * alphanumeric characters
      */
     Plan plan(String key, @DelegatesTo(Plan) Closure closure) {
         def plan = new Plan(bambooFacade)

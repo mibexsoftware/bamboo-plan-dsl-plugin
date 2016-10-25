@@ -111,6 +111,8 @@ class Plan extends AbstractBambooElement implements DslParentElement<Stage> {
 
     /**
      * Specifies a stage for this plan. If your plan has multiple stages, call this multiple times.
+     *
+     * @param name the name of the stage
      */
     Stage stage(String name, @DelegatesTo(Stage) Closure closure) {
         Validations.isNotNullOrEmpty(name, 'name must be specified')

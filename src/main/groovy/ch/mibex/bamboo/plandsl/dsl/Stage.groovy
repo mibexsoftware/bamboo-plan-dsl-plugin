@@ -41,6 +41,9 @@ class Stage extends AbstractBambooElement implements DslParentElement<Job> {
 
     /**
      * Specifies a job for this stage. If the stage has multiple jobs, call this multiple times.
+     *
+     * @param key the key of the job consisting of an uppercase letter followed by one or more uppercase
+     * alphanumeric characters. E. g. CORE (for a module called core)
      */
     Job job(String key, @DelegatesTo(Job) Closure closure) {
         def job = new Job(bambooFacade)
