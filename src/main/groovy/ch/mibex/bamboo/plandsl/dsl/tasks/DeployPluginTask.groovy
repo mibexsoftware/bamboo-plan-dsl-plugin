@@ -22,6 +22,9 @@ class DeployPluginTask extends Task {
         super(bambooFacade, TASK_ID)
     }
 
+    //for tests
+    protected DeployPluginTask() {}
+
     void deployArtifactName(String deployArtifactName) {
         this.deployArtifactName = deployArtifactName
     }
