@@ -10,6 +10,7 @@ project("LINKEDSCM") {
 
         scm {
             linkedRepository("myGlobalRepo1")
+            linkedRepository("myGlobalRepo2")
         }
     }
 }

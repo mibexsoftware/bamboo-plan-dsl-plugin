@@ -268,6 +268,7 @@ class ScmsSpec extends Specification {
 
         then:
         results.projects[0].plans[0].scm.children()[0] == new ScmLinkedRepository(displayName: "myGlobalRepo1")
+        results.projects[0].plans[0].scm.children()[1] == new ScmLinkedRepository(displayName: "myGlobalRepo2")
     }
 
     def 'plan with Mercurial SCM'() {

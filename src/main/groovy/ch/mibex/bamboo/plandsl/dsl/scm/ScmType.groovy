@@ -2,7 +2,11 @@ package ch.mibex.bamboo.plandsl.dsl.scm
 
 import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.NullBambooFacade
+import groovy.transform.EqualsAndHashCode
+import groovy.transform.ToString
 
+@ToString
+@EqualsAndHashCode
 class ScmType {
     String displayName
     final BambooFacade bambooFacade

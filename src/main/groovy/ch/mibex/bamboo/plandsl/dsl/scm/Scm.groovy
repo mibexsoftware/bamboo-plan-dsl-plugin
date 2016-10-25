@@ -3,13 +3,9 @@ package ch.mibex.bamboo.plandsl.dsl.scm
 import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.DslParentElement
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
-import groovy.transform.EqualsAndHashCode
-import groovy.transform.ToString
 
-@ToString
-@EqualsAndHashCode
 class Scm extends ScmType implements DslParentElement<ScmType> {
-    final Set<ScmType> scms = new LinkedHashSet<>()
+    final List<ScmType> scms = new ArrayList<>()
 
     Scm(BambooFacade bambooFacade) {
         super(bambooFacade)
@@ -48,6 +44,7 @@ class Scm extends ScmType implements DslParentElement<ScmType> {
     }
 
     void linkedRepository(String name) {
+        bambooFacade.requireLinkedRepository(name)
         def linkedRepo = new ScmLinkedRepository(bambooFacade)
         linkedRepo.displayName = name
         scms << linkedRepo
