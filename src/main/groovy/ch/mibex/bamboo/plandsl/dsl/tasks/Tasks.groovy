@@ -49,6 +49,11 @@ class Tasks extends AbstractBambooElement implements DslParentElement<Task> {
         handleTask(closure, DeployPluginTask, description)
     }
 
+    @RequiresPlugin(key = 'ch.mibex.bamboo.shipit2mpac')
+    void shipit2marketplace(String description, @DelegatesTo(ShipItPluginTask) Closure closure) {
+        handleTask(closure, ShipItPluginTask, description)
+    }
+
     void maven3(String description, @DelegatesTo(Maven3Task) Closure closure) {
         handleTask(closure, Maven3Task, description)
     }
