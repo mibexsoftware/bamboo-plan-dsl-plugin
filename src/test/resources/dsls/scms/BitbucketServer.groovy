@@ -15,7 +15,7 @@ project("BITBUCKETSERVER") {
                 branch "develop"
                 serverName "bitbucketServer"
                 repoId "1"
-                repositoryUrl "ssh://git@michis-mbp:7999/project_1/rep_1.git"
+                repositoryUrl "ssh://git@localhost:7999/project_1/rep_1.git"
 
                 advancedOptions {
                     useShallowClones true

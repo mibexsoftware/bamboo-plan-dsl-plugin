@@ -5,7 +5,7 @@ import ch.mibex.bamboo.plandsl.dsl.DslParentElement
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 
 class Scm extends ScmType implements DslParentElement<ScmType> {
-    final List<ScmType> scms = new ArrayList<>()
+    final List<ScmType> scms = []
 
     Scm(BambooFacade bambooFacade) {
         super(bambooFacade)

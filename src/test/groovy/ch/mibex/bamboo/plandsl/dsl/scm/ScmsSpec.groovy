@@ -108,7 +108,7 @@ class ScmsSpec extends Specification {
                 repoSlug: "rep_1",
                 repoId: "1",
                 branch: "develop",
-                repositoryUrl: "ssh://git@michis-mbp:7999/project_1/rep_1.git",
+                repositoryUrl: "ssh://git@localhost:7999/project_1/rep_1.git",
                 serverName: "bitbucketServer",
                 advancedOptions: new AdvancedGitRepoOptions(
                         useShallowClones: true,
