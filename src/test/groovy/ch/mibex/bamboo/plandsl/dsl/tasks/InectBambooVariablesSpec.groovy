@@ -21,7 +21,7 @@ class InectBambooVariablesSpec extends Specification {
                 description: "run command",
                 propertiesFilePath: "env.txt",
                 variablesScope: InjectBambooVariablesTask.VariablesScope.LOCAL,
-                namespace: "test",
+                namespace: "test"
         )
     }
 }

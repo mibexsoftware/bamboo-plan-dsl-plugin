@@ -23,6 +23,12 @@ project("SIMPLEPROJECT") {
                         environmentVariables "what=EVER"
                         executable "atlas-clean"
                     }
+                    injectBambooVariables("Inject Build Variables") {
+                        isFinal true
+                        propertiesFilePath 'envVars.properties'
+                        namespace 'soulmv'
+                        variablesScope VariablesScope.RESULT
+                    }
                 }
             }
 

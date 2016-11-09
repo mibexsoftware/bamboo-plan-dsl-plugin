@@ -9,8 +9,8 @@ import groovy.transform.ToString
 class InjectBambooVariablesTask extends Task {
     static final TASK_ID = 'com.atlassian.bamboo.plugins.bamboo-variable-inject-plugin:inject'
     String propertiesFilePath
-    String namespace
-    VariablesScope variablesScope
+    String namespace = "inject"
+    VariablesScope variablesScope = VariablesScope.LOCAL
 
     // for tests:
     protected InjectBambooVariablesTask() {}
@@ -36,7 +36,7 @@ class InjectBambooVariablesTask extends Task {
         def config = [:]
         config.put('filePath', propertiesFilePath)
         config.put('namespace', namespace)
-        config.put('environmentVariables', variablesScope.name())
+        config.put('scope', variablesScope.toString())
         config
     }
 
