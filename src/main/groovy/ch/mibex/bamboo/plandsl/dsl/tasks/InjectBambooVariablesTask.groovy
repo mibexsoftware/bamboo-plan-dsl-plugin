@@ -9,7 +9,7 @@ import groovy.transform.ToString
 class InjectBambooVariablesTask extends Task {
     static final TASK_ID = 'com.atlassian.bamboo.plugins.bamboo-variable-inject-plugin:inject'
     String propertiesFilePath
-    String namespace = "inject"
+    String namespace = 'inject'
     VariablesScope variablesScope = VariablesScope.LOCAL
 
     // for tests:
