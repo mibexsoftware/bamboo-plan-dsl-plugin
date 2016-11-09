@@ -32,7 +32,7 @@ class PlansWithTriggersSpec extends Specification {
         then:
         results.projects[0].plans[0].triggers.children()[0] == new PollingTrigger(
             displayName: "mypollsched",
-                repositories: ["mygit", "mybitbucket"],
+            repositories: ["mygit", "mybitbucket"],
             pollingStrategy: 'CRON',
             scheduledTrigger: new ScheduledTrigger(cronExpression: "0 0 0 ? * *"),
             onlyRunIfOtherPlansArePassing: new OnlyIfOthersPassingTriggerCondition(planKeys: ["PROJ-PLAN1"])
@@ -71,6 +71,30 @@ class PlansWithTriggersSpec extends Specification {
             repositories: ["test2"],
             ipAddresses: ["127.0.0.1", "192.168.0.1"],
             onlyRunIfOtherPlansArePassing: new OnlyIfOthersPassingTriggerCondition(planKeys: ["PROJ-PLAN1", "PROJ-PLAN3", "PROJ-PLAN5"])
+        )
+    }
+
+    def 'multiple triggers'() {
+        setup:
+        def loader = new DslScriptParserImpl()
+        def dsl = getClass().getResource('/dsls/triggers/MultipleTriggers.groovy').text
+
+        when:
+        def results = loader.parse(new DslScriptContext(dsl))
+
+        then:
+        results.projects[0].plans[0].triggers.children()[0] == new PollingTrigger(
+                displayName: "mypollsched",
+                repositories: ["mygit", "mybitbucket"],
+                pollingStrategy: 'CRON',
+                scheduledTrigger: new ScheduledTrigger(cronExpression: "0 0 0 ? * *"),
+                onlyRunIfOtherPlansArePassing: new OnlyIfOthersPassingTriggerCondition(planKeys: ["PROJ-PLAN1"])
+        )
+        results.projects[0].plans[0].triggers.children()[1] == new RemoteTrigger(
+                displayName: "mycommit",
+                repositories: ["test2"],
+                ipAddresses: ["127.0.0.1", "192.168.0.1"],
+                onlyRunIfOtherPlansArePassing: new OnlyIfOthersPassingTriggerCondition(planKeys: ["PROJ-PLAN1", "PROJ-PLAN3", "PROJ-PLAN5"])
         )
     }
 }
