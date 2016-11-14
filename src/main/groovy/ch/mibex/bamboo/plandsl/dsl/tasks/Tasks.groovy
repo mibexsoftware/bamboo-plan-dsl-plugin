@@ -58,6 +58,10 @@ class Tasks extends AbstractBambooElement implements DslParentElement<Task> {
         handleTask(closure, Maven3Task, description)
     }
 
+    void herokuDeployWar(String description, @DelegatesTo(HerokuDeployWarTask) Closure closure) {
+        handleTask(closure, HerokuDeployWarTask, description)
+    }
+
     void custom(String pluginKey, @DelegatesTo(CustomTask) Closure closure) {
         def task = new CustomTask(bambooFacade, pluginKey)
         DslScriptHelper.execute(closure, task)

@@ -116,7 +116,7 @@ supported by the plug-in, they can still be used with the
     - [ ] Grails
     - [ ] Grunt 0.4.x
     - [ ] Gulp
-    - [ ] Heroku: Deploy WAR Artifact
+    - [x] Heroku: Deploy WAR Artifact
     - [ ] Inject Bamboo variables
     - [ ] JUnit Parser
     - [ ] Maven 1.x
