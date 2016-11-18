@@ -72,4 +72,20 @@ class DeploymentProjectSpec extends Specification {
         )
     }
 
+    def 'deployment projects in external script'() {
+        setup:
+        def loader = new DslScriptParserImpl()
+
+        when:
+        def results = loader.parse(new DslScriptContext(getClass().getResource('/dsls/deployprojs/DeploymentProjectsInExternalScript.groovy').text))
+
+        then:
+        def deploymentProjects = results.projects[0].plans[0].deploymentProjects
+        deploymentProjects.size() == 2
+        deploymentProjects[0].name == 'local project'
+        deploymentProjects[0].children().size() == 2
+        deploymentProjects[1].name == 'global project'
+        deploymentProjects[1].children().size() == 2
+    }
+
 }

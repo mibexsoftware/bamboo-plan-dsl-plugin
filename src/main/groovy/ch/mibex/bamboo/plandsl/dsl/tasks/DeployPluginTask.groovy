@@ -45,15 +45,15 @@ class DeployPluginTask extends Task {
         this.deployPasswordVariable = deployPasswordVariable
     }
 
-    void deployBranchEnabled(boolean deployBranchEnabled) {
+    void deployBranchEnabled(boolean deployBranchEnabled = true) {
         this.deployBranchEnabled = deployBranchEnabled
     }
 
-    void certificateCheckDisabled(boolean certificateCheckDisabled) {
+    void certificateCheckDisabled(boolean certificateCheckDisabled = true) {
         this.certificateCheckDisabled = certificateCheckDisabled
     }
 
-    void useAtlassianIdWebSudo(boolean useAtlassianIdWebSudo) {
+    void useAtlassianIdWebSudo(boolean useAtlassianIdWebSudo = true) {
         this.useAtlassianIdWebSudo = useAtlassianIdWebSudo
     }
 

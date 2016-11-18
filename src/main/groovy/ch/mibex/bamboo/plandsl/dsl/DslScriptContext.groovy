@@ -19,7 +19,8 @@ class DslScriptContext {
 
     DslScriptContext(String location, String body, URL urlRoot, String scriptPath = null) {
         if (location && !isValidScriptName(location)) {
-            throw new DslException('Dashes in script filenames are not allowed: ' +
+            throw new DslException('Invalid script filename detected. Note that filenames need to be valid Java ' +
+                    'identifiers, which e.g. means that "-" in filenames are not allowed. ' +
                     "$location. See https://issues.apache.org/jira/browse/GROOVY-505 for more information.")
         }
         this.location = location

@@ -29,7 +29,7 @@ class ShipItPluginTask extends Task {
         this.deployArtifactName = deployArtifactName
     }
 
-    void onlyAllowToTriggerFromJira(boolean onlyAllowToTriggerFromJira) {
+    void onlyAllowToTriggerFromJira(boolean onlyAllowToTriggerFromJira = true) {
         this.onlyAllowToTriggerFromJira = onlyAllowToTriggerFromJira
     }
 
@@ -37,15 +37,15 @@ class ShipItPluginTask extends Task {
         this.jiraProjectKey = jiraProjectKey
     }
 
-    void runOnBranchBuilds(boolean runOnBranchBuilds) {
+    void runOnBranchBuilds(boolean runOnBranchBuilds = true) {
         this.runOnBranchBuilds = runOnBranchBuilds
     }
 
-    void publicVersion(boolean publicVersion) {
+    void publicVersion(boolean publicVersion = true) {
         this.publicVersion = publicVersion
     }
 
-    void deduceBuildNrFromPluginVersion(boolean deduceBuildNrFromPluginVersion) {
+    void deduceBuildNrFromPluginVersion(boolean deduceBuildNrFromPluginVersion = true) {
         this.deduceBuildNrFromPluginVersion = deduceBuildNrFromPluginVersion
     }
 

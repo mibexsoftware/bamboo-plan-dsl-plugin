@@ -1,10 +1,10 @@
 package ch.mibex.bamboo.plandsl.dsl.scm
 
 import ch.mibex.bamboo.plandsl.dsl.BambooFacade
-import ch.mibex.bamboo.plandsl.dsl.DslParentElement
+import ch.mibex.bamboo.plandsl.dsl.DslParent
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 
-class Scm extends ScmType implements DslParentElement<ScmType> {
+class Scm extends ScmType implements DslParent<ScmType> {
     final List<ScmType> scms = []
 
     Scm(BambooFacade bambooFacade) {
@@ -16,7 +16,7 @@ class Scm extends ScmType implements DslParentElement<ScmType> {
     }
 
     void bitbucketServer(String displayName, @DelegatesTo(ScmBitbucketServer) Closure closure) {
-        handleScm(closure, displayName, ScmBitbucketServer)
+        ScmBitbucketServer bbsScm = (ScmBitbucketServer) handleScm(closure, displayName, ScmBitbucketServer)
     }
 
     void git(String displayName, @DelegatesTo(ScmGit) Closure closure) {
@@ -50,11 +50,12 @@ class Scm extends ScmType implements DslParentElement<ScmType> {
         scms << linkedRepo
     }
 
-    private void handleScm(Closure closure, String displayName, Class<? extends ScmType> clazz) {
+    private ScmType handleScm(Closure closure, String displayName, Class<? extends ScmType> clazz) {
         def scm = clazz.newInstance(bambooFacade)
         scm.displayName = displayName
         DslScriptHelper.execute(closure, scm)
         scms << scm
+        scm
     }
 
     @Override

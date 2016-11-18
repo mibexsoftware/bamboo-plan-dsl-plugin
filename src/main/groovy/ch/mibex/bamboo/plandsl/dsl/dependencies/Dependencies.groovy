@@ -1,6 +1,6 @@
 package ch.mibex.bamboo.plandsl.dsl.dependencies
 
-import ch.mibex.bamboo.plandsl.dsl.DslParentElement
+import ch.mibex.bamboo.plandsl.dsl.DslParent
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import ch.mibex.bamboo.plandsl.dsl.Validations
 import groovy.transform.EqualsAndHashCode
@@ -8,7 +8,7 @@ import groovy.transform.ToString
 
 @ToString
 @EqualsAndHashCode
-class Dependencies implements DslParentElement<Dependency> {
+class Dependencies implements DslParent<Dependency> {
     Set<Dependency> dependencies = new LinkedHashSet<>()
     DependencyBlockingStrategy blockingStrategy
     AdvancedDependencyOptions advancedOptions

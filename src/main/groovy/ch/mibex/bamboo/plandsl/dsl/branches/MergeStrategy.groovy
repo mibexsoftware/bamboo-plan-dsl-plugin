@@ -4,7 +4,7 @@ class MergeStrategy {
     String planBranchKey
     boolean pushEnabled
 
-    void pushEnabled(boolean enabled) {
+    void pushEnabled(boolean enabled = true) {
         this.pushEnabled = enabled
     }
 }

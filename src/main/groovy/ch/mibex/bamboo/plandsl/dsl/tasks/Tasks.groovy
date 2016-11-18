@@ -1,8 +1,8 @@
 package ch.mibex.bamboo.plandsl.dsl.tasks
 
-import ch.mibex.bamboo.plandsl.dsl.AbstractBambooElement
 import ch.mibex.bamboo.plandsl.dsl.BambooFacade
-import ch.mibex.bamboo.plandsl.dsl.DslParentElement
+import ch.mibex.bamboo.plandsl.dsl.BambooObject
+import ch.mibex.bamboo.plandsl.dsl.DslParent
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import ch.mibex.bamboo.plandsl.dsl.RequiresPlugin
 import groovy.transform.EqualsAndHashCode
@@ -10,7 +10,7 @@ import groovy.transform.ToString
 
 @ToString
 @EqualsAndHashCode
-class Tasks extends AbstractBambooElement implements DslParentElement<Task> {
+class Tasks extends BambooObject implements DslParent<Task> {
     List<Task> tasks = []
 
     // for tests

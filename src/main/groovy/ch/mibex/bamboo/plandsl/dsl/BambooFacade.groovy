@@ -27,5 +27,5 @@ interface BambooFacade {
 
     Logger getBuildLogger()
 
-    EnvVariableContext getVariableContext()
+    BambooEnvironment getVariableContext()
 }

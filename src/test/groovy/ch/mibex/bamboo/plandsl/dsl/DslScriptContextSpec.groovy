@@ -9,9 +9,7 @@ class DslScriptContextSpec extends Specification {
         new DslScriptContext("my-script.groovy", null, null)
 
         then:
-        Exception e = thrown(DslException)
-        e.message == 'Dashes in script filenames are not allowed: my-script.groovy. ' +
-                'See https://issues.apache.org/jira/browse/GROOVY-505 for more information.'
+        thrown(DslException)
     }
 
     def 'DSL with inline body text'() {

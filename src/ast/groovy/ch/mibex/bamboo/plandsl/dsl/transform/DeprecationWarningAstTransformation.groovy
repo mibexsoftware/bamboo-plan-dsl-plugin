@@ -19,12 +19,12 @@ import org.codehaus.groovy.transform.GroovyASTTransformation
 class DeprecationWarningAstTransformation implements ASTTransformation {
     private static final String LOG_DEPRECATION_METHOD_NAME = 'logDeprecationWarning'
     private static final ClassNode DEPRECATED_ANNOTATION = ClassHelper.make(Deprecated.name)
-    private static final ClassNode BAMBOO_ELEMENT = ClassHelper.make('ch.mibex.bamboo.plandsl.dsl.BambooElement')
+    private static final ClassNode BAMBOO_OBJECT = ClassHelper.make('ch.mibex.bamboo.plandsl.dsl.BambooObject')
 
     @Override
     void visit(ASTNode[] nodes, SourceUnit sourceUnit) {
         List<ClassNode> classes = sourceUnit.AST.classes.findAll {
-            !it.interface && it.implementsInterface(BAMBOO_ELEMENT)
+            !it.interface && it.isDerivedFrom(BAMBOO_OBJECT)
         }
 
         classes.methods.flatten().each { MethodNode method ->

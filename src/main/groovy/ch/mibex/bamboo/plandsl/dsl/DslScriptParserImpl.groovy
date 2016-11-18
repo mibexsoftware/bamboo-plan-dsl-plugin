@@ -9,6 +9,7 @@ import ch.mibex.bamboo.plandsl.dsl.scm.ScmType
 import ch.mibex.bamboo.plandsl.dsl.tasks.DeployPluginTask
 import ch.mibex.bamboo.plandsl.dsl.tasks.InjectBambooVariablesTask
 import ch.mibex.bamboo.plandsl.dsl.tasks.ScriptTask
+import org.codehaus.groovy.control.CompilationFailedException
 import org.codehaus.groovy.control.CompilerConfiguration
 import org.codehaus.groovy.control.customizers.ImportCustomizer
 import org.codehaus.groovy.runtime.InvokerHelper
@@ -27,33 +28,38 @@ class DslScriptParserImpl implements DslScriptParser {
 
     DslScript parse(DslScriptContext scriptContext) {
         CompilerConfiguration config = createCompilerConfig()
-        Class clazz = parseScript(config, scriptContext)
-        Binding binding = createBinding()
-        evaluateScript(clazz, binding)
-    }
-
-    private DslScript evaluateScript(Class<Script> clazz, Binding binding) {
         try {
-            DslScript script = InvokerHelper.createScript(clazz, binding) as DslScript
-            script.setBambooFacade(bambooFacade)
-            script.run()
-            script
+            DslScript script = parseScript(config, scriptContext)
+            evaluateScript(script)
+        } catch (CompilationFailedException e) {
+            throw new DslException(e.message, e)
         } catch (GroovyRuntimeException e) {
             throw new DslScriptException(e.message, e)
         }
     }
 
-    private static Class parseScript(CompilerConfiguration config, DslScriptContext scriptContext) {
+    private DslScript evaluateScript(DslScript script) {
+        script.setBambooFacade(bambooFacade)
+        script.run()
+        script
+    }
+
+    private DslScript parseScript(CompilerConfiguration config, DslScriptContext scriptContext) {
         ClassLoader parentClassLoader = DslScriptParserImpl.classLoader
         GroovyClassLoader groovyClassLoader = new GroovyClassLoader(parentClassLoader, config)
-        Class<Script> clazz
+        Binding binding = createBinding()
+
+        Script script
         if (scriptContext.body) {
-            clazz = groovyClassLoader.parseClass(scriptContext.body)
+            Class clazz = groovyClassLoader.parseClass(scriptContext.body)
+            script = InvokerHelper.createScript(clazz, binding)
         } else {
-            groovyClassLoader.setResourceLoader(new MyResourceLoader(scriptContext.urlRoot))
-            clazz = groovyClassLoader.parseClass(new File(scriptContext.location))
+            def engine = new GroovyScriptEngine(scriptContext.urlRoot as URL[], groovyClassLoader)
+            script = engine.createScript(scriptContext.location, binding)
         }
-        clazz
+
+        assert script instanceof DslScript
+        script as DslScript
     }
 
     private Binding createBinding() {
@@ -76,7 +82,7 @@ class DslScriptParserImpl implements DslScriptParser {
         // does not work in IDEs:
         importCustomizer.addStaticImport(Notifications.name, Notifications.NotificationConditions.simpleName)
         importCustomizer.addStaticImport(InjectBambooVariablesTask.name,
-                                         InjectBambooVariablesTask.VariablesScope.simpleName)
+                InjectBambooVariablesTask.VariablesScope.simpleName)
         importCustomizer.addStaticImport(Branch.name, Branch.NotifyOnNewBranchesType.simpleName)
         importCustomizer.addStaticImport(Branches.name, Branches.NewPlanBranchesTriggerType.simpleName)
         importCustomizer.addStaticImport(DeployPluginTask.name, DeployPluginTask.ProductType.simpleName)
@@ -89,19 +95,6 @@ class DslScriptParserImpl implements DslScriptParser {
         // would not allow usage of variables like bamboo or configure block:
         // config.addCompilationCustomizers(new ASTTransformationCustomizer(TypeChecked))
         config
-    }
-
-    static class MyResourceLoader implements GroovyResourceLoader {
-        private final URL base
-
-        MyResourceLoader(URL base) {
-            this.base = base
-        }
-
-        URL loadGroovySource(String className) {
-            def filename = className.replaceAll(/\./, '/') + '.groovy'
-            new URL(base, filename)
-        }
     }
 
 }

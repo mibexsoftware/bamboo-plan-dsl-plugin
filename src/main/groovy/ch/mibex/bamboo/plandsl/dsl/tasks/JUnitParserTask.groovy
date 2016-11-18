@@ -20,7 +20,7 @@ class JUnitParserTask extends Task {
         this.testResultsDirectory = testResultsDirectory
     }
 
-    void pickUpTestResultsCreatedOutsideOfBuild(boolean pickUpTestResultsCreatedOutsideOfBuild) {
+    void pickUpTestResultsCreatedOutsideOfBuild(boolean pickUpTestResultsCreatedOutsideOfBuild = true) {
         this.pickUpTestResultsCreatedOutsideOfBuild = pickUpTestResultsCreatedOutsideOfBuild
     }
 

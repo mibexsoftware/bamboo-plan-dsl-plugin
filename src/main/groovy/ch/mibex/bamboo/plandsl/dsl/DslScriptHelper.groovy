@@ -6,7 +6,7 @@ class DslScriptHelper {
     private static final Set<String> CLASS_FILTER = [
             DslScriptHelper.name,
             BambooFacade.name,
-            AbstractBambooElement.name
+            BambooObject.name
     ]
 
     private DslScriptHelper() {}

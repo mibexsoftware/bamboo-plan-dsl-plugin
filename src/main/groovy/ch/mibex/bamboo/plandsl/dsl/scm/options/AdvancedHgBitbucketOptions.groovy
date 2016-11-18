@@ -8,7 +8,7 @@ import groovy.transform.ToString
 class AdvancedHgBitbucketOptions extends AdvancedHgOptions {
     boolean fetchWholeRepository
 
-    void fetchWholeRepository(boolean fetchWholeRepository) {
+    void fetchWholeRepository(boolean fetchWholeRepository = true) {
         this.fetchWholeRepository = fetchWholeRepository
     }
 }

@@ -42,6 +42,8 @@ class ScmBitbucketServer extends ScmType {
         this.repoSlug = repoSlug
     }
 
+    // since version 1.3.0 of the DSL, this can be determined by the plug-in
+    @Deprecated
     void repoId(String repoId) {
         this.repoId = repoId
     }

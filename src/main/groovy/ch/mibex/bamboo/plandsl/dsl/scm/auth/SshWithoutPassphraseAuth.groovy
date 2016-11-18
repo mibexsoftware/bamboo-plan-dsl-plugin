@@ -15,7 +15,7 @@ class SshWithoutPassphraseAuth extends AuthType {
         this.privateKey = privateKey
     }
 
-    void enableSshCompression(boolean enableSshCompression) {
+    void enableSshCompression(boolean enableSshCompression = true) {
         this.enableSshCompression = enableSshCompression
     }
 

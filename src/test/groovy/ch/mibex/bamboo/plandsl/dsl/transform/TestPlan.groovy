@@ -6,8 +6,8 @@ import ch.mibex.bamboo.plandsl.dsl.RequiresBambooVersion
 import ch.mibex.bamboo.plandsl.dsl.RequiresPlugin
 
 class TestPlan extends Plan {
-    TestPlan(BambooFacade requirements) {
-        super(requirements)
+    TestPlan(BambooFacade bambooFacade) {
+        super(bambooFacade)
     }
 
     @Deprecated

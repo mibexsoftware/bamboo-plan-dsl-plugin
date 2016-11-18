@@ -1,13 +1,13 @@
 package ch.mibex.bamboo.plandsl.dsl.branches
 
-import ch.mibex.bamboo.plandsl.dsl.DslParentElement
+import ch.mibex.bamboo.plandsl.dsl.DslParent
 import ch.mibex.bamboo.plandsl.dsl.Validations
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
 @EqualsAndHashCode
 @ToString
-class AutoBranchManagement implements DslParentElement<Branch> {
+class AutoBranchManagement implements DslParent<Branch> {
     Set<Branch> branches = new LinkedHashSet<>()
     DeletedBranchesStrategy deletedBranchesStrategy = DeletedBranchesStrategy.DO_NOT_DELETE_PLAN_BRANCHES
     int deletePlanBranchesAfterDays

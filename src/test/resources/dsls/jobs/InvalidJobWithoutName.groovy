@@ -13,6 +13,7 @@ project("SIMPLEPROJECT") {
             manual false
 
             job("SIMPLEJOB") {
+                name null
                 description "This was a simple job"
                 enabled false
 

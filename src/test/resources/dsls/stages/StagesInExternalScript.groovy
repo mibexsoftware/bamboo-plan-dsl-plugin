@@ -1,4 +1,8 @@
-package dsls
+package dsls.stages
+
+import dsls.stages.commons.MyCommons
+
+def globalStage = stage('global stage')
 
 project("SIMPLEPROJECT") {
     name "Renamed project"
@@ -19,22 +23,9 @@ project("SIMPLEPROJECT") {
             }
         }
 
-        stage("simple stage") {
-            description "this was a simple stage"
-            manual true
-
-            job("SIMPLEJOB") {
-                name "Simple job"
-                description "This is a simple job"
-                enabled true
-
-                tasks {
-                    script('echo hello world') {
-
-                    }
-                }
-            }
-
-        }
+        def myStage = stage('local stage')
+        MyCommons.addStageProperties(myStage)
+        MyCommons.addStageProperties(globalStage)
+        stage(globalStage)
     }
 }

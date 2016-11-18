@@ -1,6 +1,6 @@
 package ch.mibex.bamboo.plandsl.dsl
 
-class Project extends AbstractBambooElement implements DslParentElement<Plan> {
+class Project extends BambooObject implements DslParent<Plan> {
     String key
     String name
     final Set<Plan> plans = new LinkedHashSet<>()
@@ -28,7 +28,7 @@ class Project extends AbstractBambooElement implements DslParentElement<Plan> {
      *
      */
     void name(String name) {
-        Validations.isNotNullOrEmpty(key, 'a project name must be specified')
+        Validations.isNotNullOrEmpty(name, 'a project name must be specified')
         this.name = name
     }
 
@@ -42,13 +42,13 @@ class Project extends AbstractBambooElement implements DslParentElement<Plan> {
         def plan = new Plan(bambooFacade)
         plan.key(key)
         DslScriptHelper.execute(closure, plan)
-        plan.validate()
         plans << plan
         plan
     }
 
-    protected void validate() {
-        Validations.isNotNullOrEmpty(name, 'Project must have a name attribute')
+    Plan plan(Plan plan) {
+        plans << plan
+        plan
     }
 
     @Override

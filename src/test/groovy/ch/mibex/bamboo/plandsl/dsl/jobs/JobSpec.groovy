@@ -22,14 +22,35 @@ class JobSpec extends Specification {
     def 'job without name'() {
         setup:
         def loader = new DslScriptParserImpl()
-        def dsl = getClass().getResource('/dsls/jobs/JobWithoutName.txt').text
+        def dsl = getClass().getResource('/dsls/jobs/InvalidJobWithoutName.groovy').text
 
         when:
         loader.parse(new DslScriptContext(dsl))
 
         then:
         Exception e = thrown(DslScriptException)
-        e.message == '(script:15): Job must have a name attribute'
+        e.message == '(script:16): job name must be specified'
+    }
+
+    def 'job in external script'() {
+        setup:
+        def loader = new DslScriptParserImpl()
+        def dsl = getClass().getResource('/dsls/jobs/JobInExternalScript.groovy').text
+
+        when:
+        def results = loader.parse(new DslScriptContext(dsl))
+
+        then:
+        def jobs = results.projects[0].plans[0].stages[0].jobs
+        jobs.size() == 2
+        jobs[0].key == 'SIMPLEJOB2'
+        jobs[0].name ==  'Build plug-in'
+        jobs[0].description == 'analyzes the code, runs tests and builds the plug-in'
+        jobs[0].children().size() == 3
+        jobs[1].artifacts.artifactDefinitions.size() == 1
+        jobs[1].key == 'SIMPLEJOB1'
+        jobs[1].children().size() == 3
+        jobs[1].artifacts.artifactDefinitions.size() == 1
     }
 
 }

@@ -73,13 +73,19 @@ class NullBambooFacade implements BambooFacade {
     }
 
     @Override
-    EnvVariableContext getVariableContext() {
-        new NullEnvVariableContext()
+    BambooEnvironment getVariableContext() {
+        new NullBambooEnvironment()
     }
 
     // this is used to allow checking of DSL scripts without throwing errors
-    static class NullEnvVariableContext implements EnvVariableContext {
+    static class NullBambooEnvironment implements BambooEnvironment {
+        @Override
         String getAt(String key) {
+            key
+        }
+
+        @Override
+        String call(String key) {
             key
         }
     }

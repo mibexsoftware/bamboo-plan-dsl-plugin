@@ -1,13 +1,13 @@
 package ch.mibex.bamboo.plandsl.dsl.notifications
 
-import ch.mibex.bamboo.plandsl.dsl.DslParentElement
+import ch.mibex.bamboo.plandsl.dsl.DslParent
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
 @EqualsAndHashCode
 @ToString
-class Notifications implements DslParentElement<NotificationType> {
+class Notifications implements DslParent<NotificationType> {
     Set<NotificationType> notifications = new LinkedHashSet<>()
 
     void hipchat(NotificationConditions conditions, @DelegatesTo(HipChatNotification) Closure closure) {

@@ -10,15 +10,15 @@ class AdvancedDependencyOptions {
     boolean triggerDependenciesOnlyWhenAllStagesHaveRunSuccessfully
     boolean autoDependencyManagement
 
-    void triggerDependenciesOnlyWhenAllStagesHaveRunSuccessfully(boolean active) {
+    void triggerDependenciesOnlyWhenAllStagesHaveRunSuccessfully(boolean active = true) {
         triggerDependenciesOnlyWhenAllStagesHaveRunSuccessfully = active
     }
 
-    void autoDependencyManagement(boolean active) {
+    void autoDependencyManagement(boolean active = true) {
         autoDependencyManagement = active
     }
 
-    void enableDependenciesForAllBranches(boolean active) {
+    void enableDependenciesForAllBranches(boolean active = true) {
         enableDependenciesForAllBranches = active
     }
 }

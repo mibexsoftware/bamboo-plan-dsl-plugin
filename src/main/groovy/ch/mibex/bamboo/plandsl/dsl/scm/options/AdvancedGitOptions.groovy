@@ -8,7 +8,7 @@ import groovy.transform.ToString
 class AdvancedGitOptions extends AdvancedGitRepoOptions {
     boolean enableRepositoryCachingOnRemoteAgents
 
-    void enableRepositoryCachingOnRemoteAgents(boolean enableRepositoryCachingOnRemoteAgents) {
+    void enableRepositoryCachingOnRemoteAgents(boolean enableRepositoryCachingOnRemoteAgents = true) {
         this.enableRepositoryCachingOnRemoteAgents = enableRepositoryCachingOnRemoteAgents
     }
 

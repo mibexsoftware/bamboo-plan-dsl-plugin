@@ -1,13 +1,13 @@
 package ch.mibex.bamboo.plandsl.dsl.variables
 
-import ch.mibex.bamboo.plandsl.dsl.DslParentElement
+import ch.mibex.bamboo.plandsl.dsl.DslParent
 import ch.mibex.bamboo.plandsl.dsl.Validations
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
 @ToString
 @EqualsAndHashCode
-class Variables implements DslParentElement<Variable> {
+class Variables implements DslParent<Variable> {
     Set<Variable> variables = new LinkedHashSet<>()
 
     void variable(String key, String value) {

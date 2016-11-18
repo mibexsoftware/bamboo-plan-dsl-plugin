@@ -10,16 +10,17 @@ class BambooEnvAccessSpec extends Specification {
         setup:
         def context = new NullBambooFacade() {
             @Override
-            EnvVariableContext getVariableContext() {
-                new StrictEnvVariableContext(['my.key': 'my.value'])
+            BambooEnvironment getVariableContext() {
+                new StrictBambooEnvironment(['my.key': 'my.value' , 'my.otherkey': 'my.othervalue'])
             }
         }
         def loader = new DslScriptParserImpl(context)
 
         when:
         def results = loader.parse(new DslScriptContext(getClass().getResource('/dsls/BambooEnvAccess.groovy').text))
-
         then:
-        (results.projects[0].plans[0].notifications.notifications[0] as HipChatNotification).room == 'my.value'
+        def notification = results.projects[0].plans[0].notifications.notifications[0] as HipChatNotification
+        notification.apiToken == 'my.othervalue'
+        notification.room == 'my.value'
     }
 }

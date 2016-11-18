@@ -16,7 +16,7 @@ class DeploymentTriggerType {
         this.displayName = displayName
     }
 
-    void enabled(boolean enabled) {
+    void enabled(boolean enabled = true) {
         this.enabled = enabled
     }
 }

@@ -9,11 +9,11 @@ class ProjectSpec extends Specification {
         def loader = new DslScriptParserImpl()
 
         when:
-        loader.parse(new DslScriptContext(getClass().getResource('/dsls/projects/ProjectWithoutName.txt').text))
+        loader.parse(new DslScriptContext(getClass().getResource('/dsls/projects/InvalidProjectWithoutName.groovy').text))
 
         then:
         Exception e = thrown(DslScriptException)
-        e.message == '(script:3): Project must have a name attribute'
+        e.message == '(script:5): a project name must be specified'
     }
 
 }

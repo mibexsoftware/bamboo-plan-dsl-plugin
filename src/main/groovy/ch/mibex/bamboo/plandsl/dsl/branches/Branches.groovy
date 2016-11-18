@@ -1,6 +1,6 @@
 package ch.mibex.bamboo.plandsl.dsl.branches
 
-import ch.mibex.bamboo.plandsl.dsl.DslParentElement
+import ch.mibex.bamboo.plandsl.dsl.DslParent
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
@@ -9,7 +9,7 @@ import static ch.mibex.bamboo.plandsl.dsl.branches.Branch.NotifyOnNewBranchesTyp
 
 @ToString
 @EqualsAndHashCode
-class Branches implements DslParentElement<Branch> {
+class Branches implements DslParent<Branch> {
     Set<Branch> branches = new LinkedHashSet<>()
     AutoBranchManagement autoBranchManagement
     BranchMerging branchMerging

@@ -1,13 +1,13 @@
 package ch.mibex.bamboo.plandsl.dsl.triggers
 
-import ch.mibex.bamboo.plandsl.dsl.DslParentElement
+import ch.mibex.bamboo.plandsl.dsl.DslParent
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
 @EqualsAndHashCode
 @ToString
-class Triggers implements DslParentElement<TriggerType> {
+class Triggers implements DslParent<TriggerType> {
     Set<TriggerType> triggers = new LinkedHashSet<>()
 
     void scheduled(String displayName, @DelegatesTo(ScheduledTrigger) Closure closure) {

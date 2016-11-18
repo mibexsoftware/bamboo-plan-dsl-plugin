@@ -1,14 +1,14 @@
 package ch.mibex.bamboo.plandsl.dsl.jobs
 
-import ch.mibex.bamboo.plandsl.dsl.AbstractBambooElement
+import ch.mibex.bamboo.plandsl.dsl.BambooObject
 import ch.mibex.bamboo.plandsl.dsl.BambooFacade
-import ch.mibex.bamboo.plandsl.dsl.DslParentElement
+import ch.mibex.bamboo.plandsl.dsl.DslParent
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import ch.mibex.bamboo.plandsl.dsl.Validations
 import ch.mibex.bamboo.plandsl.dsl.tasks.Task
 import ch.mibex.bamboo.plandsl.dsl.tasks.Tasks
 
-class Job extends AbstractBambooElement implements DslParentElement<Task> {
+class Job extends BambooObject implements DslParent<Task> {
     String key
     String name
     String description
@@ -57,7 +57,7 @@ class Job extends AbstractBambooElement implements DslParentElement<Task> {
     /**
      * Specifies if this job should be enabled or not.
      */
-    void enabled(boolean enabled) {
+    void enabled(boolean enabled = true) {
         this.enabled = enabled
     }
 
@@ -77,10 +77,6 @@ class Job extends AbstractBambooElement implements DslParentElement<Task> {
         def newTaskList = new Tasks()
         DslScriptHelper.execute(closure, newTaskList)
         tasksList = newTaskList
-    }
-
-    void validate() {
-        Validations.isNotNullOrEmpty(name, 'Job must have a name attribute')
     }
 
     @Override

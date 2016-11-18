@@ -1,8 +1,9 @@
-package dsls.projects
+package dsls.plans
 
 project("SIMPLEPROJECT") {
+    name "my project"
 
     plan("SIMPLEPLAN") {
-        name "my plan"
+        name null
     }
 }

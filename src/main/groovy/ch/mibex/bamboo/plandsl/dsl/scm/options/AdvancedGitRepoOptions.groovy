@@ -21,11 +21,11 @@ class AdvancedGitRepoOptions {
     String excludeChangesetsRegex
     WebRepository webRepository
 
-    void useShallowClones(boolean useShallowClones) {
+    void useShallowClones(boolean useShallowClones = true) {
         this.useShallowClones = useShallowClones
     }
 
-    void useSubmodules(boolean useSubmodules) {
+    void useSubmodules(boolean useSubmodules = true) {
         this.useSubmodules = useSubmodules
     }
 
@@ -33,11 +33,11 @@ class AdvancedGitRepoOptions {
         this.commandTimeoutInMinutes = commandTimeoutInMinutes
     }
 
-    void verboseLogs(boolean verboseLogs) {
+    void verboseLogs(boolean verboseLogs = true) {
         this.verboseLogs = verboseLogs
     }
 
-    void fetchWholeRepository(boolean fetchWholeRepository) {
+    void fetchWholeRepository(boolean fetchWholeRepository = true) {
         this.fetchWholeRepository = fetchWholeRepository
     }
 

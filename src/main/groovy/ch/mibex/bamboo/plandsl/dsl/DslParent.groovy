@@ -1,5 +1,5 @@
 package ch.mibex.bamboo.plandsl.dsl
 
-interface DslParentElement<T> {
+interface DslParent<T> {
     Collection<T> children()
 }

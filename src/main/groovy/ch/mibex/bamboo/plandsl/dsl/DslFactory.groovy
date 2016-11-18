@@ -1,9 +1,9 @@
 package ch.mibex.bamboo.plandsl.dsl
 
+import ch.mibex.bamboo.plandsl.dsl.deployprojs.DeploymentProject
 import ch.mibex.bamboo.plandsl.dsl.jobs.Job
 
 interface DslFactory {
-
     /**
      * Creates a project definition.
      *
@@ -11,13 +11,15 @@ interface DslFactory {
      */
     Project project(String key, @DelegatesTo(Project) Closure closure)
 
-    /**
-     * Creates a build job definition.
-     *
-     * @param key the key of the job consisting of an uppercase letter followed by one or more uppercase
-     * alphanumeric characters. E. g. CORE (for a module called core)
-     */
-    Job job(String key, @DelegatesTo(Job) Closure closure)
+    Plan plan(String key)
 
     Job job(String key)
+
+    Stage stage(String name)
+
+    DeploymentProject deploymentProject(String name)
+
+    BambooEnvironment env()
+
+    String env(String key)
 }

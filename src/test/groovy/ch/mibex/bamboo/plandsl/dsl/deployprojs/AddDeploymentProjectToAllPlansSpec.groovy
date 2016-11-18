@@ -1,5 +1,7 @@
-package ch.mibex.bamboo.plandsl.dsl
+package ch.mibex.bamboo.plandsl.dsl.deployprojs
 
+import ch.mibex.bamboo.plandsl.dsl.DslScriptContext
+import ch.mibex.bamboo.plandsl.dsl.DslScriptParserImpl
 import spock.lang.Specification
 
 class AddDeploymentProjectToAllPlansSpec extends Specification {

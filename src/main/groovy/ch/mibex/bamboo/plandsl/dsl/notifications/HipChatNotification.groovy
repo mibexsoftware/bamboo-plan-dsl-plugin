@@ -20,7 +20,15 @@ class HipChatNotification extends NotificationType {
         this.room = room
     }
 
+    /**
+     * @deprecated use #notifyParticipants(boolean notify) instead
+     */
+    @Deprecated
     void notify(boolean notify) {
+        this.notify = notify
+    }
+
+    void notifyParticipants(boolean notify = true) {
         this.notify = notify
     }
 
@@ -29,7 +37,7 @@ class HipChatNotification extends NotificationType {
         def config = [:]
         config.put('apiToken', [apiToken] as String[])
         config.put('room', [room] as String[])
-        config.put('notifyUsers', [notify.toString()] as String[])
+        config.put('notifyUsers', ['' + notify] as String[])
         config
     }
 

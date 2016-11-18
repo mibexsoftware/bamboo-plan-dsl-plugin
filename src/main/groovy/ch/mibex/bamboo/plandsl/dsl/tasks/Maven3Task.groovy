@@ -54,7 +54,7 @@ class Maven3Task extends Task {
         this.workingSubDirectory = workingSubDirectory
     }
 
-    void useMavenReturnCode(boolean useMavenReturnCode) {
+    void useMavenReturnCode(boolean useMavenReturnCode = true) {
         this.useMavenReturnCode = useMavenReturnCode
     }
 

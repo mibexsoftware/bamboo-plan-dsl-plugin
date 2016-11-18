@@ -39,7 +39,7 @@ class ArtifactDefinition {
     /**
      * Make the artifact available to be used in other builds and deployments.
      */
-    void shared(boolean isShared) {
+    void shared(boolean isShared = true) {
         this.isShared = isShared
     }
 }

@@ -42,11 +42,11 @@ class ScmPerforce extends ScmType {
         this.environmentVariables = envVariables
     }
 
-    void useClientMapping(boolean useClientMapping) {
+    void useClientMapping(boolean useClientMapping = true) {
         this.useClientMapping = useClientMapping
     }
 
-    void letBambooManageWorkspace(boolean letBambooManageWorkspace) {
+    void letBambooManageWorkspace(boolean letBambooManageWorkspace = true) {
         this.letBambooManageWorkspace = letBambooManageWorkspace
     }
 

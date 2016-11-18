@@ -24,7 +24,9 @@ class DslScriptSpec extends Specification {
     private static def findDslFiles() {
         List<File> dslFiles = []
         new File('src/test/resources').eachFileRecurse {
-            if (it.name.endsWith('.groovy')) {
+            if (it.name.endsWith('.groovy') &&
+                !it.path.contains("/commons/") && // these external helper files are not parsable on their own
+                !it.name.startsWith('Invalid')) { // these files contain errors to test the parser
                 dslFiles << it
             }
         }

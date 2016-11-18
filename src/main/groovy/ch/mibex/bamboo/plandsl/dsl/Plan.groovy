@@ -12,7 +12,7 @@ import groovy.transform.ToString
 
 @ToString
 @EqualsAndHashCode
-class Plan extends AbstractBambooElement implements DslParentElement<Stage> {
+class Plan extends BambooObject implements DslParent<Stage> {
     String key
     String name
     String description
@@ -39,7 +39,7 @@ class Plan extends AbstractBambooElement implements DslParentElement<Stage> {
      * @param key the key of the plan consisting of an uppercase letter followed by one or more uppercase
      * alphanumeric characters
      */
-    void key(String key) {
+    protected void key(String key) {
         Validations.isNotNullOrEmpty(key, 'plan key must be specified')
         Validations.isTrue(
             key ==~ /[A-Z][A-Z0-9]*/,
@@ -52,6 +52,7 @@ class Plan extends AbstractBambooElement implements DslParentElement<Stage> {
      * Specifies the name of the plan.
      */
     void name(String name) {
+        Validations.isNotNullOrEmpty(name, 'plan name must be specified')
         this.name = name
     }
 
@@ -74,11 +75,26 @@ class Plan extends AbstractBambooElement implements DslParentElement<Stage> {
      * Defines a deployment project for this plan. This can be called multiple times if you have multiple deployment
      * projects for this plan.
      *
+     * @param name the name of the deployment project
+     *
      * @since 1.1.0
      */
-    void deploymentProject(String name, @DelegatesTo(DeploymentProject) Closure closure) {
-        def deploymentProject = new DeploymentProject(name)
+    DeploymentProject deploymentProject(String name, @DelegatesTo(DeploymentProject) Closure closure) {
+        def deploymentProject = new DeploymentProject(bambooFacade)
+        deploymentProject.name(name)
         DslScriptHelper.execute(closure, deploymentProject)
+        deploymentProjects << deploymentProject
+        deploymentProject
+    }
+
+    DeploymentProject deploymentProject(String name) {
+        def deploymentProject = new DeploymentProject(bambooFacade)
+        deploymentProject.name(name)
+        deploymentProjects << deploymentProject
+        deploymentProject
+    }
+
+    DeploymentProject deploymentProject(DeploymentProject deploymentProject) {
         deploymentProjects << deploymentProject
         deploymentProject
     }
@@ -105,8 +121,13 @@ class Plan extends AbstractBambooElement implements DslParentElement<Stage> {
      * Specifies the branches for this plan.
      */
     void branches(@DelegatesTo(Branches) Closure closure) {
-        this.branches = new Branches()
+        branches = new Branches()
         DslScriptHelper.execute(closure, branches)
+    }
+
+    Branches branches() {
+        branches = new Branches()
+        branches
     }
 
     /**
@@ -123,12 +144,30 @@ class Plan extends AbstractBambooElement implements DslParentElement<Stage> {
         stage
     }
 
+    Stage stage(Stage stage) {
+        stages << stage
+        stage
+    }
+
+    Stage stage(String name) {
+        def stage = new Stage(bambooFacade)
+        stage.name(name)
+        stages << stage
+        stage
+    }
+
     /**
      * Specifies the notifications for this plan.
      */
-    void notifications(@DelegatesTo(Notifications) Closure closure) {
-        this.notifications = new Notifications()
+    Notifications notifications(@DelegatesTo(Notifications) Closure closure) {
+        notifications = new Notifications()
         DslScriptHelper.execute(closure, notifications)
+        notifications
+    }
+
+    Notifications notifications() {
+        notifications = new Notifications()
+        notifications
     }
 
     /**
@@ -147,10 +186,6 @@ class Plan extends AbstractBambooElement implements DslParentElement<Stage> {
         def dependencies = new Dependencies()
         DslScriptHelper.execute(closure, dependencies)
         this.dependencies =  dependencies
-    }
-
-    protected void validate() {
-        Validations.isNotNullOrEmpty(name, 'Plan must have a name attribute')
     }
 
     @Override

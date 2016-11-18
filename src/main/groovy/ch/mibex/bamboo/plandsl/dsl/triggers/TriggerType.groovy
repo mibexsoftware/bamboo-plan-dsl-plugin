@@ -12,7 +12,7 @@ class TriggerType {
         DslScriptHelper.execute(closure, onlyRunIfOtherPlansArePassing)
     }
 
-    void enabled(boolean enabled) {
+    void enabled(boolean enabled = true) {
         this.enabled = enabled
     }
 

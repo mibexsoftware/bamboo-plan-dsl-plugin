@@ -22,7 +22,7 @@ class AdvancedHgOptions {
         this.commandTimeoutInMinutes = commandTimeoutInMinutes
     }
 
-    void verboseLogs(boolean verboseLogs) {
+    void verboseLogs(boolean verboseLogs = true) {
         this.verboseLogs = verboseLogs
     }
 

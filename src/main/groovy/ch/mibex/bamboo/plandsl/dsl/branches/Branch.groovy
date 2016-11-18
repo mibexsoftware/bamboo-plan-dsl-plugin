@@ -32,11 +32,11 @@ class Branch {
         this.description = description
     }
 
-    void enabled(boolean enabled) {
+    void enabled(boolean enabled = true) {
         this.enabled = enabled
     }
 
-    void cleanupAutomatically(boolean cleanupAutomatically) {
+    void cleanupAutomatically(boolean cleanupAutomatically = true) {
         this.cleanupAutomatically = cleanupAutomatically
     }
 

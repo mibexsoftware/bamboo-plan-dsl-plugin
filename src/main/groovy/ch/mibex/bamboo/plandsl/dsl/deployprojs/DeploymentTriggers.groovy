@@ -1,6 +1,6 @@
 package ch.mibex.bamboo.plandsl.dsl.deployprojs
 
-import ch.mibex.bamboo.plandsl.dsl.DslParentElement
+import ch.mibex.bamboo.plandsl.dsl.DslParent
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
@@ -10,7 +10,7 @@ import groovy.transform.ToString
  */
 @EqualsAndHashCode
 @ToString
-class DeploymentTriggers implements DslParentElement<DeploymentTriggerType> {
+class DeploymentTriggers implements DslParent<DeploymentTriggerType> {
     Set<DeploymentTriggerType> triggers = new LinkedHashSet<>()
 
     void scheduled(String displayName, @DelegatesTo(ScheduledDeploymentTrigger) Closure closure) {

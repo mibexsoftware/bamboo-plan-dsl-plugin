@@ -1,9 +1,9 @@
 package ch.mibex.bamboo.plandsl.dsl.tasks
 
-import ch.mibex.bamboo.plandsl.dsl.AbstractBambooElement
 import ch.mibex.bamboo.plandsl.dsl.BambooFacade
+import ch.mibex.bamboo.plandsl.dsl.BambooObject
 
-abstract class Task extends AbstractBambooElement {
+abstract class Task extends BambooObject {
     boolean enabled = true // we want tasks to be enabled by default
     boolean isFinal
     String description
@@ -19,11 +19,11 @@ abstract class Task extends AbstractBambooElement {
 
     abstract def Map<String, String> getConfig(Map<Object, Object> context)
 
-    void enabled(boolean enabled) {
+    void enabled(boolean enabled = true) {
         this.enabled = enabled
     }
 
-    void isFinal(boolean isFinal) {
+    void isFinal(boolean isFinal = true) {
         this.isFinal = isFinal
     }
 

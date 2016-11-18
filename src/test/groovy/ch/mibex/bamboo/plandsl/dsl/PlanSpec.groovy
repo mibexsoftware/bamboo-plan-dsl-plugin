@@ -1,5 +1,7 @@
 package ch.mibex.bamboo.plandsl.dsl
 
+import ch.mibex.bamboo.plandsl.dsl.branches.AutoBranchManagement
+import ch.mibex.bamboo.plandsl.dsl.branches.Branches
 import ch.mibex.bamboo.plandsl.dsl.dependencies.AdvancedDependencyOptions
 import ch.mibex.bamboo.plandsl.dsl.dependencies.Dependencies
 import ch.mibex.bamboo.plandsl.dsl.dependencies.Dependency
@@ -34,25 +36,23 @@ class PlanSpec extends Specification {
         def loader = new DslScriptParserImpl()
 
         when:
-        loader.parse(new DslScriptContext(getClass().getResource('/dsls/plans/InvalidPlanKey.txt').text))
+        loader.parse(new DslScriptContext(getClass().getResource('/dsls/plans/InvalidPlanKey.groovy').text))
 
         then:
         Exception e = thrown(DslScriptException)
         e.message == '(script:6): plan key must consist of an uppercase letter followed by one or more uppercase alphanumeric characters.'
     }
 
-
     def 'plan with invalid plan key from DSL script'() {
         setup:
         def loader = new DslScriptParserImpl()
 
         when:
-        def resource = getClass().getResource('/dsls/plans/InvalidPlanKey.txt')
-        loader.parse(new DslScriptContext(new File(resource.toURI()).absolutePath, null, null))
+        loader.parse(new DslScriptContext(getClass().getResource('/dsls/plans/InvalidPlanKey.groovy').text))
 
         then:
         Exception e = thrown(DslScriptException)
-        e.message == '(InvalidPlanKey.txt:6): plan key must consist of an uppercase letter followed by one or more uppercase alphanumeric characters.'
+        e.message == '(script:6): plan key must consist of an uppercase letter followed by one or more uppercase alphanumeric characters.'
     }
 
     def 'plan without name should yield exception'() {
@@ -60,11 +60,11 @@ class PlanSpec extends Specification {
         def loader = new DslScriptParserImpl()
 
         when:
-        loader.parse(new DslScriptContext(getClass().getResource('/dsls/plans/PlanWithoutName.txt').text))
+        loader.parse(new DslScriptContext(getClass().getResource('/dsls/plans/InvalidPlanWithoutName.groovy').text))
 
         then:
         Exception e = thrown(DslScriptException)
-        e.message == '(script:6): Plan must have a name attribute'
+        e.message == '(script:7): plan name must be specified'
     }
 
     def 'plan with variables'() {
@@ -86,6 +86,34 @@ class PlanSpec extends Specification {
                 description: "this is a simple plan",
                 variables: new Variables(variables: [new Variable('key1', 'value1'), new Variable('key2', 'value2')])
         )
+    }
+
+    def 'plans in external script'() {
+        setup:
+        def loader = new DslScriptParserImpl()
+
+        when:
+        def results = loader.parse(new DslScriptContext(getClass().getResource('/dsls/plans/PlansInExternalScript.groovy').text))
+
+        then:
+        results != null
+        results.projects[0].plans.size() == 3
+        results.projects[0].plans[0].key == 'PLAN1'
+        results.projects[0].plans[0].name == 'plan 1'
+
+        def branches = new Branches(
+                autoBranchManagement: new AutoBranchManagement(
+                        inactiveBranchesStrategy: AutoBranchManagement.InactiveBranchesStrategy.DELETE_INACTIVE_PLAN_BRANCHES_AFTER_DAYS,
+                        deleteInactivePlanBranchesAfterDays: 14,
+                        newBranchesStrategy: AutoBranchManagement.NewBranchesStrategy.NEW_PLAN_BRANCHES_FOR_MATCHING_BRANCH_NAMES,
+                        matchingBranchesRegex: "feature/*",
+                        deletedBranchesStrategy: AutoBranchManagement.DeletedBranchesStrategy.DELETE_PLAN_BRANCHES_AFTER_DAYS,
+                        deletePlanBranchesAfterDays: 7
+                )
+        )
+        results.projects[0].plans[0].branches == branches
+        results.projects[0].plans[1].branches == branches
+        results.projects[0].plans[2].branches == branches
     }
 
     def 'plan with dependencies'() {

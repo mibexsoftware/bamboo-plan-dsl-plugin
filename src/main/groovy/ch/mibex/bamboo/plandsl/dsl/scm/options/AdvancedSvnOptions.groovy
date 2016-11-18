@@ -24,23 +24,23 @@ class AdvancedSvnOptions {
     String excludeChangesetsRegex
     WebRepository webRepository
 
-    void detectChangesInExternals(boolean detectChangesInExternals) {
+    void detectChangesInExternals(boolean detectChangesInExternals = true) {
         this.detectChangesInExternals = detectChangesInExternals
     }
 
-    void useSvnExport(boolean useSvnExport) {
+    void useSvnExport(boolean useSvnExport = true) {
         this.useSvnExport = useSvnExport
     }
 
-    void enableCommitIsolation(boolean enableCommitIsolation) {
+    void enableCommitIsolation(boolean enableCommitIsolation = true) {
         this.enableCommitIsolation = enableCommitIsolation
     }
 
-    void autoDetectRootUrlForBranches(boolean autoDetectRootUrlForBranches) {
+    void autoDetectRootUrlForBranches(boolean autoDetectRootUrlForBranches = true) {
         this.autoDetectRootUrlForBranches = autoDetectRootUrlForBranches
     }
 
-    void autoDetectRootUrlForTags(boolean autoDetectRootUrlForTags) {
+    void autoDetectRootUrlForTags(boolean autoDetectRootUrlForTags = true) {
         this.autoDetectRootUrlForTags = autoDetectRootUrlForTags
     }
 
