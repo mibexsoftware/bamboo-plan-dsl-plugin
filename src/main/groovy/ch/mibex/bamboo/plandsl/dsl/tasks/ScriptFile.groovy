@@ -5,11 +5,11 @@ import groovy.transform.ToString
 
 import ch.mibex.bamboo.plandsl.dsl.tasks.ScriptTask.ScriptInterpreter
 
-@EqualsAndHashCode(includeFields=true)
+@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'])
 @ToString(includeFields=true)
 class ScriptFile {
-    ScriptInterpreter interpreter
-    String scriptFile
+    private ScriptInterpreter interpreter
+    private String scriptFile
 
     /**
      * An interpreter is chosen based on the shebang line of your script.

@@ -7,7 +7,7 @@ import ch.mibex.bamboo.plandsl.dsl.scm.options.AdvancedPerforceOptions
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@EqualsAndHashCode(includeFields=true)
+@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'], callSuper = true)
 @ToString(includeFields=true)
 class ScmPerforce extends ScmType {
     private String port

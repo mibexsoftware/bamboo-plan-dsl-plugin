@@ -5,7 +5,7 @@ import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@EqualsAndHashCode(includeFields=true)
+@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'])
 @ToString(includeFields=true)
 class PollingTrigger extends TriggerType {
     private List<String> repositories

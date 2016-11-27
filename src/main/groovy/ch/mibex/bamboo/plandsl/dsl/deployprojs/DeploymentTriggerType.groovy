@@ -8,7 +8,7 @@ import groovy.transform.ToString
 /**
  * @since 1.1.0
  */
-@EqualsAndHashCode(includeFields=true)
+@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'])
 @ToString(includeFields=true)
 class DeploymentTriggerType extends BambooObject {
     protected String displayName

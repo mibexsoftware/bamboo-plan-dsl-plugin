@@ -9,7 +9,7 @@ import ch.mibex.bamboo.plandsl.dsl.triggers.Triggers
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@EqualsAndHashCode(includeFields=true)
+@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'])
 @ToString(includeFields=true)
 class Branch extends BambooObject {
     private String name

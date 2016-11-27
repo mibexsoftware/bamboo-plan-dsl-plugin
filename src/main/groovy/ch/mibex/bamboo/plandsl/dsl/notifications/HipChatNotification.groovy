@@ -1,14 +1,20 @@
 package ch.mibex.bamboo.plandsl.dsl.notifications
 
 import ch.mibex.bamboo.plandsl.dsl.BambooFacade
+import groovy.transform.EqualsAndHashCode
+import groovy.transform.ToString
 
 import static ch.mibex.bamboo.plandsl.dsl.notifications.Notifications.NotificationConditions
 
+@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'], callSuper = true)
+@ToString(includeFields=true)
 class HipChatNotification extends NotificationType {
     private static final NOTIFICATION_RECIPIENT_TYPE = 'com.atlassian.bamboo.plugins.bamboo-hipchat:recipient.hipchat'
     private String apiToken
     private String room
     private boolean notify
+
+    protected HipChatNotification() {}
 
     HipChatNotification(NotificationConditions conditionKey, BambooFacade bambooFacade) {
         super(NOTIFICATION_RECIPIENT_TYPE, conditionKey, bambooFacade)

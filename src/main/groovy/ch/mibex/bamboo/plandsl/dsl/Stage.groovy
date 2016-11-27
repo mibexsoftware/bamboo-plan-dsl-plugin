@@ -1,12 +1,16 @@
 package ch.mibex.bamboo.plandsl.dsl
 
 import ch.mibex.bamboo.plandsl.dsl.jobs.Job
+import groovy.transform.EqualsAndHashCode
+import groovy.transform.ToString
 
+@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'])
+@ToString(includeFields=true)
 class Stage extends BambooObject {
-    String name
-    String description
-    boolean manual
-    protected List<Job> jobs = new ArrayList<>()
+    private String name
+    private String description
+    private boolean manual
+    private List<Job> jobs = []
 
     protected Stage(String name, BambooFacade bambooFacade) {
         super(bambooFacade)

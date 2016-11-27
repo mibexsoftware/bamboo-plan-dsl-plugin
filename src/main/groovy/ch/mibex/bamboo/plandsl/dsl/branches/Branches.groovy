@@ -8,10 +8,10 @@ import groovy.transform.ToString
 
 import static ch.mibex.bamboo.plandsl.dsl.branches.Branch.NotifyOnNewBranchesType
 
-@EqualsAndHashCode(includeFields=true)
+@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'])
 @ToString(includeFields=true)
 class Branches extends BambooObject {
-    private List<Branch> branches = new ArrayList<>()
+    private List<Branch> branches = []
     private AutoBranchManagement autoBranchManagement
     private BranchMerging branchMerging
     private NotifyOnNewBranchesType notificationsType = NotifyOnNewBranchesType.NOTIFY_COMMITTERS_FOR_FAVOURITED_BRANCHES

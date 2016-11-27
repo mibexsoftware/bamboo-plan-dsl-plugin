@@ -6,7 +6,7 @@ import ch.mibex.bamboo.plandsl.dsl.scm.options.AdvancedGitRepoOptions
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@EqualsAndHashCode(includeFields=true)
+@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'], callSuper = true)
 @ToString(includeFields=true)
 class ScmBitbucketServer extends ScmType {
     private String serverName

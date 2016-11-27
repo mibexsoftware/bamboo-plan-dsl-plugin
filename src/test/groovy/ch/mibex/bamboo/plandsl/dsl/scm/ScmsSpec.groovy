@@ -18,9 +18,10 @@ class ScmsSpec extends Specification {
 
         when:
         def results = loader.parse(new DslScriptContext(dsl))
+        def gitScm = results.projects[0].plans[0].scm.scms[0]
 
         then:
-        results.projects[0].plans[0].scm.scms[0] == new ScmGit(
+        gitScm == new ScmGit(
             advancedOptions: new AdvancedGitOptions(
                     useShallowClones: true,
                     enableRepositoryCachingOnRemoteAgents: true,
@@ -29,21 +30,20 @@ class ScmsSpec extends Specification {
                     verboseLogs: true,
                     fetchWholeRepository: true,
                     quietPeriod: new QuietPeriod(
-                        waitTimeInSeconds: 120,
-                        maximumRetries: 3
+                            waitTimeInSeconds: 120,
+                            maximumRetries: 3
                     ),
                     includeExcludeFiles: new IncludeExcludeFiles(
-                        matchType: ScmType.MatchType.EXCLUDE_ALL_MATCHING_CHANGES,
-                        filePattern: 'exe'
+                            matchType: ScmType.MatchType.EXCLUDE_ALL_MATCHING_CHANGES,
+                            filePattern: 'exe'
                     ),
                     excludeChangesetsRegex: 'FIXES .*',
-                    webRepository: new WebRepository(
-                        type: new FisheyeWebRepository(
-                                  url: "http://localhost:7990",
-                                  repositoryPath: "a/b/c",
-                                  repositoryName: "d"
-                              )
-                    )
+                    webRepository: new WebRepository(type: new FisheyeWebRepository(
+                                    url: "http://localhost:7990",
+                                    repositoryPath: "a/b/c",
+                                    repositoryName: "d"
+
+                    ))
             ),
             displayName: "myGitRepo",
             url: "http://localhost:7990/bitbucket/scm/project_1/java-maven-simple.git",
@@ -188,10 +188,11 @@ class ScmsSpec extends Specification {
 
         when:
         def results = loader.parse(new DslScriptContext(dsl))
+        def bitbucket = results.projects[0].plans[0].scm.scms[0]
 
         then:
-        results.projects[0].plans[0].scm.scms[0] == new ScmBitbucketCloud(
-                displayName: "myBitbucketGhRepo",
+        bitbucket == new ScmBitbucketCloud(
+                displayName: "myBitbucketHgRepo",
                 repoSlug: "project_1/java-maven-simple",
                 branch: "master",
                 authType: new PasswordAuth(userName: "user", password: "pw"),
@@ -344,6 +345,7 @@ class ScmsSpec extends Specification {
                 ),
                 repositoryUrl: "http://svn.red-bean.com/repos/test",
                 userName: "admin",
+                displayName: "mySvn",
                 authType: new PasswordAuth(userName: "admin", password: "pw")
         )
     }
@@ -391,7 +393,8 @@ class ScmsSpec extends Specification {
         results.projects[0].plans[0].scm.scms[0] == new ScmSubversion(
                 repositoryUrl: "http://svn.red-bean.com/repos/test",
                 userName: "admin",
-                authType: new SslClientCertificateAuth(passPhrase: "pw", privateKey: "/a/b/c.key")
+                authType: new SslClientCertificateAuth(passPhrase: "pw", privateKey: "/a/b/c.key"),
+                displayName: "mySvn"
         )
     }
 

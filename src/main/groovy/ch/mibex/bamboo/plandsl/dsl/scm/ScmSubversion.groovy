@@ -10,7 +10,7 @@ import ch.mibex.bamboo.plandsl.dsl.scm.options.AdvancedSvnOptions
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@EqualsAndHashCode(includeFields=true)
+@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'], callSuper = true)
 @ToString(includeFields=true)
 class ScmSubversion extends ScmType {
     private String repositoryUrl

@@ -11,7 +11,7 @@ import ch.mibex.bamboo.plandsl.dsl.scm.options.AdvancedGitOptions
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@EqualsAndHashCode(includeFields=true)
+@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'], callSuper = true)
 @ToString(includeFields=true)
 class ScmGit extends ScmType {
     private String url

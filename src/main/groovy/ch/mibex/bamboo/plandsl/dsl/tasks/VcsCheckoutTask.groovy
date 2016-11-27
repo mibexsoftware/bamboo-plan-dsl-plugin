@@ -6,15 +6,19 @@ import ch.mibex.bamboo.plandsl.dsl.Validations
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@EqualsAndHashCode(includeFields=true)
+@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'], callSuper = true)
 @ToString(includeFields=true)
 class VcsCheckoutTask extends Task {
     private static final TASK_ID = 'com.atlassian.bamboo.plugins.vcs:task.vcs.checkout'
     private boolean forceCleanBuild
-    private List<CheckoutRepository> repositories = new ArrayList<>()
+    private List<CheckoutRepository> repositories = []
 
     VcsCheckoutTask(BambooFacade bambooFacade) {
         super(bambooFacade, TASK_ID)
+    }
+
+    protected VcsCheckoutTask() {
+        super(TASK_ID)
     }
 
     /**

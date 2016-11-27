@@ -7,7 +7,7 @@ import ch.mibex.bamboo.plandsl.dsl.RequiresPlugin
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@EqualsAndHashCode(includeFields=true)
+@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'])
 @ToString(includeFields=true)
 class Tasks extends BambooObject {
     private List<Task> tasks = []

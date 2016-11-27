@@ -6,7 +6,7 @@ import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 import ch.mibex.bamboo.plandsl.dsl.scm.ScmType.MatchType
 
-@EqualsAndHashCode(includeFields=true)
+@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'])
 @ToString(includeFields=true)
 class IncludeExcludeFiles extends BambooObject {
     protected MatchType matchType

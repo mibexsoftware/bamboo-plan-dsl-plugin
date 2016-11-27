@@ -4,7 +4,7 @@ import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@EqualsAndHashCode(includeFields=true)
+@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'], callSuper = true)
 @ToString(includeFields=true)
 class DeployPluginTask extends Task {
     private static final TASK_ID = 'com.atlassian.bamboo.plugins.deploy.continuous-plugin-deployment:deploy-task'
@@ -22,7 +22,9 @@ class DeployPluginTask extends Task {
     }
 
     //for tests
-    protected DeployPluginTask() {}
+    protected DeployPluginTask() {
+        super(TASK_ID)
+    }
 
     /**
      * Select a Bamboo artifact to deploy. The artifact should be a single plugin jar file.

@@ -5,7 +5,7 @@ import ch.mibex.bamboo.plandsl.dsl.BambooObject
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@EqualsAndHashCode
+@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'])
 @ToString
 class WithTests extends BambooObject {
     private String testResultsDirectory

@@ -4,7 +4,7 @@ import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@EqualsAndHashCode(includeFields=true)
+@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'], callSuper = true)
 @ToString(includeFields=true)
 class CommandTask extends Task {
     private static final TASK_ID = 'com.atlassian.bamboo.plugins.scripttask:task.builder.command'
@@ -14,9 +14,11 @@ class CommandTask extends Task {
     private String workingSubDirectory
 
     //for tests
-    protected CommandTask() {}
+    protected CommandTask() {
+        super(TASK_ID)
+    }
 
-    protected CommandTask(BambooFacade bambooFacade) {
+    CommandTask(BambooFacade bambooFacade) {
         super(bambooFacade, TASK_ID)
     }
 

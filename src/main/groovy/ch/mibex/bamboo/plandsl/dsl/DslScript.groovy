@@ -4,7 +4,7 @@ import ch.mibex.bamboo.plandsl.dsl.deployprojs.DeploymentProject
 import ch.mibex.bamboo.plandsl.dsl.jobs.Job
 
 abstract class DslScript extends Script implements DslFactory {
-    final List<Project> projects = new ArrayList<>()
+    final List<Project> projects = []
     BambooFacade bambooFacade
 
     @Override @Deprecated

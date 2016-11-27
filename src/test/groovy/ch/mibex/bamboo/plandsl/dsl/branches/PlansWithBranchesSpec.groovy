@@ -86,10 +86,10 @@ class PlansWithBranchesSpec extends Specification {
         results.projects[0].plans[0].branches == new Branches(
                 branches: [
                         new Branch(
-                            name: 'develop',
-                            description: 'my developer branch',
-                            enabled: true,
-                            cleanupAutomatically: true,
+                                name: 'develop',
+                                description: 'my developer branch',
+                                enabled: true,
+                                cleanupAutomatically: true,
                         ),
                         new Branch(
                                 name: 'release',
@@ -118,14 +118,20 @@ class PlansWithBranchesSpec extends Specification {
         then:
         results.projects[0].plans[0].branches == new Branches(
                 autoBranchManagement: new AutoBranchManagement(
-
+                        inactiveBranchesStrategy: AutoBranchManagement.InactiveBranchesStrategy.DO_NOT_DELETE_INACTIVE_PLAN_BRANCHES,
+                        deleteInactivePlanBranchesAfterDays: 30,
+                        newBranchesStrategy: AutoBranchManagement.NewBranchesStrategy.NEW_PLAN_BRANCHES_FOR_MATCHING_BRANCH_NAMES,
+                        matchingBranchesRegex: ".*",
+                        deletedBranchesStrategy: AutoBranchManagement.DeletedBranchesStrategy.DO_NOT_DELETE_PLAN_BRANCHES,
+                        deletePlanBranchesAfterDays: 0
                 ),
                 branches: [
                         new Branch(
                                 name: 'develop',
                                 description: 'my developer branch',
                                 enabled: true,
-                                cleanupAutomatically: true,
+                                cleanupAutomatically: false,
+                                sourceRepository: new BranchSourceRepository(branchName: 'develop')
                         )
                 ]
         )

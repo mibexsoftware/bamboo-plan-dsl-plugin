@@ -5,11 +5,11 @@ import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@EqualsAndHashCode(includeFields=true)
+@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'], callSuper = true)
 @ToString(includeFields=true)
 class ArtifactDownloaderTask extends Task {
     private static final TASK_ID = 'com.atlassian.bamboo.plugins.bamboo-artifact-downloader-plugin:artifactdownloadertask'
-    private List<ArtifactDownloadConfiguration> artifacts = new ArrayList<>()
+    private List<ArtifactDownloadConfiguration> artifacts = []
 
     ArtifactDownloaderTask(BambooFacade bambooFacade) {
         super(bambooFacade, TASK_ID)

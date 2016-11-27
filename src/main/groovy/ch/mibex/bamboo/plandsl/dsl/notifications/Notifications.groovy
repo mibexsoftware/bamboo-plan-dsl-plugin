@@ -6,10 +6,12 @@ import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@EqualsAndHashCode(includeFields=true)
+@EqualsAndHashCode(includeFields=true, excludes = ["metaClass"])
 @ToString(includeFields=true)
 class Notifications extends BambooObject {
-    private List<NotificationType> notifications = new ArrayList<>()
+    private List<NotificationType> notifications = []
+
+    protected Notifications() {}
 
     Notifications(BambooFacade bambooFacade) {
         super(bambooFacade)

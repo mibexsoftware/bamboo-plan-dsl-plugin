@@ -17,8 +17,8 @@ class InectBambooVariablesSpec extends Specification {
         then:
         results.projects[0].plans[0].stages[0].jobs[0].tasksList.tasks[0] == new InjectBambooVariablesTask(
                 enabled: true,
-                isFinal: false,
-                description: "run command",
+                isFinal: true,
+                description: "inject",
                 propertiesFilePath: "env.txt",
                 variablesScope: InjectBambooVariablesTask.VariablesScope.LOCAL,
                 namespace: "test"

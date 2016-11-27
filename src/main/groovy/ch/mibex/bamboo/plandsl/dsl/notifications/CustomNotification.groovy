@@ -5,10 +5,13 @@ import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 import static ch.mibex.bamboo.plandsl.dsl.notifications.Notifications.NotificationConditions
 
-@EqualsAndHashCode(includeFields=true)
-@ToString(includeFields=true)
+@EqualsAndHashCode(includeFields = true, excludes = ['metaClass'], callSuper = true)
+@ToString(includeFields = true)
 class CustomNotification extends NotificationType {
     private Map<String, String[]> config = [:]
+
+    // just for tests:
+    protected CustomNotification() {}
 
     CustomNotification(String pluginKey, NotificationConditions notificationConditions, BambooFacade bambooFacade) {
         super(pluginKey, notificationConditions, bambooFacade)

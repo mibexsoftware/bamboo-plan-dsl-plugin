@@ -2,7 +2,11 @@ package ch.mibex.bamboo.plandsl.dsl.scm
 
 import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
+import groovy.transform.EqualsAndHashCode
+import groovy.transform.ToString
 
+@EqualsAndHashCode(includeFields=true, excludes = ["metaClass"], callSuper = true)
+@ToString(includeFields=true)
 class Scm extends ScmType  {
     private final List<ScmType> scms = []
 

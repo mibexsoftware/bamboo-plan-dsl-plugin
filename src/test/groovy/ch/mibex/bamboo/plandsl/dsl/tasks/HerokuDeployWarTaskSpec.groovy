@@ -13,14 +13,15 @@ class HerokuDeployWarTaskSpec extends Specification {
 
         when:
         def results = loader.parse(new DslScriptContext(dsl))
+        def task = results.projects[0].plans[0].stages[0].jobs[0].tasksList.tasks[0]
 
         then:
-        results.projects[0].plans[0].stages[0].jobs[0].tasksList.tasks[0] == new HerokuDeployWarTask(
+        task == new HerokuDeployWarTask(
                 enabled: true,
                 apiKey: 'key',
+                isFinal: false,
                 description: 'Deploy WAR to Heroku',
                 appName: 'myapp',
-                pluginKey: 'com.heroku.bamboo.heroku-bamboo-plugin:com.heroku.bamboo.WarDeploymentTask',
                 warFile: 'my.war'
         )
     }

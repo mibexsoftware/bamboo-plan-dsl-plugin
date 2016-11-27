@@ -4,7 +4,7 @@ import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 import ch.mibex.bamboo.plandsl.dsl.tasks.ScriptTask.ScriptInterpreter
 
-@EqualsAndHashCode(includeFields=true)
+@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'])
 @ToString(includeFields=true)
 class InlineScript {
     ScriptInterpreter interpreter

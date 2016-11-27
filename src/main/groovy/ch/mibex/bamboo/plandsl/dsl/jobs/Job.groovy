@@ -5,7 +5,11 @@ import ch.mibex.bamboo.plandsl.dsl.BambooObject
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import ch.mibex.bamboo.plandsl.dsl.Validations
 import ch.mibex.bamboo.plandsl.dsl.tasks.Tasks
+import groovy.transform.EqualsAndHashCode
+import groovy.transform.ToString
 
+@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'])
+@ToString(includeFields=true)
 class Job extends BambooObject {
     private String key
     private String name

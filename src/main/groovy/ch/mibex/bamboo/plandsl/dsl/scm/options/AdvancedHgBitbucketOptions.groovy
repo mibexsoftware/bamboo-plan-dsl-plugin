@@ -4,7 +4,7 @@ import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@EqualsAndHashCode(includeFields=true)
+@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'], callSuper = true)
 @ToString(includeFields=true)
 class AdvancedHgBitbucketOptions extends AdvancedHgOptions {
     private boolean fetchWholeRepository

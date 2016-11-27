@@ -2,10 +2,11 @@ package ch.mibex.bamboo.plandsl.dsl.tasks
 
 import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
+import ch.mibex.bamboo.plandsl.dsl.NullBambooFacade
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@EqualsAndHashCode(includeFields=true)
+@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'], callSuper = true)
 @ToString(includeFields=true)
 class Maven3Task extends Task {
     private static final TASK_ID = 'com.atlassian.bamboo.plugins.maven:task.builder.mvn3'
@@ -20,7 +21,9 @@ class Maven3Task extends Task {
     private boolean hasTests
 
     //for tests
-    protected Maven3Task() {}
+    protected Maven3Task() {
+        this(new NullBambooFacade())
+    }
 
     Maven3Task(BambooFacade bambooFacade) {
         super(bambooFacade, TASK_ID)

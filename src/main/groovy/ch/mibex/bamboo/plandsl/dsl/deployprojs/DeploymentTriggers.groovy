@@ -9,10 +9,10 @@ import groovy.transform.ToString
 /**
  * @since 1.1.0
  */
-@EqualsAndHashCode(includeFields=true)
+@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'])
 @ToString(includeFields=true)
 class DeploymentTriggers extends BambooObject {
-    private List<DeploymentTriggerType> triggers = new ArrayList<>()
+    private List<DeploymentTriggerType> triggers = []
 
     // just for testing
     protected DeploymentTriggers() {}

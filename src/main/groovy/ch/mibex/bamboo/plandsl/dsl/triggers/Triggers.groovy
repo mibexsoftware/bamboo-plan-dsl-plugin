@@ -6,10 +6,10 @@ import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@EqualsAndHashCode(includeFields=true)
+@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'])
 @ToString(includeFields=true)
 class Triggers extends BambooObject {
-    private List<TriggerType> triggers = new ArrayList<>()
+    private List<TriggerType> triggers = []
 
     // for tests
     protected Triggers() {}

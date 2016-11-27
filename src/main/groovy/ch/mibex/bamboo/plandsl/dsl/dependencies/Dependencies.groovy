@@ -7,10 +7,10 @@ import ch.mibex.bamboo.plandsl.dsl.Validations
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@EqualsAndHashCode(includeFields=true)
+@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'])
 @ToString(includeFields=true)
 class Dependencies extends BambooObject {
-    private List<Dependency> dependencies = new ArrayList<>()
+    private List<Dependency> dependencies = []
     private DependencyBlockingStrategy blockingStrategy
     private AdvancedDependencyOptions advancedOptions
 

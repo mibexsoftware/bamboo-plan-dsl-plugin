@@ -11,7 +11,7 @@ import groovy.transform.ToString
 /**
  * @since 1.1.0
  */
-@EqualsAndHashCode(includeFields=true)
+@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'])
 @ToString(includeFields=true)
 class Environment extends BambooObject {
     private String name

@@ -7,7 +7,7 @@ import groovy.transform.ToString
 /**
  * @since 1.1.0
  */
-@EqualsAndHashCode(includeFields=true)
+@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'], callSuper = true)
 @ToString(includeFields=true)
 class AfterSuccessfulStageDeploymentTrigger extends DeploymentTriggerType {
     private String customPlanBranchName

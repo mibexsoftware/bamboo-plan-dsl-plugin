@@ -4,7 +4,7 @@ import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@EqualsAndHashCode(includeFields=true)
+@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'], callSuper = true)
 @ToString(includeFields=true)
 class InjectBambooVariablesTask extends Task {
     private static final TASK_ID = 'com.atlassian.bamboo.plugins.bamboo-variable-inject-plugin:inject'
@@ -13,7 +13,9 @@ class InjectBambooVariablesTask extends Task {
     private VariablesScope variablesScope = VariablesScope.LOCAL
 
     // for tests:
-    protected InjectBambooVariablesTask() {}
+    protected InjectBambooVariablesTask() {
+        super(TASK_ID)
+    }
 
     InjectBambooVariablesTask(BambooFacade bambooFacade) {
         super(bambooFacade, TASK_ID)

@@ -4,7 +4,7 @@ import ch.mibex.bamboo.plandsl.dsl.DslScriptContext
 import ch.mibex.bamboo.plandsl.dsl.DslScriptParserImpl
 import spock.lang.Specification
 
-class ShellTaskSpec extends Specification {
+class ScriptTaskSpec extends Specification {
 
     def 'inline script shell task'() {
         setup:
@@ -13,9 +13,10 @@ class ShellTaskSpec extends Specification {
 
         when:
         def results = loader.parse(new DslScriptContext(dsl))
+        def scriptTask = results.projects[0].plans[0].stages[0].jobs[0].tasksList.tasks[0]
 
         then:
-        results.projects[0].plans[0].stages[0].jobs[0].tasksList.tasks[0] == new ScriptTask(
+        scriptTask == new ScriptTask(
                 enabled: true,
                 isFinal: false,
                 description: "say hello world",
@@ -36,9 +37,10 @@ class ShellTaskSpec extends Specification {
 
         when:
         def results = loader.parse(new DslScriptContext(dsl))
+        def scriptTask = results.projects[0].plans[0].stages[0].jobs[0].tasksList.tasks[0]
 
         then:
-        results.projects[0].plans[0].stages[0].jobs[0].tasksList.tasks[0] == new ScriptTask(
+        scriptTask == new ScriptTask(
                 enabled: true,
                 isFinal: true,
                 description: "run file script",

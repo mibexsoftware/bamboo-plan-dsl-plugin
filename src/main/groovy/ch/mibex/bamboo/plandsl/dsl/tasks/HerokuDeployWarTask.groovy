@@ -4,7 +4,7 @@ import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@EqualsAndHashCode(includeFields=true)
+@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'], callSuper = true)
 @ToString(includeFields=true)
 class HerokuDeployWarTask extends Task {
     private static final TASK_ID = 'com.heroku.bamboo.heroku-bamboo-plugin:com.heroku.bamboo.WarDeploymentTask'
@@ -12,8 +12,9 @@ class HerokuDeployWarTask extends Task {
     private String appName
     private String warFile
 
-    // for tests:
-    protected HerokuDeployWarTask() {}
+    HerokuDeployWarTask() {
+        super(TASK_ID)
+    }
 
     HerokuDeployWarTask(BambooFacade bambooFacade) {
         super(bambooFacade, TASK_ID)

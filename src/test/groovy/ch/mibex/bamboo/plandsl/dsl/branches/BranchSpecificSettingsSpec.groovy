@@ -42,7 +42,7 @@ class BranchSpecificSettingsSpec extends Specification {
                                 triggers: [new ScheduledTrigger(
                                         cronExpression: "0 15 10 * * ?",
                                         onlyRunIfOtherPlansArePassing: new OnlyIfOthersPassingTriggerCondition(
-                                            planKeys: ["SEED-SEED-JOB1", "SEED-SEED-JOB2"]
+                                                planKeys: ["SEED-SEED-JOB1", "SEED-SEED-JOB2"]
                                         ),
                                 )]
                         )
@@ -57,24 +57,23 @@ class BranchSpecificSettingsSpec extends Specification {
 
         when:
         def results = loader.parse(new DslScriptContext(dsl))
+        def branch = results.projects[0].plans[0].branches.branches[0]
 
         then:
-        results.projects[0].plans[0].branches == new Branches(
-                branches: [new Branch(
-                        name: "develop",
-                        triggers: new Triggers(
-                                triggers: [new PollingTrigger(
-                                        repositories: ["repo123", "repo456"],
-                                        pollingStrategy: 'PERIOD',
-                                        periodicTrigger: new PeriodicTrigger(
-                                                pollingFrequencyInSecs: 30
-                                        ),
-                                        onlyRunIfOtherPlansArePassing: new OnlyIfOthersPassingTriggerCondition(
-                                                planKeys: ["SEED-SEED-JOB1", "SEED-SEED-JOB2"]
-                                        )
-                                )]
-                        )
-                )]
+        branch == new Branch(
+                name: "develop",
+                triggers: new Triggers(
+                        triggers: [new PollingTrigger(
+                                repositories: ["repo123", "repo456"],
+                                pollingStrategy: 'PERIOD',
+                                periodicTrigger: new PeriodicTrigger(
+                                        pollingFrequencyInSecs: 30
+                                ),
+                                onlyRunIfOtherPlansArePassing: new OnlyIfOthersPassingTriggerCondition(
+                                        planKeys: ["SEED-SEED-JOB1", "SEED-SEED-JOB2"]
+                                )
+                        )]
+                )
         )
     }
 

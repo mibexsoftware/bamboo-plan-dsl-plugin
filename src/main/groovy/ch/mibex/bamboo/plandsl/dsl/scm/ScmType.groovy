@@ -5,7 +5,7 @@ import ch.mibex.bamboo.plandsl.dsl.BambooObject
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@EqualsAndHashCode(includeFields=true)
+@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'])
 @ToString(includeFields=true)
 class ScmType extends BambooObject {
     protected String displayName
@@ -28,8 +28,6 @@ class ScmType extends BambooObject {
         }
 
         @Override
-        String toString() {
-            this.type
-        }
+        String toString() { type }
     }
 }

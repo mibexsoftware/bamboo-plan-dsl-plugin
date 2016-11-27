@@ -8,7 +8,7 @@ import ch.mibex.bamboo.plandsl.dsl.scm.auth.PasswordAuth
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@EqualsAndHashCode(includeFields=true)
+@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'])
 @ToString(includeFields=true)
 class ScmCvs extends ScmType {
     private String cvsRoot

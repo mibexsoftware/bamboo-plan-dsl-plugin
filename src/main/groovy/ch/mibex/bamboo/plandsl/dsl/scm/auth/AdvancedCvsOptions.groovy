@@ -9,7 +9,7 @@ import ch.mibex.bamboo.plandsl.dsl.scm.web.WebRepository
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@EqualsAndHashCode(includeFields=true)
+@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'])
 @ToString(includeFields=true)
 class AdvancedCvsOptions extends BambooObject {
     private IncludeExcludeFiles includeExcludeFiles

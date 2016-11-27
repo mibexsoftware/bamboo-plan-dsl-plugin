@@ -20,8 +20,8 @@ project("SIMPLEPROJECT") {
                 )
             }
             hipchat(NotificationConditions.ALL_BUILDS_COMPLETED) {
-                apiToken ""
-                room "Mibex Mira"
+                apiToken "XXX"
+                room "Myroom"
                 notify true
             }
         }

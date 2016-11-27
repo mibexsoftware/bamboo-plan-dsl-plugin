@@ -4,7 +4,7 @@ import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@EqualsAndHashCode(includeFields=true)
+@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'], callSuper = true)
 @ToString(includeFields=true)
 class ShipItPluginTask extends Task {
     private String deployArtifactName
@@ -22,7 +22,9 @@ class ShipItPluginTask extends Task {
     }
 
     //for tests
-    protected ShipItPluginTask() {}
+    protected ShipItPluginTask() {
+        super(TASK_ID)
+    }
 
     /**
      * This is the artifact to publish to the Atlassian Marketplace.

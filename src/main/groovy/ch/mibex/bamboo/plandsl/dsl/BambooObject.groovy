@@ -1,10 +1,5 @@
 package ch.mibex.bamboo.plandsl.dsl
 
-import groovy.transform.EqualsAndHashCode
-import groovy.transform.ToString
-
-@EqualsAndHashCode(includeFields=true)
-@ToString(includeFields=true)
 abstract class BambooObject {
     protected final BambooFacade bambooFacade
 

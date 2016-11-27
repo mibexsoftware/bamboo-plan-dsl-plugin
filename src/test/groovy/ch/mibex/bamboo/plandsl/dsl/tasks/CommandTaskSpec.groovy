@@ -17,7 +17,7 @@ class CommandTaskSpec extends Specification {
         then:
         results.projects[0].plans[0].stages[0].jobs[0].tasksList.tasks[0] == new CommandTask(
                 enabled: true,
-                isFinal: false,
+                isFinal: true,
                 description: "run command",
                 argument: "-n",
                 executable: "atlas-clean",
