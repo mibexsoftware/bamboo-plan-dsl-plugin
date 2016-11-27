@@ -6,30 +6,37 @@ import ch.mibex.bamboo.plandsl.dsl.Validations
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@EqualsAndHashCode
-@ToString
+@EqualsAndHashCode(includeFields=true)
+@ToString(includeFields=true)
 class VcsCheckoutTask extends Task {
-    static final TASK_ID = 'com.atlassian.bamboo.plugins.vcs:task.vcs.checkout'
-    boolean forceCleanBuild
-    Set<CheckoutRepository> repositories = new LinkedHashSet<>()
+    private static final TASK_ID = 'com.atlassian.bamboo.plugins.vcs:task.vcs.checkout'
+    private boolean forceCleanBuild
+    private List<CheckoutRepository> repositories = new ArrayList<>()
 
     VcsCheckoutTask(BambooFacade bambooFacade) {
         super(bambooFacade, TASK_ID)
     }
 
+    /**
+     * Removes the source directory and checks it out again prior to each build. This may significantly increase
+     * build times.
+     */
     void forceCleanBuild(boolean forceCleanBuild = true) {
         this.forceCleanBuild = forceCleanBuild
     }
 
-    // multiple repositories possible!
+    /**
+     * You can call this multiple times for all the repositories you want to checkout. Default always points to
+     * Plans default repository.
+     */
     void repository(String name, @DelegatesTo(CheckoutRepository) Closure closure) {
-        def repo = new CheckoutRepository(name)
+        def repo = new CheckoutRepository(name, bambooFacade)
         DslScriptHelper.execute(closure, repo)
         repositories << repo
     }
 
     @Override
-    def Map<String, String> getConfig(Map<Object, Object> context) {
+    protected def Map<String, String> getConfig(Map<Object, Object> context) {
         def config = [:]
         def repoIdMappings = context.get('repositories') as Map<String, String>
         repositories.eachWithIndex { item, index ->

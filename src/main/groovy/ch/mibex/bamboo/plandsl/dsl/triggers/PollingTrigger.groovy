@@ -1,16 +1,24 @@
 package ch.mibex.bamboo.plandsl.dsl.triggers
 
+import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(includeFields=true)
+@ToString(includeFields=true)
 class PollingTrigger extends TriggerType {
-    List<String> repositories
-    String pollingStrategy
-    ScheduledTrigger scheduledTrigger
-    PeriodicTrigger periodicTrigger
+    private List<String> repositories
+    private String pollingStrategy
+    private ScheduledTrigger scheduledTrigger
+    private PeriodicTrigger periodicTrigger
+
+    // for tests
+    protected PollingTrigger() {}
+
+    protected PollingTrigger(BambooFacade bambooFacade) {
+        super(bambooFacade)
+    }
 
     void scheduled(@DelegatesTo(ScheduledTrigger) Closure closure) {
         def trigger = new ScheduledTrigger()
@@ -26,6 +34,9 @@ class PollingTrigger extends TriggerType {
         this.pollingStrategy = 'PERIOD'
     }
 
+    /**
+     * Which repositories should the trigger apply to?
+     */
     void repositories(String... repositories) {
         this.repositories = repositories
     }

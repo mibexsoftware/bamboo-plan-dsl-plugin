@@ -107,4 +107,28 @@ class PlansWithBranchesSpec extends Specification {
         )
     }
 
+    def 'external branches'() {
+        setup:
+        def loader = new DslScriptParserImpl()
+        def dsl = getClass().getResource('/dsls/branches/ExternalBranches.groovy').text
+
+        when:
+        def results = loader.parse(new DslScriptContext(dsl))
+
+        then:
+        results.projects[0].plans[0].branches == new Branches(
+                autoBranchManagement: new AutoBranchManagement(
+
+                ),
+                branches: [
+                        new Branch(
+                                name: 'develop',
+                                description: 'my developer branch',
+                                enabled: true,
+                                cleanupAutomatically: true,
+                        )
+                ]
+        )
+    }
+
 }

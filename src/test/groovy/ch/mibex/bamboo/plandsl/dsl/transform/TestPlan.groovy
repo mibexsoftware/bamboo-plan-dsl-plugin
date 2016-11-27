@@ -7,7 +7,7 @@ import ch.mibex.bamboo.plandsl.dsl.RequiresPlugin
 
 class TestPlan extends Plan {
     TestPlan(BambooFacade bambooFacade) {
-        super(bambooFacade)
+        super('PLANKEY', bambooFacade)
     }
 
     @Deprecated

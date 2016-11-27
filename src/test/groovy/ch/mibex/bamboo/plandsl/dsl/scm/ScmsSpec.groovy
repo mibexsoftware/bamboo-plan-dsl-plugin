@@ -20,7 +20,7 @@ class ScmsSpec extends Specification {
         def results = loader.parse(new DslScriptContext(dsl))
 
         then:
-        results.projects[0].plans[0].scm.children()[0] == new ScmGit(
+        results.projects[0].plans[0].scm.scms[0] == new ScmGit(
             advancedOptions: new AdvancedGitOptions(
                     useShallowClones: true,
                     enableRepositoryCachingOnRemoteAgents: true,
@@ -61,7 +61,7 @@ class ScmsSpec extends Specification {
         def results = loader.parse(new DslScriptContext(dsl))
 
         then:
-        results.projects[0].plans[0].scm.children()[0] == new ScmGit(
+        results.projects[0].plans[0].scm.scms[0] == new ScmGit(
                 advancedOptions: new AdvancedGitOptions(
                         useShallowClones: true,
                         enableRepositoryCachingOnRemoteAgents: true,
@@ -89,7 +89,10 @@ class ScmsSpec extends Specification {
                 displayName: "myGitRepo",
                 url: "http://localhost:7990/bitbucket/scm/project_1/java-maven-simple.git",
                 branch: "master",
-                authType: new SharedCredentialsAuth(SharedCredentialsAuth.SharedCredentialsType.USERNAMEPW, 'sharedpw')
+                authType: new SharedCredentialsAuth(
+                        sharedCredentialsType: SharedCredentialsAuth.SharedCredentialsType.USERNAMEPW,
+                        name: 'sharedpw'
+                )
         )
     }
 
@@ -102,7 +105,7 @@ class ScmsSpec extends Specification {
         def results = loader.parse(new DslScriptContext(dsl))
 
         then:
-        results.projects[0].plans[0].scm.children()[0] == new ScmBitbucketServer(
+        results.projects[0].plans[0].scm.scms[0] == new ScmBitbucketServer(
                 displayName: "myBitbucketServerRepo",
                 projectKey: "project_1",
                 repoSlug: "rep_1",
@@ -145,7 +148,7 @@ class ScmsSpec extends Specification {
         def results = loader.parse(new DslScriptContext(dsl))
 
         then:
-        results.projects[0].plans[0].scm.children()[0] == new ScmBitbucketCloud(
+        results.projects[0].plans[0].scm.scms[0] == new ScmBitbucketCloud(
             displayName: "myBitbucketGitRepo",
             repoSlug: "project_1/java-maven-simple",
             branch: "develop",
@@ -187,7 +190,7 @@ class ScmsSpec extends Specification {
         def results = loader.parse(new DslScriptContext(dsl))
 
         then:
-        results.projects[0].plans[0].scm.children()[0] == new ScmBitbucketCloud(
+        results.projects[0].plans[0].scm.scms[0] == new ScmBitbucketCloud(
                 displayName: "myBitbucketGhRepo",
                 repoSlug: "project_1/java-maven-simple",
                 branch: "master",
@@ -227,7 +230,7 @@ class ScmsSpec extends Specification {
         def results = loader.parse(new DslScriptContext(dsl))
 
         then:
-        results.projects[0].plans[0].scm.children()[0] == new ScmGithub(
+        results.projects[0].plans[0].scm.scms[0] == new ScmGithub(
             advancedOptions: new AdvancedGitOptions(
                     useShallowClones: true,
                     enableRepositoryCachingOnRemoteAgents: true,
@@ -267,8 +270,8 @@ class ScmsSpec extends Specification {
         def results = loader.parse(new DslScriptContext(dsl))
 
         then:
-        results.projects[0].plans[0].scm.children()[0] == new ScmLinkedRepository(displayName: "myGlobalRepo1")
-        results.projects[0].plans[0].scm.children()[1] == new ScmLinkedRepository(displayName: "myGlobalRepo2")
+        results.projects[0].plans[0].scm.scms[0] == new ScmLinkedRepository(displayName: "myGlobalRepo1")
+        results.projects[0].plans[0].scm.scms[1] == new ScmLinkedRepository(displayName: "myGlobalRepo2")
     }
 
     def 'plan with Mercurial SCM'() {
@@ -280,7 +283,7 @@ class ScmsSpec extends Specification {
         def results = loader.parse(new DslScriptContext(dsl))
 
         then:
-        results.projects[0].plans[0].scm.children()[0] == new ScmMercurial(
+        results.projects[0].plans[0].scm.scms[0] == new ScmMercurial(
                 displayName: "myHg",
                 repositoryUrl: "http://hg.red-bean.com/repos/test",
                 branch: "master",
@@ -313,7 +316,7 @@ class ScmsSpec extends Specification {
         def results = loader.parse(new DslScriptContext(dsl))
 
         then:
-        results.projects[0].plans[0].scm.children()[0] == new ScmSubversion(
+        results.projects[0].plans[0].scm.scms[0] == new ScmSubversion(
                 advancedOptions: new AdvancedSvnOptions(
                         detectChangesInExternals: true,
                         useSvnExport: true,
@@ -353,7 +356,7 @@ class ScmsSpec extends Specification {
         def results = loader.parse(new DslScriptContext(dsl))
 
         then:
-        results.projects[0].plans[0].scm.children()[0] == new ScmSubversion(
+        results.projects[0].plans[0].scm.scms[0] == new ScmSubversion(
                 advancedOptions: new AdvancedSvnOptions(
                         detectChangesInExternals: true,
                         enableCommitIsolation: false,
@@ -385,7 +388,7 @@ class ScmsSpec extends Specification {
         def results = loader.parse(new DslScriptContext(dsl))
 
         then:
-        results.projects[0].plans[0].scm.children()[0] == new ScmSubversion(
+        results.projects[0].plans[0].scm.scms[0] == new ScmSubversion(
                 repositoryUrl: "http://svn.red-bean.com/repos/test",
                 userName: "admin",
                 authType: new SslClientCertificateAuth(passPhrase: "pw", privateKey: "/a/b/c.key")
@@ -401,7 +404,7 @@ class ScmsSpec extends Specification {
         def results = loader.parse(new DslScriptContext(dsl))
 
         then:
-        results.projects[0].plans[0].scm.children()[0] == new ScmCvs(
+        results.projects[0].plans[0].scm.scms[0] == new ScmCvs(
                 advancedOptions: new AdvancedCvsOptions(
                         includeExcludeFiles: new IncludeExcludeFiles(
                                 matchType: ScmType.MatchType.INCLUDE_ONLY_MATCHING_CHANGES,
@@ -434,7 +437,7 @@ class ScmsSpec extends Specification {
         def results = loader.parse(new DslScriptContext(dsl))
 
         then:
-        results.projects[0].plans[0].scm.children()[0] == new ScmPerforce(
+        results.projects[0].plans[0].scm.scms[0] == new ScmPerforce(
                 advancedOptions: new AdvancedPerforceOptions(
                         includeExcludeFiles: new IncludeExcludeFiles(
                                 matchType: ScmType.MatchType.EXCLUDE_ALL_MATCHING_CHANGES,

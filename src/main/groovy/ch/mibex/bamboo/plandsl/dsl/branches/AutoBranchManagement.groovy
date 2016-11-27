@@ -1,14 +1,15 @@
 package ch.mibex.bamboo.plandsl.dsl.branches
 
-import ch.mibex.bamboo.plandsl.dsl.DslParent
+import ch.mibex.bamboo.plandsl.dsl.BambooFacade
+import ch.mibex.bamboo.plandsl.dsl.BambooObject
 import ch.mibex.bamboo.plandsl.dsl.Validations
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@EqualsAndHashCode
-@ToString
-class AutoBranchManagement implements DslParent<Branch> {
-    Set<Branch> branches = new LinkedHashSet<>()
+@EqualsAndHashCode(includeFields=true)
+@ToString(includeFields=true)
+class AutoBranchManagement extends BambooObject {
+    List<Branch> branches = new ArrayList<>()
     DeletedBranchesStrategy deletedBranchesStrategy = DeletedBranchesStrategy.DO_NOT_DELETE_PLAN_BRANCHES
     int deletePlanBranchesAfterDays
     InactiveBranchesStrategy inactiveBranchesStrategy = InactiveBranchesStrategy.DO_NOT_DELETE_INACTIVE_PLAN_BRANCHES
@@ -16,22 +17,12 @@ class AutoBranchManagement implements DslParent<Branch> {
     NewBranchesStrategy newBranchesStrategy = NewBranchesStrategy.DO_NOT_CREATE_PLAN_BRANCHES
     String matchingBranchesRegex
 
-    static enum NewBranchesStrategy {
-        NEW_PLAN_BRANCHES_FOR_MATCHING_BRANCH_NAMES,
-        DO_NOT_CREATE_PLAN_BRANCHES,
-        NEW_PLAN_BRANCHES_FOR_ALL_NEW_BRANCHES
+    AutoBranchManagement(BambooFacade bambooFacade) {
+        super(bambooFacade)
     }
 
-    static enum InactiveBranchesStrategy {
-        DELETE_INACTIVE_PLAN_BRANCHES_AFTER_DAYS,
-        DO_NOT_DELETE_INACTIVE_PLAN_BRANCHES
-    }
-
-    static enum DeletedBranchesStrategy {
-        DELETE_PLAN_BRANCHES_WITH_DAILY_CLEANUP,
-        DO_NOT_DELETE_PLAN_BRANCHES,
-        DELETE_PLAN_BRANCHES_AFTER_DAYS
-    }
+    // just for testing
+    protected AutoBranchManagement() {}
 
     /**
      * Automatically creates a plan branch for matching new branches.
@@ -103,9 +94,21 @@ class AutoBranchManagement implements DslParent<Branch> {
         deletedBranchesStrategy = DeletedBranchesStrategy.DELETE_PLAN_BRANCHES_WITH_DAILY_CLEANUP
     }
 
-    @Override
-    Collection<Branch> children() {
-        branches
+    static enum NewBranchesStrategy {
+        NEW_PLAN_BRANCHES_FOR_MATCHING_BRANCH_NAMES,
+        DO_NOT_CREATE_PLAN_BRANCHES,
+        NEW_PLAN_BRANCHES_FOR_ALL_NEW_BRANCHES
+    }
+
+    static enum InactiveBranchesStrategy {
+        DELETE_INACTIVE_PLAN_BRANCHES_AFTER_DAYS,
+        DO_NOT_DELETE_INACTIVE_PLAN_BRANCHES
+    }
+
+    static enum DeletedBranchesStrategy {
+        DELETE_PLAN_BRANCHES_WITH_DAILY_CLEANUP,
+        DO_NOT_DELETE_PLAN_BRANCHES,
+        DELETE_PLAN_BRANCHES_AFTER_DAYS
     }
 
 }

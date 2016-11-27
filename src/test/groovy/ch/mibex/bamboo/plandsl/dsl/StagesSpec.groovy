@@ -12,7 +12,7 @@ class StagesSpec extends Specification {
         def results = loader.parse(new DslScriptContext(getClass().getResource('/dsls/stages/TwoStages.groovy').text))
 
         then:
-        def stages = results.projects[0].plans[0].children()
+        def stages = results.projects[0].plans[0].stages
         stages.size() == 2
         stages[0].name == 'first stage'
         stages[1].name == 'second stage'
@@ -26,12 +26,12 @@ class StagesSpec extends Specification {
         def results = loader.parse(new DslScriptContext(getClass().getResource('/dsls/stages/StagesInExternalScript.groovy').text))
 
         then:
-        def stages = results.projects[0].plans[0].children()
+        def stages = results.projects[0].plans[0].stages
         stages.size() == 2
         stages[0].name == 'local stage'
         stages[1].name == 'global stage'
-        stages[0].children()[0].key == 'SIMPLEJOB'
-        stages[1].children()[0].key == 'SIMPLEJOB'
+        stages[0].jobs[0].key == 'SIMPLEJOB'
+        stages[1].jobs[0].key == 'SIMPLEJOB'
     }
 
 }

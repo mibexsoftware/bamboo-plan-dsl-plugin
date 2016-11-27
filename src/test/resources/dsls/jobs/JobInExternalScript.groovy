@@ -2,7 +2,7 @@ package dsls.jobs
 
 import dsls.jobs.commons.MyCommons
 
-def globalJob = job("SIMPLEJOB1")
+def globalJob = job("SIMPLEJOB1", "my simple job")
 def test = env('test')
 project("SIMPLEPROJECT") {
     name "Renamed project"

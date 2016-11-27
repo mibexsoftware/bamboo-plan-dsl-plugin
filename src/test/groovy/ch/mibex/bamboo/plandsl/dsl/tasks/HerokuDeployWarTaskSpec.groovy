@@ -18,7 +18,9 @@ class HerokuDeployWarTaskSpec extends Specification {
         results.projects[0].plans[0].stages[0].jobs[0].tasksList.tasks[0] == new HerokuDeployWarTask(
                 enabled: true,
                 apiKey: 'key',
+                description: 'Deploy WAR to Heroku',
                 appName: 'myapp',
+                pluginKey: 'com.heroku.bamboo.heroku-bamboo-plugin:com.heroku.bamboo.WarDeploymentTask',
                 warFile: 'my.war'
         )
     }

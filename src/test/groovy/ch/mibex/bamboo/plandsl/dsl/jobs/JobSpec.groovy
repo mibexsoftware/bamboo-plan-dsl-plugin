@@ -46,10 +46,10 @@ class JobSpec extends Specification {
         jobs[0].key == 'SIMPLEJOB2'
         jobs[0].name ==  'Build plug-in'
         jobs[0].description == 'analyzes the code, runs tests and builds the plug-in'
-        jobs[0].children().size() == 3
+        jobs[0].tasksList.tasks.size() == 3
         jobs[1].artifacts.artifactDefinitions.size() == 1
         jobs[1].key == 'SIMPLEJOB1'
-        jobs[1].children().size() == 3
+        jobs[1].tasksList.tasks.size() == 3
         jobs[1].artifacts.artifactDefinitions.size() == 1
     }
 

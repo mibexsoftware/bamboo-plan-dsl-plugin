@@ -84,7 +84,7 @@ project("SIMPLEPROJECT2") {
             }
             triggers(NewPlanBranchesTriggerType.RUN_NEW_PLAN_BRANCHES_MANUALLY)
 
-            branch("develop") {
+            branch(name: "develop") {
                 description "my developer branch"
                 enabled true
                 cleanupAutomatically true

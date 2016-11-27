@@ -1,20 +1,23 @@
 package ch.mibex.bamboo.plandsl.dsl.scm.auth
 
+import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
-import groovy.transform.TypeChecked
 
-@EqualsAndHashCode
-@ToString
-@TypeChecked
+@EqualsAndHashCode(includeFields=true)
+@ToString(includeFields=true)
 class SharedCredentialsAuth extends AuthType {
-    SharedCredentialsType sharedCredentialsType
-    String name
+    private SharedCredentialsType sharedCredentialsType
+    private String name
 
-    SharedCredentialsAuth(SharedCredentialsType sharedCredentialsType, String name) {
+    SharedCredentialsAuth(SharedCredentialsType sharedCredentialsType, String name, BambooFacade bambooFacade) {
+        super(bambooFacade)
         this.sharedCredentialsType = sharedCredentialsType
         this.name = name
     }
+
+    // just for testing:
+    protected SharedCredentialsAuth() {}
 
     static enum SharedCredentialsType {
         AWS, SSH, USERNAMEPW

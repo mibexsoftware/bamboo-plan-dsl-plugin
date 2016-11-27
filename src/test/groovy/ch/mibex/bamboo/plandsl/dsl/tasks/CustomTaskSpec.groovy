@@ -13,7 +13,7 @@ class CustomTaskSpec extends Specification {
 
         when:
         def results = loader.parse(new DslScriptContext(dsl))
-        def customTask = results.projects[0].plans[0].stages[0].jobs[0].tasksList.children()[0]
+        def customTask = results.projects[0].plans[0].stages[0].jobs[0].tasksList.tasks[0]
 
         then:
         customTask.pluginKey == "ch.mibex.bamboo.sonar4bamboo:sonar4bamboo.maven3task"
@@ -45,7 +45,7 @@ class CustomTaskSpec extends Specification {
 
         when:
         def results = loader.parse(new DslScriptContext(dsl))
-        def customTask = results.projects[0].plans[0].stages[0].jobs[0].tasksList.children()[0]
+        def customTask = results.projects[0].plans[0].stages[0].jobs[0].tasksList.tasks[0]
 
         then:
         customTask.pluginKey == "ch.mibex.bamboo.sonar4bamboo:sonar4bamboo.maven3task"

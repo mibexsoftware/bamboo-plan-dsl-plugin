@@ -1,13 +1,19 @@
 package ch.mibex.bamboo.plandsl.dsl.notifications
 
+import ch.mibex.bamboo.plandsl.dsl.BambooFacade
+import ch.mibex.bamboo.plandsl.dsl.BambooObject
+
 import static ch.mibex.bamboo.plandsl.dsl.notifications.Notifications.NotificationConditions
 
-abstract class NotificationType {
-    NotificationConditions conditionKey
-    String notificationRecipientType
-    int numberOfFailures
+abstract class NotificationType extends BambooObject {
+    protected NotificationConditions conditionKey
+    protected String notificationRecipientType
+    protected int numberOfFailures
 
-    protected NotificationType(String notificationRecipientType, NotificationConditions conditionKey) {
+    protected NotificationType(String notificationRecipientType,
+                               NotificationConditions conditionKey,
+                               BambooFacade bambooFacade) {
+        super(bambooFacade)
         this.notificationRecipientType = notificationRecipientType
         this.conditionKey = conditionKey
     }
@@ -21,6 +27,7 @@ abstract class NotificationType {
     }
 
     protected abstract def Map<String, String[]> getConfig(Map<Object, Object> context)
+
 
     void numberOfFailures(int num) {
         this.numberOfFailures = num

@@ -1,9 +1,17 @@
 package ch.mibex.bamboo.plandsl.dsl.scm.web
 
+import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@EqualsAndHashCode
-@ToString
+@EqualsAndHashCode(includeFields=true)
+@ToString(includeFields=true)
 class BitbucketWebRepository extends WebRepositoryType {
+
+    BitbucketWebRepository(BambooFacade bambooFacade) {
+        super(bambooFacade)
+    }
+
+    // just for testing
+    protected BitbucketWebRepository() {}
 }

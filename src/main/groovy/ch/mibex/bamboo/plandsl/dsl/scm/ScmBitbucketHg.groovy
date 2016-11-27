@@ -6,10 +6,10 @@ import ch.mibex.bamboo.plandsl.dsl.scm.options.AdvancedHgBitbucketOptions
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(includeFields=true)
+@ToString(includeFields=true)
 class ScmBitbucketHg extends ScmType {
-    AdvancedHgBitbucketOptions advancedOptions
+    private AdvancedHgBitbucketOptions advancedOptions
 
     // for tests:
     protected ScmBitbucketHg() {}
@@ -19,7 +19,7 @@ class ScmBitbucketHg extends ScmType {
     }
 
     void advancedOptions(@DelegatesTo(AdvancedHgBitbucketOptions) Closure closure) {
-        def advancedOptions = new AdvancedHgBitbucketOptions()
+        def advancedOptions = new AdvancedHgBitbucketOptions(bambooFacade)
         DslScriptHelper.execute(closure, advancedOptions)
         this.advancedOptions = advancedOptions
     }

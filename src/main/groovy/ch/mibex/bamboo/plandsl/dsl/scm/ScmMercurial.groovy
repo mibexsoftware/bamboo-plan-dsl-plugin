@@ -13,13 +13,13 @@ import ch.mibex.bamboo.plandsl.dsl.scm.options.AdvancedHgMercurialOptions
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(includeFields=true)
+@ToString(includeFields=true)
 class ScmMercurial extends ScmType {
-    String repositoryUrl
-    String branch
-    AuthType authType
-    AdvancedHgMercurialOptions advancedOptions
+    private String repositoryUrl
+    private String branch
+    private AuthType authType
+    private AdvancedHgMercurialOptions advancedOptions
 
     // for tests:
     protected ScmMercurial() {}
@@ -28,10 +28,16 @@ class ScmMercurial extends ScmType {
         super(bambooFacade)
     }
 
+    /**
+     * The URL of Mercurial repository.
+     */
     void repositoryUrl(String repositoryUrl) {
         this.repositoryUrl = repositoryUrl
     }
 
+    /**
+     * The name of the branch containing source code.
+     */
     void branch(String branch) {
         this.branch = branch
     }
@@ -39,31 +45,31 @@ class ScmMercurial extends ScmType {
     @RequiresBambooVersion(minimumVersion = '5.13')
     void sharedCredentialsPasswordAuth(String name) {
         bambooFacade.requireSharedCredentials(name)
-        authType = new SharedCredentialsAuth(SharedCredentialsAuth.SharedCredentialsType.USERNAMEPW, name)
+        authType = new SharedCredentialsAuth(SharedCredentialsAuth.SharedCredentialsType.USERNAMEPW, name, bambooFacade)
     }
 
     void passwordAuth(@DelegatesTo(PasswordAuth) Closure closure) {
-        authType = new PasswordAuth()
+        authType = new PasswordAuth(bambooFacade)
         DslScriptHelper.execute(closure, authType)
     }
 
     void keyfileWithoutPassphrase(@DelegatesTo(SshWithoutPassphraseAuth) Closure closure) {
-        authType = new SshWithoutPassphraseAuth()
+        authType = new SshWithoutPassphraseAuth(bambooFacade)
         DslScriptHelper.execute(closure, authType)
     }
 
     void keyfileWithPassphrase(@DelegatesTo(SshAuth) Closure closure) {
-        authType = new SshWithoutPassphraseAuth()
+        authType = new SshWithoutPassphraseAuth(bambooFacade)
         DslScriptHelper.execute(closure, authType)
     }
 
     void defaultMercurialCredentials(@DelegatesTo(DefaultMercurialAuth) Closure closure) {
-        authType = new DefaultMercurialAuth()
+        authType = new DefaultMercurialAuth(bambooFacade)
         DslScriptHelper.execute(closure, authType)
     }
 
     void advancedOptions(@DelegatesTo(AdvancedHgMercurialOptions) Closure closure) {
-        advancedOptions = new AdvancedHgMercurialOptions()
+        advancedOptions = new AdvancedHgMercurialOptions(bambooFacade)
         DslScriptHelper.execute(closure, advancedOptions)
     }
 

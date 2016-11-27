@@ -10,13 +10,13 @@ import ch.mibex.bamboo.plandsl.dsl.scm.auth.SshAuth
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(includeFields=true)
+@ToString(includeFields=true)
 class ScmBitbucketCloud extends ScmType {
-    String repoSlug
-    String branch
-    AuthType authType
-    ScmType scmType
+    private String repoSlug
+    private String branch
+    private AuthType authType
+    private ScmType scmType
 
     // for tests:
     protected ScmBitbucketCloud() {}
@@ -25,10 +25,18 @@ class ScmBitbucketCloud extends ScmType {
         super(bambooFacade)
     }
 
+    /**
+     * Choose the repository you want to use for your Plan.
+
+     * @param repoSlug The slug of the repositry.
+     */
     void repoSlug(String repoSlug) {
         this.repoSlug = repoSlug
     }
 
+    /**
+     * Choose a branch you want to check out your code from.
+     */
     void branch(String branch) {
         this.branch = branch
     }
@@ -51,23 +59,23 @@ class ScmBitbucketCloud extends ScmType {
     @RequiresBambooVersion(minimumVersion = '5.13')
     void sharedCredentialsPasswordAuth(String name) {
         bambooFacade.requireSharedCredentials(name)
-        authType = new SharedCredentialsAuth(SharedCredentialsAuth.SharedCredentialsType.USERNAMEPW, name)
+        authType = new SharedCredentialsAuth(SharedCredentialsAuth.SharedCredentialsType.USERNAMEPW, name, bambooFacade)
     }
 
     @RequiresBambooVersion(minimumVersion = '5.13')
     void sshPrivateKey(@DelegatesTo(SshAuth) Closure closure) {
-        authType = new SshAuth()
+        authType = new SshAuth(bambooFacade)
         DslScriptHelper.execute(closure, authType)
     }
 
     @RequiresBambooVersion(minimumVersion = '5.13')
     void sshSharedCredentials(String name) {
         bambooFacade.requireSharedCredentials(name)
-        authType = new SharedCredentialsAuth(SharedCredentialsAuth.SharedCredentialsType.SSH, name)
+        authType = new SharedCredentialsAuth(SharedCredentialsAuth.SharedCredentialsType.SSH, name, bambooFacade)
     }
 
     void passwordAuth(@DelegatesTo(PasswordAuth) Closure closure) {
-        def authByPassword = new PasswordAuth()
+        def authByPassword = new PasswordAuth(bambooFacade)
         DslScriptHelper.execute(closure, authByPassword)
         authType = authByPassword
     }

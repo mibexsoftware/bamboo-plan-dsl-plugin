@@ -1,36 +1,40 @@
 package ch.mibex.bamboo.plandsl.dsl.jobs
 
+import ch.mibex.bamboo.plandsl.dsl.BambooFacade
+import ch.mibex.bamboo.plandsl.dsl.BambooObject
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@ToString
-@EqualsAndHashCode
-class ArtifactDefinition {
-    String location
-    String copyPattern
-    boolean isShared
-    String name
+@EqualsAndHashCode(includeFields=true)
+@ToString(includeFields=true)
+class ArtifactDefinition extends BambooObject {
+    private String location
+    private String copyPattern
+    private boolean isShared
+    private String name
 
     /**
      * Creates an artifact definition.
      *
      * @param name the name of the artifact definition
      */
-    ArtifactDefinition(String name) {
+    ArtifactDefinition(String name, BambooFacade bambooFacade) {
+        super(bambooFacade)
         this.name = name
     }
 
+    // just for testing
     protected ArtifactDefinition() {}
 
     /**
-     * Specify the directory (relative path) to find your artifact. e.g. target
+     * Specify the directory (relative path) to find your artifact, e.g. target
      */
     void location(String location) {
         this.location = location
     }
 
     /**
-     * Specify the name (or Ant file copy pattern) of the artifact(s) you want to keep. e.g. &#42;&#42;&#47;&#42;.jar
+     * Specify the name (or Ant file copy pattern) of the artifact(s) you want to keep, e.g. &#42;&#42;&#47;&#42;.jar
      */
     void copyPattern(String copyPattern) {
         this.copyPattern = copyPattern

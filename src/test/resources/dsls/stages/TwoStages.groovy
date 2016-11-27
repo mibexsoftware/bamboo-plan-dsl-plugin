@@ -1,10 +1,8 @@
 package dsls.stages
 
-project("SIMPLEPROJECT") {
-    name "Renamed project"
+project("SIMPLEPROJECT", "Renamed project") {
 
-    plan("SIMPLEPLAN") {
-        name "Renamed plan"
+    plan(key: "SIMPLEPLAN", name: "Renamed plan") {
         description "this was a simple plan"
         enabled false
 
@@ -19,12 +17,11 @@ project("SIMPLEPROJECT") {
             }
         }
 
-        stage("first stage") {
+        stage(name: "first stage") {
             description "this was a simple stage"
             manual true
 
-            job(key = "SIMPLEJOB") {
-                name "Simple job"
+            job("SIMPLEJOB") {
                 description "This is a simple job"
                 enabled
 

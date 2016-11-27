@@ -4,8 +4,8 @@ import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(includeFields=true)
+@ToString(includeFields=true)
 class ScmLinkedRepository extends ScmType {
     // for tests:
     protected ScmLinkedRepository() {}

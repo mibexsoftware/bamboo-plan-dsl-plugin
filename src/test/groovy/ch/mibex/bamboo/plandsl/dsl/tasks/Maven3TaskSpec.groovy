@@ -24,6 +24,7 @@ class Maven3TaskSpec extends Specification {
                 workingSubDirectory: ".",
                 buildJdk: "jdk8",
                 executable: "maven323",
+                pluginKey: "com.atlassian.bamboo.plugins.maven:task.builder.mvn3",
                 hasTests: true,
                 withTests: new WithTests(
                         testResultsDirectory: "tests/"

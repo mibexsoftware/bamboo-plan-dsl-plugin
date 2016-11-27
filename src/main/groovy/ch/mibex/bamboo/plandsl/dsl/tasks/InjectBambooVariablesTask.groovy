@@ -4,13 +4,13 @@ import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@EqualsAndHashCode
-@ToString
+@EqualsAndHashCode(includeFields=true)
+@ToString(includeFields=true)
 class InjectBambooVariablesTask extends Task {
-    static final TASK_ID = 'com.atlassian.bamboo.plugins.bamboo-variable-inject-plugin:inject'
-    String propertiesFilePath
-    String namespace = 'inject'
-    VariablesScope variablesScope = VariablesScope.LOCAL
+    private static final TASK_ID = 'com.atlassian.bamboo.plugins.bamboo-variable-inject-plugin:inject'
+    private String propertiesFilePath
+    private String namespace = 'inject'
+    private VariablesScope variablesScope = VariablesScope.LOCAL
 
     // for tests:
     protected InjectBambooVariablesTask() {}
@@ -19,20 +19,29 @@ class InjectBambooVariablesTask extends Task {
         super(bambooFacade, TASK_ID)
     }
 
+    /**
+     * Path to properties file. Each line of the file should be in the form of "key=value".
+     */
     void propertiesFilePath(String propertiesFilePath) {
         this.propertiesFilePath = propertiesFilePath
     }
 
+    /**
+     * Namespace is used to avoid name conflicts with existing variables.
+     */
     void namespace(String namespace) {
         this.namespace = namespace
     }
 
+    /**
+     * Scope of the variables.
+     */
     void variablesScope(VariablesScope variablesScope) {
         this.variablesScope = variablesScope
     }
 
     @Override
-    def Map<String, String> getConfig(Map<Object, Object> context) {
+    protected def Map<String, String> getConfig(Map<Object, Object> context) {
         def config = [:]
         config.put('filePath', propertiesFilePath)
         config.put('namespace', namespace)
@@ -41,7 +50,14 @@ class InjectBambooVariablesTask extends Task {
     }
 
     static enum VariablesScope {
-        LOCAL, RESULT
+        /**
+         * Variables will only be available in this job.
+         */
+        LOCAL,
+        /**
+         * Variables will be available in subsequent stages of this plan and in releases created from the result.
+         */
+        RESULT
     }
 
 }

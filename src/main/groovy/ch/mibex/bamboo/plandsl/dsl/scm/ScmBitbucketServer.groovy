@@ -6,16 +6,16 @@ import ch.mibex.bamboo.plandsl.dsl.scm.options.AdvancedGitRepoOptions
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(includeFields=true)
+@ToString(includeFields=true)
 class ScmBitbucketServer extends ScmType {
-    String serverName
-    String repositoryUrl
-    String projectKey
-    String repoSlug
-    String repoId
-    AdvancedGitRepoOptions advancedOptions
-    String branch
+    private String serverName
+    private String repositoryUrl
+    private String projectKey
+    private String repoSlug
+    private String repoId
+    private AdvancedGitRepoOptions advancedOptions
+    private String branch
 
     ScmBitbucketServer(BambooFacade bambooFacade) {
         super(bambooFacade)
@@ -24,20 +24,31 @@ class ScmBitbucketServer extends ScmType {
     // for tests:
     protected ScmBitbucketServer() {}
 
-    // if not given, the primary application link will be used
+    /**
+     * Then name of the Bitbucket Server application link. If none is set, the primary link will be used.
+     */
     void serverName(String linkName) {
         bambooFacade.requireApplicationLink(linkName)
         this.serverName = linkName
     }
 
+    /**
+     * The repository URL.
+     */
     void repositoryUrl(String repositoryUrl) {
         this.repositoryUrl = repositoryUrl
     }
 
+    /**
+     * The Bitbucket Server project key.
+     */
     void projectKey(String projectKey) {
         this.projectKey = projectKey
     }
 
+    /**
+     * The Bitbucket Server repository slug.
+     */
     void repoSlug(String repoSlug) {
         this.repoSlug = repoSlug
     }
@@ -49,10 +60,13 @@ class ScmBitbucketServer extends ScmType {
     }
 
     void advancedOptions(@DelegatesTo(AdvancedGitRepoOptions) Closure closure) {
-        advancedOptions = new AdvancedGitRepoOptions()
+        advancedOptions = new AdvancedGitRepoOptions(bambooFacade)
         DslScriptHelper.execute(closure, advancedOptions)
     }
 
+    /**
+     * Choose a branch you want to check out your code from.
+     */
     void branch(String branch) {
         this.branch = branch
     }

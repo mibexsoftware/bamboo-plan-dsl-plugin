@@ -9,8 +9,7 @@ class MyCommons {
             description "this was a simple stage"
             manual true
 
-            job("SIMPLEJOB") {
-                name "Simple job"
+            job(key: "SIMPLEJOB", name: "Simple job") {
                 description "This is a simple job"
                 enabled true
 

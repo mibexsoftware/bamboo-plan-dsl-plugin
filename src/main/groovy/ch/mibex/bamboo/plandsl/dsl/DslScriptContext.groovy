@@ -1,8 +1,10 @@
 package ch.mibex.bamboo.plandsl.dsl
 
 import groovy.transform.EqualsAndHashCode
+import groovy.transform.ToString
 
 @EqualsAndHashCode
+@ToString
 class DslScriptContext {
     final String location
     final String body

@@ -1,23 +1,29 @@
 package ch.mibex.bamboo.plandsl.dsl.jobs
 
-import ch.mibex.bamboo.plandsl.dsl.BambooObject
 import ch.mibex.bamboo.plandsl.dsl.BambooFacade
-import ch.mibex.bamboo.plandsl.dsl.DslParent
+import ch.mibex.bamboo.plandsl.dsl.BambooObject
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import ch.mibex.bamboo.plandsl.dsl.Validations
-import ch.mibex.bamboo.plandsl.dsl.tasks.Task
 import ch.mibex.bamboo.plandsl.dsl.tasks.Tasks
 
-class Job extends BambooObject implements DslParent<Task> {
-    String key
-    String name
-    String description
-    boolean enabled = true
-    Tasks tasksList = new Tasks()
-    Artifacts artifacts = new Artifacts()
+class Job extends BambooObject {
+    private String key
+    private String name
+    private String description
+    private boolean enabled = true
+    private Tasks tasksList = new Tasks(bambooFacade)
+    private Artifacts artifacts = new Artifacts(bambooFacade)
 
-    Job(BambooFacade bambooFacade) {
+    protected Job(String key, String name, BambooFacade bambooFacade) {
         super(bambooFacade)
+        this.key(key)
+        this.name(name)
+    }
+
+    @Deprecated
+    protected Job(String key, BambooFacade bambooFacade) {
+        super(bambooFacade)
+        this.key(key)
     }
 
     // for testing:
@@ -29,7 +35,7 @@ class Job extends BambooObject implements DslParent<Task> {
      * @param key the key of the job consisting of an uppercase letter followed by one or more uppercase
      * alphanumeric characters. E. g. CORE (for a module called core)
      */
-    void key(String key) {
+    private void key(String key) {
         Validations.isNotNullOrEmpty(key, 'job key must be specified')
         Validations.isTrue(
                 key ==~ /[A-Z][A-Z0-9]*/,
@@ -41,6 +47,7 @@ class Job extends BambooObject implements DslParent<Task> {
     /**
      * Specifies the name of the job.
      */
+    @Deprecated
     void name(String name) {
         Validations.isNotNullOrEmpty(name, 'job name must be specified')
         this.name = name
@@ -65,7 +72,7 @@ class Job extends BambooObject implements DslParent<Task> {
      * Defines the artifact(s) for this job.
      */
     void artifacts(@DelegatesTo(Artifacts) Closure closure) {
-        def artifacts = new Artifacts()
+        def artifacts = new Artifacts(bambooFacade)
         DslScriptHelper.execute(closure, artifacts)
         this.artifacts = artifacts
     }
@@ -74,13 +81,9 @@ class Job extends BambooObject implements DslParent<Task> {
      * Defines the task(s) for this job.
      */
     void tasks(@DelegatesTo(Tasks) Closure closure) {
-        def newTaskList = new Tasks()
+        def newTaskList = new Tasks(bambooFacade)
         DslScriptHelper.execute(closure, newTaskList)
         tasksList = newTaskList
     }
 
-    @Override
-    Collection<Task> children() {
-        tasksList.children()
-    }
 }

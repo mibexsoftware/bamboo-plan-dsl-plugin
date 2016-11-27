@@ -1,23 +1,26 @@
 package ch.mibex.bamboo.plandsl.dsl.variables
 
-import ch.mibex.bamboo.plandsl.dsl.DslParent
+import ch.mibex.bamboo.plandsl.dsl.BambooFacade
+import ch.mibex.bamboo.plandsl.dsl.BambooObject
 import ch.mibex.bamboo.plandsl.dsl.Validations
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@ToString
-@EqualsAndHashCode
-class Variables implements DslParent<Variable> {
-    Set<Variable> variables = new LinkedHashSet<>()
+@EqualsAndHashCode(includeFields=true)
+@ToString(includeFields=true)
+class Variables extends BambooObject {
+    private List<Variable> variables = []
+
+    // for tests
+    protected Variables() {}
+
+    protected Variables(BambooFacade bambooFacade) {
+        super(bambooFacade)
+    }
 
     void variable(String key, String value) {
         Validations.isNotNullOrEmpty(key, 'Variable key must not be empty')
         def variable = new Variable(key, value)
         variables << variable
-    }
-
-    @Override
-    Collection<Variable> children() {
-        variables
     }
 }

@@ -2,14 +2,15 @@ package ch.mibex.bamboo.plandsl.dsl
 
 import ch.mibex.bamboo.plandsl.dsl.jobs.Job
 
-class Stage extends BambooObject implements DslParent<Job> {
+class Stage extends BambooObject {
     String name
     String description
     boolean manual
-    protected Set<Job> jobs = new LinkedHashSet<>()
+    protected List<Job> jobs = new ArrayList<>()
 
-    protected Stage(BambooFacade bambooFacade) {
+    protected Stage(String name, BambooFacade bambooFacade) {
         super(bambooFacade)
+        this.name(name)
     }
 
     // for testing
@@ -20,6 +21,7 @@ class Stage extends BambooObject implements DslParent<Job> {
      *
      * @param name the name of the stage
      */
+    @Deprecated
     protected void name(String name) {
         this.name = name
     }
@@ -44,26 +46,31 @@ class Stage extends BambooObject implements DslParent<Job> {
      *
      * @param key the key of the job consisting of an uppercase letter followed by one or more uppercase
      * alphanumeric characters. E. g. CORE (for a module called core)
+     * @param name the name of the job
      */
-    Job job(String key, @DelegatesTo(Job) Closure closure) {
-        def job = new Job(bambooFacade)
-        job.key(key)
-        DslScriptHelper.execute(closure, job)
-        jobs << job
-        job
-    }
-
     Job job(String key, String name, @DelegatesTo(Job) Closure closure) {
-        def job = new Job(bambooFacade)
-        job.key(key)
+        def job = new Job(key, name, bambooFacade)
         DslScriptHelper.execute(closure, job)
         jobs << job
         job
     }
 
+    @Deprecated
+    Job job(String key, @DelegatesTo(Job) Closure closure) {
+        def job = new Job(key, bambooFacade)
+        DslScriptHelper.execute(closure, job)
+        jobs << job
+        job
+    }
+
+    Job job(Map<String, String> jobParams, @DelegatesTo(Job) Closure closure) {
+        //FIXME this can be improved once https://issues.apache.org/jira/browse/GROOVY-7956 is implemented
+        job(jobParams['key'], jobParams['name'], closure)
+    }
+
+    @Deprecated
     Job job(String key) {
-        def job = new Job(bambooFacade)
-        job.key(key)
+        def job = new Job(key, bambooFacade)
         jobs << job
         job
     }
@@ -78,8 +85,4 @@ class Stage extends BambooObject implements DslParent<Job> {
         job
     }
 
-    @Override
-    Collection<Job> children() {
-        jobs
-    }
 }

@@ -10,27 +10,29 @@ import ch.mibex.bamboo.plandsl.dsl.variables.Variables
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@ToString
-@EqualsAndHashCode
-class Plan extends BambooObject implements DslParent<Stage> {
-    String key
-    String name
-    String description
-    Scm scm = new Scm(bambooFacade)
-    boolean enabled = true
-    protected Set<Stage> stages = new LinkedHashSet<>()
-    Set<DeploymentProject> deploymentProjects = new LinkedHashSet<>()
-    Triggers triggers = new Triggers()
-    Branches branches = new Branches()
-    Notifications notifications = new Notifications()
-    Variables variables = new Variables()
-    Dependencies dependencies = new Dependencies()
+@EqualsAndHashCode(includeFields=true)
+@ToString(includeFields=true)
+class Plan extends BambooObject {
+    private String key
+    private String name
+    private String description
+    private Scm scm = new Scm(bambooFacade)
+    private boolean enabled = true
+    private List<Stage> stages = []
+    private List<DeploymentProject> deploymentProjects = []
+    private Triggers triggers = new Triggers(bambooFacade)
+    private Branches branches = new Branches(bambooFacade)
+    private Notifications notifications = new Notifications(bambooFacade)
+    private Variables variables = new Variables(bambooFacade)
+    private Dependencies dependencies = new Dependencies(bambooFacade)
 
     // for testing
     protected Plan() {}
 
-    protected Plan(BambooFacade bambooFacade) {
+    @Deprecated
+    protected Plan(String key, BambooFacade bambooFacade) {
         super(bambooFacade)
+        planKey(key)
     }
 
     /**
@@ -38,12 +40,19 @@ class Plan extends BambooObject implements DslParent<Stage> {
      *
      * @param key the key of the plan consisting of an uppercase letter followed by one or more uppercase
      * alphanumeric characters
+     * @param name the name of the build plan
      */
-    protected void key(String key) {
+    protected Plan(String key, String name, BambooFacade bambooFacade) {
+        super(bambooFacade)
+        planKey(key)
+        planName(name)
+    }
+
+    private void planKey(String key) {
         Validations.isNotNullOrEmpty(key, 'plan key must be specified')
         Validations.isTrue(
-            key ==~ /[A-Z][A-Z0-9]*/,
-            'plan key must consist of an uppercase letter followed by one or more uppercase alphanumeric characters.'
+                key ==~ /[A-Z][A-Z0-9]*/,
+                'plan key must consist of an uppercase letter followed by one or more uppercase alphanumeric characters.'
         )
         this.key = key
     }
@@ -51,7 +60,12 @@ class Plan extends BambooObject implements DslParent<Stage> {
     /**
      * Specifies the name of the plan.
      */
+    @Deprecated
     void name(String name) {
+        planName(name)
+    }
+
+    private void planName(String name) {
         Validations.isNotNullOrEmpty(name, 'plan name must be specified')
         this.name = name
     }
@@ -80,20 +94,48 @@ class Plan extends BambooObject implements DslParent<Stage> {
      * @since 1.1.0
      */
     DeploymentProject deploymentProject(String name, @DelegatesTo(DeploymentProject) Closure closure) {
-        def deploymentProject = new DeploymentProject(bambooFacade)
-        deploymentProject.name(name)
+        def deploymentProject = new DeploymentProject(name, bambooFacade)
         DslScriptHelper.execute(closure, deploymentProject)
         deploymentProjects << deploymentProject
         deploymentProject
     }
 
+    /**
+     * Defines a deployment project for this plan. This can be called multiple times if you have multiple deployment
+     * projects for this plan.
+     *
+     * @param name the name of the deployment project
+     * @param key the key of the deployment project
+     *
+     * @since 1.1.0
+     */
+    DeploymentProject deploymentProject(Map<String, String> params, @DelegatesTo(DeploymentProject) Closure closure) {
+        //FIXME this can be improved once https://issues.apache.org/jira/browse/GROOVY-7956 is implemented
+        deploymentProject(params['name'], closure)
+    }
+
+    /**
+     * Defines a deployment project for this plan. This can be called multiple times if you have multiple deployment
+     * projects for this plan.
+     *
+     * @param name the name of the deployment project
+     *
+     * @since 1.1.0
+     */
     DeploymentProject deploymentProject(String name) {
-        def deploymentProject = new DeploymentProject(bambooFacade)
-        deploymentProject.name(name)
+        def deploymentProject = new DeploymentProject(name, bambooFacade)
         deploymentProjects << deploymentProject
         deploymentProject
     }
 
+    /**
+     * Defines a deployment project for this plan. This can be called multiple times if you have multiple deployment
+     * projects for this plan.
+     *
+     * @param name the name of the deployment project
+     *
+     * @since 1.1.0
+     */
     DeploymentProject deploymentProject(DeploymentProject deploymentProject) {
         deploymentProjects << deploymentProject
         deploymentProject
@@ -113,7 +155,7 @@ class Plan extends BambooObject implements DslParent<Stage> {
      * Specifies the triggers for this plan.
      */
     void triggers(@DelegatesTo(Triggers) Closure closure) {
-        this.triggers = new Triggers()
+        this.triggers = new Triggers(bambooFacade)
         DslScriptHelper.execute(closure, triggers)
     }
 
@@ -121,12 +163,12 @@ class Plan extends BambooObject implements DslParent<Stage> {
      * Specifies the branches for this plan.
      */
     void branches(@DelegatesTo(Branches) Closure closure) {
-        branches = new Branches()
+        branches = new Branches(bambooFacade)
         DslScriptHelper.execute(closure, branches)
     }
 
     Branches branches() {
-        branches = new Branches()
+        branches = new Branches(bambooFacade)
         branches
     }
 
@@ -137,11 +179,15 @@ class Plan extends BambooObject implements DslParent<Stage> {
      */
     Stage stage(String name, @DelegatesTo(Stage) Closure closure) {
         Validations.isNotNullOrEmpty(name, 'name must be specified')
-        def stage = new Stage(bambooFacade)
-        stage.name(name)
+        def stage = new Stage(name, bambooFacade)
         DslScriptHelper.execute(closure, stage)
         stages << stage
         stage
+    }
+
+    Stage stage(Map<String, String> stageParams, @DelegatesTo(Stage) Closure closure) {
+        //FIXME this can be improved once https://issues.apache.org/jira/browse/GROOVY-7956 is implemented
+        stage(stageParams['name'], closure)
     }
 
     Stage stage(Stage stage) {
@@ -150,8 +196,7 @@ class Plan extends BambooObject implements DslParent<Stage> {
     }
 
     Stage stage(String name) {
-        def stage = new Stage(bambooFacade)
-        stage.name(name)
+        def stage = new Stage(name, bambooFacade)
         stages << stage
         stage
     }
@@ -160,13 +205,13 @@ class Plan extends BambooObject implements DslParent<Stage> {
      * Specifies the notifications for this plan.
      */
     Notifications notifications(@DelegatesTo(Notifications) Closure closure) {
-        notifications = new Notifications()
+        notifications = new Notifications(bambooFacade)
         DslScriptHelper.execute(closure, notifications)
         notifications
     }
 
     Notifications notifications() {
-        notifications = new Notifications()
+        notifications = new Notifications(bambooFacade)
         notifications
     }
 
@@ -174,7 +219,7 @@ class Plan extends BambooObject implements DslParent<Stage> {
      * Specifies the variables for this plan.
      */
     void variables(@DelegatesTo(Variables) Closure closure) {
-        def variables = new Variables()
+        def variables = new Variables(bambooFacade)
         DslScriptHelper.execute(closure, variables)
         this.variables =  variables
     }
@@ -183,13 +228,9 @@ class Plan extends BambooObject implements DslParent<Stage> {
      * Specifies the dependencies for this plan.
      */
     void dependencies(@DelegatesTo(Dependencies) Closure closure) {
-        def dependencies = new Dependencies()
+        def dependencies = new Dependencies(bambooFacade)
         DslScriptHelper.execute(closure, dependencies)
         this.dependencies =  dependencies
     }
 
-    @Override
-    Collection<Stage> children() {
-        stages
-    }
 }

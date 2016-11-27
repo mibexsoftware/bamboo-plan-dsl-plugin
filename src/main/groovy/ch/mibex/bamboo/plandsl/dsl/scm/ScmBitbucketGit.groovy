@@ -6,10 +6,10 @@ import ch.mibex.bamboo.plandsl.dsl.scm.options.AdvancedGitRepoOptions
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(includeFields=true)
+@ToString(includeFields=true)
 class ScmBitbucketGit extends ScmType {
-    AdvancedGitRepoOptions advancedOptions
+    private AdvancedGitRepoOptions advancedOptions
 
     // for tests:
     protected ScmBitbucketGit() {}
@@ -19,7 +19,7 @@ class ScmBitbucketGit extends ScmType {
     }
 
     void advancedOptions(@DelegatesTo(AdvancedGitRepoOptions) Closure closure) {
-        def advancedGitOptions = new AdvancedGitRepoOptions()
+        def advancedGitOptions = new AdvancedGitRepoOptions(bambooFacade)
         DslScriptHelper.execute(closure, advancedGitOptions)
         this.advancedOptions = advancedGitOptions
     }

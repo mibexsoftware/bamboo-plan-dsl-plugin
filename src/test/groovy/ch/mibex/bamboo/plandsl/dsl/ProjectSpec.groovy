@@ -4,6 +4,19 @@ import spock.lang.Specification
 
 class ProjectSpec extends Specification {
 
+    def 'project with new syntax should yield correct project'() {
+        setup:
+        def loader = new DslScriptParserImpl()
+
+        when:
+        def result = loader.parse(new DslScriptContext(getClass().getResource('/dsls/projects/ProjectNewSyntax.groovy').text))
+
+        then:
+        result.projects.size() == 1
+        result.projects[0].projectKey == 'SIMPLEPROJECT'
+        result.projects[0].projectName == 'Simple project'
+    }
+
     def 'project without name should yield exception'() {
         setup:
         def loader = new DslScriptParserImpl()

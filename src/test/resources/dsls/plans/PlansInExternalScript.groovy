@@ -2,7 +2,7 @@ package dsls.plans
 
 import dsls.plans.commons.MyUtilities
 
-def globalPlan = plan('PLAN0')
+def globalPlan = plan('PLAN0', 'my new plan')
 
 project('PROJECT') {
     name 'my project'

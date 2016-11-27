@@ -21,8 +21,8 @@ class PlanSpec extends Specification {
         then:
         results != null
         results.projects.size() == 1
-        results.projects[0].key == "SIMPLEPROJECT"
-        results.projects[0].name == "Simple project"
+        results.projects[0].projectKey == "SIMPLEPROJECT"
+        results.projects[0].projectName == "Simple project"
         results.projects[0].plans[0] == new Plan(
                 key: "SIMPLEPLAN",
                 name: "Simple plan",
@@ -77,8 +77,8 @@ class PlanSpec extends Specification {
         then:
         results != null
         results.projects.size() == 1
-        results.projects[0].key == "SIMPLEPROJECT"
-        results.projects[0].name == "Simple project"
+        results.projects[0].projectKey == "SIMPLEPROJECT"
+        results.projects[0].projectName == "Simple project"
         results.projects[0].plans[0] == new Plan(
                 key: "SIMPLEPLAN",
                 name: "Simple plan",
@@ -126,15 +126,15 @@ class PlanSpec extends Specification {
         then:
         results != null
         results.projects.size() == 1
-        results.projects[0].key == "SIMPLEPROJECT"
-        results.projects[0].name == "Simple project"
+        results.projects[0].projectKey == "SIMPLEPROJECT"
+        results.projects[0].projectName == "Simple project"
         results.projects[0].plans[0] == new Plan(
                 key: "SIMPLEPLAN",
                 name: "Simple plan",
                 enabled: true,
                 description: "this is a simple plan",
                 dependencies: new Dependencies(
-                        dependencies: [new Dependency('HELLO-HELLO'), new Dependency('SEED-SEED')],
+                        dependencies: [new Dependency(planKey: 'HELLO-HELLO'), new Dependency(planKey: 'SEED-SEED')],
                         blockingStrategy: Dependencies.DependencyBlockingStrategy.BLOCK_BUILD_IF_PARENT_BUILDS_ARE_QUEUED,
                         advancedOptions: new AdvancedDependencyOptions(
                                 triggerDependenciesOnlyWhenAllStagesHaveRunSuccessfully: true,
@@ -142,6 +142,25 @@ class PlanSpec extends Specification {
                                 enableDependenciesForAllBranches: true
                         )
                 )
+        )
+    }
+
+    def 'plan with new syntax should yield correct plan'() {
+        setup:
+        def loader = new DslScriptParserImpl()
+
+        when:
+        def result = loader.parse(new DslScriptContext(getClass().getResource('/dsls/plans/PlanNewSyntax.groovy').text))
+
+        then:
+        result.projects.size() == 1
+        result.projects[0].projectKey == 'SIMPLEPROJECT'
+        result.projects[0].projectName == 'Simple project'
+        result.projects[0].plans[0] == new Plan(
+                key: "SIMPLEPLAN",
+                name: "Simple plan",
+                enabled: true,
+                description: "this is a simple plan"
         )
     }
 }

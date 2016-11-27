@@ -14,7 +14,7 @@ class PlansWithTriggersSpec extends Specification {
         def results = loader.parse(new DslScriptContext(dsl))
 
         then:
-        results.projects[0].plans[0].triggers.children()[0] == new ScheduledTrigger(
+        results.projects[0].plans[0].triggers.triggers[0] == new ScheduledTrigger(
             displayName: "scheduled",
             cronExpression: "0 0 0 ? * *",
             onlyRunIfOtherPlansArePassing: new OnlyIfOthersPassingTriggerCondition(planKeys: ["PROJ-PLAN2"])
@@ -30,7 +30,7 @@ class PlansWithTriggersSpec extends Specification {
         def results = loader.parse(new DslScriptContext(dsl))
 
         then:
-        results.projects[0].plans[0].triggers.children()[0] == new PollingTrigger(
+        results.projects[0].plans[0].triggers.triggers[0] == new PollingTrigger(
             displayName: "mypollsched",
             repositories: ["mygit", "mybitbucket"],
             pollingStrategy: 'CRON',
@@ -48,7 +48,7 @@ class PlansWithTriggersSpec extends Specification {
         def results = loader.parse(new DslScriptContext(dsl))
 
         then:
-        results.projects[0].plans[0].triggers.children()[0] == new PollingTrigger(
+        results.projects[0].plans[0].triggers.triggers[0] == new PollingTrigger(
             displayName: "mypollper",
             repositories: ["test2"],
             pollingStrategy: 'PERIOD',
@@ -66,7 +66,7 @@ class PlansWithTriggersSpec extends Specification {
         def results = loader.parse(new DslScriptContext(dsl))
 
         then:
-        results.projects[0].plans[0].triggers.children()[0] == new RemoteTrigger(
+        results.projects[0].plans[0].triggers.triggers[0] == new RemoteTrigger(
             displayName: "mycommit",
             repositories: ["test2"],
             ipAddresses: ["127.0.0.1", "192.168.0.1"],
@@ -83,14 +83,14 @@ class PlansWithTriggersSpec extends Specification {
         def results = loader.parse(new DslScriptContext(dsl))
 
         then:
-        results.projects[0].plans[0].triggers.children()[0] == new PollingTrigger(
+        results.projects[0].plans[0].triggers.triggers[0] == new PollingTrigger(
                 displayName: "mypollsched",
                 repositories: ["mygit", "mybitbucket"],
                 pollingStrategy: 'CRON',
                 scheduledTrigger: new ScheduledTrigger(cronExpression: "0 0 0 ? * *"),
                 onlyRunIfOtherPlansArePassing: new OnlyIfOthersPassingTriggerCondition(planKeys: ["PROJ-PLAN1"])
         )
-        results.projects[0].plans[0].triggers.children()[1] == new RemoteTrigger(
+        results.projects[0].plans[0].triggers.triggers[1] == new RemoteTrigger(
                 displayName: "mycommit",
                 repositories: ["test2"],
                 ipAddresses: ["127.0.0.1", "192.168.0.1"],

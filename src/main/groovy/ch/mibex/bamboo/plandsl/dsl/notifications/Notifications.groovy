@@ -1,81 +1,113 @@
 package ch.mibex.bamboo.plandsl.dsl.notifications
 
-import ch.mibex.bamboo.plandsl.dsl.DslParent
+import ch.mibex.bamboo.plandsl.dsl.BambooFacade
+import ch.mibex.bamboo.plandsl.dsl.BambooObject
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@EqualsAndHashCode
-@ToString
-class Notifications implements DslParent<NotificationType> {
-    Set<NotificationType> notifications = new LinkedHashSet<>()
+@EqualsAndHashCode(includeFields=true)
+@ToString(includeFields=true)
+class Notifications extends BambooObject {
+    private List<NotificationType> notifications = new ArrayList<>()
 
+    Notifications(BambooFacade bambooFacade) {
+        super(bambooFacade)
+    }
+
+    /**
+     * Notify users via HipChat.
+     */
     void hipchat(NotificationConditions conditions, @DelegatesTo(HipChatNotification) Closure closure) {
-        def notification = new HipChatNotification(conditions)
+        def notification = new HipChatNotification(conditions, bambooFacade)
         DslScriptHelper.execute(closure, notification)
         notifications << notification
     }
 
+    /**
+     * Notify users via e-mail.
+     */
     void email(NotificationConditions conditions, @DelegatesTo(EmailNotification) Closure closure) {
-        def notification = new EmailNotification(conditions)
+        def notification = new EmailNotification(conditions, bambooFacade)
         DslScriptHelper.execute(closure, notification)
         notifications << notification
     }
 
+    /**
+     * This notification type is obsolete and should no longer be used. Bamboo notifies Bitbucket Server about
+     * every build result automatically.
+     */
+    @Deprecated
     void stashLegacy(NotificationConditions conditions, @DelegatesTo(StashLegacyNotification) Closure closure) {
-        def notification = new StashLegacyNotification(conditions)
+        def notification = new StashLegacyNotification(conditions, bambooFacade)
         DslScriptHelper.execute(closure, notification)
         notifications << notification
     }
 
+    /**
+     * Notify a group.
+     */
     void group(NotificationConditions conditions, @DelegatesTo(GroupNotification) Closure closure) {
-        def notification = new GroupNotification(conditions)
+        def notification = new GroupNotification(conditions, bambooFacade)
         DslScriptHelper.execute(closure, notification)
         notifications << notification
     }
 
+    /**
+     * Notify a user.
+     */
     void user(NotificationConditions conditions, @DelegatesTo(UserNotification) Closure closure) {
-        def notification = new UserNotification(conditions)
+        def notification = new UserNotification(conditions, bambooFacade)
         DslScriptHelper.execute(closure, notification)
         notifications << notification
     }
 
+    /**
+     * Notify via instant messenger.
+     */
     void imAddress(NotificationConditions conditions, @DelegatesTo(ImAddressNotification) Closure closure) {
-        def notification = new ImAddressNotification(conditions)
+        def notification = new ImAddressNotification(conditions, bambooFacade)
         DslScriptHelper.execute(closure, notification)
         notifications << notification
     }
 
+    /**
+     * Notify responsible users.
+     */
     void responsibleUsers(NotificationConditions conditions,
                           @DelegatesTo(ResponsibleUsersNotification) Closure closure) {
-        def notification = new ResponsibleUsersNotification(conditions)
+        def notification = new ResponsibleUsersNotification(conditions, bambooFacade)
         DslScriptHelper.execute(closure, notification)
         notifications << notification
     }
 
+    /**
+     * Notify users who have committed to the build.
+     */
     void committers(NotificationConditions conditions, @DelegatesTo(CommittersNotification) Closure closure) {
-        def notification = new CommittersNotification(conditions)
+        def notification = new CommittersNotification(conditions, bambooFacade)
         DslScriptHelper.execute(closure, notification)
         notifications << notification
     }
 
+    /**
+     * Notify users who have marked this build as their favourite.
+     */
     void watchers(NotificationConditions conditions, @DelegatesTo(WatchersNotification) Closure closure) {
-        def notification = new WatchersNotification(conditions)
+        def notification = new WatchersNotification(conditions, bambooFacade)
         DslScriptHelper.execute(closure, notification)
         notifications << notification
     }
 
+    /**
+     * A custom (i.e., not built-in) notification.
+     */
     void custom(NotificationConditions conditions,
                 String pluginKey,
                 @DelegatesTo(CustomNotification) Closure closure) {
-        def notification = new CustomNotification(pluginKey, conditions)
+        def notification = new CustomNotification(pluginKey, conditions, bambooFacade)
         DslScriptHelper.execute(closure, notification)
         notifications << notification
-    }
-
-    @Override
-    Collection<NotificationType> children() {
-        notifications
     }
 
     static enum NotificationConditions {

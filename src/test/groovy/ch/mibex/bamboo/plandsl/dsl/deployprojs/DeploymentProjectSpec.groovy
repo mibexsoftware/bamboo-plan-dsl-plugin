@@ -62,7 +62,7 @@ class DeploymentProjectSpec extends Specification {
                             workingSubDirectory: ".",
                             argument: "-n",
                             environmentVariables: "what=EVER",
-                            executable: "atlas-clean",
+                            executable: "atlas-clean"
                     ])]),
                     triggers: new DeploymentTriggers(triggers: [new ScheduledDeploymentTrigger(
                             cronExpression: "0 0 0 ? * *"
@@ -83,9 +83,9 @@ class DeploymentProjectSpec extends Specification {
         def deploymentProjects = results.projects[0].plans[0].deploymentProjects
         deploymentProjects.size() == 2
         deploymentProjects[0].name == 'local project'
-        deploymentProjects[0].children().size() == 2
+        deploymentProjects[0].environments.size() == 2
         deploymentProjects[1].name == 'global project'
-        deploymentProjects[1].children().size() == 2
+        deploymentProjects[1].environments.size() == 2
     }
 
 }

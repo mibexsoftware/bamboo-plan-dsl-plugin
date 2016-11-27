@@ -1,24 +1,21 @@
 package ch.mibex.bamboo.plandsl.dsl.scm
 
 import ch.mibex.bamboo.plandsl.dsl.BambooFacade
-import ch.mibex.bamboo.plandsl.dsl.NullBambooFacade
+import ch.mibex.bamboo.plandsl.dsl.BambooObject
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@ToString
-@EqualsAndHashCode
-class ScmType {
-    String displayName
-    final BambooFacade bambooFacade
-
-    // for tests:
-    ScmType() {
-        bambooFacade = new NullBambooFacade()
-    }
+@EqualsAndHashCode(includeFields=true)
+@ToString(includeFields=true)
+class ScmType extends BambooObject {
+    protected String displayName
 
     ScmType(BambooFacade bambooFacade) {
-        this.bambooFacade = bambooFacade
+        super(bambooFacade)
     }
+
+    // for tests:
+    ScmType() {}
 
     static enum MatchType {
         INCLUDE_ONLY_MATCHING_CHANGES('includeOnly'),

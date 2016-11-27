@@ -10,13 +10,13 @@ import ch.mibex.bamboo.plandsl.dsl.scm.options.AdvancedSvnOptions
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(includeFields=true)
+@ToString(includeFields=true)
 class ScmSubversion extends ScmType {
-    String repositoryUrl
-    String userName
-    AuthType authType
-    AdvancedSvnOptions advancedOptions
+    private String repositoryUrl
+    private String userName
+    private AuthType authType
+    private AdvancedSvnOptions advancedOptions
 
     // for tests:
     protected ScmSubversion() {}
@@ -25,31 +25,37 @@ class ScmSubversion extends ScmType {
         super(bambooFacade)
     }
 
+    /**
+     * The location of the Subversion repository root (e.g. http://svn.collab.net//repos/svn)
+     */
     void repositoryUrl(String repositoryUrl) {
         this.repositoryUrl = repositoryUrl
     }
 
+    /**
+     * The subversion username (if any) required to access the repository
+     */
     void userName(String userName) {
         this.userName = userName
     }
 
     void passwordAuth(@DelegatesTo(PasswordAuth) Closure closure) {
-        authType = new PasswordAuth()
+        authType = new PasswordAuth(bambooFacade)
         DslScriptHelper.execute(closure, authType)
     }
 
     void sshAuth(@DelegatesTo(SshAuth) Closure closure) {
-        authType = new SshAuth()
+        authType = new SshAuth(bambooFacade)
         DslScriptHelper.execute(closure, authType)
     }
 
     void sslClientCertificate(@DelegatesTo(SslClientCertificateAuth) Closure closure) {
-        authType = new SslClientCertificateAuth()
+        authType = new SslClientCertificateAuth(bambooFacade)
         DslScriptHelper.execute(closure, authType)
     }
 
     void advancedOptions(@DelegatesTo(AdvancedSvnOptions) Closure closure) {
-        advancedOptions = new AdvancedSvnOptions()
+        advancedOptions = new AdvancedSvnOptions(bambooFacade)
         DslScriptHelper.execute(closure, advancedOptions)
     }
 }

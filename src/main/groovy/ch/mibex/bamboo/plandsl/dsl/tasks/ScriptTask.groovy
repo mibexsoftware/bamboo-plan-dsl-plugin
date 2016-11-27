@@ -5,8 +5,8 @@ import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@EqualsAndHashCode
-@ToString
+@EqualsAndHashCode(includeFields=true)
+@ToString(includeFields=true)
 class ScriptTask extends Task {
     public static final TASK_ID = 'com.atlassian.bamboo.plugins.scripttask:task.builder.script'
     String argument
@@ -22,30 +22,45 @@ class ScriptTask extends Task {
         super(bambooFacade, TASK_ID)
     }
 
+    /**
+     * File-based script execution.
+     */
     void file(@DelegatesTo(ScriptFile) Closure closure) {
         scriptFile = new ScriptFile()
         DslScriptHelper.execute(closure, scriptFile)
     }
 
+    /**
+     * Script is given in the Bamboo task.
+     */
     void inline(@DelegatesTo(InlineScript) Closure closure) {
         inlineScript = new InlineScript()
         DslScriptHelper.execute(closure, inlineScript)
     }
 
+    /**
+     * Script argument.
+     */
     void argument(String argument) {
         this.argument = argument
     }
 
+    /**
+     * Environment variables.
+     */
     void environmentVariables(String environmentVariables) {
         this.environmentVariables = environmentVariables
     }
 
+    /**
+     * Working sub directory.
+     */
     void workingSubDirectory(String workingSubDirectory) {
         this.workingSubDirectory = workingSubDirectory
     }
 
     @Override
-    def Map<String, String> getConfig(Map<Object, Object> context) {
+    protected def Map<String, String> getConfig(Map<Object, Object> context) {
         def config = [:]
         config.put('argument', argument)
         config.put('scriptBody', inlineScript?.scriptBody ?: '')

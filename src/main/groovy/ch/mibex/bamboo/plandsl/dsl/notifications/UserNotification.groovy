@@ -1,15 +1,20 @@
 package ch.mibex.bamboo.plandsl.dsl.notifications
 
+import ch.mibex.bamboo.plandsl.dsl.BambooFacade
+
 import static ch.mibex.bamboo.plandsl.dsl.notifications.Notifications.NotificationConditions
 
 class UserNotification extends NotificationType {
     static final NOTIFICATION_RECIPIENT_TYPE = 'com.atlassian.bamboo.plugin.system.notifications:recipient.user'
     String user
 
-    UserNotification(NotificationConditions conditionKey) {
-        super(NOTIFICATION_RECIPIENT_TYPE, conditionKey)
+    UserNotification(NotificationConditions conditionKey, BambooFacade bambooFacade) {
+        super(NOTIFICATION_RECIPIENT_TYPE, conditionKey, bambooFacade)
     }
 
+    /**
+     * User to receive notification.
+     */
     void user(String user) {
         this.user = user
     }

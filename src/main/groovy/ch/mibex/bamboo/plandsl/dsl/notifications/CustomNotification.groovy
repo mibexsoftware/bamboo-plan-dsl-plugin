@@ -1,17 +1,17 @@
 package ch.mibex.bamboo.plandsl.dsl.notifications
 
+import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 import static ch.mibex.bamboo.plandsl.dsl.notifications.Notifications.NotificationConditions
 
-@EqualsAndHashCode
-@ToString
-
+@EqualsAndHashCode(includeFields=true)
+@ToString(includeFields=true)
 class CustomNotification extends NotificationType {
-    Map<String, String[]> config = [:]
+    private Map<String, String[]> config = [:]
 
-    CustomNotification(String pluginKey, NotificationConditions notificationConditions) {
-        super(pluginKey, notificationConditions)
+    CustomNotification(String pluginKey, NotificationConditions notificationConditions, BambooFacade bambooFacade) {
+        super(pluginKey, notificationConditions, bambooFacade)
     }
 
     def methodMissing(String methodName, args) {
@@ -23,7 +23,7 @@ class CustomNotification extends NotificationType {
     }
 
     @Override
-    Map<String, String[]> getConfig(Map<Object, Object> context) {
+    protected Map<String, String[]> getConfig(Map<Object, Object> context) {
         config
     }
 }

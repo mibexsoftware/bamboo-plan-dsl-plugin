@@ -4,10 +4,10 @@ import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@EqualsAndHashCode
-@ToString
+@EqualsAndHashCode(includeFields=true)
+@ToString(includeFields=true)
 class CustomTask extends Task {
-    Map<String, String> buildConfig = [:]
+    private Map<String, String> buildConfig = [:]
 
     CustomTask(BambooFacade bambooFacade, String pluginKey) {
         super(bambooFacade, pluginKey)

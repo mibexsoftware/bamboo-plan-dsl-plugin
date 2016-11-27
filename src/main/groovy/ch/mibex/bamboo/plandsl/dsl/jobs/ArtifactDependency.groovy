@@ -1,23 +1,27 @@
 package ch.mibex.bamboo.plandsl.dsl.jobs
 
+import ch.mibex.bamboo.plandsl.dsl.BambooFacade
+import ch.mibex.bamboo.plandsl.dsl.BambooObject
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@ToString
-@EqualsAndHashCode
-class ArtifactDependency {
-    String name
-    String destinationDirectory
+@EqualsAndHashCode(includeFields=true)
+@ToString(includeFields=true)
+class ArtifactDependency extends BambooObject {
+    private String name
+    private String destinationDirectory
 
     /**
      * Creates an artifact dependency.
      *
      * @param name the name of the artifact dependency
      */
-    ArtifactDependency(String name) {
+    ArtifactDependency(String name, BambooFacade bambooFacade) {
+        super(bambooFacade)
         this.name = name
     }
 
+    // just for testing
     protected ArtifactDependency() {}
 
     /**

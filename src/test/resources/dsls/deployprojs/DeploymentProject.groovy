@@ -15,11 +15,11 @@ project("SIMPLEPROJECT") {
             }
         }
 
-        deploymentProject("dp2") {
+        deploymentProject(name: "dp2") {
             description "desc1"
             useCustomPlanBranch "release"
 
-            environment("env1") {
+            environment(name: "env1") {
                 description "desc1"
             }
             environment("env2") {
