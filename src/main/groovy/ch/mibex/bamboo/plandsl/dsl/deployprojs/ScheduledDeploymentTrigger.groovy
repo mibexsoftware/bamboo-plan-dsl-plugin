@@ -13,8 +13,14 @@ class ScheduledDeploymentTrigger extends DeploymentTriggerType {
     private String cronExpression
     private String customPlanBranchName
 
+    @Deprecated
     ScheduledDeploymentTrigger(BambooFacade bambooFacade) {
         super(bambooFacade)
+    }
+
+    ScheduledDeploymentTrigger(String cronExpression, BambooFacade bambooFacade) {
+        super(bambooFacade)
+        this.cronExpression = cronExpression
     }
 
     // just for testing
@@ -34,6 +40,7 @@ class ScheduledDeploymentTrigger extends DeploymentTriggerType {
      *
      * @param cronExpression cron expression
      */
+    @Deprecated
     void cronExpression(String cronExpression) {
         this.cronExpression = cronExpression
     }

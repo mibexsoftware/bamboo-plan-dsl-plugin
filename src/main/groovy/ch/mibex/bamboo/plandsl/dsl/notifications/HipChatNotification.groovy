@@ -1,10 +1,11 @@
 package ch.mibex.bamboo.plandsl.dsl.notifications
 
 import ch.mibex.bamboo.plandsl.dsl.BambooFacade
+import ch.mibex.bamboo.plandsl.dsl.Validations
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-import static ch.mibex.bamboo.plandsl.dsl.notifications.Notifications.NotificationConditions
+import static ch.mibex.bamboo.plandsl.dsl.notifications.Notifications.NotificationEvent
 
 @EqualsAndHashCode(includeFields=true, excludes = ['metaClass'], callSuper = true)
 @ToString(includeFields=true)
@@ -17,8 +18,15 @@ class HipChatNotification extends NotificationType {
 
     protected HipChatNotification() {}
 
-    HipChatNotification(NotificationConditions conditionKey, BambooFacade bambooFacade) {
+    @Deprecated
+    HipChatNotification(NotificationEvent conditionKey, BambooFacade bambooFacade) {
         super(NOTIFICATION_RECIPIENT_TYPE, conditionKey, bambooFacade)
+    }
+
+    HipChatNotification(NotificationEvent conditionKey, String apiToken, String room, BambooFacade bambooFacade) {
+        super(NOTIFICATION_RECIPIENT_TYPE, conditionKey, bambooFacade)
+        this.apiToken = Validations.isNotNullOrEmpty(apiToken, 'apiToken must not be empty')
+        this.room = Validations.isNotNullOrEmpty(room, 'room must not be empty')
     }
 
     /**

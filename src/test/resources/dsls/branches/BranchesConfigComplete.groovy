@@ -79,7 +79,7 @@ project("SIMPLEPROJECT2") {
             }
 
             notifications {
-                custom(NotificationConditions.AFTER_X_BUILD_FAILURES, "") {
+                custom(event: NotificationEvent.AFTER_X_BUILD_FAILURES, pluginKey: "") {
                 }
             }
             triggers(NewPlanBranchesTriggerType.RUN_NEW_PLAN_BRANCHES_MANUALLY)

@@ -4,7 +4,7 @@ import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-import static ch.mibex.bamboo.plandsl.dsl.notifications.Notifications.NotificationConditions
+import static ch.mibex.bamboo.plandsl.dsl.notifications.Notifications.NotificationEvent
 
 @EqualsAndHashCode(includeFields=true, excludes = ['metaClass'], callSuper = true)
 @ToString(includeFields=true)
@@ -13,7 +13,7 @@ class GroupNotification extends NotificationType {
             'com.atlassian.bamboo.plugin.system.notifications:recipient.group'
     private String group
 
-    GroupNotification(NotificationConditions conditionKey, BambooFacade bambooFacade) {
+    GroupNotification(NotificationEvent conditionKey, BambooFacade bambooFacade) {
         super(NOTIFICATION_RECIPIENT_TYPE, conditionKey, bambooFacade)
     }
 

@@ -10,7 +10,7 @@ project("SIMPLEPROJECT2") {
 
         branches {
             notifications {
-                custom(NotificationConditions.AFTER_X_BUILD_FAILURES, "") {}
+                custom(NotificationEvent.AFTER_X_BUILD_FAILURES, "") {}
             }
         }
     }

@@ -81,7 +81,7 @@ class DslScriptParserImpl implements DslScriptParser {
         def importCustomizer = new ImportCustomizer()
         // we need to embed these enums in files of the DSL and not in separate files because otherwise lookup
         // does not work in IDEs:
-        importCustomizer.addStaticImport(Notifications.name, Notifications.NotificationConditions.simpleName)
+        importCustomizer.addStaticImport(Notifications.name, Notifications.NotificationEvent.simpleName)
         importCustomizer.addStaticImport(InjectBambooVariablesTask.name,
                 InjectBambooVariablesTask.VariablesScope.simpleName)
         importCustomizer.addStaticImport(Branch.name, Branch.NotifyOnNewBranchesType.simpleName)

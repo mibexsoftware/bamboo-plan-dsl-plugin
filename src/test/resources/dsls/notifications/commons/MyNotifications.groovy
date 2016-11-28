@@ -5,7 +5,7 @@ import ch.mibex.bamboo.plandsl.dsl.notifications.Notifications
 
 static void notifyWithHipChatAndSms(Notifications notifications, BambooEnvironment env) {
     notifications.with {
-        custom(NotificationConditions.JOB_ERROR,
+        custom(NotificationEvent.JOB_ERROR,
                 "ch.mibex.bamboo.smsnotification:smsnotification.recipient") {
             numberOfFailures 1
             configure(
@@ -15,7 +15,7 @@ static void notifyWithHipChatAndSms(Notifications notifications, BambooEnvironme
                     smsToNumber: env('sms_to_number')
             )
         }
-        hipchat(NotificationConditions.ALL_BUILDS_COMPLETED) {
+        hipchat(NotificationEvent.ALL_BUILDS_COMPLETED) {
             apiToken env('hipchat_api_token_password')
             room env('hipchat_room_name')
             notify true

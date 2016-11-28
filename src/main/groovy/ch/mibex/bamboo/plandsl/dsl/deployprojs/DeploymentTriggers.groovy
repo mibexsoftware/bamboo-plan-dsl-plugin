@@ -24,24 +24,67 @@ class DeploymentTriggers extends BambooObject {
     /**
      * Run according to schedule.
      *
-     * @param displayName The name of the trigger
+     * @param description The description of the trigger
      */
-    void scheduled(String displayName, @DelegatesTo(ScheduledDeploymentTrigger) Closure closure) {
+    @Deprecated
+    void scheduled(String description, @DelegatesTo(ScheduledDeploymentTrigger) Closure closure) {
         def scheduled = new ScheduledDeploymentTrigger(bambooFacade)
-        scheduled.displayName = displayName
+        scheduled.description = description
         DslScriptHelper.execute(closure, scheduled)
         triggers << scheduled
     }
 
     /**
+     * Run according to schedule.
+     *
+     * @param cronExpression cron expression
+     */
+    void scheduledCron(String cronExpression, @DelegatesTo(ScheduledDeploymentTrigger) Closure closure) {
+        def scheduled = new ScheduledDeploymentTrigger(cronExpression, bambooFacade)
+        DslScriptHelper.execute(closure, scheduled)
+        triggers << scheduled
+    }
+
+    /**
+     * Run according to schedule.
+     *
+     * @param cronExpression cron expression
+     */
+    void scheduledCron(Map<String, String> params, @DelegatesTo(ScheduledDeploymentTrigger) Closure closure) {
+        scheduledCron(params['cronExpression'], closure)
+    }
+
+    /**
      * Deployment is started after a plan is successfully built.
      *
-     * @param displayName The name of the trigger
+     * @param description The description of the trigger
      */
-    void afterSuccessfulBuildPlan(String displayName,
+    @Deprecated
+    void afterSuccessfulBuildPlan(String description,
                                   @DelegatesTo(AfterSuccessfulBuildDeploymentTrigger) Closure closure) {
         def trigger = new AfterSuccessfulBuildDeploymentTrigger(bambooFacade)
-        trigger.displayName = displayName
+        trigger.description = description
+        DslScriptHelper.execute(closure, trigger)
+        triggers << trigger
+    }
+
+    /**
+     * Deployment is started after a plan is successfully built.
+     */
+    void afterSuccessfulBuildPlan(@DelegatesTo(AfterSuccessfulBuildDeploymentTrigger) Closure closure) {
+        afterSuccessfulBuildPlan(null, closure)
+    }
+
+    /**
+     * Deployment is started after a deployment on another environment is completed successfully.
+     *
+     * @param description The description of the trigger
+     */
+    @Deprecated
+    void afterSuccessfulDeployment(String description,
+                                   @DelegatesTo(AfterSuccessfulDeploymentTrigger) Closure closure) {
+        def trigger = new AfterSuccessfulDeploymentTrigger(bambooFacade)
+        trigger.description = description
         DslScriptHelper.execute(closure, trigger)
         triggers << trigger
     }
@@ -49,27 +92,43 @@ class DeploymentTriggers extends BambooObject {
     /**
      * Deployment is started after a deployment on another environment is completed successfully.
      *
-     * @param displayName The name of the trigger
+     * @param triggeringEnvironment name of environment
      */
-    void afterSuccessfulDeployment(String displayName,
-                                   @DelegatesTo(AfterSuccessfulDeploymentTrigger) Closure closure) {
-        def trigger = new AfterSuccessfulDeploymentTrigger(bambooFacade)
-        trigger.displayName = displayName
+    void afterSuccessDeployment(String triggeringEnvironment,
+                                @DelegatesTo(AfterSuccessfulDeploymentTrigger) Closure closure) {
+        def trigger = new AfterSuccessfulDeploymentTrigger(triggeringEnvironment, bambooFacade)
+        DslScriptHelper.execute(closure, trigger)
+        triggers << trigger
+    }
+
+    /**
+     * Deployment is started after a deployment on another environment is completed successfully.
+     *
+     * @param triggeringEnvironment name of environment
+     */
+    void afterSuccessDeployment(Map<String, String> params,
+                                @DelegatesTo(AfterSuccessfulDeploymentTrigger) Closure closure) {
+        afterSuccessDeployment(params['triggeringEnvironment'], closure)
+    }
+
+    /**
+     * Deployment is started after a stage is successfully built.
+     *
+     * @param description The description of the trigger
+     */
+    @Deprecated
+    void afterSuccessfulStage(String description,
+                              @DelegatesTo(AfterSuccessfulStageDeploymentTrigger) Closure closure) {
+        def trigger = new AfterSuccessfulStageDeploymentTrigger(bambooFacade)
+        trigger.description = description
         DslScriptHelper.execute(closure, trigger)
         triggers << trigger
     }
 
     /**
      * Deployment is started after a stage is successfully built.
-     *
-     * @param displayName The name of the trigger
      */
-    void afterSuccessfulStage(String displayName,
-                              @DelegatesTo(AfterSuccessfulStageDeploymentTrigger) Closure closure) {
-        def trigger = new AfterSuccessfulStageDeploymentTrigger(bambooFacade)
-        trigger.displayName = displayName
-        DslScriptHelper.execute(closure, trigger)
-        triggers << trigger
+    void afterSuccessfulStage(@DelegatesTo(AfterSuccessfulStageDeploymentTrigger) Closure closure) {
+        afterSuccessfulStage(null, closure)
     }
-
 }

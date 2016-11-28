@@ -83,4 +83,12 @@ class DeploymentProject extends BambooObject {
         env
     }
 
+    /**
+     * Environments represent where releases are deployed to.
+     *
+     * @param params A collection of properties. Currently only "name" is supported.
+     */
+    Environment environment(Map<String, String> params) {
+        environment(params['name'])
+    }
 }

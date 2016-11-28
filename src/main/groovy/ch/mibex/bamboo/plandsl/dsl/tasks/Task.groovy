@@ -2,6 +2,7 @@ package ch.mibex.bamboo.plandsl.dsl.tasks
 
 import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.BambooObject
+import ch.mibex.bamboo.plandsl.dsl.Validations
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
@@ -15,11 +16,11 @@ abstract class Task extends BambooObject {
 
     protected Task(BambooFacade bambooFacade, String pluginKey) {
         super(bambooFacade)
-        this.pluginKey = pluginKey
+        this.pluginKey = Validations.isNotNullOrEmpty(pluginKey, 'pluginKey must not be empty')
     }
 
     protected Task(String pluginKey) {
-        this.pluginKey = pluginKey
+        this.pluginKey = Validations.isNotNullOrEmpty(pluginKey, 'pluginKey must not be empty')
     }
 
     protected abstract def Map<String, String> getConfig(Map<Object, Object> context)

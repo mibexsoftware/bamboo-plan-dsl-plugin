@@ -3,7 +3,7 @@ package ch.mibex.bamboo.plandsl.dsl.notifications
 import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
-import static ch.mibex.bamboo.plandsl.dsl.notifications.Notifications.NotificationConditions
+import static ch.mibex.bamboo.plandsl.dsl.notifications.Notifications.NotificationEvent
 
 @EqualsAndHashCode(includeFields = true, excludes = ['metaClass'], callSuper = true)
 @ToString(includeFields = true)
@@ -13,7 +13,7 @@ class CustomNotification extends NotificationType {
     // just for tests:
     protected CustomNotification() {}
 
-    CustomNotification(String pluginKey, NotificationConditions notificationConditions, BambooFacade bambooFacade) {
+    CustomNotification(String pluginKey, NotificationEvent notificationConditions, BambooFacade bambooFacade) {
         super(pluginKey, notificationConditions, bambooFacade)
     }
 

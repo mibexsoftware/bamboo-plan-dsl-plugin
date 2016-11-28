@@ -95,11 +95,11 @@ class Tasks extends BambooObject {
         handleTask(closure, VcsCheckoutTask)
     }
 
+    @Deprecated
     void cleanWorkingDirectory(String description, @DelegatesTo(CleanWorkingDirTask) Closure closure) {
         handleTask(closure, CleanWorkingDirTask, description)
     }
 
-    @Deprecated
     void cleanWorkingDirectory(@DelegatesTo(CleanWorkingDirTask) Closure closure) {
         handleTask(closure, CleanWorkingDirTask)
     }
@@ -216,7 +216,7 @@ class Tasks extends BambooObject {
     /**
      * Execute one or more Maven 3 goals as part of your build.
      *
-     * @params The mandatory parameters for this task. Only "goal" is expected.
+     * @params params The mandatory parameters for this task. Only "goal" is expected.
      */
     void maven3x(Map<String, String> params, @DelegatesTo(Maven3Task) Closure closure) {
         maven3x(params['goal'], closure)
@@ -260,6 +260,15 @@ class Tasks extends BambooObject {
         def task = new CustomTask(bambooFacade, pluginKey)
         DslScriptHelper.execute(closure, task)
         tasks << task
+    }
+
+    /**
+     * A custom task not natively supported.
+     *
+     * @params params The mandatory parameters for this task. Only "pluginKey" is expected.
+     */
+    void custom(Map<String, String> params, @DelegatesTo(CustomTask) Closure closure) {
+        custom(params['pluginKey'], closure)
     }
 
     private void handleTask(Closure closure, Class<? extends Task> clazz, String description = null) {

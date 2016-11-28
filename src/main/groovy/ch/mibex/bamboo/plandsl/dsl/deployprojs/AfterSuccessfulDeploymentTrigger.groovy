@@ -1,6 +1,7 @@
 package ch.mibex.bamboo.plandsl.dsl.deployprojs
 
 import ch.mibex.bamboo.plandsl.dsl.BambooFacade
+import ch.mibex.bamboo.plandsl.dsl.Validations
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
@@ -12,8 +13,15 @@ import groovy.transform.ToString
 class AfterSuccessfulDeploymentTrigger extends DeploymentTriggerType {
     private String triggeringEnvironment
 
+    @Deprecated
     AfterSuccessfulDeploymentTrigger(BambooFacade bambooFacade) {
         super(bambooFacade)
+    }
+
+    AfterSuccessfulDeploymentTrigger(String triggeringEnvironment, BambooFacade bambooFacade) {
+        super(bambooFacade)
+        this.triggeringEnvironment = Validations.isNotNullOrEmpty(triggeringEnvironment,
+                'triggeringEnvironment must not be empty')
     }
 
     protected AfterSuccessfulDeploymentTrigger() {}
@@ -23,8 +31,8 @@ class AfterSuccessfulDeploymentTrigger extends DeploymentTriggerType {
      *
      * @param triggeringEnvironment name of environment
      */
+    @Deprecated
     void triggeringEnvironment(String triggeringEnvironment) {
         this.triggeringEnvironment = triggeringEnvironment
     }
-
 }

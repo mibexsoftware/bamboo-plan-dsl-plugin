@@ -47,7 +47,6 @@ class Artifacts extends BambooObject {
      * @param params the mandatory parameters for an artifact definition.
      * Currently, "name" and "copyPattern" are expected.
      */
-    @Deprecated
     void definition(Map<String, String> params, @DelegatesTo(ArtifactDefinition) Closure closure) {
         definition(params['name'], params['copyPattern'], closure)
     }

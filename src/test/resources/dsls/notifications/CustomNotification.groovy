@@ -9,8 +9,8 @@ project("SIMPLEPROJECT") {
         enabled true
 
         notifications {
-            custom(NotificationConditions.AFTER_X_BUILD_FAILURES,
-                   "ch.mibex.bamboo.smsnotification:smsnotification.recipient") {
+            custom(event: NotificationEvent.AFTER_X_BUILD_FAILURES,
+                   pluginKey: "ch.mibex.bamboo.smsnotification:smsnotification.recipient") {
                 numberOfFailures 1
                 configure(
                         twilioAccountSid: "twilioAccountSid",
@@ -19,9 +19,7 @@ project("SIMPLEPROJECT") {
                         smsToNumber: "smsToNumber"
                 )
             }
-            hipchat(NotificationConditions.ALL_BUILDS_COMPLETED) {
-                apiToken "XXX"
-                room "Myroom"
+            hipchat(event: NotificationEvent.ALL_BUILDS_COMPLETED, apiToken: "XXX", room: "MyRoom") {
                 notify true
             }
         }

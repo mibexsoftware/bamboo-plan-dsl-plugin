@@ -4,7 +4,7 @@ import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-import static ch.mibex.bamboo.plandsl.dsl.notifications.Notifications.NotificationConditions
+import static ch.mibex.bamboo.plandsl.dsl.notifications.Notifications.NotificationEvent
 
 @EqualsAndHashCode(includeFields=true, excludes = ['metaClass'], callSuper = true)
 @ToString(includeFields=true)
@@ -13,7 +13,7 @@ class EmailNotification extends NotificationType {
             'com.atlassian.bamboo.plugin.system.notifications:recipient.email'
     private String email
 
-    EmailNotification(NotificationConditions conditionKey, BambooFacade bambooFacade) {
+    EmailNotification(NotificationEvent conditionKey, BambooFacade bambooFacade) {
         super(NOTIFICATION_RECIPIENT_TYPE, conditionKey, bambooFacade)
     }
 

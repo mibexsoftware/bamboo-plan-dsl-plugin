@@ -10,7 +10,7 @@ project("SIMPLEPROJECT") {
         enabled false
 
         notifications {
-            hipchat(NotificationConditions.ALL_BUILDS_COMPLETED) {
+            hipchat(NotificationEvent.ALL_BUILDS_COMPLETED) {
                 apiToken env('my.otherkey')
                 room bamboo['my.key'] // deprecated way of accessing env variables
                 notify true

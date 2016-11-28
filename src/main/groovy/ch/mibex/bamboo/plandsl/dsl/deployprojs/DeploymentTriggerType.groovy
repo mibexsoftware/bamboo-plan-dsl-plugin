@@ -11,7 +11,7 @@ import groovy.transform.ToString
 @EqualsAndHashCode(includeFields=true, excludes = ['metaClass'])
 @ToString(includeFields=true)
 class DeploymentTriggerType extends BambooObject {
-    protected String displayName
+    protected String description
     protected boolean enabled = true
 
     DeploymentTriggerType(BambooFacade bambooFacade) {
@@ -25,8 +25,18 @@ class DeploymentTriggerType extends BambooObject {
      *
      * @param displayName name of the trigger
      */
+    @Deprecated
     void displayName(String displayName) {
-        this.displayName = displayName
+        this.description = displayName
+    }
+
+    /**
+     * The name of the trigger.
+     *
+     * @param description name of the trigger
+     */
+    void description(String displayName) {
+        this.description = displayName
     }
 
     /**
