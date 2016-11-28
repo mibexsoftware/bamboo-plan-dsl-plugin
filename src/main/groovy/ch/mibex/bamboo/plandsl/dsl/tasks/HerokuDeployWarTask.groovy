@@ -1,6 +1,7 @@
 package ch.mibex.bamboo.plandsl.dsl.tasks
 
 import ch.mibex.bamboo.plandsl.dsl.BambooFacade
+import ch.mibex.bamboo.plandsl.dsl.Validations
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
@@ -16,13 +17,22 @@ class HerokuDeployWarTask extends Task {
         super(TASK_ID)
     }
 
+    @Deprecated
     HerokuDeployWarTask(BambooFacade bambooFacade) {
         super(bambooFacade, TASK_ID)
+    }
+
+    HerokuDeployWarTask(String apiKey, String appName, String warFile, BambooFacade bambooFacade) {
+        super(bambooFacade, TASK_ID)
+        this.apiKey = Validations.isNotNullOrEmpty(apiKey, 'apiKey must not be empty')
+        this.appName = Validations.isNotNullOrEmpty(appName, 'appName must not be empty')
+        this.warFile = Validations.isNotNullOrEmpty(warFile, 'warFile must not be empty')
     }
 
     /**
      * API Key.
      */
+    @Deprecated
     void apiKey(String apiKey) {
         this.apiKey = apiKey
     }
@@ -30,6 +40,7 @@ class HerokuDeployWarTask extends Task {
     /**
      * App Name.
      */
+    @Deprecated
     void appName(String appName) {
         this.appName = appName
     }
@@ -37,6 +48,7 @@ class HerokuDeployWarTask extends Task {
     /**
      * WAR File.
      */
+    @Deprecated
     void warFile(String warFile) {
         this.warFile = warFile
     }

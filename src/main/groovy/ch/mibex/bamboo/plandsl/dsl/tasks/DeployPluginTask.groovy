@@ -4,6 +4,8 @@ import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
+import static ch.mibex.bamboo.plandsl.dsl.Validations.isNotNullOrEmpty
+
 @EqualsAndHashCode(includeFields=true, excludes = ['metaClass'], callSuper = true)
 @ToString(includeFields=true)
 class DeployPluginTask extends Task {
@@ -17,8 +19,20 @@ class DeployPluginTask extends Task {
     private boolean useAtlassianIdWebSudo
     private String deployArtifactName
 
+    @Deprecated
     DeployPluginTask(BambooFacade bambooFacade) {
         super(bambooFacade, TASK_ID)
+    }
+
+    DeployPluginTask(String deployArtifactName, ProductType productType, String deployURL,
+                     String deployUsername, String deployPasswordVariable, BambooFacade bambooFacade) {
+        super(bambooFacade, TASK_ID)
+        this.deployArtifactName = isNotNullOrEmpty(deployArtifactName, 'deployArtifactName must be specified')
+        this.productType = isNotNullOrEmpty(productType, 'productType must be specified')
+        this.deployURL = isNotNullOrEmpty(deployURL, 'deployURL must be specified')
+        this.deployUsername = isNotNullOrEmpty(deployUsername, 'deployUsername must be specified')
+        this.deployPasswordVariable =
+                isNotNullOrEmpty(deployPasswordVariable, 'deployPasswordVariable must be specified')
     }
 
     //for tests
@@ -29,6 +43,7 @@ class DeployPluginTask extends Task {
     /**
      * Select a Bamboo artifact to deploy. The artifact should be a single plugin jar file.
      */
+    @Deprecated
     void deployArtifactName(String deployArtifactName) {
         this.deployArtifactName = deployArtifactName
     }
@@ -36,6 +51,7 @@ class DeployPluginTask extends Task {
     /**
      * The Atlassian product type to deploy the artifact to.
      */
+    @Deprecated
     void productType(ProductType productType) {
         this.productType = productType
     }
@@ -43,6 +59,7 @@ class DeployPluginTask extends Task {
     /**
      * The address of the remote Atlassian application where the plugin will be installed.
      */
+    @Deprecated
     void deployURL(String deployURL) {
         this.deployURL = deployURL
     }
@@ -50,6 +67,7 @@ class DeployPluginTask extends Task {
     /**
      * User name to deploy.
      */
+    @Deprecated
     void deployUsername(String deployUsername) {
         this.deployUsername = deployUsername
     }
@@ -57,6 +75,7 @@ class DeployPluginTask extends Task {
     /**
      * A Bamboo variable with the password for this user to deploy.
      */
+    @Deprecated
     void deployPasswordVariable(String deployPasswordVariable) {
         this.deployPasswordVariable = deployPasswordVariable
     }

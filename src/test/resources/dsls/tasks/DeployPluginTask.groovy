@@ -16,13 +16,15 @@ project("SIMPLEPROJECT") {
                 enabled true
 
                 tasks {
-                    deployPlugin("Deploy plug-in to staging server") {
+                    deployPlugin(
+                            productType: ch.mibex.bamboo.plandsl.dsl.tasks.DeployPluginTask.ProductType.STASH,
+                            deployUsername: "admin",
+                            deployURL: "http://myserver",
+                            deployArtifactName: "Plan DSL",
+                            deployPasswordVariable: '${bamboo.bitbucket_server_password}'
+                    ) {
+                        description "Deploy plug-in to staging server"
                         enabled true
-                        productType ProductType.STASH
-                        deployUsername "admin"
-                        deployArtifactName "Plan DSL"
-                        deployURL "http://myserver"
-                        deployPasswordVariable '${bamboo.bitbucket_server_password}'
                         deployBranchEnabled true
                         certificateCheckDisabled true
                     }

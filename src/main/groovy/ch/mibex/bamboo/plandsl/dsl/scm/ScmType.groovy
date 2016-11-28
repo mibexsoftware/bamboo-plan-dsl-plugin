@@ -8,7 +8,7 @@ import groovy.transform.ToString
 @EqualsAndHashCode(includeFields=true, excludes = ['metaClass'])
 @ToString(includeFields=true)
 class ScmType extends BambooObject {
-    protected String displayName
+    protected String name
 
     ScmType(BambooFacade bambooFacade) {
         super(bambooFacade)

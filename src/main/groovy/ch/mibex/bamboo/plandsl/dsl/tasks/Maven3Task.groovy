@@ -2,7 +2,7 @@ package ch.mibex.bamboo.plandsl.dsl.tasks
 
 import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
-import ch.mibex.bamboo.plandsl.dsl.NullBambooFacade
+import ch.mibex.bamboo.plandsl.dsl.Validations
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
@@ -22,16 +22,23 @@ class Maven3Task extends Task {
 
     //for tests
     protected Maven3Task() {
-        this(new NullBambooFacade())
+        super(TASK_ID)
     }
 
+    @Deprecated
     Maven3Task(BambooFacade bambooFacade) {
         super(bambooFacade, TASK_ID)
+    }
+
+    Maven3Task(String goal, BambooFacade bambooFacade) {
+        super(bambooFacade, TASK_ID)
+        this.goal = Validations.isNotNullOrEmpty(goal, 'Goal must not be empty')
     }
 
     /**
      * The goal you want to execute. You can also define system properties such as -Djava.Awt.Headless=true.
      */
+    @Deprecated
     void goal(String goal) {
         this.goal = goal
     }

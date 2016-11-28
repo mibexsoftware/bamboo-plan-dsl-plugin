@@ -52,7 +52,7 @@ class Plan extends BambooObject {
         Validations.isNotNullOrEmpty(key, 'plan key must be specified')
         Validations.isTrue(
                 key ==~ /[A-Z][A-Z0-9]*/,
-                'plan key must consist of an uppercase letter followed by one or more uppercase alphanumeric characters.'
+                'key must consist of an uppercase letter followed by one or more uppercase alphanumeric characters.'
         )
         this.key = key
     }
@@ -185,6 +185,11 @@ class Plan extends BambooObject {
         stage
     }
 
+    /**
+     * Specifies a stage for this plan. If your plan has multiple stages, call this multiple times.
+     *
+     * @param stageParams the properties for the stage. Currently, only "name" is expected.
+     */
     Stage stage(Map<String, String> stageParams, @DelegatesTo(Stage) Closure closure) {
         //FIXME this can be improved once https://issues.apache.org/jira/browse/GROOVY-7956 is implemented
         stage(stageParams['name'], closure)
@@ -195,6 +200,11 @@ class Plan extends BambooObject {
         stage
     }
 
+    /**
+     * Specifies a stage for this plan. If your plan has multiple stages, call this multiple times.
+     *
+     * @param name the name for the stage
+     */
     Stage stage(String name) {
         def stage = new Stage(name, bambooFacade)
         stages << stage

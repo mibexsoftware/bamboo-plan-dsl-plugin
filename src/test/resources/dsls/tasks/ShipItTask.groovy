@@ -16,10 +16,10 @@ project("SIMPLEPROJECT") {
                 enabled true
 
                 tasks {
-                    shipit2marketplace("shipit to the Atlassian Marketplace") {
+                    shipIt2marketplace(deployArtifactName: "Plan DSL") {
+                        description "shipit to the Atlassian Marketplace"
                         enabled true
                         isFinal false
-                        deployArtifactName "Plan DSL"
                         onlyAllowToTriggerFromJira true
                         runOnBranchBuilds false
                         publicVersion true

@@ -23,9 +23,8 @@ project("SIMPLEPROJECT") {
                 }
 
                 artifacts {
-                    definition("my JAR") {
+                    definition(name: "my JAR", copyPattern: "**/*.jar") {
                         location "target"
-                        copyPattern "**/*.jar"
                         shared true
                     }
                     definition("my ZIP") {

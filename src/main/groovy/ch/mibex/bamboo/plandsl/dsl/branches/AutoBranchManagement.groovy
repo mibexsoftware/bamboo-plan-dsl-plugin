@@ -9,10 +9,10 @@ import groovy.transform.ToString
 @EqualsAndHashCode(includeFields=true, excludes = ['metaClass'])
 @ToString(includeFields=true)
 class AutoBranchManagement extends BambooObject {
-    private List<Branch> branches = []
     private DeletedBranchesStrategy deletedBranchesStrategy = DeletedBranchesStrategy.DO_NOT_DELETE_PLAN_BRANCHES
     private int deletePlanBranchesAfterDays
-    private InactiveBranchesStrategy inactiveBranchesStrategy = InactiveBranchesStrategy.DO_NOT_DELETE_INACTIVE_PLAN_BRANCHES
+    private InactiveBranchesStrategy inactiveBranchesStrategy =
+            InactiveBranchesStrategy.DO_NOT_DELETE_INACTIVE_PLAN_BRANCHES
     private int deleteInactivePlanBranchesAfterDays
     private NewBranchesStrategy newBranchesStrategy = NewBranchesStrategy.DO_NOT_CREATE_PLAN_BRANCHES
     private String matchingBranchesRegex

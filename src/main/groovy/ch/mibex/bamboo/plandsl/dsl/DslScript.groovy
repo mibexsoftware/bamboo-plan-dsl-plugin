@@ -4,7 +4,7 @@ import ch.mibex.bamboo.plandsl.dsl.deployprojs.DeploymentProject
 import ch.mibex.bamboo.plandsl.dsl.jobs.Job
 
 abstract class DslScript extends Script implements DslFactory {
-    final List<Project> projects = []
+    protected final List<Project> projects = []
     BambooFacade bambooFacade
 
     @Override @Deprecated
@@ -74,8 +74,9 @@ abstract class DslScript extends Script implements DslFactory {
     }
 
     @Override
+    @SuppressWarnings('UnnecessaryGetter')
     String env(String key) {
-        bambooFacade.getVariableContext()(key)
+        bambooFacade.getVariableContext()(key) // do not change this getter access
     }
 
 }

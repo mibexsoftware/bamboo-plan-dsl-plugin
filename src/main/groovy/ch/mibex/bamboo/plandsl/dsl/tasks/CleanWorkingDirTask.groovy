@@ -7,7 +7,8 @@ import groovy.transform.ToString
 @EqualsAndHashCode(includeFields=true, excludes = ['metaClass'], callSuper = true)
 @ToString(includeFields=true)
 class CleanWorkingDirTask extends Task {
-    private static final TASK_ID = 'com.atlassian.bamboo.plugins.bamboo-artifact-downloader-plugin:cleanWorkingDirectoryTask'
+    private static final TASK_ID =
+            'com.atlassian.bamboo.plugins.bamboo-artifact-downloader-plugin:cleanWorkingDirectoryTask'
 
     CleanWorkingDirTask(BambooFacade bambooFacade) {
         super(bambooFacade, TASK_ID)

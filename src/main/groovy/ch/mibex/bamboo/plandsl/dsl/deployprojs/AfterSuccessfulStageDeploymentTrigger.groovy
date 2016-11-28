@@ -17,7 +17,7 @@ class AfterSuccessfulStageDeploymentTrigger extends DeploymentTriggerType {
         super(bambooFacade)
     }
 
-    protected AfterSuccessfulDeploymentTrigger() {}
+    protected AfterSuccessfulStageDeploymentTrigger() {}
 
     /**
      * Branch to trigger this deployment.

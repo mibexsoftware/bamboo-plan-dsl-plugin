@@ -23,7 +23,7 @@ project("LINKEDSCM") {
         enabled true
 
         scm {
-            linkedRepository("myGlobalRepo3")
+            linkedRepository(name: "myGlobalRepo3")
         }
     }
 }

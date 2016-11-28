@@ -9,7 +9,8 @@ import static ch.mibex.bamboo.plandsl.dsl.notifications.Notifications.Notificati
 @EqualsAndHashCode(includeFields=true, excludes = ['metaClass'], callSuper = true)
 @ToString(includeFields=true)
 class GroupNotification extends NotificationType {
-    private static final NOTIFICATION_RECIPIENT_TYPE = 'com.atlassian.bamboo.plugin.system.notifications:recipient.group'
+    private static final NOTIFICATION_RECIPIENT_TYPE =
+            'com.atlassian.bamboo.plugin.system.notifications:recipient.group'
     private String group
 
     GroupNotification(NotificationConditions conditionKey, BambooFacade bambooFacade) {

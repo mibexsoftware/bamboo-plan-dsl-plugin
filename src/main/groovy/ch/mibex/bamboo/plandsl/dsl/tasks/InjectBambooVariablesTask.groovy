@@ -1,6 +1,7 @@
 package ch.mibex.bamboo.plandsl.dsl.tasks
 
 import ch.mibex.bamboo.plandsl.dsl.BambooFacade
+import ch.mibex.bamboo.plandsl.dsl.Validations
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
@@ -17,8 +18,16 @@ class InjectBambooVariablesTask extends Task {
         super(TASK_ID)
     }
 
+    @Deprecated
     InjectBambooVariablesTask(BambooFacade bambooFacade) {
         super(bambooFacade, TASK_ID)
+    }
+
+    InjectBambooVariablesTask(String propertiesFilePath, String namespace, BambooFacade bambooFacade) {
+        super(bambooFacade, TASK_ID)
+        this.propertiesFilePath =
+                Validations.isNotNullOrEmpty(propertiesFilePath, 'propertiesFilePath must not be empty')
+        this.namespace = Validations.isNotNullOrEmpty(namespace, 'namespace must not be empty')
     }
 
     /**

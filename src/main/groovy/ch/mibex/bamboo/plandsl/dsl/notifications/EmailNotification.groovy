@@ -9,7 +9,8 @@ import static ch.mibex.bamboo.plandsl.dsl.notifications.Notifications.Notificati
 @EqualsAndHashCode(includeFields=true, excludes = ['metaClass'], callSuper = true)
 @ToString(includeFields=true)
 class EmailNotification extends NotificationType {
-    private static final NOTIFICATION_RECIPIENT_TYPE = 'com.atlassian.bamboo.plugin.system.notifications:recipient.email'
+    private static final NOTIFICATION_RECIPIENT_TYPE =
+            'com.atlassian.bamboo.plugin.system.notifications:recipient.email'
     private String email
 
     EmailNotification(NotificationConditions conditionKey, BambooFacade bambooFacade) {

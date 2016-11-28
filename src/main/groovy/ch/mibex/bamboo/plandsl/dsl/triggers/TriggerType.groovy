@@ -10,7 +10,7 @@ import groovy.transform.ToString
 @ToString(includeFields=true)
 class TriggerType extends BambooObject {
     protected boolean enabled = true // we want triggers to be enabled by default
-    protected String displayName
+    protected String description
     protected OnlyIfOthersPassingTriggerCondition onlyRunIfOtherPlansArePassing
 
     // for tests

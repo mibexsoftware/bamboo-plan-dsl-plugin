@@ -16,11 +16,9 @@ project("SIMPLEPROJECT") {
                 enabled true
 
                 tasks {
-                    herokuDeployWar("Deploy WAR to Heroku") {
+                    herokuDeployWar(apiKey: 'key', appName: 'myapp', warFile: 'my.war') {
                         enabled true
-                        apiKey 'key'
-                        appName 'myapp'
-                        warFile 'my.war'
+                        description "Deploy WAR to Heroku"
                     }
                 }
             }

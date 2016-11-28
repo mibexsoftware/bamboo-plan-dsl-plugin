@@ -5,7 +5,7 @@ import ch.mibex.bamboo.plandsl.dsl.BambooObject
 
 abstract class WebRepositoryType extends BambooObject {
 
-    WebRepositoryType(BambooFacade bambooFacade) {
+    protected WebRepositoryType(BambooFacade bambooFacade) {
         super(bambooFacade)
     }
 

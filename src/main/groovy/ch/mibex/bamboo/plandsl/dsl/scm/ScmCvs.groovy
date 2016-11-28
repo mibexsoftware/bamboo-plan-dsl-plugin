@@ -26,7 +26,8 @@ class ScmCvs extends ScmType {
     }
 
     /**
-     * The full path to your CVS repository root. Bamboo supports pserver, ext (ssh) and local repository access methods.
+     * The full path to your CVS repository root. Bamboo supports pserver, ext (ssh) and local repository
+     * access methods.
      */
     void cvsRoot(String cvsRoot) {
         this.cvsRoot = cvsRoot

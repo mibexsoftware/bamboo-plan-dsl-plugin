@@ -2,6 +2,7 @@ package ch.mibex.bamboo.plandsl.dsl.jobs
 
 import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.BambooObject
+import ch.mibex.bamboo.plandsl.dsl.Validations
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
@@ -18,9 +19,23 @@ class ArtifactDefinition extends BambooObject {
      *
      * @param name the name of the artifact definition
      */
+    @Deprecated
     ArtifactDefinition(String name, BambooFacade bambooFacade) {
         super(bambooFacade)
-        this.name = name
+        this.name = Validations.isNotNullOrEmpty(name, 'name must not be empty')
+    }
+
+    /**
+     * Creates an artifact definition.
+     *
+     * @param name the name of the artifact definition
+     * @param copyPattern the name (or Ant file copy pattern) of the artifact(s) you want to keep,
+     * e.g. &#42;&#42;&#47;&#42;.jar
+     */
+    ArtifactDefinition(String name, String copyPattern, BambooFacade bambooFacade) {
+        super(bambooFacade)
+        this.name = Validations.isNotNullOrEmpty(name, 'name must not be empty')
+        this.copyPattern = Validations.isNotNullOrEmpty(copyPattern, 'copyPattern must not be empty')
     }
 
     // just for testing
@@ -36,6 +51,7 @@ class ArtifactDefinition extends BambooObject {
     /**
      * Specify the name (or Ant file copy pattern) of the artifact(s) you want to keep, e.g. &#42;&#42;&#47;&#42;.jar
      */
+    @Deprecated
     void copyPattern(String copyPattern) {
         this.copyPattern = copyPattern
     }

@@ -44,6 +44,7 @@ class DslScriptParserImpl implements DslScriptParser {
         script
     }
 
+    @SuppressWarnings('Instanceof')
     private DslScript parseScript(CompilerConfiguration config, DslScriptContext scriptContext) {
         ClassLoader parentClassLoader = DslScriptParserImpl.classLoader
         GroovyClassLoader groovyClassLoader = new GroovyClassLoader(parentClassLoader, config)

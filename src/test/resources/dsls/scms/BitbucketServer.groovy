@@ -9,7 +9,7 @@ project("BITBUCKETSERVER") {
         enabled true
 
         scm {
-            bitbucketServer("myBitbucketServerRepo") {
+            bitbucketServer(name: "myBitbucketServerRepo") {
                 projectKey "project_1"
                 repoSlug "rep_1"
                 branch "develop"

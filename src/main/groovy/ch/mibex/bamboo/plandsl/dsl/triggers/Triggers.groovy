@@ -21,20 +21,28 @@ class Triggers extends BambooObject {
     /**
      * Bitbucket Server triggers the build when changes are committed.
      */
-    void bitbucketServerRepositoryTriggered(String displayName,
+    @Deprecated
+    void bitbucketServerRepositoryTriggered(String description,
                                             @DelegatesTo(BitbucketServerTrigger) Closure closure) {
         def trigger = new BitbucketServerTrigger(bambooFacade)
-        trigger.displayName = displayName
+        trigger.description = description
         DslScriptHelper.execute(closure, trigger)
         triggers << trigger
+    }
+    /**
+     * Bitbucket Server triggers the build when changes are committed.
+     */
+    void bitbucketServerRepositoryTriggered(@DelegatesTo(BitbucketServerTrigger) Closure closure) {
+        bitbucketServerRepositoryTriggered(null, closure)
     }
 
     /**
      * Run according to schedule.
      */
-    void scheduled(String displayName, @DelegatesTo(ScheduledTrigger) Closure closure) {
+    @Deprecated
+    void scheduled(String description, @DelegatesTo(ScheduledTrigger) Closure closure) {
         def scheduled = new ScheduledTrigger(bambooFacade)
-        scheduled.displayName = displayName
+        scheduled.description = description
         DslScriptHelper.execute(closure, scheduled)
         triggers << scheduled
     }
@@ -46,6 +54,9 @@ class Triggers extends BambooObject {
         scheduled(null, closure)
     }
 
+    /**
+     * Manual trigger.
+     */
     void manual() {
         def trigger = new ManualTrigger()
         triggers << trigger
@@ -61,9 +72,10 @@ class Triggers extends BambooObject {
     /**
      * Bamboo polls source repository and builds when new changes are found.
      */
-    void polling(String displayName, @DelegatesTo(PollingTrigger) Closure closure) {
+    @Deprecated
+    void polling(String description, @DelegatesTo(PollingTrigger) Closure closure) {
         def trigger = new PollingTrigger(bambooFacade)
-        trigger.displayName = displayName
+        trigger.description = description
         DslScriptHelper.execute(closure, trigger)
         triggers << trigger
     }
@@ -71,9 +83,10 @@ class Triggers extends BambooObject {
     /**
      * Repository triggers the build when changes are committed.
      */
-    void remote(String displayName, @DelegatesTo(RemoteTrigger) Closure closure) {
+    @Deprecated
+    void remote(String description, @DelegatesTo(RemoteTrigger) Closure closure) {
         def trigger = new RemoteTrigger(bambooFacade)
-        trigger.displayName = displayName
+        trigger.description = description
         DslScriptHelper.execute(closure, trigger)
         triggers << trigger
     }
@@ -82,15 +95,16 @@ class Triggers extends BambooObject {
      * Repository triggers the build when changes are committed.
      */
     void remote(@DelegatesTo(RemoteTrigger) Closure closure) {
-        polling(null, closure)
+        remote(null, closure)
     }
 
     /**
      * Single daily build.
      */
-    void onceAday(String displayName, @DelegatesTo(OnceADayTrigger) Closure closure) {
+    @Deprecated
+    void onceAday(String description, @DelegatesTo(OnceADayTrigger) Closure closure) {
         def trigger = new OnceADayTrigger(bambooFacade)
-        trigger.displayName = displayName
+        trigger.description = description
         DslScriptHelper.execute(closure, trigger)
         triggers << trigger
     }

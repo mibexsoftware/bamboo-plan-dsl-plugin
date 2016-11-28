@@ -9,7 +9,7 @@ project("GITSCM") {
         enabled true
 
         scm {
-            git("myGitRepo") {
+            git(name: "myGitRepo") {
                 url "http://localhost:7990/bitbucket/scm/project_1/java-maven-simple.git"
                 branch "master"
                 passwordAuth {

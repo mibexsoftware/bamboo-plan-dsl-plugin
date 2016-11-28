@@ -17,8 +17,15 @@ class ShipItPluginTask extends Task {
     private String jqlToCollectReleaseNotes
     private static final TASK_ID = 'ch.mibex.bamboo.shipit2mpac:shipit2marketplace.task'
 
+    @Deprecated
     ShipItPluginTask(BambooFacade bambooFacade) {
         super(bambooFacade, TASK_ID)
+    }
+
+    @Deprecated
+    ShipItPluginTask(String deployArtifactName, BambooFacade bambooFacade) {
+        super(bambooFacade, TASK_ID)
+        this.deployArtifactName = deployArtifactName
     }
 
     //for tests
@@ -29,6 +36,7 @@ class ShipItPluginTask extends Task {
     /**
      * This is the artifact to publish to the Atlassian Marketplace.
      */
+    @Deprecated
     void deployArtifactName(String deployArtifactName) {
         this.deployArtifactName = deployArtifactName
     }

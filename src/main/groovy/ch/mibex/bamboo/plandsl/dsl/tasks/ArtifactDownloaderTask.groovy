@@ -8,7 +8,8 @@ import groovy.transform.ToString
 @EqualsAndHashCode(includeFields=true, excludes = ['metaClass'], callSuper = true)
 @ToString(includeFields=true)
 class ArtifactDownloaderTask extends Task {
-    private static final TASK_ID = 'com.atlassian.bamboo.plugins.bamboo-artifact-downloader-plugin:artifactdownloadertask'
+    private static final TASK_ID =
+            'com.atlassian.bamboo.plugins.bamboo-artifact-downloader-plugin:artifactdownloadertask'
     private List<ArtifactDownloadConfiguration> artifacts = []
 
     ArtifactDownloaderTask(BambooFacade bambooFacade) {
@@ -28,9 +29,7 @@ class ArtifactDownloaderTask extends Task {
      * All artifacts get downloaded.
      */
     void allArtifacts(@DelegatesTo(ArtifactDownloadConfiguration) Closure closure) {
-        def config = new ArtifactDownloadConfiguration(null, bambooFacade)
-        DslScriptHelper.execute(closure, config)
-        artifacts << config
+        artifact(null, closure)
     }
 
     @Override
@@ -40,7 +39,7 @@ class ArtifactDownloaderTask extends Task {
         artifacts.eachWithIndex { dslArtifact, idx ->
             def artifact = contextArtifacts[dslArtifact.name]
             if (artifact) {
-                config.put('artifactId_' + idx, artifact.asType(ArtifactInfo).artifactId.toString())
+                config.put('artifactId_' + idx, String.valueOf(artifact.asType(ArtifactInfo).artifactId))
             }
             config.put('localPath_' + idx, dslArtifact.destinationPath)
         }

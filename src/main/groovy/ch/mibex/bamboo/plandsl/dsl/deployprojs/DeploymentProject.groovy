@@ -1,6 +1,9 @@
 package ch.mibex.bamboo.plandsl.dsl.deployprojs
 
-import ch.mibex.bamboo.plandsl.dsl.*
+import ch.mibex.bamboo.plandsl.dsl.BambooFacade
+import ch.mibex.bamboo.plandsl.dsl.BambooObject
+import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
+import ch.mibex.bamboo.plandsl.dsl.Validations
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 

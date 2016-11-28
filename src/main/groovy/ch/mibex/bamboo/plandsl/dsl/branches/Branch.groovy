@@ -19,7 +19,8 @@ class Branch extends BambooObject {
     private Triggers triggers = new Triggers(bambooFacade)
     private BranchMerging branchMerging
     private Variables variables = new Variables(bambooFacade)
-    private NotifyOnNewBranchesType notificationsType = NotifyOnNewBranchesType.NOTIFY_COMMITTERS_FOR_FAVOURITED_BRANCHES
+    private NotifyOnNewBranchesType notificationsType =
+            NotifyOnNewBranchesType.NOTIFY_COMMITTERS_FOR_FAVOURITED_BRANCHES
     private BranchSourceRepository sourceRepository
 
     Branch(BambooFacade bambooFacade) {

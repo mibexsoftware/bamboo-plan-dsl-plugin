@@ -47,7 +47,7 @@ project("SIMPLEPROJECT") {
                 }
 
                 artifacts {
-                    dependency("my JAR") {
+                    dependency(name: "my JAR") {
                         destinationDirectory "target"
                     }
                 }

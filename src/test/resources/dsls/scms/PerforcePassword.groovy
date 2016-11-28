@@ -9,7 +9,7 @@ project("PERFORCESCM") {
         enabled true
 
         scm {
-            perforce("myPerforceRepo") {
+            perforce(name: "myPerforceRepo") {
                 port "9091"
                 client "perforce"
                 depotView "//perforce/workspace"

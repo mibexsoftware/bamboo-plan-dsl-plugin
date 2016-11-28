@@ -14,7 +14,7 @@ class NullBambooFacade implements BambooFacade {
 
     @Override
     void requireMinimumPluginVersion(String pluginKey, String minVersion) {
-
+        // nop
     }
 
     @Override
@@ -64,7 +64,7 @@ class NullBambooFacade implements BambooFacade {
 
     @Override
     void log(String message) {
-
+        // nop
     }
 
     @Override

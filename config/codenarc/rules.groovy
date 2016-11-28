@@ -19,6 +19,8 @@ ruleset {
         exclude 'AbstractClassWithoutAbstractMethod'
         // we don't care
         exclude 'BuilderMethodWithSideEffects'
+        // a lot of false positive ignoring that we want to set these fields in unit tests by using maps in initializers
+        exclude 'PrivateFieldCouldBeFinal'
     }
 
     // the DRY rules do not necessarily lead to better code

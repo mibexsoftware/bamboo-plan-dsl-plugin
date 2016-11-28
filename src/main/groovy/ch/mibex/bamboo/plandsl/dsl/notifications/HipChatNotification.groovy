@@ -9,7 +9,8 @@ import static ch.mibex.bamboo.plandsl.dsl.notifications.Notifications.Notificati
 @EqualsAndHashCode(includeFields=true, excludes = ['metaClass'], callSuper = true)
 @ToString(includeFields=true)
 class HipChatNotification extends NotificationType {
-    private static final NOTIFICATION_RECIPIENT_TYPE = 'com.atlassian.bamboo.plugins.bamboo-hipchat:recipient.hipchat'
+    private static final NOTIFICATION_RECIPIENT_TYPE =
+            'com.atlassian.bamboo.plugins.bamboo-hipchat:recipient.hipchat'
     private String apiToken
     private String room
     private boolean notify
@@ -55,7 +56,7 @@ class HipChatNotification extends NotificationType {
         def config = [:]
         config.put('apiToken', [apiToken] as String[])
         config.put('room', [room] as String[])
-        config.put('notifyUsers', ['' + notify] as String[])
+        config.put('notifyUsers', [String.valueOf(notify)] as String[])
         config
     }
 

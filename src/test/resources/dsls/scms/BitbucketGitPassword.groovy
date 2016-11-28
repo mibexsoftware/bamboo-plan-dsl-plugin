@@ -9,7 +9,7 @@ project("BITBUCKETGIT") {
         enabled true
 
         scm {
-            bitbucketCloud("myBitbucketGitRepo") {
+            bitbucketCloud(name: "myBitbucketGitRepo") {
                 git {
                     advancedOptions {
                         useShallowClones true

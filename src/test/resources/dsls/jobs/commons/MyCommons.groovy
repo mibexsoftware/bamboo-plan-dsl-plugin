@@ -26,8 +26,8 @@ class MyCommons {
                         interpreter ScriptInterpreter.RUN_AS_EXECUTABLE
                     }
                 }
-                maven3("Build, test and package") {
-                    goal "clean package"
+                maven3x(goal: "clean package") {
+                    description "Build, test and package"
                     executable bambooEnv('maven')
                     buildJdk "JDK Oracle 1.8"
                 }

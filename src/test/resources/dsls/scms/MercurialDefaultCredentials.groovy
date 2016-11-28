@@ -9,7 +9,7 @@ project("HGSCM") {
         enabled true
 
         scm {
-            mercurial("myHg") {
+            mercurial(name: "myHg") {
                 repositoryUrl "http://hg.red-bean.com/repos/test"
                 branch "master"
                 defaultMercurialCredentials {}

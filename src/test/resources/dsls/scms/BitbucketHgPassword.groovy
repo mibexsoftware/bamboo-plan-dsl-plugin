@@ -9,7 +9,7 @@ project("SIMPLEPROJECT") {
         enabled true
 
         scm {
-            bitbucketCloud("myBitbucketHgRepo") {
+            bitbucketCloud(name: "myBitbucketHgRepo") {
                 mercurial {
                     advancedOptions {
                         commandTimeoutInMinutes 20

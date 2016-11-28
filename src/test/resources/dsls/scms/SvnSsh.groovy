@@ -9,7 +9,7 @@ project("SVNSCM") {
         enabled true
 
         scm {
-            subversion("mySvn") {
+            subversion(name: "mySvn") {
                 repositoryUrl "http://svn.red-bean.com/repos/test"
                 userName "admin"
                 sshAuth {

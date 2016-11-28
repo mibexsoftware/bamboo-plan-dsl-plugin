@@ -9,7 +9,7 @@ project("GITHUBSCM") {
         enabled true
 
         scm {
-            github("myGithubRepo") {
+            github(name: "myGithubRepo") {
                 repoSlug "test/HelloWorld"
                 branch "master"
                 passwordAuth {

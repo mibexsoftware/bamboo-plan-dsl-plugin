@@ -40,7 +40,7 @@ class PlanSpec extends Specification {
 
         then:
         Exception e = thrown(DslScriptException)
-        e.message == '(script:6): plan key must consist of an uppercase letter followed by one or more uppercase alphanumeric characters.'
+        e.message == '(script:6): key must consist of an uppercase letter followed by one or more uppercase alphanumeric characters.'
     }
 
     def 'plan with invalid plan key from DSL script'() {
@@ -52,7 +52,7 @@ class PlanSpec extends Specification {
 
         then:
         Exception e = thrown(DslScriptException)
-        e.message == '(script:6): plan key must consist of an uppercase letter followed by one or more uppercase alphanumeric characters.'
+        e.message == '(script:6): key must consist of an uppercase letter followed by one or more uppercase alphanumeric characters.'
     }
 
     def 'plan without name should yield exception'() {

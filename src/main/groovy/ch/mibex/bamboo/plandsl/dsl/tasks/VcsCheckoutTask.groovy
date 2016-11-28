@@ -13,6 +13,7 @@ class VcsCheckoutTask extends Task {
     private boolean forceCleanBuild
     private List<CheckoutRepository> repositories = []
 
+    @Deprecated
     VcsCheckoutTask(BambooFacade bambooFacade) {
         super(bambooFacade, TASK_ID)
     }
@@ -49,7 +50,7 @@ class VcsCheckoutTask extends Task {
             Validations.isNotNullOrEmpty(id, "could not find a repository for ${item.name}")
             config.put('selectedRepository_' + index, id)
         }
-        config.put('cleanCheckout', '' + forceCleanBuild)
+        config.put('cleanCheckout', String.valueOf(forceCleanBuild))
         config
     }
 

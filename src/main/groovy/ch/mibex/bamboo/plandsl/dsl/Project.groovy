@@ -1,9 +1,14 @@
 package ch.mibex.bamboo.plandsl.dsl
 
+import groovy.transform.EqualsAndHashCode
+import groovy.transform.ToString
+
+@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'])
+@ToString(includeFields=true)
 class Project extends BambooObject {
     private String projectKey
     private String projectName
-    private final List<Plan> plans = []
+    private List<Plan> plans = []
 
     @Deprecated
     protected Project(String key, BambooFacade bambooFacade) {
@@ -65,6 +70,13 @@ class Project extends BambooObject {
         plan(planParams['key'], planParams['name'], closure)
     }
 
+    /**
+     * Specifies a plan for this project. If the project has multiple plans, call this multiple times.
+     *
+     * @param key the key of the plan consisting of an uppercase letter followed by one or more uppercase
+     * alphanumeric characters
+     * @param name the name of the plan
+     */
     Plan plan(String key, String name, @DelegatesTo(Plan) Closure closure) {
         def plan = new Plan(key, name, bambooFacade)
         DslScriptHelper.execute(closure, plan)

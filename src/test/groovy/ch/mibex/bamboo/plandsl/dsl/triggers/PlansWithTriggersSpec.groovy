@@ -15,7 +15,7 @@ class PlansWithTriggersSpec extends Specification {
 
         then:
         results.projects[0].plans[0].triggers.triggers[0] == new ScheduledTrigger(
-            displayName: "scheduled",
+            description: "scheduled",
             cronExpression: "0 0 0 ? * *",
             onlyRunIfOtherPlansArePassing: new OnlyIfOthersPassingTriggerCondition(planKeys: ["PROJ-PLAN2"])
         )
@@ -31,7 +31,7 @@ class PlansWithTriggersSpec extends Specification {
 
         then:
         results.projects[0].plans[0].triggers.triggers[0] == new PollingTrigger(
-            displayName: "mypollsched",
+            description: "mypollsched",
             repositories: ["mygit", "mybitbucket"],
             pollingStrategy: 'CRON',
             scheduledTrigger: new ScheduledTrigger(cronExpression: "0 0 0 ? * *"),
@@ -49,7 +49,7 @@ class PlansWithTriggersSpec extends Specification {
 
         then:
         results.projects[0].plans[0].triggers.triggers[0] == new PollingTrigger(
-            displayName: "mypollper",
+            description: "mypollper",
             repositories: ["test2"],
             pollingStrategy: 'PERIOD',
             periodicTrigger: new PeriodicTrigger(pollingFrequencyInSecs: 180),
@@ -67,7 +67,7 @@ class PlansWithTriggersSpec extends Specification {
 
         then:
         results.projects[0].plans[0].triggers.triggers[0] == new RemoteTrigger(
-            displayName: "mycommit",
+            description: "mycommit",
             repositories: ["test2"],
             ipAddresses: ["127.0.0.1", "192.168.0.1"],
             onlyRunIfOtherPlansArePassing: new OnlyIfOthersPassingTriggerCondition(planKeys: ["PROJ-PLAN1", "PROJ-PLAN3", "PROJ-PLAN5"])
@@ -84,14 +84,14 @@ class PlansWithTriggersSpec extends Specification {
 
         then:
         results.projects[0].plans[0].triggers.triggers[0] == new PollingTrigger(
-                displayName: "mypollsched",
+                description: "mypollsched",
                 repositories: ["mygit", "mybitbucket"],
                 pollingStrategy: 'CRON',
                 scheduledTrigger: new ScheduledTrigger(cronExpression: "0 0 0 ? * *"),
                 onlyRunIfOtherPlansArePassing: new OnlyIfOthersPassingTriggerCondition(planKeys: ["PROJ-PLAN1"])
         )
         results.projects[0].plans[0].triggers.triggers[1] == new RemoteTrigger(
-                displayName: "mycommit",
+                description: "mycommit",
                 repositories: ["test2"],
                 ipAddresses: ["127.0.0.1", "192.168.0.1"],
                 onlyRunIfOtherPlansArePassing: new OnlyIfOthersPassingTriggerCondition(planKeys: ["PROJ-PLAN1", "PROJ-PLAN3", "PROJ-PLAN5"])

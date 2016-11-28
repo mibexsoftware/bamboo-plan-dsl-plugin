@@ -14,7 +14,8 @@ class Branches extends BambooObject {
     private List<Branch> branches = []
     private AutoBranchManagement autoBranchManagement
     private BranchMerging branchMerging
-    private NotifyOnNewBranchesType notificationsType = NotifyOnNewBranchesType.NOTIFY_COMMITTERS_FOR_FAVOURITED_BRANCHES
+    private NotifyOnNewBranchesType notificationsType =
+            NotifyOnNewBranchesType.NOTIFY_COMMITTERS_FOR_FAVOURITED_BRANCHES
     private NewPlanBranchesTriggerType newPlanBranchesTriggerType = NewPlanBranchesTriggerType.SAME_AS_IN_PARENT_PLAN
 
     // just for testing

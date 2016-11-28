@@ -9,7 +9,8 @@ import static ch.mibex.bamboo.plandsl.dsl.notifications.Notifications.Notificati
 @EqualsAndHashCode(includeFields=true, excludes = ['metaClass'], callSuper = true)
 @ToString(includeFields=true)
 class WatchersNotification extends NotificationType {
-    private static final NOTIFICATION_RECIPIENT_TYPE = 'com.atlassian.bamboo.plugin.system.notifications:recipient.watcher'
+    private static final NOTIFICATION_RECIPIENT_TYPE =
+            'com.atlassian.bamboo.plugin.system.notifications:recipient.watcher'
 
     WatchersNotification(NotificationConditions conditionKey, BambooFacade bambooFacade) {
         super(NOTIFICATION_RECIPIENT_TYPE, conditionKey, bambooFacade)

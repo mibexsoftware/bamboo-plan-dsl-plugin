@@ -45,7 +45,7 @@ class ScmsSpec extends Specification {
 
                     ))
             ),
-            displayName: "myGitRepo",
+            name: "myGitRepo",
             url: "http://localhost:7990/bitbucket/scm/project_1/java-maven-simple.git",
             branch: "master",
             authType: new PasswordAuth(userName: "admin", password: "pw")
@@ -86,7 +86,7 @@ class ScmsSpec extends Specification {
                                 )
                         )
                 ),
-                displayName: "myGitRepo",
+                name: "myGitRepo",
                 url: "http://localhost:7990/bitbucket/scm/project_1/java-maven-simple.git",
                 branch: "master",
                 authType: new SharedCredentialsAuth(
@@ -106,7 +106,7 @@ class ScmsSpec extends Specification {
 
         then:
         results.projects[0].plans[0].scm.scms[0] == new ScmBitbucketServer(
-                displayName: "myBitbucketServerRepo",
+                name: "myBitbucketServerRepo",
                 projectKey: "project_1",
                 repoSlug: "rep_1",
                 repoId: "1",
@@ -149,7 +149,7 @@ class ScmsSpec extends Specification {
 
         then:
         results.projects[0].plans[0].scm.scms[0] == new ScmBitbucketCloud(
-            displayName: "myBitbucketGitRepo",
+            name: "myBitbucketGitRepo",
             repoSlug: "project_1/java-maven-simple",
             branch: "develop",
             authType: new PasswordAuth(userName: "admin", password: "pw"),
@@ -192,7 +192,7 @@ class ScmsSpec extends Specification {
 
         then:
         bitbucket == new ScmBitbucketCloud(
-                displayName: "myBitbucketHgRepo",
+                name: "myBitbucketHgRepo",
                 repoSlug: "project_1/java-maven-simple",
                 branch: "master",
                 authType: new PasswordAuth(userName: "user", password: "pw"),
@@ -256,7 +256,7 @@ class ScmsSpec extends Specification {
                             )
                     )
             ),
-            displayName: "myGithubRepo",
+            name: "myGithubRepo",
             repoSlug: "test/HelloWorld",
             branch: "master",
             authType: new PasswordAuth(userName: "test", password: "pw")
@@ -271,8 +271,8 @@ class ScmsSpec extends Specification {
         def results = loader.parse(new DslScriptContext(dsl))
 
         then:
-        results.projects[0].plans[0].scm.scms[0] == new ScmLinkedRepository(displayName: "myGlobalRepo1")
-        results.projects[0].plans[0].scm.scms[1] == new ScmLinkedRepository(displayName: "myGlobalRepo2")
+        results.projects[0].plans[0].scm.scms[0] == new ScmLinkedRepository(name: "myGlobalRepo1")
+        results.projects[0].plans[0].scm.scms[1] == new ScmLinkedRepository(name: "myGlobalRepo2")
     }
 
     def 'plan with Mercurial SCM'() {
@@ -285,7 +285,7 @@ class ScmsSpec extends Specification {
 
         then:
         results.projects[0].plans[0].scm.scms[0] == new ScmMercurial(
-                displayName: "myHg",
+                name: "myHg",
                 repositoryUrl: "http://hg.red-bean.com/repos/test",
                 branch: "master",
                 authType: new DefaultMercurialAuth(),
@@ -345,7 +345,7 @@ class ScmsSpec extends Specification {
                 ),
                 repositoryUrl: "http://svn.red-bean.com/repos/test",
                 userName: "admin",
-                displayName: "mySvn",
+                name: "mySvn",
                 authType: new PasswordAuth(userName: "admin", password: "pw")
         )
     }
@@ -372,7 +372,7 @@ class ScmsSpec extends Specification {
                                 )
                         )
                 ),
-                displayName: 'mySvn',
+                name: 'mySvn',
                 repositoryUrl: "http://svn.red-bean.com/repos/test",
                 userName: "admin",
                 authType: new SshAuth(passPhrase: "pw", privateKey: "-----BEGIN RSA PRIVATE KEY-----\n" +
@@ -394,7 +394,7 @@ class ScmsSpec extends Specification {
                 repositoryUrl: "http://svn.red-bean.com/repos/test",
                 userName: "admin",
                 authType: new SslClientCertificateAuth(passPhrase: "pw", privateKey: "/a/b/c.key"),
-                displayName: "mySvn"
+                name: "mySvn"
         )
     }
 
@@ -425,7 +425,7 @@ class ScmsSpec extends Specification {
                 cvsRoot: "http://localhost:7990/bitbucket/scm/project_1/java-maven-simple.cvs",
                 quietPeriodInSeconds: 60,
                 module: "test",
-                displayName: "myCvsRepo",
+                name: "myCvsRepo",
                 moduleVersion: ScmCvs.CvsModuleVersion.HEAD,
                 authType: new PasswordAuth(password: "pw")
         )
@@ -459,7 +459,7 @@ class ScmsSpec extends Specification {
                                 maximumRetries: 3
                         )
                 ),
-                displayName: "myPerforceRepo",
+                name: "myPerforceRepo",
                 port: "9091",
                 client: "perforce",
                 depotView: "//perforce/workspace",

@@ -2,6 +2,7 @@ package ch.mibex.bamboo.plandsl.dsl.jobs
 
 import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.BambooObject
+import ch.mibex.bamboo.plandsl.dsl.Validations
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
@@ -18,7 +19,7 @@ class ArtifactDependency extends BambooObject {
      */
     ArtifactDependency(String name, BambooFacade bambooFacade) {
         super(bambooFacade)
-        this.name = name
+        this.name = Validations.isNotNullOrEmpty(name, 'name must not be empty')
     }
 
     // just for testing

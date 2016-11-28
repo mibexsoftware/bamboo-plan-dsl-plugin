@@ -10,10 +10,11 @@ class Validations {
         }
     }
 
-    static void isNotNullOrEmpty(Object obj, String errorMsg) {
+    static <T> T isNotNullOrEmpty(T obj, String errorMsg) {
         if (!obj) {
             throw new DslScriptException(errorMsg)
         }
+        obj
     }
 
     static void isValidBambooEntityName(String entityName, String errorMsg) {
