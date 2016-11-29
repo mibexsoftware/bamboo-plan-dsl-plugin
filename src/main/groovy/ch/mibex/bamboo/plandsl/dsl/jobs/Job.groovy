@@ -21,7 +21,7 @@ class Job extends BambooObject {
     protected Job(String key, String name, BambooFacade bambooFacade) {
         super(bambooFacade)
         this.key(key)
-        this.name(name)
+        this.name = Validations.isNotNullOrEmpty(name, 'job name must be specified')
     }
 
     @Deprecated

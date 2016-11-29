@@ -21,8 +21,9 @@ class Validations {
         isTrue(entityName ==~ /[A-Za-z0-9_\-. ]+/, errorMsg)
     }
 
-    static void isSafeBambooString(String str) {
+    static String isSafeBambooString(String str) {
         isTrue(str ==~ /[^"&<>]*/, 'The entry does not contain safe characters')
+        str
     }
 
 }

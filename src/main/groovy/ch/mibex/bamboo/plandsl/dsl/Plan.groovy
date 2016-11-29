@@ -74,8 +74,7 @@ class Plan extends BambooObject {
      * Specifies the description of the plan.
      */
     void description(String description) {
-        Validations.isSafeBambooString(description)
-        this.description = description
+        this.description = Validations.isSafeBambooString(description)
     }
 
     /**
@@ -178,7 +177,6 @@ class Plan extends BambooObject {
      * @param name the name of the stage
      */
     Stage stage(String name, @DelegatesTo(Stage) Closure closure) {
-        Validations.isNotNullOrEmpty(name, 'name must be specified')
         def stage = new Stage(name, bambooFacade)
         DslScriptHelper.execute(closure, stage)
         stages << stage

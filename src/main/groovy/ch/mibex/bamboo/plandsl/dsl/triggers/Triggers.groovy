@@ -33,7 +33,9 @@ class Triggers extends BambooObject {
      * Bitbucket Server triggers the build when changes are committed.
      */
     void bitbucketServerRepositoryTriggered(@DelegatesTo(BitbucketServerTrigger) Closure closure) {
-        bitbucketServerRepositoryTriggered(null, closure)
+        def trigger = new BitbucketServerTrigger(bambooFacade)
+        DslScriptHelper.execute(closure, trigger)
+        triggers << trigger
     }
 
     /**
