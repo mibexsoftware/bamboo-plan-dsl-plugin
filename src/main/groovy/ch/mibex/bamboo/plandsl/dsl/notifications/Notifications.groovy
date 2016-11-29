@@ -30,7 +30,7 @@ class Notifications extends BambooObject {
     /**
      * Notify users via HipChat.
      *
-     * @param params Mandatory parameters of this notification. "apiToken" and "room" are expected.
+     * @param params Mandatory parameters of this notification. "event", "apiToken" and "room" are expected.
      */
     void hipchat(Map<String, Object> params, @DelegatesTo(HipChatNotification) Closure closure) {
         hipchat(params['event'] as NotificationEvent, params['apiToken'] as String, params['room'] as String, closure)
