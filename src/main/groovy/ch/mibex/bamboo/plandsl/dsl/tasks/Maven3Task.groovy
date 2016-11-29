@@ -22,7 +22,7 @@ class Maven3Task extends Task {
 
     //for tests
     protected Maven3Task() {
-        super()
+        super(TASK_ID)
     }
 
     @Deprecated
