@@ -47,7 +47,7 @@ class Maven3Task extends Task {
      * Maven executable.
      */
     void executable(String executableLabel) {
-        bambooFacade.requireExecutable(executableLabel)
+        bambooFacade.requireExecutable('mvn3.' + executableLabel)
         this.executable = executableLabel
     }
 
