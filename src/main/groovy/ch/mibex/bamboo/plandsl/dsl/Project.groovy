@@ -75,11 +75,35 @@ class Project extends BambooObject {
      *
      * @param key the key of the plan consisting of an uppercase letter followed by one or more uppercase
      * alphanumeric characters
+     */
+    Plan plan(Map<String, String> planParams) {
+        //FIXME this can be improved once https://issues.apache.org/jira/browse/GROOVY-7956 is implemented
+        plan(planParams['key'], planParams['name'])
+    }
+
+    /**
+     * Specifies a plan for this project. If the project has multiple plans, call this multiple times.
+     *
+     * @param key the key of the plan consisting of an uppercase letter followed by one or more uppercase
+     * alphanumeric characters
      * @param name the name of the plan
      */
     Plan plan(String key, String name, @DelegatesTo(Plan) Closure closure) {
         def plan = new Plan(key, name, bambooFacade)
         DslScriptHelper.execute(closure, plan)
+        plans << plan
+        plan
+    }
+
+    /**
+     * Specifies a plan for this project. If the project has multiple plans, call this multiple times.
+     *
+     * @param key the key of the plan consisting of an uppercase letter followed by one or more uppercase
+     * alphanumeric characters
+     * @param name the name of the plan
+     */
+    Plan plan(String key, String name) {
+        def plan = new Plan(key, name, bambooFacade)
         plans << plan
         plan
     }

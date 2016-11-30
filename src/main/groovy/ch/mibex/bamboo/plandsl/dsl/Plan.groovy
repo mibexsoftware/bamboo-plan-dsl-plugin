@@ -103,14 +103,23 @@ class Plan extends BambooObject {
      * Defines a deployment project for this plan. This can be called multiple times if you have multiple deployment
      * projects for this plan.
      *
-     * @param name the name of the deployment project
-     * @param key the key of the deployment project
-     *
+     * @param params the parameters of the deployment project. Only "name" is expected.
      * @since 1.1.0
      */
     DeploymentProject deploymentProject(Map<String, String> params, @DelegatesTo(DeploymentProject) Closure closure) {
         //FIXME this can be improved once https://issues.apache.org/jira/browse/GROOVY-7956 is implemented
         deploymentProject(params['name'], closure)
+    }
+
+    /**
+     * Defines a deployment project for this plan. This can be called multiple times if you have multiple deployment
+     * projects for this plan.
+     *
+     * @param params the parameters of the deployment project. Only "name" is expected
+     * @since 1.1.0
+     */
+    DeploymentProject deploymentProject(Map<String, String> params) {
+        deploymentProject(params['name'])
     }
 
     /**
@@ -191,6 +200,16 @@ class Plan extends BambooObject {
     Stage stage(Map<String, String> stageParams, @DelegatesTo(Stage) Closure closure) {
         //FIXME this can be improved once https://issues.apache.org/jira/browse/GROOVY-7956 is implemented
         stage(stageParams['name'], closure)
+    }
+
+    /**
+     * Specifies a stage for this plan. If your plan has multiple stages, call this multiple times.
+     *
+     * @param stageParams the properties for the stage. Currently, only "name" is expected.
+     */
+    Stage stage(Map<String, String> stageParams) {
+        //FIXME this can be improved once https://issues.apache.org/jira/browse/GROOVY-7956 is implemented
+        stage(stageParams['name'])
     }
 
     Stage stage(Stage stage) {

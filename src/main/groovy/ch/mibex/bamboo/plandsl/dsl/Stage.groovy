@@ -63,6 +63,19 @@ class Stage extends BambooObject {
      *
      * @param key the key of the job consisting of an uppercase letter followed by one or more uppercase
      * alphanumeric characters. E. g. CORE (for a module called core)
+     * @param name the name of the job
+     */
+    Job job(String key, String name) {
+        def job = new Job(key, name, bambooFacade)
+        jobs << job
+        job
+    }
+
+    /**
+     * Specifies a job for this stage. If the stage has multiple jobs, call this multiple times.
+     *
+     * @param key the key of the job consisting of an uppercase letter followed by one or more uppercase
+     * alphanumeric characters. E. g. CORE (for a module called core)
      */
     @Deprecated
     Job job(String key, @DelegatesTo(Job) Closure closure) {
@@ -70,6 +83,16 @@ class Stage extends BambooObject {
         DslScriptHelper.execute(closure, job)
         jobs << job
         job
+    }
+
+    /**
+     * Specifies a job for this stage. If the stage has multiple jobs, call this multiple times.
+     *
+     * @param jobParams the properties for a new job. Currently, "key" and "name" are expected.
+     */
+    Job job(Map<String, String> jobParams) {
+        //FIXME this can be improved once https://issues.apache.org/jira/browse/GROOVY-7956 is implemented
+        job(jobParams['key'], jobParams['name'])
     }
 
     /**
