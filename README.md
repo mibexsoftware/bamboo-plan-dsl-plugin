@@ -97,7 +97,7 @@ supported by the plug-in, they can still be used with the
     - [x] Tasks
     - [ ] Requirements
     - [x] Artifacts
-    - [ ] Miscellaneous
+    - [x] Miscellaneous
 - Tasks (tasks not yet supported can still be used by using "customTask")
     - [ ] Ant
     - [x] Artifact Download

@@ -17,6 +17,7 @@ class Job extends BambooObject {
     private boolean enabled = true
     private Tasks tasksList = new Tasks(bambooFacade)
     private Artifacts artifacts = new Artifacts(bambooFacade)
+    private Miscellaneous miscellaneous = new Miscellaneous(bambooFacade)
 
     protected Job(String key, String name, BambooFacade bambooFacade) {
         super(bambooFacade)
@@ -88,6 +89,15 @@ class Job extends BambooObject {
         def newTaskList = new Tasks(bambooFacade)
         DslScriptHelper.execute(closure, newTaskList)
         tasksList = newTaskList
+    }
+
+    /**
+     * Defines the miscellaneous settings for this job.
+     */
+    void miscellaneous(@DelegatesTo(Miscellaneous) Closure closure) {
+        def miscellaneous = new Miscellaneous(bambooFacade)
+        DslScriptHelper.execute(closure, miscellaneous)
+        this.miscellaneous = miscellaneous
     }
 
 }
