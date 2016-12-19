@@ -129,7 +129,11 @@ class DeployPluginTask extends Task {
     }
 
     static enum ProductType {
-        STASH('bcpd.product.stash'), BAMBOO('bcpd.product.bamboo')
+        STASH('bcpd.product.stash'),
+        BAMBOO('bcpd.product.bamboo'),
+        JIRA('bcpd.product.jira'),
+        CONFLUENCE('bcpd.product.confluence'),
+        FISHEYE('bcpd.product.fecru')
 
         ProductType(String name) {
             this.productKey = name
