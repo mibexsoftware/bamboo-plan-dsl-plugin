@@ -29,15 +29,32 @@ class BuildHungOptions extends BambooObject {
     /**
      * The length of time (in whole minutes) without logs being received (e.g. 10 minutes)
      */
-    void logQuietTime(int logQuietTime) {
+    void logQuietTimeInMinutes(int logQuietTime) {
         this.logQuietTime = logQuietTime
+    }
+
+    /**
+     * The length of time (in whole minutes) without logs being received (e.g. 10 minutes)
+     */
+    @Deprecated
+    void logQuietTime(int logQuietTime) {
+        logQuietTimeInMinutes(logQuietTime)
     }
 
     /**
      * Bamboo uses queue timeout to determine build waiting in the queue longer then expected.
      * The length of time (in whole minutes) before queue timeout would be detected (e.g. 60 minutes)
      */
+    @Deprecated
     void buildQueueTimeout(int buildQueueTimeout) {
+        buildQueueTimeoutInMinutes(buildQueueTimeout)
+    }
+
+    /**
+     * Bamboo uses queue timeout to determine build waiting in the queue longer then expected.
+     * The length of time (in whole minutes) before queue timeout would be detected (e.g. 60 minutes)
+     */
+    void buildQueueTimeoutInMinutes(int buildQueueTimeout) {
         this.buildQueueTimeout = buildQueueTimeout
     }
 }
