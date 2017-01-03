@@ -13,6 +13,11 @@ project("SIMPLEPROJECT") {
             environment("env1") {
                 description "desc"
             }
+
+            releaseVersioning(nextReleaseVersion: '1.0-m1') {
+                autoIncrement()
+                variables "test1", "test2"
+            }
         }
 
         deploymentProject(name: "dp2") {
@@ -24,6 +29,10 @@ project("SIMPLEPROJECT") {
             }
             environment("env2") {
                 description "desc2"
+            }
+
+            releaseVersioning('1.0-${bamboo.buildNumber}') {
+                variables "test3", "test4"
             }
         }
 

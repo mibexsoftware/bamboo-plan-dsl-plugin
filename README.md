@@ -34,7 +34,6 @@ project(key: 'MYPROJECT', name: 'My project') {
                 tasks {
                     maven3x(goal: 'install') {
                         description 'build plug-in'
-                        goal 'install'
                         executable 'maven323'
                         buildJdk 'jdk8'
                         environmentVariables 'MAVEN_OPTS="-Xmx1024m -XX:MaxPermSize=128m"'
@@ -154,6 +153,7 @@ supported by the plug-in, they can still be used with the
 - Deployment Projects
     - [x] Details
     - [ ] Project permissions
+    - [x] Release versioning
     - Environments
         - [x] Details
         - [x] Tasks

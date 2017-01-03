@@ -25,7 +25,12 @@ class DeploymentProjectSpec extends Specification {
                 environments: [new Environment(
                         name: "env1",
                         description: "desc"
-                )]
+                )],
+                releaseVersioning: new ReleaseVersioning(
+                        nextReleaseVersion: "1.0-m1",
+                        autoIncrement: true,
+                        variables: ["test1", "test2"]
+                )
         )
         results.projects[0].plans[0].deploymentProjects[1] == new DeploymentProject(
                 name: "dp2",
@@ -37,7 +42,12 @@ class DeploymentProjectSpec extends Specification {
                 ), new Environment(
                         name: "env2",
                         description: "desc2"
-                )]
+                )],
+                releaseVersioning: new ReleaseVersioning(
+                        nextReleaseVersion: "1.0-\${bamboo.buildNumber}",
+                        autoIncrement: false,
+                        variables: ["test3", "test4"]
+                )
         )
     }
 

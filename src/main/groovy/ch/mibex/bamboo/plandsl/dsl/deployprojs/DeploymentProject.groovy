@@ -17,6 +17,7 @@ class DeploymentProject extends BambooObject {
     private String description
     private String useCustomPlanBranch
     private List<Environment> environments = []
+    private ReleaseVersioning releaseVersioning
 
     DeploymentProject(String name, BambooFacade bambooFacade) {
         super(bambooFacade)
@@ -90,5 +91,31 @@ class DeploymentProject extends BambooObject {
      */
     Environment environment(Map<String, String> params) {
         environment(params['name'])
+    }
+
+    /**
+     * Specify what version Bamboo should assign to automatically created releases. You can override this manually
+     * whenever you create a new release. Releases from branches will default to using the branch name suffixed
+     * with the build number of the build result.
+     *
+     * @param nextReleaseVersion What version should Bamboo use for the next release? e.g. 1.0-${bamboo.buildNumber}
+     */
+    ReleaseVersioning releaseVersioning(String nextReleaseVersion, @DelegatesTo(ReleaseVersioning) Closure closure) {
+        def releaseVersioning = new ReleaseVersioning(nextReleaseVersion, bambooFacade)
+        DslScriptHelper.execute(closure, releaseVersioning)
+        this.releaseVersioning = releaseVersioning
+        releaseVersioning
+    }
+
+    /**
+     * Specify what version Bamboo should assign to automatically created releases. You can override this manually
+     * whenever you create a new release. Releases from branches will default to using the branch name suffixed
+     * with the build number of the build result.
+     *
+     * @param params A collection of properties. Currently only "nextReleaseVersion" is supported.
+     */
+    ReleaseVersioning releaseVersioning(Map<String, String> params, @DelegatesTo(ReleaseVersioning) Closure closure) {
+        //FIXME this can be improved once https://issues.apache.org/jira/browse/GROOVY-7956 is implemented
+        releaseVersioning(params['nextReleaseVersion'], closure)
     }
 }
