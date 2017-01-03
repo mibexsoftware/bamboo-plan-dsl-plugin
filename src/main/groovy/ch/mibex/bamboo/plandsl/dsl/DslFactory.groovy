@@ -33,6 +33,7 @@ interface DslFactory {
      * @param key the key of the plan consisting of 2 or more upper case alphanumeric characters
      * @param name the name of the build plan
      */
+    @Deprecated
     Plan plan(String key, String name)
 
     /**
@@ -40,6 +41,7 @@ interface DslFactory {
      *
      * @param params a map with the mandatory plan properties. Currently, "key" and "name" are expected.
      */
+    @Deprecated
     Plan plan(Map<String, String> params)
 
     /**
@@ -47,6 +49,7 @@ interface DslFactory {
      *
      * @param name the name of the job
      */
+    @Deprecated
     Stage stage(String name)
 
     /**
@@ -54,6 +57,7 @@ interface DslFactory {
      *
      * @param params a map with the mandatory stage properties. Currently, only "name" is expected.
      */
+    @Deprecated
     Stage stage(Map<String, String> params)
 
     /**
@@ -63,6 +67,7 @@ interface DslFactory {
      * alphanumeric characters. E. g. CORE (for a module called core)
      * @param name the name of the job
      */
+    @Deprecated
     Job job(String key, String name)
 
     /**
@@ -70,6 +75,7 @@ interface DslFactory {
      *
      * @param params a map with the mandatory job properties. Currently, "key" and "name" are expected.
      */
+    @Deprecated
     Job job(Map<String, String> params)
 
     /**
@@ -77,6 +83,7 @@ interface DslFactory {
      *
      * @param name the name of the deployment project
      */
+    @Deprecated
     DeploymentProject deploymentProject(String name)
 
     /**
@@ -84,11 +91,13 @@ interface DslFactory {
      *
      * @param params a map with the mandatory deployment project properties. Currently, only "name" is expected.
      */
+    @Deprecated
     DeploymentProject deploymentProject(Map<String, String> params)
 
     /**
      * Returns the Bamboo environment with all Bamboo variables.
      */
+    @Deprecated
     BambooEnvironment env()
 
     /**
@@ -96,5 +105,6 @@ interface DslFactory {
      *
      * @param key the key of the Bamboo variable
      */
+    @Deprecated
     String env(String key)
 }

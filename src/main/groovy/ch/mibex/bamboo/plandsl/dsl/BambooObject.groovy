@@ -21,4 +21,13 @@ abstract class BambooObject {
         bambooFacade.log("Warning: ${details} $message")
     }
 
+    BambooEnvironment env() {
+        bambooFacade.variableContext
+    }
+
+    @SuppressWarnings('UnnecessaryGetter')
+    String env(String key) {
+        bambooFacade.getVariableContext()(key) // do not change this getter access
+    }
+
 }
