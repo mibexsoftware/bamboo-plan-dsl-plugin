@@ -16,7 +16,7 @@ class ScmBitbucketCloud extends ScmType {
     private String repoSlug
     private String branch
     private AuthType authType
-    private ScmType scmType
+    private ScmType scmType = new ScmBitbucketGit(bambooFacade) // default is Git
 
     // for tests:
     protected ScmBitbucketCloud() {}
@@ -27,8 +27,8 @@ class ScmBitbucketCloud extends ScmType {
 
     /**
      * Choose the repository you want to use for your Plan.
-
-     * @param repoSlug The slug of the repositry.
+     *
+     * @param repoSlug The slug of the repository.
      */
     void repoSlug(String repoSlug) {
         this.repoSlug = repoSlug

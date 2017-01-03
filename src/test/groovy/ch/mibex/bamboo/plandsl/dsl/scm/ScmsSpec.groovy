@@ -181,6 +181,24 @@ class ScmsSpec extends Specification {
         )
     }
 
+    def 'plan with Bitbucket Cloud but no SCM should default to Git'() {
+        setup:
+        def loader = new DslScriptParserImpl()
+        def dsl = getClass().getResource('/dsls/scms/BitbucketCloudWithoutScm.groovy').text
+
+        when:
+        def results = loader.parse(new DslScriptContext(dsl))
+
+        then:
+        results.projects[0].plans[0].scm.scms[0] == new ScmBitbucketCloud(
+                name: "myBitbucketGitRepo",
+                repoSlug: "project_1/java-maven-simple",
+                branch: "develop",
+                authType: new PasswordAuth(userName: "admin", password: "pw"),
+                scmType: new ScmBitbucketGit()
+        )
+    }
+
     def 'plan with Bitbucket Cloud Mercurial SCM'() {
         setup:
         def loader = new DslScriptParserImpl()
