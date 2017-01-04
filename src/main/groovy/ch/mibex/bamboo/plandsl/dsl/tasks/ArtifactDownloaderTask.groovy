@@ -38,9 +38,8 @@ class ArtifactDownloaderTask extends Task {
         def contextArtifacts = context['artifacts']
         artifacts.eachWithIndex { dslArtifact, idx ->
             def artifact = contextArtifacts[dslArtifact.name]
-            if (artifact) {
-                config.put('artifactId_' + idx, String.valueOf(artifact.asType(ArtifactInfo).artifactId))
-            }
+            // if all artifacts are chosen, just use -1 as the artifact ID
+            config.put('artifactId_' + idx, String.valueOf(artifact ? artifact.asType(ArtifactInfo).artifactId : -1))
             config.put('localPath_' + idx, dslArtifact.destinationPath)
         }
         config.put('sourcePlanKey', context['planKey'])
