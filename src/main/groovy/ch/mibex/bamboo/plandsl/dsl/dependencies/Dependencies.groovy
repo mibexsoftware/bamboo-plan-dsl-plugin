@@ -54,10 +54,23 @@ class Dependencies extends BambooObject {
         this.blockingStrategy = blockingStrategy
     }
 
+    /**
+     * When the current plan builds successfully, it will trigger the child plans to build.
+     */
     void dependency(String planKey) {
         Validations.isNotNullOrEmpty(planKey, 'Dependency plan key must not be empty')
         def dependency = new Dependency(planKey, bambooFacade)
         dependencies << dependency
+    }
+
+    /**
+     * When the current plan builds successfully, it will trigger the child plans to build.
+     *
+     * @param params the properties for the dependency. Currently, only "planKey" is expected.
+     */
+    void dependency(Map<String, String> params) {
+        //FIXME this can be improved once https://issues.apache.org/jira/browse/GROOVY-7956 is implemented
+        dependency(params['planKey'])
     }
 
 }
