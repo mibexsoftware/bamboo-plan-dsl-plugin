@@ -44,9 +44,8 @@ project("ARTIFACTS3") {
                 }
 
                 artifacts {
-                    definition("my JAR2") {
-                        location ""
-                        copyPattern "**/*.jar"
+                    definition(name: "my JAR2", copyPattern: "**/*.jar") {
+                        location "target"
                         shared true
                     }
                 }
@@ -73,9 +72,9 @@ project("ARTIFACTS3") {
                     }
                     artifactDownload() {
                         description("Download release content")
-                        /*artifact("my JAR2"){
+                        artifact("my JAR2"){
                               destinationPath("doc")
-                          }*/
+                          }
                         allArtifacts {
                             destinationPath("doc")
                         }

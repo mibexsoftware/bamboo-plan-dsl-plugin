@@ -10,6 +10,7 @@ import groovy.transform.ToString
 class ArtifactDownloadConfiguration extends BambooObject {
     private final String name
     private String destinationPath
+    private String sourcePlanKey
 
     ArtifactDownloadConfiguration(String name, BambooFacade bambooFacade) {
         super(bambooFacade)
@@ -21,6 +22,15 @@ class ArtifactDownloadConfiguration extends BambooObject {
      */
     void destinationPath(String destinationPath) {
         this.destinationPath = destinationPath
+    }
+
+    /**
+     * Plan where artifact is produced. If not set, the current plan will be used.
+     *
+     * @since 1.4.1
+     */
+    void sourcePlanKey(String sourcePlanKey) {
+        this.sourcePlanKey = sourcePlanKey
     }
 
 }

@@ -26,10 +26,20 @@ class ArtifactDownloaderTask extends Task {
     }
 
     /**
+     * You can choose multiple artifacts by name here. Just call this method multiple times with different names.
+     *
+     * @param params the properties for the artifact. Currently, only "name" is expected.
+     */
+    void artifact(Map<String, String> params, @DelegatesTo(ArtifactDownloadConfiguration) Closure closure) {
+        //FIXME this can be improved once https://issues.apache.org/jira/browse/GROOVY-7956 is implemented
+        artifact(params['name'], closure)
+    }
+
+    /**
      * All artifacts get downloaded.
      */
     void allArtifacts(@DelegatesTo(ArtifactDownloadConfiguration) Closure closure) {
-        artifact(null, closure)
+        artifact(null as String, closure)
     }
 
     @Override
@@ -41,8 +51,8 @@ class ArtifactDownloaderTask extends Task {
             // if all artifacts are chosen, just use -1 as the artifact ID
             config.put('artifactId_' + idx, String.valueOf(artifact ? artifact.asType(ArtifactInfo).artifactId : -1))
             config.put('localPath_' + idx, dslArtifact.destinationPath)
+            config.put('sourcePlanKey', dslArtifact.sourcePlanKey ?: context['planKey'])
         }
-        config.put('sourcePlanKey', context['planKey'])
         config
     }
 }
