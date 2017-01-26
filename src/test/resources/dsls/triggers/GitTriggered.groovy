@@ -30,7 +30,7 @@ project("BITBUCKETSERVER") {
                     checkout("checkout default repo") {
                         forceCleanBuild true
 
-                        repository("myBitbucketServerRepo") {
+                        repository("myGitRepo") {
                             checkoutDirectory "a/b"
                         }
 

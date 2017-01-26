@@ -113,7 +113,7 @@ class ScmsSpec extends Specification {
                 branch: "develop",
                 repositoryUrl: "ssh://git@localhost:7999/project_1/rep_1.git",
                 serverName: "bitbucketServer",
-                advancedOptions: new AdvancedGitRepoOptions(
+                advancedOptions: new AdvancedGitOptions(
                         useShallowClones: true,
                         useSubmodules: true,
                         commandTimeoutInMinutes: 20,
@@ -154,7 +154,7 @@ class ScmsSpec extends Specification {
             branch: "develop",
             authType: new PasswordAuth(userName: "admin", password: "pw"),
             scmType: new ScmBitbucketGit(
-                    advancedOptions: new AdvancedGitRepoOptions(
+                    advancedOptions: new AdvancedGitOptions(
                             useShallowClones: true,
                             useSubmodules: true,
                             commandTimeoutInMinutes: 20,

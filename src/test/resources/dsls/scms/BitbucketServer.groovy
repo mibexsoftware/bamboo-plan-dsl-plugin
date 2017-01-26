@@ -14,10 +14,10 @@ project("BITBUCKETSERVER") {
                 repoSlug "rep_1"
                 branch "develop"
                 serverName "bitbucketServer"
-                repoId "1"
                 repositoryUrl "ssh://git@localhost:7999/project_1/rep_1.git"
 
                 advancedOptions {
+                    enableRepositoryCachingOnRemoteAgents true
                     useShallowClones true
                     useSubmodules true
                     commandTimeoutInMinutes 20

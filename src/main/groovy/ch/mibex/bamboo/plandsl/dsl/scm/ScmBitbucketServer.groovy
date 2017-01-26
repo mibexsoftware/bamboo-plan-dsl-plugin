@@ -2,7 +2,7 @@ package ch.mibex.bamboo.plandsl.dsl.scm
 
 import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
-import ch.mibex.bamboo.plandsl.dsl.scm.options.AdvancedGitRepoOptions
+import ch.mibex.bamboo.plandsl.dsl.scm.options.AdvancedGitOptions
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
@@ -14,7 +14,7 @@ class ScmBitbucketServer extends ScmType {
     private String projectKey
     private String repoSlug
     private String repoId
-    private AdvancedGitRepoOptions advancedOptions
+    private AdvancedGitOptions advancedOptions
     private String branch
 
     ScmBitbucketServer(BambooFacade bambooFacade) {
@@ -59,8 +59,8 @@ class ScmBitbucketServer extends ScmType {
         this.repoId = repoId
     }
 
-    void advancedOptions(@DelegatesTo(AdvancedGitRepoOptions) Closure closure) {
-        advancedOptions = new AdvancedGitRepoOptions(bambooFacade)
+    void advancedOptions(@DelegatesTo(AdvancedGitOptions) Closure closure) {
+        advancedOptions = new AdvancedGitOptions(bambooFacade)
         DslScriptHelper.execute(closure, advancedOptions)
     }
 
