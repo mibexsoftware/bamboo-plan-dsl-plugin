@@ -5,6 +5,7 @@ import ch.mibex.bamboo.plandsl.dsl.BambooObject
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import ch.mibex.bamboo.plandsl.dsl.Validations
 import ch.mibex.bamboo.plandsl.dsl.tasks.Tasks
+import ch.mibex.bamboo.plandsl.dsl.variables.Variables
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
@@ -18,6 +19,7 @@ class Environment extends BambooObject {
     private String description
     private Tasks tasks = new Tasks(bambooFacade)
     private DeploymentTriggers triggers = new DeploymentTriggers(bambooFacade)
+    private Variables variables = new Variables(bambooFacade)
 
     Environment(String name, BambooFacade bambooFacade) {
         super(bambooFacade)
@@ -61,6 +63,15 @@ class Environment extends BambooObject {
     @Deprecated
     void triggers(@DelegatesTo(DeploymentTriggers) Closure closure) {
         deploymentTriggers(closure)
+    }
+
+    /**
+     * Specifies the variables for this environment.
+     */
+    void variables(@DelegatesTo(Variables) Closure closure) {
+        def variables = new Variables(bambooFacade)
+        DslScriptHelper.execute(closure, variables)
+        this.variables =  variables
     }
 
 }

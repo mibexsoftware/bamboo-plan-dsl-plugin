@@ -160,5 +160,5 @@ supported by the plug-in, they can still be used with the
         - [x] Triggers
         - [ ] Agent assignments
         - [ ] Notifications
-        - [ ] Variables
+        - [x] Variables
         - [ ] Environment permissions

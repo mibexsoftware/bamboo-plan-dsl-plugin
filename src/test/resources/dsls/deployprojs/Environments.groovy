@@ -14,6 +14,27 @@ project("DPPROJ") {
             }
         }
 
+        stage("another stage") {
+            description "this is simple stage"
+            manual false
+
+            job("SIMPLEJOB2") {
+                name "Simple job 2"
+                description "This was a simple job"
+                enabled true
+
+                tasks {
+                    script() {
+                        description 'echo hello world'
+                        inline {
+                            interpreter ScriptInterpreter.LEGACY_SH_BAT
+                            scriptBody 'echo "Hello World"'
+                        }
+                    }
+                }
+            }
+        }
+
         scm {
             bitbucketCloud("myBitbucketGitRepo") {
                 git {
@@ -71,6 +92,18 @@ project("DPPROJ") {
                     scheduled("test") {
                         cronExpression "0 0 0 ? * *"
                     }
+                    afterSuccessfulStage() {
+                        customPlanBranchName("develop")
+                        planStageToTriggerThisDeployment("another stage")
+                    }
+                    afterSuccessfulBuildPlan() {
+                        customPlanBranchName("develop")
+                    }
+                }
+
+                variables {
+                    variable "key1", "value1"
+                    variable "key2", "value2"
                 }
             }
         }

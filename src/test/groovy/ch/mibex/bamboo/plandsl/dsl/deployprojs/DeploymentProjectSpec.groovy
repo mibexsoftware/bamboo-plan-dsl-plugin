@@ -4,6 +4,8 @@ import ch.mibex.bamboo.plandsl.dsl.DslScriptContext
 import ch.mibex.bamboo.plandsl.dsl.DslScriptParserImpl
 import ch.mibex.bamboo.plandsl.dsl.tasks.CommandTask
 import ch.mibex.bamboo.plandsl.dsl.tasks.Tasks
+import ch.mibex.bamboo.plandsl.dsl.variables.Variable
+import ch.mibex.bamboo.plandsl.dsl.variables.Variables
 import spock.lang.Ignore
 import spock.lang.Specification
 
@@ -41,7 +43,8 @@ class DeploymentProjectSpec extends Specification {
                         description: "desc1"
                 ), new Environment(
                         name: "env2",
-                        description: "desc2"
+                        description: "desc2",
+                        variables: new Variables(variables: [new Variable("key1", "value1"), new Variable("key2", "value2")])
                 )],
                 releaseVersioning: new ReleaseVersioning(
                         nextReleaseVersion: "1.0-\${bamboo.buildNumber}",

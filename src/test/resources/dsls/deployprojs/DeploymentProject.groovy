@@ -29,6 +29,10 @@ project("SIMPLEPROJECT") {
             }
             environment("env2") {
                 description "desc2"
+                variables {
+                    variable "key1", "value1"
+                    variable "key2", "value2"
+                }
             }
 
             releaseVersioning('1.0-${bamboo.buildNumber}') {
