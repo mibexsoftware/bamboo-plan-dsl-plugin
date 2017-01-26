@@ -22,7 +22,7 @@ class Validations {
     }
 
     static String isSafeBambooString(String str) {
-        isTrue(str ==~ /[^"&<>]*/, 'The entry does not contain safe characters')
+        isTrue(str ==~ /[^"'&<>]*/, 'The entry does not contain safe characters')
         str
     }
 
