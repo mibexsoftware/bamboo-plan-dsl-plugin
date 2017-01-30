@@ -1,4 +1,7 @@
 # Plan DSL for Bamboo - Contributions welcome!
+
+:+1::tada: First off, thank you for taking the time to contribute! :tada::+1:
+
 We would especially welcome contributions to support more Bamboo tasks in the DSL. This applies to both built-in 
 (see [README.md](README.md) for a list of unsupported built-in tasks) as well as other Bamboo tasks.
 
