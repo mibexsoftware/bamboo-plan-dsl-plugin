@@ -4,6 +4,7 @@ import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.BambooObject
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import ch.mibex.bamboo.plandsl.dsl.Validations
+import ch.mibex.bamboo.plandsl.dsl.notifications.EnvironmentNotifications
 import ch.mibex.bamboo.plandsl.dsl.tasks.Tasks
 import ch.mibex.bamboo.plandsl.dsl.variables.Variables
 import groovy.transform.EqualsAndHashCode
@@ -20,6 +21,7 @@ class Environment extends BambooObject {
     private Tasks tasks = new Tasks(bambooFacade)
     private DeploymentTriggers triggers = new DeploymentTriggers(bambooFacade)
     private Variables variables = new Variables(bambooFacade)
+    private EnvironmentNotifications notifications = new EnvironmentNotifications(bambooFacade)
 
     Environment(String name, BambooFacade bambooFacade) {
         super(bambooFacade)
@@ -74,4 +76,17 @@ class Environment extends BambooObject {
         this.variables =  variables
     }
 
+    /**
+     * Specifies the notifications for this environment.
+     */
+    EnvironmentNotifications notifications(@DelegatesTo(EnvironmentNotifications) Closure closure) {
+        notifications = new EnvironmentNotifications(bambooFacade)
+        DslScriptHelper.execute(closure, notifications)
+        notifications
+    }
+
+    EnvironmentNotifications notifications() {
+        notifications = new EnvironmentNotifications(bambooFacade)
+        notifications
+    }
 }

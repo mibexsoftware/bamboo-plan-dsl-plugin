@@ -22,7 +22,7 @@ class Notifications extends BambooObject {
      */
     @Deprecated
     void hipchat(NotificationEvent event, @DelegatesTo(HipChatNotification) Closure closure) {
-        def notification = new HipChatNotification(event, bambooFacade)
+        def notification = new HipChatNotification(event.bambooNotificationConditionKey, bambooFacade)
         DslScriptHelper.execute(closure, notification)
         notifications << notification
     }
@@ -46,7 +46,7 @@ class Notifications extends BambooObject {
      */
     void hipchat(NotificationEvent event, String apiToken, String room,
                  @DelegatesTo(HipChatNotification) Closure closure) {
-        def notification = new HipChatNotification(event, apiToken, room, bambooFacade)
+        def notification = new HipChatNotification(event.bambooNotificationConditionKey, apiToken, room, bambooFacade)
         DslScriptHelper.execute(closure, notification)
         notifications << notification
     }
@@ -55,7 +55,7 @@ class Notifications extends BambooObject {
      * Notify users via e-mail.
      */
     void email(NotificationEvent event, @DelegatesTo(EmailNotification) Closure closure) {
-        def notification = new EmailNotification(event, bambooFacade)
+        def notification = new EmailNotification(event.bambooNotificationConditionKey, bambooFacade)
         DslScriptHelper.execute(closure, notification)
         notifications << notification
     }
@@ -66,7 +66,7 @@ class Notifications extends BambooObject {
      */
     @Deprecated
     void stashLegacy(NotificationEvent event, @DelegatesTo(StashLegacyNotification) Closure closure) {
-        def notification = new StashLegacyNotification(event, bambooFacade)
+        def notification = new StashLegacyNotification(event.bambooNotificationConditionKey, bambooFacade)
         DslScriptHelper.execute(closure, notification)
         notifications << notification
     }
@@ -75,7 +75,7 @@ class Notifications extends BambooObject {
      * Notify a group.
      */
     void group(NotificationEvent event, @DelegatesTo(GroupNotification) Closure closure) {
-        def notification = new GroupNotification(event, bambooFacade)
+        def notification = new GroupNotification(event.bambooNotificationConditionKey, bambooFacade)
         DslScriptHelper.execute(closure, notification)
         notifications << notification
     }
@@ -84,7 +84,7 @@ class Notifications extends BambooObject {
      * Notify a user.
      */
     void user(NotificationEvent event, @DelegatesTo(UserNotification) Closure closure) {
-        def notification = new UserNotification(event, bambooFacade)
+        def notification = new UserNotification(event.bambooNotificationConditionKey, bambooFacade)
         DslScriptHelper.execute(closure, notification)
         notifications << notification
     }
@@ -93,7 +93,7 @@ class Notifications extends BambooObject {
      * Notify via instant messenger.
      */
     void imAddress(NotificationEvent event, @DelegatesTo(ImAddressNotification) Closure closure) {
-        def notification = new ImAddressNotification(event, bambooFacade)
+        def notification = new ImAddressNotification(event.bambooNotificationConditionKey, bambooFacade)
         DslScriptHelper.execute(closure, notification)
         notifications << notification
     }
@@ -103,7 +103,7 @@ class Notifications extends BambooObject {
      */
     void responsibleUsers(NotificationEvent event,
                           @DelegatesTo(ResponsibleUsersNotification) Closure closure) {
-        def notification = new ResponsibleUsersNotification(event, bambooFacade)
+        def notification = new ResponsibleUsersNotification(event.bambooNotificationConditionKey, bambooFacade)
         DslScriptHelper.execute(closure, notification)
         notifications << notification
     }
@@ -112,7 +112,7 @@ class Notifications extends BambooObject {
      * Notify users who have committed to the build.
      */
     void committers(NotificationEvent event, @DelegatesTo(CommittersNotification) Closure closure) {
-        def notification = new CommittersNotification(event, bambooFacade)
+        def notification = new CommittersNotification(event.bambooNotificationConditionKey, bambooFacade)
         DslScriptHelper.execute(closure, notification)
         notifications << notification
     }
@@ -121,7 +121,7 @@ class Notifications extends BambooObject {
      * Notify users who have marked this build as their favourite.
      */
     void watchers(NotificationEvent event, @DelegatesTo(WatchersNotification) Closure closure) {
-        def notification = new WatchersNotification(event, bambooFacade)
+        def notification = new WatchersNotification(event.bambooNotificationConditionKey, bambooFacade)
         DslScriptHelper.execute(closure, notification)
         notifications << notification
     }
@@ -132,7 +132,7 @@ class Notifications extends BambooObject {
     void custom(NotificationEvent event,
                 String pluginKey,
                 @DelegatesTo(CustomNotification) Closure closure) {
-        def notification = new CustomNotification(pluginKey, event, bambooFacade)
+        def notification = new CustomNotification(pluginKey, event.bambooNotificationConditionKey, bambooFacade)
         DslScriptHelper.execute(closure, notification)
         notifications << notification
     }

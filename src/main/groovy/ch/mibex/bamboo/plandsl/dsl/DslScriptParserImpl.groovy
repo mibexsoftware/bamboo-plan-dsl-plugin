@@ -3,6 +3,7 @@ package ch.mibex.bamboo.plandsl.dsl
 import ch.mibex.bamboo.plandsl.dsl.branches.Branch
 import ch.mibex.bamboo.plandsl.dsl.branches.Branches
 import ch.mibex.bamboo.plandsl.dsl.dependencies.Dependencies
+import ch.mibex.bamboo.plandsl.dsl.notifications.EnvironmentNotifications
 import ch.mibex.bamboo.plandsl.dsl.notifications.Notifications
 import ch.mibex.bamboo.plandsl.dsl.scm.ScmCvs
 import ch.mibex.bamboo.plandsl.dsl.scm.ScmType
@@ -82,8 +83,12 @@ class DslScriptParserImpl implements DslScriptParser {
         // we need to embed these enums in files of the DSL and not in separate files because otherwise lookup
         // does not work in IDEs:
         importCustomizer.addStaticImport(Notifications.name, Notifications.NotificationEvent.simpleName)
-        importCustomizer.addStaticImport(InjectBambooVariablesTask.name,
-                InjectBambooVariablesTask.VariablesScope.simpleName)
+        importCustomizer.addStaticImport(
+                EnvironmentNotifications.name, EnvironmentNotifications.EnvironmentNotificationEvent.simpleName
+        )
+        importCustomizer.addStaticImport(
+                InjectBambooVariablesTask.name, InjectBambooVariablesTask.VariablesScope.simpleName
+        )
         importCustomizer.addStaticImport(Branch.name, Branch.NotifyOnNewBranchesType.simpleName)
         importCustomizer.addStaticImport(Branches.name, Branches.NewPlanBranchesTriggerType.simpleName)
         importCustomizer.addStaticImport(DeployPluginTask.name, DeployPluginTask.ProductType.simpleName)

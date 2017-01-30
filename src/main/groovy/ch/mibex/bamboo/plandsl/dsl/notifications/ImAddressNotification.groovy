@@ -4,15 +4,13 @@ import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-import static ch.mibex.bamboo.plandsl.dsl.notifications.Notifications.NotificationEvent
-
 @EqualsAndHashCode(includeFields=true, excludes = ['metaClass'], callSuper = true)
 @ToString(includeFields=true)
 class ImAddressNotification extends NotificationType {
     private static final NOTIFICATION_RECIPIENT_TYPE = 'com.atlassian.bamboo.plugin.system.notifications:recipient.im'
     private String instantMessagingAddress
 
-    ImAddressNotification(NotificationEvent conditionKey, BambooFacade bambooFacade) {
+    ImAddressNotification(String conditionKey, BambooFacade bambooFacade) {
         super(NOTIFICATION_RECIPIENT_TYPE, conditionKey, bambooFacade)
     }
 

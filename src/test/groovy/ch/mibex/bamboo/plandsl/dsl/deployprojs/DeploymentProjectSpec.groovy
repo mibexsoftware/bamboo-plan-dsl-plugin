@@ -2,6 +2,8 @@ package ch.mibex.bamboo.plandsl.dsl.deployprojs
 
 import ch.mibex.bamboo.plandsl.dsl.DslScriptContext
 import ch.mibex.bamboo.plandsl.dsl.DslScriptParserImpl
+import ch.mibex.bamboo.plandsl.dsl.notifications.EnvironmentNotifications
+import ch.mibex.bamboo.plandsl.dsl.notifications.HipChatNotification
 import ch.mibex.bamboo.plandsl.dsl.tasks.CommandTask
 import ch.mibex.bamboo.plandsl.dsl.tasks.Tasks
 import ch.mibex.bamboo.plandsl.dsl.variables.Variable
@@ -44,7 +46,14 @@ class DeploymentProjectSpec extends Specification {
                 ), new Environment(
                         name: "env2",
                         description: "desc2",
-                        variables: new Variables(variables: [new Variable("key1", "value1"), new Variable("key2", "value2")])
+                        variables: new Variables(variables: [new Variable("key1", "value1"), new Variable("key2", "value2")]),
+                        notifications: new EnvironmentNotifications(notifications: [new HipChatNotification(
+                                notificationRecipientType: "com.atlassian.bamboo.plugins.bamboo-hipchat:recipient.hipchat",
+                                conditionKey: EnvironmentNotifications.EnvironmentNotificationEvent.DEPLOYMENT_FAILED.bambooNotificationConditionKey,
+                                apiToken: 'XXX',
+                                room: 'MyRoom',
+                                notify: true
+                        )])
                 )],
                 releaseVersioning: new ReleaseVersioning(
                         nextReleaseVersion: "1.0-\${bamboo.buildNumber}",

@@ -159,6 +159,6 @@ supported by the plug-in, they can still be used with the
         - [x] Tasks
         - [x] Triggers
         - [ ] Agent assignments
-        - [ ] Notifications
+        - [x] Notifications
         - [x] Variables
         - [ ] Environment permissions

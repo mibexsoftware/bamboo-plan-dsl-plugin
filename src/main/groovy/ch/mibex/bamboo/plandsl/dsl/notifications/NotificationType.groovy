@@ -5,17 +5,15 @@ import ch.mibex.bamboo.plandsl.dsl.BambooObject
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-import static ch.mibex.bamboo.plandsl.dsl.notifications.Notifications.NotificationEvent
-
 @EqualsAndHashCode(includeFields=true, excludes = ['metaClass'])
 @ToString(includeFields=true)
 abstract class NotificationType extends BambooObject {
-    protected NotificationEvent conditionKey
+    protected String conditionKey
     protected String notificationRecipientType
     protected int numberOfFailures
 
     protected NotificationType(String notificationRecipientType,
-                               NotificationEvent conditionKey,
+                               String conditionKey,
                                BambooFacade bambooFacade) {
         super(bambooFacade)
         this.notificationRecipientType = notificationRecipientType
