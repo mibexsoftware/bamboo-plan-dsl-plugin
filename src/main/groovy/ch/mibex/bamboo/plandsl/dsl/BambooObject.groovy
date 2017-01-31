@@ -1,7 +1,7 @@
 package ch.mibex.bamboo.plandsl.dsl
 
 abstract class BambooObject {
-    final BambooFacade bambooFacade
+    protected final BambooFacade bambooFacade
 
     // for testing
     protected BambooObject() {
