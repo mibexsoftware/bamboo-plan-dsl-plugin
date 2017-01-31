@@ -57,7 +57,7 @@ class JobSpec extends Specification {
         jobs[2].artifacts.artifactDefinitions.size() == 1
     }
 
-    def 'job without misc options'() {
+    def 'job with misc options'() {
         setup:
         def loader = new DslScriptParserImpl()
         def dsl = getClass().getResource('/dsls/jobs/JobWithMiscOptions.groovy').text
@@ -92,6 +92,28 @@ class JobSpec extends Specification {
                         ),
                         integrationOptions: CloverCodeCoverage.IntegrationOptions.AUTOMATICALLY_INTEGRATE_CLOVER_INTO_BUILD
                 )
+        )
+    }
+
+    def 'job with capability requirements'() {
+        setup:
+        def loader = new DslScriptParserImpl()
+        def dsl = getClass().getResource('/dsls/jobs/JobWithRequirements.groovy').text
+
+        when:
+        def results = loader.parse(new DslScriptContext(dsl))
+
+        then:
+        def jobs = results.projects[0].plans[0].stages[0].jobs
+        jobs.size() == 1
+        jobs[0].key == 'SIMPLEJOB'
+        jobs[0].name ==  'simple job'
+        jobs[0].requirements == new Requirements(
+            requirements: [
+                new Requirement(capabilityKey: 'system.builder.gradle.Gradle 2.2', matchType: new Requirement.Equals("2.2")),
+                new Requirement(capabilityKey: 'system.builder.ant.Ant', matchType: new Requirement.Exists()),
+                new Requirement(capabilityKey: 'system.builder.mvn3.maven323', matchType: new Requirement.Matches(".*"))
+            ]
         )
     }
 }

@@ -17,6 +17,7 @@ class Job extends BambooObject {
     private boolean enabled = true
     private Tasks tasksList = new Tasks(bambooFacade)
     private Artifacts artifacts = new Artifacts(bambooFacade)
+    private Requirements requirements = new Requirements(bambooFacade)
     private Miscellaneous miscellaneous = new Miscellaneous(bambooFacade)
 
     protected Job(String key, String name, BambooFacade bambooFacade) {
@@ -89,6 +90,18 @@ class Job extends BambooObject {
         def newTaskList = new Tasks(bambooFacade)
         DslScriptHelper.execute(closure, newTaskList)
         tasksList = newTaskList
+    }
+
+    /**
+     * Defines the requirements(s) for this job. This job can only be built by agents whose capabilities meet the
+     * specified requirements.
+     *
+     * @since 1.5.0
+     */
+    void requirements(@DelegatesTo(Requirements) Closure closure) {
+        def newRequirements = new Requirements(bambooFacade)
+        DslScriptHelper.execute(closure, newRequirements)
+        requirements = newRequirements
     }
 
     /**

@@ -101,7 +101,7 @@ supported by the plug-in, they can still be used with the
 - Job
     - [x] Job details
     - [x] Tasks
-    - [ ] Requirements
+    - [x] Requirements
     - [x] Artifacts
     - [x] Miscellaneous
 - Tasks (tasks not yet supported can still be used by using "customTask")
