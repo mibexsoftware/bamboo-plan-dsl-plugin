@@ -29,4 +29,8 @@ class TriggerType extends BambooObject {
         this.enabled = enabled
     }
 
+    void description(String description) {
+        this.description = description
+    }
+
 }

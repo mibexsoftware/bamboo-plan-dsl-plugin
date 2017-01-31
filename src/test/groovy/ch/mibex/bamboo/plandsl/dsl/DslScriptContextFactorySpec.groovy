@@ -9,7 +9,7 @@ class DslScriptContextFactorySpec extends Specification {
         def contexts = DslScriptContextFactory.createContexts('jobs/**/*.groovy', false, null, new File('src/test/resources/dsls'))
 
         then:
-        contexts.size() == 9
+        contexts.size() == 10
         contexts[0].body == null
         contexts[0].location.endsWith('ArtifactDefinitions.groovy')
         contexts[1].body == null
@@ -23,11 +23,13 @@ class DslScriptContextFactorySpec extends Specification {
         contexts[5].body == null
         contexts[5].location.endsWith('JobWithMiscOptions.groovy')
         contexts[6].body == null
-        contexts[6].location.endsWith('MultipleJobs.groovy')
+        contexts[6].location.endsWith('JobWithRequirements.groovy')
         contexts[7].body == null
-        contexts[7].location.endsWith('UpdateJobProperties.groovy')
+        contexts[7].location.endsWith('MultipleJobs.groovy')
         contexts[8].body == null
-        contexts[8].location.endsWith('MyCommons.groovy')
+        contexts[8].location.endsWith('UpdateJobProperties.groovy')
+        contexts[9].body == null
+        contexts[9].location.endsWith('MyCommons.groovy')
     }
 
     def 'Ant pattern with no matching files should yield exception'() {

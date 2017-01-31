@@ -9,7 +9,8 @@ project("BITBUCKETSERVER") {
         enabled true
 
         triggers {
-            bitbucketServerRepositoryTriggered("run when new code") {
+            bitbucketServerRepositoryTriggered {
+                description "run when new code"
             }
         }
 
@@ -38,6 +39,7 @@ project("BITBUCKETSERVER") {
         scm {
             bitbucketServer("myBitbucketServerRepo") {
                 projectKey "PROJECT_1"
+                description "BBServer triggered"
                 repoSlug "rep_1"
                 branch "master"
                 serverName "Bitbucket"

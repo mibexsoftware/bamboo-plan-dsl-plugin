@@ -109,11 +109,11 @@ class ScmsSpec extends Specification {
                 name: "myBitbucketServerRepo",
                 projectKey: "project_1",
                 repoSlug: "rep_1",
-                repoId: "1",
                 branch: "develop",
                 repositoryUrl: "ssh://git@localhost:7999/project_1/rep_1.git",
                 serverName: "bitbucketServer",
                 advancedOptions: new AdvancedGitOptions(
+                        enableRepositoryCachingOnRemoteAgents: true,
                         useShallowClones: true,
                         useSubmodules: true,
                         commandTimeoutInMinutes: 20,
@@ -154,7 +154,7 @@ class ScmsSpec extends Specification {
             branch: "develop",
             authType: new PasswordAuth(userName: "admin", password: "pw"),
             scmType: new ScmBitbucketGit(
-                    advancedOptions: new AdvancedGitOptions(
+                    advancedOptions: new AdvancedGitRepoOptions(
                             useShallowClones: true,
                             useSubmodules: true,
                             commandTimeoutInMinutes: 20,

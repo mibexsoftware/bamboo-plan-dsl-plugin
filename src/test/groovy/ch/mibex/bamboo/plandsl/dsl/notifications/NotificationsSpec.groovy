@@ -19,7 +19,7 @@ class NotificationsSpec extends Specification {
         then:
         customNotification == new CustomNotification(
                 notificationRecipientType: "ch.mibex.bamboo.smsnotification:smsnotification.recipient",
-                conditionKey: Notifications.NotificationEvent.JOB_ERROR,
+                conditionKey: Notifications.NotificationEvent.JOB_ERROR.bambooNotificationConditionKey,
                 numberOfFailures: 1,
                 config: [
                         twilioAccountSid: "twilio_account_sid_password".split(),
@@ -30,7 +30,7 @@ class NotificationsSpec extends Specification {
         )
         hipchatNotification == new HipChatNotification(
                 notificationRecipientType: "com.atlassian.bamboo.plugins.bamboo-hipchat:recipient.hipchat",
-                conditionKey:  Notifications.NotificationEvent.ALL_BUILDS_COMPLETED,
+                conditionKey:  Notifications.NotificationEvent.ALL_BUILDS_COMPLETED.bambooNotificationConditionKey,
                 apiToken: 'hipchat_api_token_password',
                 room: 'hipchat_room_name',
                 notify: true

@@ -5,7 +5,7 @@ import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
 @EqualsAndHashCode(includeFields=true, excludes = ['metaClass'], callSuper = true)
-@ToString(includeFields=true)
+@ToString(includeFields=true, includeSuper=true)
 class AdvancedGitOptions extends AdvancedGitRepoOptions {
     private boolean enableRepositoryCachingOnRemoteAgents
 

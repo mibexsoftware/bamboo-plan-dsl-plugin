@@ -69,6 +69,8 @@ class Environment extends BambooObject {
 
     /**
      * Specifies the variables for this environment.
+     *
+     * @since 1.5.0
      */
     void variables(@DelegatesTo(Variables) Closure closure) {
         def variables = new Variables(bambooFacade)
@@ -78,6 +80,8 @@ class Environment extends BambooObject {
 
     /**
      * Specifies the notifications for this environment.
+     *
+     * @since 1.5.0
      */
     EnvironmentNotifications notifications(@DelegatesTo(EnvironmentNotifications) Closure closure) {
         notifications = new EnvironmentNotifications(bambooFacade)
@@ -85,6 +89,9 @@ class Environment extends BambooObject {
         notifications
     }
 
+    /**
+     * @since 1.5.0
+     */
     EnvironmentNotifications notifications() {
         notifications = new EnvironmentNotifications(bambooFacade)
         notifications

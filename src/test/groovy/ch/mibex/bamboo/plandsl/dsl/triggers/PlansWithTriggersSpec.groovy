@@ -39,6 +39,18 @@ class PlansWithTriggersSpec extends Specification {
         )
     }
 
+    def 'bitbucket server trigger'() {
+        setup:
+        def loader = new DslScriptParserImpl()
+        def dsl = getClass().getResource('/dsls/triggers/BitbucketServerTriggered.groovy').text
+
+        when:
+        def results = loader.parse(new DslScriptContext(dsl))
+
+        then:
+        results.projects[0].plans[0].triggers.triggers[0] == new BitbucketServerTrigger(description: "run when new code")
+    }
+
     def 'polling periodically trigger'() {
         setup:
         def loader = new DslScriptParserImpl()
