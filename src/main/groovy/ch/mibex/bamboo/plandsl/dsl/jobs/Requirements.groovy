@@ -3,6 +3,7 @@ package ch.mibex.bamboo.plandsl.dsl.jobs
 import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.BambooObject
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
+import ch.mibex.bamboo.plandsl.dsl.Validations
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
@@ -25,6 +26,10 @@ class Requirements extends BambooObject {
      * @param matchType the match type: "Equals", "Exists" or "Matches"
      */
     void requirement(String capabilityKey, Requirement.MatchType matchType, @DelegatesTo(Requirement) Closure closure) {
+        Validations.isTrue(
+            ! requirements.find { it.capabilityKey == capabilityKey },
+            'The requirement with this key already exists'
+        )
         def requirement = new Requirement(capabilityKey, matchType, bambooFacade)
         DslScriptHelper.execute(closure, requirement)
         requirements << requirement

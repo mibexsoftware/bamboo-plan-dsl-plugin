@@ -2,6 +2,7 @@ package ch.mibex.bamboo.plandsl.dsl.jobs
 
 import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.BambooObject
+import ch.mibex.bamboo.plandsl.dsl.Validations
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
@@ -34,6 +35,7 @@ class Requirement extends BambooObject {
         final String matchValue
 
         Equals(String matchValue) {
+            Validations.isNotNullOrEmpty(matchValue, "Matching value for capability type 'Equals' must not be empty")
             this.matchValue = matchValue
         }
     }
@@ -45,6 +47,7 @@ class Requirement extends BambooObject {
          * @param regex A regular expression describing a pattern that the key must match.
          */
         Matches(String regex) {
+            Validations.isNotNullOrEmpty(regex, "Matching regex for capability type 'Matches' must not be empty")
             this.regex = regex
         }
     }
