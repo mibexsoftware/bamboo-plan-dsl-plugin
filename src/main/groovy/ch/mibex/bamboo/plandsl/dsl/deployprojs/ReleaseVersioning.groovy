@@ -14,7 +14,7 @@ import groovy.transform.ToString
 class ReleaseVersioning extends BambooObject {
     private String nextReleaseVersion
     private boolean autoIncrement
-    private Set<String> variables
+    private Set<String> variables = []
 
     ReleaseVersioning(String nextReleaseVersion, BambooFacade bambooFacade) {
         super(bambooFacade)
