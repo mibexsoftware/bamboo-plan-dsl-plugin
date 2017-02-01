@@ -74,7 +74,29 @@ While this approach works, it has a number of disadvantages:
 * There is also no possibility to provide documentation for the tasks properties
 * The syntax is not as convenient as it could be when providing native support for the Bamboo tasks
  
-Hence, if you would like to contribute native support for Bamboo tasks, you would first collect the possible properties
+Here's an example how native DSL support for the Sonar for Bamboo task could look like:
+
+```groovy
+tasks {
+    sonarMaven() {
+        description 'Analyze with SonarQube Maven'
+        chosenSonarConfig 'My Sonar 4.5 instance'
+        failBuildForSonarErrors()
+        executable 'mvn3'
+        illegalBranchCharsReplacement '_'
+        sonarJavaTarget '1.8'
+        sonarJavaSource '1.8'
+        environmentVariables 'JAVA_OPTS="-Xms128m -Xmx1024m"'
+        buildJdk 'JDK 1.5',
+        additionalProperties '-sonar.branch="master"'
+        autoBranch()
+        useGlobalSonarServerConfig()
+        workingSubDirectory 'src'
+    }
+}
+``` 
+
+If you would like to contribute native support for a Bamboo task, you would first have collect the possible properties
 as explained before. Then, you can create a new task class by extending from 
 [ch.mibex.bamboo.plandsl.dsl.tasks.Task](src/main/groovy/ch/mibex/bamboo/plandsl/dsl/tasks/Task.groovy).
 See the already provided tasks in `ch.mibex.bamboo.plandsl.dsl.tasks` for how to implement support for a task (basically
