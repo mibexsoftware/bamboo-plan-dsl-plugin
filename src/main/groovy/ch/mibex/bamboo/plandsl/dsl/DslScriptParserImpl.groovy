@@ -18,7 +18,6 @@ import org.codehaus.groovy.runtime.InvokerHelper
 
 class DslScriptParserImpl implements DslScriptParser {
     private final BambooFacade bambooFacade
-    private Map<String, Object> exportedBambooObjects
 
     DslScriptParserImpl(BambooFacade bambooFacade) {
         this.bambooFacade = bambooFacade
@@ -68,9 +67,10 @@ class DslScriptParserImpl implements DslScriptParser {
     private Binding createBinding() {
         Binding binding = new Binding()
         binding.setVariable('out', bambooFacade.buildLogger)
+        // DEPRECATED: remove this with version API 2.0:
         binding.setVariable('bamboo', bambooFacade.variableContext)
 
-        exportedBambooObjects.each { key, value ->
+        bambooFacade.exportedBambooObjects.each { key, value ->
             binding.setVariable(key, value)
         }
 
