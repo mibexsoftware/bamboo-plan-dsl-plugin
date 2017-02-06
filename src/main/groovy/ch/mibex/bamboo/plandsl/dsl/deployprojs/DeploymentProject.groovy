@@ -3,11 +3,15 @@ package ch.mibex.bamboo.plandsl.dsl.deployprojs
 import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.BambooObject
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
+import ch.mibex.bamboo.plandsl.dsl.permissions.Permissions
 import ch.mibex.bamboo.plandsl.dsl.Validations
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
 /**
+ * A deployment project defines which build plan you get your artifacts from, and contains the environments
+ * you want to deploy to.
+ *
  * @since 1.1.0
  */
 @EqualsAndHashCode(includeFields=true, excludes = ['metaClass'])
@@ -18,6 +22,7 @@ class DeploymentProject extends BambooObject {
     private String useCustomPlanBranch
     private List<Environment> environments = []
     private ReleaseVersioning releaseVersioning
+    private Permissions permissions = new Permissions(bambooFacade)
 
     DeploymentProject(String name, BambooFacade bambooFacade) {
         super(bambooFacade)
@@ -117,5 +122,16 @@ class DeploymentProject extends BambooObject {
     ReleaseVersioning releaseVersioning(Map<String, String> params, @DelegatesTo(ReleaseVersioning) Closure closure) {
         //FIXME this can be improved once https://issues.apache.org/jira/browse/GROOVY-7956 is implemented
         releaseVersioning(params['nextReleaseVersion'], closure)
+    }
+
+    /**
+     * Specifies the permissions for this deployment project.
+     *
+     * @since 1.5.1
+     */
+    void permissions(@DelegatesTo(Permissions) Closure closure) {
+        def permissions = new Permissions(bambooFacade)
+        DslScriptHelper.execute(closure, permissions)
+        this.permissions =  permissions
     }
 }

@@ -18,6 +18,20 @@ project("SIMPLEPROJECT") {
                 autoIncrement()
                 variables "test1", "test2"
             }
+
+            permissions {
+                user(name: 'diego') {
+                    permissionTypes PermissionType.VIEW
+                }
+
+                group(name: 'devops') {
+                    permissionTypes PermissionType.VIEW
+                }
+
+                other(type: OtherUserType.LOGGED_IN_USERS) {
+                    permissionTypes PermissionType.VIEW, PermissionType.EDIT
+                }
+            }
         }
 
         deploymentProject(name: "dp2") {
@@ -38,6 +52,20 @@ project("SIMPLEPROJECT") {
                 notifications {
                     hipchat(event: EnvironmentNotificationEvent.DEPLOYMENT_FAILED, apiToken: "XXX", room: "MyRoom") {
                         notifyParticipants true
+                    }
+                }
+
+                permissions {
+                    user(name: 'diego') {
+                        permissionTypes PermissionType.VIEW
+                    }
+
+                    group(name: 'devops') {
+                        permissionTypes PermissionType.VIEW, PermissionType.DEPLOY
+                    }
+
+                    other(type: OtherUserType.LOGGED_IN_USERS) {
+                        permissionTypes PermissionType.VIEW, PermissionType.EDIT
                     }
                 }
             }

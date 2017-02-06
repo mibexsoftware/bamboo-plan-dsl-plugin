@@ -6,6 +6,8 @@ import ch.mibex.bamboo.plandsl.dsl.dependencies.Dependencies
 import ch.mibex.bamboo.plandsl.dsl.jobs.Requirement
 import ch.mibex.bamboo.plandsl.dsl.notifications.EnvironmentNotifications
 import ch.mibex.bamboo.plandsl.dsl.notifications.Notifications
+import ch.mibex.bamboo.plandsl.dsl.permissions.PermissionTypes
+import ch.mibex.bamboo.plandsl.dsl.permissions.Permissions
 import ch.mibex.bamboo.plandsl.dsl.scm.ScmCvs
 import ch.mibex.bamboo.plandsl.dsl.scm.ScmType
 import ch.mibex.bamboo.plandsl.dsl.tasks.DeployPluginTask
@@ -98,6 +100,8 @@ class DslScriptParserImpl implements DslScriptParser {
         importCustomizer.addStaticImport(ScmCvs.name, ScmCvs.CvsModuleVersion.simpleName)
         importCustomizer.addStaticImport(ScriptTask.name, ScriptTask.ScriptInterpreter.simpleName)
         importCustomizer.addStaticImport(Dependencies.name, Dependencies.DependencyBlockingStrategy.simpleName)
+        importCustomizer.addStaticImport(PermissionTypes.name, PermissionTypes.PermissionType.simpleName)
+        importCustomizer.addStaticImport(Permissions.name, Permissions.OtherUserType.simpleName)
 
         config.addCompilationCustomizers(importCustomizer)
         // would not allow usage of variables like bamboo or configure block:

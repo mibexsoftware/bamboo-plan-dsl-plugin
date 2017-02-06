@@ -57,8 +57,18 @@ class Dependencies extends BambooObject {
     /**
      * When the current plan builds successfully, it will trigger the child plans to build.
      *
+     * @param planKeys A list of child plan keys, e.g. "MYPROJ-MYPLAN", "JAVA-JAR"
+     */
+    void childPlans(String... planKeys) {
+        planKeys.each { dependencies.add(new Dependency(it, bambooFacade)) }
+    }
+
+    /**
+     * When the current plan builds successfully, it will trigger the child plans to build.
+     *
      * @param planKey The fully qualified plan key, e.g. "MYPROJ-MYPLAN"
      */
+    @Deprecated
     void dependency(String planKey) {
         Validations.isNotNullOrEmpty(planKey, 'Dependency plan key must not be empty')
         def dependency = new Dependency(planKey, bambooFacade)
@@ -71,6 +81,7 @@ class Dependencies extends BambooObject {
      * @param params the properties for the dependency. Currently, only "planKey" (the fully qualified plan key)
      * is expected.
      */
+    @Deprecated
     void dependency(Map<String, String> params) {
         //FIXME this can be improved once https://issues.apache.org/jira/browse/GROOVY-7956 is implemented
         dependency(params['planKey'])

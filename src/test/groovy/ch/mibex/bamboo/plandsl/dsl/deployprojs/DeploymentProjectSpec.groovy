@@ -4,6 +4,8 @@ import ch.mibex.bamboo.plandsl.dsl.DslScriptContext
 import ch.mibex.bamboo.plandsl.dsl.DslScriptParserImpl
 import ch.mibex.bamboo.plandsl.dsl.notifications.EnvironmentNotifications
 import ch.mibex.bamboo.plandsl.dsl.notifications.HipChatNotification
+import ch.mibex.bamboo.plandsl.dsl.permissions.PermissionTypes
+import ch.mibex.bamboo.plandsl.dsl.permissions.Permissions
 import ch.mibex.bamboo.plandsl.dsl.tasks.CommandTask
 import ch.mibex.bamboo.plandsl.dsl.tasks.Tasks
 import ch.mibex.bamboo.plandsl.dsl.variables.Variable
@@ -34,6 +36,11 @@ class DeploymentProjectSpec extends Specification {
                         nextReleaseVersion: "1.0-m1",
                         autoIncrement: true,
                         variables: ["test1", "test2"]
+                ),
+                permissions:  new Permissions(
+                        userPermissions: ['diego': new PermissionTypes(permissionTypes: [PermissionTypes.PermissionType.VIEW])],
+                        groupPermissions: ['devops': new PermissionTypes(permissionTypes: [PermissionTypes.PermissionType.VIEW])],
+                        otherPermissions: ['ROLE_USER': new PermissionTypes(permissionTypes: [PermissionTypes.PermissionType.VIEW, PermissionTypes.PermissionType.EDIT])],
                 )
         )
         results.projects[0].plans[0].deploymentProjects[1] == new DeploymentProject(
@@ -53,7 +60,12 @@ class DeploymentProjectSpec extends Specification {
                                 apiToken: 'XXX',
                                 room: 'MyRoom',
                                 notify: true
-                        )])
+                        )]),
+                        permissions:  new Permissions(
+                                userPermissions: ['diego': new PermissionTypes(permissionTypes: [PermissionTypes.PermissionType.VIEW])],
+                                groupPermissions: ['devops': new PermissionTypes(permissionTypes: [PermissionTypes.PermissionType.VIEW, PermissionTypes.PermissionType.DEPLOY])],
+                                otherPermissions: ['ROLE_USER': new PermissionTypes(permissionTypes: [PermissionTypes.PermissionType.VIEW, PermissionTypes.PermissionType.EDIT])]
+                        )
                 )],
                 releaseVersioning: new ReleaseVersioning(
                         nextReleaseVersion: "1.0-\${bamboo.buildNumber}",

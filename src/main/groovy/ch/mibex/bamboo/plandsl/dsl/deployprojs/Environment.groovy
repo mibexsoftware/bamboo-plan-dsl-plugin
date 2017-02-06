@@ -3,6 +3,7 @@ package ch.mibex.bamboo.plandsl.dsl.deployprojs
 import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.BambooObject
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
+import ch.mibex.bamboo.plandsl.dsl.permissions.Permissions
 import ch.mibex.bamboo.plandsl.dsl.Validations
 import ch.mibex.bamboo.plandsl.dsl.notifications.EnvironmentNotifications
 import ch.mibex.bamboo.plandsl.dsl.tasks.Tasks
@@ -11,6 +12,8 @@ import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
 /**
+ * Environments represent where releases are deployed to.
+ *
  * @since 1.1.0
  */
 @EqualsAndHashCode(includeFields=true, excludes = ['metaClass'])
@@ -22,6 +25,7 @@ class Environment extends BambooObject {
     private DeploymentTriggers triggers = new DeploymentTriggers(bambooFacade)
     private Variables variables = new Variables(bambooFacade)
     private EnvironmentNotifications notifications = new EnvironmentNotifications(bambooFacade)
+    private Permissions permissions = new Permissions(bambooFacade)
 
     Environment(String name, BambooFacade bambooFacade) {
         super(bambooFacade)
@@ -90,10 +94,23 @@ class Environment extends BambooObject {
     }
 
     /**
+     * Specifies the notifications for this environment.
+     *
      * @since 1.5.0
      */
     EnvironmentNotifications notifications() {
         notifications = new EnvironmentNotifications(bambooFacade)
         notifications
+    }
+
+    /**
+     * Specifies the permissions for this environment.
+     *
+     * @since 1.5.1
+     */
+    void permissions(@DelegatesTo(Permissions) Closure closure) {
+        def permissions = new Permissions(bambooFacade)
+        DslScriptHelper.execute(closure, permissions)
+        this.permissions =  permissions
     }
 }

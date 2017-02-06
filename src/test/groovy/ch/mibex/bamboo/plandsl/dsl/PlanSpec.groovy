@@ -5,6 +5,8 @@ import ch.mibex.bamboo.plandsl.dsl.branches.Branches
 import ch.mibex.bamboo.plandsl.dsl.dependencies.AdvancedDependencyOptions
 import ch.mibex.bamboo.plandsl.dsl.dependencies.Dependencies
 import ch.mibex.bamboo.plandsl.dsl.dependencies.Dependency
+import ch.mibex.bamboo.plandsl.dsl.permissions.PermissionTypes
+import ch.mibex.bamboo.plandsl.dsl.permissions.Permissions
 import ch.mibex.bamboo.plandsl.dsl.variables.Variable
 import ch.mibex.bamboo.plandsl.dsl.variables.Variables
 import spock.lang.Specification
@@ -161,6 +163,30 @@ class PlanSpec extends Specification {
                 name: "Simple plan",
                 enabled: true,
                 description: "this is a simple plan"
+        )
+    }
+
+    def 'plan with permissions'() {
+        setup:
+        def loader = new DslScriptParserImpl()
+
+        when:
+        def result = loader.parse(new DslScriptContext(getClass().getResource('/dsls/plans/PlanWithPermissions.groovy').text))
+
+        then:
+        result.projects.size() == 1
+        result.projects[0].projectKey == 'SIMPLEPROJECT'
+        result.projects[0].projectName == 'Simple project'
+        result.projects[0].plans[0] == new Plan(
+                key: "SIMPLEPLAN",
+                name: "Simple plan",
+                enabled: true,
+                description: "this is a simple plan",
+                permissions: new Permissions(
+                    userPermissions: ['diego': new PermissionTypes(permissionTypes: [PermissionTypes.PermissionType.ADMIN])],
+                    groupPermissions: ['devops': new PermissionTypes(permissionTypes: [PermissionTypes.PermissionType.VIEW, PermissionTypes.PermissionType.BUILD])],
+                    otherPermissions: ['ROLE_ANONYMOUS': new PermissionTypes(permissionTypes: [PermissionTypes.PermissionType.VIEW, PermissionTypes.PermissionType.ADMIN])],
+                )
         )
     }
 }

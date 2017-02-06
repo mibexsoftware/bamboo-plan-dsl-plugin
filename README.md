@@ -94,7 +94,7 @@ supported by the plug-in, they can still be used with the
         - [ ] Notifications
         - [x] Variables
     - [x] Dependencies
-    - [ ] Permissions
+    - [x] Permissions
     - [x] Notifications
     - [x] Variables
     - [ ] Miscellaneous
@@ -154,7 +154,7 @@ supported by the plug-in, they can still be used with the
     - [ ] Visual Studio
 - Deployment Projects
     - [x] Details
-    - [ ] Project permissions
+    - [x] Project permissions
     - [x] Release versioning
     - Environments
         - [x] Details
@@ -163,4 +163,4 @@ supported by the plug-in, they can still be used with the
         - [ ] Agent assignments
         - [x] Notifications
         - [x] Variables
-        - [ ] Environment permissions
+        - [x] Environment permissions
