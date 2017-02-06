@@ -47,7 +47,8 @@ class Maven3Task extends Task {
      * Maven executable.
      */
     void executable(String executableLabel) {
-        bambooFacade.requireExecutable('mvn3.' + executableLabel)
+        //FIXME re-enable once we are also able to check non-shared capabilities
+        //bambooFacade.requireExecutable('mvn3.' + executableLabel)
         this.executable = executableLabel
     }
 

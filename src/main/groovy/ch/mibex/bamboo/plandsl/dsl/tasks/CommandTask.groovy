@@ -22,8 +22,12 @@ class CommandTask extends Task {
         super(bambooFacade, TASK_ID)
     }
 
+    /**
+     * The executable to run.
+     */
     void executable(String executableLabel) {
-        bambooFacade.requireExecutable(executableLabel)
+        //FIXME re-enable once we are also able to check non-shared capabilities
+        //bambooFacade.requireExecutable(executableLabel)
         this.executable = executableLabel
     }
 
