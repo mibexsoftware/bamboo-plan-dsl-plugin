@@ -129,7 +129,7 @@ class DeploymentProject extends BambooObject {
      *
      * @since 1.5.1
      */
-    void permissions(@DelegatesTo(Permissions) Closure closure) {
+    Permissions permissions(@DelegatesTo(Permissions) Closure closure) {
         def permissions = new Permissions(bambooFacade)
         DslScriptHelper.execute(closure, permissions)
         this.permissions =  permissions

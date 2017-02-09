@@ -154,27 +154,28 @@ class Plan extends BambooObject {
     /**
      * Specifies the repositories for this plan.
      */
-    void scm(@DelegatesTo(Scm) Closure closure) {
-        def scm = new Scm(bambooFacade)
+    Scm scm(@DelegatesTo(Scm) Closure closure) {
+        Scm scm = new Scm(bambooFacade)
         DslScriptHelper.execute(closure, scm)
         this.scm = scm
-        scm
     }
 
     /**
      * Specifies the triggers for this plan.
      */
-    void triggers(@DelegatesTo(Triggers) Closure closure) {
-        this.triggers = new Triggers(bambooFacade)
+    Triggers triggers(@DelegatesTo(Triggers) Closure closure) {
+        Triggers triggers = new Triggers(bambooFacade)
         DslScriptHelper.execute(closure, triggers)
+        this.triggers = triggers
     }
 
     /**
      * Specifies the branches for this plan.
      */
-    void branches(@DelegatesTo(Branches) Closure closure) {
-        branches = new Branches(bambooFacade)
+    Branches branches(@DelegatesTo(Branches) Closure closure) {
+        Branches branches = new Branches(bambooFacade)
         DslScriptHelper.execute(closure, branches)
+        this.branches = branches
     }
 
     Branches branches() {
@@ -247,19 +248,19 @@ class Plan extends BambooObject {
     /**
      * Specifies the variables for this plan.
      */
-    void variables(@DelegatesTo(Variables) Closure closure) {
+    Variables variables(@DelegatesTo(Variables) Closure closure) {
         def variables = new Variables(bambooFacade)
         DslScriptHelper.execute(closure, variables)
-        this.variables =  variables
+        this.variables = variables
     }
 
     /**
      * Specifies the dependencies for this plan.
      */
-    void dependencies(@DelegatesTo(Dependencies) Closure closure) {
+    Dependencies dependencies(@DelegatesTo(Dependencies) Closure closure) {
         def dependencies = new Dependencies(bambooFacade)
         DslScriptHelper.execute(closure, dependencies)
-        this.dependencies =  dependencies
+        this.dependencies = dependencies
     }
 
     /**
@@ -267,9 +268,9 @@ class Plan extends BambooObject {
      *
      * @since 1.5.1
      */
-    void permissions(@DelegatesTo(Permissions) Closure closure) {
+    Permissions permissions(@DelegatesTo(Permissions) Closure closure) {
         def permissions = new Permissions(bambooFacade)
         DslScriptHelper.execute(closure, permissions)
-        this.permissions =  permissions
+        this.permissions = permissions
     }
 }

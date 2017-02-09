@@ -14,6 +14,11 @@ class CleanWorkingDirTask extends Task {
         super(bambooFacade, TASK_ID)
     }
 
+    // just for testing
+    protected CleanWorkingDirTask() {
+        super(TASK_ID)
+    }
+
     @Override
     protected Map<String, String> getConfig(Map<Object, Object> context) { [:] }
 }

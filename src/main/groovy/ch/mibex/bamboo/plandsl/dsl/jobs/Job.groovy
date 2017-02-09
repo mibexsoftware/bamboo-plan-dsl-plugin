@@ -77,7 +77,7 @@ class Job extends BambooObject {
     /**
      * Defines the artifact(s) for this job.
      */
-    void artifacts(@DelegatesTo(Artifacts) Closure closure) {
+    Artifacts artifacts(@DelegatesTo(Artifacts) Closure closure) {
         def artifacts = new Artifacts(bambooFacade)
         DslScriptHelper.execute(closure, artifacts)
         this.artifacts = artifacts
@@ -86,7 +86,7 @@ class Job extends BambooObject {
     /**
      * Defines the task(s) for this job.
      */
-    void tasks(@DelegatesTo(Tasks) Closure closure) {
+    Tasks tasks(@DelegatesTo(Tasks) Closure closure) {
         def newTaskList = new Tasks(bambooFacade)
         DslScriptHelper.execute(closure, newTaskList)
         tasksList = newTaskList
@@ -98,7 +98,7 @@ class Job extends BambooObject {
      *
      * @since 1.5.0
      */
-    void requirements(@DelegatesTo(Requirements) Closure closure) {
+    Requirements requirements(@DelegatesTo(Requirements) Closure closure) {
         def newRequirements = new Requirements(bambooFacade)
         DslScriptHelper.execute(closure, newRequirements)
         requirements = newRequirements
@@ -107,7 +107,7 @@ class Job extends BambooObject {
     /**
      * Defines the miscellaneous settings for this job.
      */
-    void miscellaneous(@DelegatesTo(Miscellaneous) Closure closure) {
+    Miscellaneous miscellaneous(@DelegatesTo(Miscellaneous) Closure closure) {
         def miscellaneous = new Miscellaneous(bambooFacade)
         DslScriptHelper.execute(closure, miscellaneous)
         this.miscellaneous = miscellaneous

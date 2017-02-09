@@ -49,7 +49,7 @@ class Environment extends BambooObject {
     /**
      * Tasks define the steps involved in deploying a release to the environment.
      */
-    void tasks(@DelegatesTo(Tasks) Closure closure) {
+    Tasks tasks(@DelegatesTo(Tasks) Closure closure) {
         def newTaskList = new Tasks(bambooFacade)
         DslScriptHelper.execute(closure, newTaskList)
         tasks = newTaskList
@@ -59,7 +59,7 @@ class Environment extends BambooObject {
      * Set triggers to specify how and when the deployment will be triggered automatically. When a deployment is
      * automatically triggered, a new release is created from the latest successful build result of the linked plan.
      */
-    void deploymentTriggers(@DelegatesTo(DeploymentTriggers) Closure closure) {
+    DeploymentTriggers deploymentTriggers(@DelegatesTo(DeploymentTriggers) Closure closure) {
         def triggers = new DeploymentTriggers()
         DslScriptHelper.execute(closure, triggers)
         this.triggers = triggers
@@ -67,7 +67,7 @@ class Environment extends BambooObject {
 
     // deprecated because IntelliJ confused this with plan#triggers
     @Deprecated
-    void triggers(@DelegatesTo(DeploymentTriggers) Closure closure) {
+    DeploymentTriggers triggers(@DelegatesTo(DeploymentTriggers) Closure closure) {
         deploymentTriggers(closure)
     }
 
@@ -76,10 +76,10 @@ class Environment extends BambooObject {
      *
      * @since 1.5.0
      */
-    void variables(@DelegatesTo(Variables) Closure closure) {
-        def variables = new Variables(bambooFacade)
-        DslScriptHelper.execute(closure, variables)
-        this.variables =  variables
+    Variables variables(@DelegatesTo(Variables) Closure closure) {
+        def vars = new Variables(bambooFacade)
+        DslScriptHelper.execute(closure, vars)
+        this.variables = vars
     }
 
     /**
@@ -108,9 +108,9 @@ class Environment extends BambooObject {
      *
      * @since 1.5.1
      */
-    void permissions(@DelegatesTo(Permissions) Closure closure) {
+    Permissions permissions(@DelegatesTo(Permissions) Closure closure) {
         def permissions = new Permissions(bambooFacade)
         DslScriptHelper.execute(closure, permissions)
-        this.permissions =  permissions
+        this.permissions = permissions
     }
 }

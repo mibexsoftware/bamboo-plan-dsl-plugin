@@ -27,6 +27,7 @@ abstract class BambooObject {
 
     @SuppressWarnings('UnnecessaryGetter')
     String env(String key) {
+        // the strict Bamboo facade will throw an error if variable with this does not exist
         bambooFacade.getVariableContext()(key) // do not change this getter access
     }
 
