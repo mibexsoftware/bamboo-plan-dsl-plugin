@@ -3,6 +3,7 @@ package ch.mibex.bamboo.plandsl.dsl.tasks
 import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import ch.mibex.bamboo.plandsl.dsl.NullBambooFacade
+import ch.mibex.bamboo.plandsl.dsl.Validations
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
@@ -66,10 +67,15 @@ class ScriptTask extends Task {
     protected def Map<String, String> getConfig(Map<Object, Object> context) {
         def config = [:]
         config.put('argument', argument)
-        config.put('scriptBody', inlineScript?.scriptBody ?: '')
+        if (inlineScript) {
+            Validations.isNotNullOrEmpty(inlineScript.scriptBody, 'Script body must not be empty')
+            config.put('scriptBody', inlineScript.scriptBody)
+        } else if (scriptFile) {
+            Validations.isNotNullOrEmpty(scriptFile.scriptFile, 'Script file must not be empty')
+            config.put('script', scriptFile.scriptFile)
+        }
         addInterpreterSettings(config)
         config.put('workingSubDirectory', workingSubDirectory)
-        config.put('script', scriptFile?.scriptFile ?: '')
         config.put('environmentVariables', environmentVariables)
         config.put('scriptLocation', inlineScript ? 'INLINE' : 'FILE')
         config

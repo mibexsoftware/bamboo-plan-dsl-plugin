@@ -8,7 +8,7 @@ import ch.mibex.bamboo.plandsl.dsl.tasks.ScriptTask.ScriptInterpreter
 @EqualsAndHashCode(includeFields=true, excludes = ['metaClass'])
 @ToString(includeFields=true)
 class ScriptFile {
-    private ScriptInterpreter interpreter
+    private ScriptInterpreter interpreter = ScriptInterpreter.RUN_AS_EXECUTABLE
     private String scriptFile
 
     /**

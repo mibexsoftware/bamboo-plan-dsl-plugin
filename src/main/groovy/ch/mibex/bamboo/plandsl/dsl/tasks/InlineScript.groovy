@@ -7,8 +7,8 @@ import ch.mibex.bamboo.plandsl.dsl.tasks.ScriptTask.ScriptInterpreter
 @EqualsAndHashCode(includeFields=true, excludes = ['metaClass'])
 @ToString(includeFields=true)
 class InlineScript {
-    ScriptInterpreter interpreter
-    String scriptBody
+    private ScriptInterpreter interpreter = ScriptInterpreter.RUN_AS_EXECUTABLE
+    private String scriptBody
 
     /**
      * An interpreter is chosen based on the shebang line of your script.
