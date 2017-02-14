@@ -12,6 +12,21 @@ project("SIMPLEPROJECT") {
 
             environment("env1") {
                 description "desc"
+
+                tasks {
+                    command("run command") {
+                        enabled true
+                        workingSubDirectory "."
+                        argument "-n"
+                        environmentVariables "what=EVER"
+                        executable "atlas-clean"
+                    }
+                    injectBambooVariables(propertiesFilePath: 'envVars.properties', namespace: 'soulmv') {
+                        description "Inject Build Variables"
+                        isFinal true
+                        variablesScope VariablesScope.RESULT
+                    }
+                }
             }
 
             releaseVersioning(nextReleaseVersion: '1.0-m1') {

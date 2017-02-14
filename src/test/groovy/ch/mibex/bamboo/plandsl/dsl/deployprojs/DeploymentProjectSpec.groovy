@@ -7,6 +7,7 @@ import ch.mibex.bamboo.plandsl.dsl.notifications.HipChatNotification
 import ch.mibex.bamboo.plandsl.dsl.permissions.PermissionTypes
 import ch.mibex.bamboo.plandsl.dsl.permissions.Permissions
 import ch.mibex.bamboo.plandsl.dsl.tasks.CommandTask
+import ch.mibex.bamboo.plandsl.dsl.tasks.InjectBambooVariablesTask
 import ch.mibex.bamboo.plandsl.dsl.tasks.Tasks
 import ch.mibex.bamboo.plandsl.dsl.variables.Variable
 import ch.mibex.bamboo.plandsl.dsl.variables.Variables
@@ -30,7 +31,26 @@ class DeploymentProjectSpec extends Specification {
                 useCustomPlanBranch: "develop",
                 environments: [new Environment(
                         name: "env1",
-                        description: "desc"
+                        description: "desc",
+                        tasks: new Tasks(tasks: [
+                                new CommandTask(
+                                        description: "run command",
+                                        enabled: true,
+                                        isFinal: false,
+                                        workingSubDirectory: ".",
+                                        argument: "-n",
+                                        environmentVariables: "what=EVER",
+                                        executable: "atlas-clean"
+                                ),
+                                new InjectBambooVariablesTask(
+                                        enabled: true,
+                                        isFinal: true,
+                                        description: "Inject Build Variables",
+                                        propertiesFilePath: "envVars.properties",
+                                        variablesScope: InjectBambooVariablesTask.VariablesScope.RESULT,
+                                        namespace: "soulmv"
+                                )
+                        ])
                 )],
                 releaseVersioning: new ReleaseVersioning(
                         nextReleaseVersion: "1.0-m1",
