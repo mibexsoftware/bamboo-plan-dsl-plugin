@@ -93,7 +93,20 @@ class ScriptTask extends Task {
     }
 
     static enum ScriptInterpreter {
-        RUN_AS_EXECUTABLE, POWERSHELL, LEGACY_SH_BAT
+        /**
+         * An interpreter is chosen based on the shebang line of your script.
+         */
+        RUN_AS_EXECUTABLE,
+
+        /**
+         * Run your script with Windows PowerShell.
+         */
+        POWERSHELL,
+
+        /**
+         * Run your script with /bin/sh or cmd.exe
+         */
+        LEGACY_SH_BAT
     }
 
 }
