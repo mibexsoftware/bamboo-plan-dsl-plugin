@@ -18,7 +18,7 @@ abstract class BambooObject {
         List<StackTraceElement> currentStackTrack = DslScriptHelper.stackTrace
         String details = DslScriptHelper.collectSourceDetails(currentStackTrack)
         def message = "${currentStackTrack[0].methodName} is deprecated"
-        bambooFacade.log("Warning: ${details} $message")
+        bambooFacade.log("warning: ${details} $message")
     }
 
     BambooEnvironment env() {

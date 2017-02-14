@@ -13,6 +13,7 @@ import ch.mibex.bamboo.plandsl.dsl.scm.ScmType
 import ch.mibex.bamboo.plandsl.dsl.tasks.DeployPluginTask
 import ch.mibex.bamboo.plandsl.dsl.tasks.InjectBambooVariablesTask
 import ch.mibex.bamboo.plandsl.dsl.tasks.ScriptTask
+import ch.mibex.bamboo.plandsl.dsl.tasks.Tasks
 import org.codehaus.groovy.control.CompilationFailedException
 import org.codehaus.groovy.control.CompilerConfiguration
 import org.codehaus.groovy.control.customizers.ImportCustomizer
@@ -62,7 +63,10 @@ class DslScriptParserImpl implements DslScriptParser {
             script = engine.createScript(scriptContext.location, binding)
         }
 
-        assert script instanceof DslScript
+        if (!(script instanceof DslScript)) {
+            throw new DslException((scriptContext.location ?: '') + ' Not a valid DSL script')
+        }
+
         script as DslScript
     }
 
@@ -87,6 +91,7 @@ class DslScriptParserImpl implements DslScriptParser {
         // does not work in IDEs:
         importCustomizer.addStaticImport(Notifications.name, Notifications.NotificationEvent.simpleName)
         importCustomizer.addImports(Requirement.name)
+        importCustomizer.addImports(Tasks.name)
         importCustomizer.addStaticImport(
                 EnvironmentNotifications.name, EnvironmentNotifications.EnvironmentNotificationEvent.simpleName
         )
