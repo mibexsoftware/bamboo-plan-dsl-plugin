@@ -18,6 +18,7 @@ class AdvancedGitRepoOptions extends BambooObject {
     protected int commandTimeoutInMinutes
     protected boolean verboseLogs
     protected boolean fetchWholeRepository
+    protected boolean enableLfsSupport
     protected QuietPeriod quietPeriod
     protected IncludeExcludeFiles includeExcludeFiles
     protected String excludeChangesetsRegex
@@ -64,6 +65,16 @@ class AdvancedGitRepoOptions extends BambooObject {
      */
     void fetchWholeRepository(boolean fetchWholeRepository = true) {
         this.fetchWholeRepository = fetchWholeRepository
+    }
+
+    /**
+     * Git Large File Storage (LFS) replaces large files such as audio samples, videos, datasets,
+     * and graphics with text pointers inside Git, while storing the file contents on a remote server.
+     *
+     * @since 1.5.3
+     */
+    void enableLfsSupport(boolean enableLfsSupport = true) {
+        this.enableLfsSupport = enableLfsSupport
     }
 
     /**

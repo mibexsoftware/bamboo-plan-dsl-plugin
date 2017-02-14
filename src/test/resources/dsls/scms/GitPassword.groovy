@@ -23,6 +23,7 @@ project("GITSCM") {
                     commandTimeoutInMinutes 20
                     verboseLogs true
                     fetchWholeRepository true
+                    enableLfsSupport true
                     quietPeriod {
                         waitTimeInSeconds 120
                         maximumRetries 3

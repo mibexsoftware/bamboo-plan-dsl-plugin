@@ -29,6 +29,7 @@ class ScmsSpec extends Specification {
                     commandTimeoutInMinutes: 20,
                     verboseLogs: true,
                     fetchWholeRepository: true,
+                    enableLfsSupport: true,
                     quietPeriod: new QuietPeriod(
                             waitTimeInSeconds: 120,
                             maximumRetries: 3
@@ -69,6 +70,7 @@ class ScmsSpec extends Specification {
                         commandTimeoutInMinutes: 20,
                         verboseLogs: true,
                         fetchWholeRepository: true,
+                        enableLfsSupport: false,
                         quietPeriod: new QuietPeriod(
                                 waitTimeInSeconds: 120,
                                 maximumRetries: 3
@@ -119,6 +121,7 @@ class ScmsSpec extends Specification {
                         commandTimeoutInMinutes: 20,
                         verboseLogs: true,
                         fetchWholeRepository: true,
+                        enableLfsSupport: false,
                         quietPeriod: new QuietPeriod(
                                 waitTimeInSeconds: 120,
                                 maximumRetries: 3
@@ -160,6 +163,7 @@ class ScmsSpec extends Specification {
                             commandTimeoutInMinutes: 20,
                             verboseLogs: true,
                             fetchWholeRepository: true,
+                            enableLfsSupport: false,
                             quietPeriod: new QuietPeriod(
                                     waitTimeInSeconds: 120,
                                     maximumRetries: 3
@@ -257,6 +261,7 @@ class ScmsSpec extends Specification {
                     commandTimeoutInMinutes: 20,
                     verboseLogs: true,
                     fetchWholeRepository: true,
+                    enableLfsSupport: false,
                     quietPeriod: new QuietPeriod(
                             waitTimeInSeconds: 120,
                             maximumRetries: 3
