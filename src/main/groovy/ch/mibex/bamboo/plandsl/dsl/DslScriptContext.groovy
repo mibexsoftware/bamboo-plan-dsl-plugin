@@ -9,7 +9,6 @@ class DslScriptContext {
     final String location
     final String body
     final URL urlRoot
-    final String scriptPath
 
     DslScriptContext(String body) {
         this(null, body, new File('.').toURI().toURL())
@@ -19,7 +18,7 @@ class DslScriptContext {
         this(file.absolutePath, null, file.absoluteFile.toURI().toURL())
     }
 
-    DslScriptContext(String location, String body, URL urlRoot, String scriptPath = null) {
+    DslScriptContext(String location, String body, URL urlRoot) {
         if (location && !isValidScriptName(location)) {
             throw new DslException('Invalid script filename detected. Note that filenames need to be valid Java ' +
                     'identifiers, which e.g. means that "-" in filenames are not allowed. ' +
@@ -28,7 +27,6 @@ class DslScriptContext {
         this.location = location
         this.body = body
         this.urlRoot = urlRoot
-        this.scriptPath = scriptPath
     }
 
     private static boolean isValidScriptName(String scriptFile) {

@@ -30,8 +30,8 @@ class DslScriptContextFactory {
                 }
                 srcFiles.each { srcFile ->
                     def file = new File(rootDir, srcFile)
-                    def urlRoot = file.toURI().toURL()
-                    scriptContexts << new DslScriptContext(file.absolutePath, null, urlRoot)
+                    def urlRoot = file.parentFile.toURI().toURL()
+                    scriptContexts << new DslScriptContext(file.name, null, urlRoot)
                 }
             }
         }
