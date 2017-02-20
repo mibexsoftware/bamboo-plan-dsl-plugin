@@ -62,7 +62,9 @@ class HipChatNotification extends NotificationType {
         def config = [:]
         config.put('apiToken', [apiToken] as String[])
         config.put('room', [room] as String[])
-        config.put('notifyUsers', [String.valueOf(notify)] as String[])
+        if (notify) {
+            config.put('notifyUsers', [String.valueOf(notify)] as String[])
+        }
         config
     }
 
