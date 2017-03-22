@@ -59,7 +59,7 @@ class DslScriptParserImpl implements DslScriptParser {
             Class clazz = groovyClassLoader.parseClass(scriptContext.body)
             script = InvokerHelper.createScript(clazz, binding)
         } else {
-            def engine = new GroovyScriptEngine(scriptContext.urlRoot as URL[], groovyClassLoader)
+            def engine = new GroovyScriptEngine(scriptContext.urlRoots, groovyClassLoader)
             script = engine.createScript(scriptContext.location, binding)
         }
 

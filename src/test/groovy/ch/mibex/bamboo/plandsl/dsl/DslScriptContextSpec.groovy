@@ -6,7 +6,7 @@ class DslScriptContextSpec extends Specification {
 
     def 'DSL script with dashes in filename should yield exception'() {
         when:
-        new DslScriptContext("my-script.groovy", null, null)
+        new DslScriptContext("my-script.groovy", null, null as URL[])
 
         then:
         thrown(DslException)
@@ -30,7 +30,7 @@ class DslScriptContextSpec extends Specification {
 
         then:
         context.location == 'dsl.groovy'
-        context.urlRoot == urlRoot
+        context.urlRoots == [urlRoot] as URL[]
         context.toString() == 'script file from dsl.groovy'
     }
 
