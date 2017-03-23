@@ -1,9 +1,9 @@
 # Plan DSL for Bamboo - Treat your build plans as code!
 
-![Join the chat at https://gitter.im/bamboo-plan-dsl-plugin/Lobby](https://badges.gitter.im/bamboo-plan-dsl-plugin/Lobby.svg)](https://gitter.im/bamboo-plan-dsl-plugin/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join the chat at https://gitter.im/bamboo-plan-dsl-plugin/Lobby](https://badges.gitter.im/bamboo-plan-dsl-plugin/Lobby.svg)](https://gitter.im/bamboo-plan-dsl-plugin/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Release](https://img.shields.io/github/release/mibexsoftware/bamboo-plan-dsl-plugin.svg?label=maven version)](https://jitpack.io/#mibexsoftware/bamboo-plan-dsl-plugin)
+[![Travis build status](https://travis-ci.org/mibexsoftware/bamboo-plan-dsl-plugin.svg?branch=master)](https://travis-ci.org/mibexsoftware/bamboo-plan-dsl-plugin)
 
-![Release](https://img.shields.io/github/release/mibexsoftware/bamboo-plan-dsl-plugin.svg?label=maven version)](https://jitpack.io/#mibexsoftware/bamboo-plan-dsl-plugin)
-![Travis build status](https://travis-ci.org/mibexsoftware/bamboo-plan-dsl-plugin.svg?branch=master)(https://travis-ci.org/mibexsoftware/bamboo-plan-dsl-plugin)
 
 Note that this repository only contains the source for the plan DSL which allows you write your build
 plan configurations with autocompletion, syntax highlighting and documentation in your IDE. The 
