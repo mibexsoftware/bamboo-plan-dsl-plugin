@@ -31,6 +31,10 @@ class Requirement extends BambooObject {
     @ToString(includeFields=true)
     static abstract class MatchType {}
 
+    /**
+     * @deprecated use {@link Requirements#equalsTo(String)} instead
+     */
+    @Deprecated
     static class Equals extends MatchType {
         final String matchValue
 
@@ -40,18 +44,23 @@ class Requirement extends BambooObject {
         }
     }
 
+    /**
+     * @deprecated use {@link Requirements#matches(String)} instead
+     */
+    @Deprecated
     static class Matches extends MatchType {
         final String regex
 
-        /**
-         * @param regex A regular expression describing a pattern that the key must match.
-         */
         Matches(String regex) {
             Validations.isNotNullOrEmpty(regex, "Matching regex for capability type 'Matches' must not be empty")
             this.regex = regex
         }
     }
 
+    /**
+     * @deprecated use {@link Requirements#exists()} instead
+     */
+    @Deprecated
     static class Exists extends MatchType {
     }
 }

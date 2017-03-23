@@ -44,4 +44,16 @@ class Requirements extends BambooObject {
     void requirement(Map<String, Object> params, @DelegatesTo(Requirement) Closure closure) {
         requirement(params['capabilityKey'] as String, params['matchType'] as Requirement.MatchType, closure)
     }
+
+    static Requirement.Equals equalsTo(String matchValue) {
+        new Requirement.Equals(matchValue)
+    }
+
+    static Requirement.Exists exists() {
+        new Requirement.Exists()
+    }
+
+    static Requirement.Matches matches(String regex) {
+        new Requirement.Matches(regex)
+    }
 }
