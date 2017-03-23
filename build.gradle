@@ -3,7 +3,7 @@ apply plugin: 'java'
 apply plugin: 'maven-publish'
 apply plugin: 'codenarc'
 
-//group = 'com.github.mibexsoftware' // necessary for jitpack
+group = 'com.github.mibexsoftware' // necessary for jitpack
 
 publishing {
     publications {
