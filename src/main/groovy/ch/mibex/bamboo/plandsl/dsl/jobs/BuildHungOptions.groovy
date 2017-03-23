@@ -35,6 +35,8 @@ class BuildHungOptions extends BambooObject {
 
     /**
      * The length of time (in whole minutes) without logs being received (e.g. 10 minutes)
+     *
+     * @deprecated use {@link #logQuietTimeInMinutes(int)} instead
      */
     @Deprecated
     void logQuietTime(int logQuietTime) {
@@ -44,6 +46,8 @@ class BuildHungOptions extends BambooObject {
     /**
      * Bamboo uses queue timeout to determine build waiting in the queue longer then expected.
      * The length of time (in whole minutes) before queue timeout would be detected (e.g. 60 minutes)
+     *
+     * @deprecated use {@link #buildQueueTimeoutInMinutes(int)} instead
      */
     @Deprecated
     void buildQueueTimeout(int buildQueueTimeout) {

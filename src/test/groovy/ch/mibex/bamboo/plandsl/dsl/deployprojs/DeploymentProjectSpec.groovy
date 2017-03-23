@@ -138,9 +138,9 @@ class DeploymentProjectSpec extends Specification {
         then:
         def deploymentProjects = results.projects[0].plans[0].deploymentProjects
         deploymentProjects.size() == 2
-        deploymentProjects[0].name == 'local project'
+        deploymentProjects[0].name == 'local project 1'
         deploymentProjects[0].environments.size() == 2
-        deploymentProjects[1].name == 'global project'
+        deploymentProjects[1].name == 'local project 2'
         deploymentProjects[1].environments.size() == 2
     }
 

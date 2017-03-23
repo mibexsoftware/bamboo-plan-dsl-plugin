@@ -13,6 +13,9 @@ import groovy.transform.ToString
 class AfterSuccessfulDeploymentTrigger extends DeploymentTriggerType {
     private String triggeringEnvironment
 
+    /**
+     * @deprecated use {@link #AfterSuccessfulDeploymentTrigger(String, BambooFacade)} instead
+     */
     @Deprecated
     AfterSuccessfulDeploymentTrigger(BambooFacade bambooFacade) {
         super(bambooFacade)
@@ -30,6 +33,7 @@ class AfterSuccessfulDeploymentTrigger extends DeploymentTriggerType {
      * Triggering environment.
      *
      * @param triggeringEnvironment name of environment
+     * @deprecated use {@link #AfterSuccessfulDeploymentTrigger(String, BambooFacade)} instead
      */
     @Deprecated
     void triggeringEnvironment(String triggeringEnvironment) {

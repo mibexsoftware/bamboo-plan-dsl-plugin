@@ -24,6 +24,7 @@ class Stage extends BambooObject {
      * How do you want to identify the new plan stage?
      *
      * @param name the name of the stage
+     * @deprecated use {@link #Stage(String, BambooFacade)} instead
      */
     @Deprecated
     protected void name(String name) {
@@ -76,6 +77,7 @@ class Stage extends BambooObject {
      *
      * @param key the key of the job consisting of an uppercase letter followed by one or more uppercase
      * alphanumeric characters. E. g. CORE (for a module called core)
+     * @deprecated use {@link #job(Map, Closure)} instead
      */
     @Deprecated
     Job job(String key, @DelegatesTo(Job) Closure closure) {
@@ -110,6 +112,7 @@ class Stage extends BambooObject {
      *
      * @param key the key of the job consisting of an uppercase letter followed by one or more uppercase
      * alphanumeric characters. E. g. CORE (for a module called core)
+     * @deprecated use {@link #job(Map, Closure)} instead
      */
     @Deprecated
     Job job(String key) {

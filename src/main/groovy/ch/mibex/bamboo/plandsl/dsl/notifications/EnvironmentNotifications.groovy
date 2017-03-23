@@ -19,6 +19,8 @@ class EnvironmentNotifications extends BambooObject {
 
     /**
      * Notify users via HipChat.
+     *
+     * @deprecated use {@link #hipchat(Map, Closure)} instead
      */
     @Deprecated
     void hipchat(EnvironmentNotificationEvent event, @DelegatesTo(HipChatNotification) Closure closure) {

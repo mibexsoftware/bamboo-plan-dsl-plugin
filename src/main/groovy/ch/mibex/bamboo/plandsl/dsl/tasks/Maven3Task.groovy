@@ -25,6 +25,9 @@ class Maven3Task extends Task {
         super(TASK_ID)
     }
 
+    /**
+     * @deprecated use {@link #Maven3Task(String, BambooFacade)} instead
+     */
     @Deprecated
     Maven3Task(BambooFacade bambooFacade) {
         super(bambooFacade, TASK_ID)
@@ -37,6 +40,8 @@ class Maven3Task extends Task {
 
     /**
      * The goal you want to execute. You can also define system properties such as -Djava.Awt.Headless=true.
+     *
+     * @deprecated use {@link #Maven3Task(String, BambooFacade)} instead
      */
     @Deprecated
     void goal(String goal) {

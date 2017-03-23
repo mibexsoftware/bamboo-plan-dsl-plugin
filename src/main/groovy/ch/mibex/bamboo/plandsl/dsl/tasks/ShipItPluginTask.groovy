@@ -22,7 +22,6 @@ class ShipItPluginTask extends Task {
         super(bambooFacade, TASK_ID)
     }
 
-    @Deprecated
     ShipItPluginTask(String deployArtifactName, BambooFacade bambooFacade) {
         super(bambooFacade, TASK_ID)
         this.deployArtifactName = deployArtifactName
@@ -35,6 +34,8 @@ class ShipItPluginTask extends Task {
 
     /**
      * This is the artifact to publish to the Atlassian Marketplace.
+     *
+     * @deprecated use {@link #ShipItPluginTask(String, BambooFacade)} instead
      */
     @Deprecated
     void deployArtifactName(String deployArtifactName) {

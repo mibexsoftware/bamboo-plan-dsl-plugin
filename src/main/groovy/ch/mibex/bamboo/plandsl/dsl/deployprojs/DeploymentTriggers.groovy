@@ -25,6 +25,7 @@ class DeploymentTriggers extends BambooObject {
      * Run according to schedule.
      *
      * @param description The description of the trigger
+     * @deprecated use {@link #scheduledCron(String, Closure)} instead
      */
     @Deprecated
     void scheduled(String description, @DelegatesTo(ScheduledDeploymentTrigger) Closure closure) {
@@ -58,6 +59,7 @@ class DeploymentTriggers extends BambooObject {
      * Deployment is started after a plan is successfully built.
      *
      * @param description The description of the trigger
+     * @deprecated use {@link #afterSuccessfulBuildPlan(Closure)} instead
      */
     @Deprecated
     void afterSuccessfulBuildPlan(String description,
@@ -79,6 +81,7 @@ class DeploymentTriggers extends BambooObject {
      * Deployment is started after a deployment on another environment is completed successfully.
      *
      * @param description The description of the trigger
+     * @deprecated use {@link #afterSuccessfulDeployment(String, Closure)} instead
      */
     @Deprecated
     void afterSuccessfulDeployment(String description,
@@ -115,6 +118,7 @@ class DeploymentTriggers extends BambooObject {
      * Deployment is started after a stage is successfully built.
      *
      * @param description The description of the trigger
+     * @deprecated use {@link #afterSuccessfulStage(Closure)} instead
      */
     @Deprecated
     void afterSuccessfulStage(String description,

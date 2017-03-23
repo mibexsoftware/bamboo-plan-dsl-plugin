@@ -2,7 +2,6 @@ package dsls.deployprojs
 
 import dsls.deployprojs.commons.MyCommons
 
-def globalDeploymentProject = deploymentProject('global project')
 
 project("SIMPLEPROJECT") {
     name "simple project"
@@ -10,9 +9,9 @@ project("SIMPLEPROJECT") {
     plan("SIMPLEPLAN") {
         name "simple plan"
 
-        def project1 = deploymentProject('local project')
+        def project1 = deploymentProject('local project 1')
         MyCommons.addDeploymentProperties(project1)
-        MyCommons.addDeploymentProperties(globalDeploymentProject)
-        deploymentProject(globalDeploymentProject)
+        def project2 = deploymentProject('local project 2')
+        MyCommons.addDeploymentProperties(project2)
     }
 }

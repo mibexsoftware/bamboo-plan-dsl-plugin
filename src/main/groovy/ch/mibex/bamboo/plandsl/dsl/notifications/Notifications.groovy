@@ -19,6 +19,8 @@ class Notifications extends BambooObject {
 
     /**
      * Notify users via HipChat.
+     *
+     * @deprecated use {@link #hipchat(Map, Closure)} instead
      */
     @Deprecated
     void hipchat(NotificationEvent event, @DelegatesTo(HipChatNotification) Closure closure) {

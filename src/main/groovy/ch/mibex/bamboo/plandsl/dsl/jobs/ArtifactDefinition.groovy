@@ -18,6 +18,7 @@ class ArtifactDefinition extends BambooObject {
      * Creates an artifact definition.
      *
      * @param name the name of the artifact definition
+     * @deprecated use {@link #ArtifactDefinition(String, String, BambooFacade)} instead
      */
     @Deprecated
     ArtifactDefinition(String name, BambooFacade bambooFacade) {
@@ -50,6 +51,8 @@ class ArtifactDefinition extends BambooObject {
 
     /**
      * Specify the name (or Ant file copy pattern) of the artifact(s) you want to keep, e.g. &#42;&#42;&#47;&#42;.jar
+     *
+     * @deprecated use {@link #ArtifactDefinition(String, String, BambooFacade)} instead
      */
     @Deprecated
     void copyPattern(String copyPattern) {

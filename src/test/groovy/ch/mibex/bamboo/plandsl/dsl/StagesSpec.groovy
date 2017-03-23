@@ -27,11 +27,9 @@ class StagesSpec extends Specification {
 
         then:
         def stages = results.projects[0].plans[0].stages
-        stages.size() == 2
+        stages.size() == 1
         stages[0].name == 'local stage'
-        stages[1].name == 'global stage'
         stages[0].jobs[0].key == 'SIMPLEJOB'
-        stages[1].jobs[0].key == 'SIMPLEJOB'
     }
 
 }

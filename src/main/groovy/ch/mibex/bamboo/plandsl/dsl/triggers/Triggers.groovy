@@ -20,6 +20,8 @@ class Triggers extends BambooObject {
 
     /**
      * Bitbucket Server triggers the build when changes are committed.
+     *
+     * @deprecated use {@link #bitbucketServerRepositoryTriggered(Closure)} instead
      */
     @Deprecated
     void bitbucketServerRepositoryTriggered(String description,
@@ -40,6 +42,8 @@ class Triggers extends BambooObject {
 
     /**
      * Run according to schedule.
+     *
+     * @deprecated use {@link #scheduled(Closure)} instead
      */
     @Deprecated
     void scheduled(String description, @DelegatesTo(ScheduledTrigger) Closure closure) {
@@ -73,6 +77,8 @@ class Triggers extends BambooObject {
 
     /**
      * Bamboo polls source repository and builds when new changes are found.
+     *
+     * @deprecated use {@link #polling(Closure)} instead
      */
     @Deprecated
     void polling(String description, @DelegatesTo(PollingTrigger) Closure closure) {
@@ -84,6 +90,8 @@ class Triggers extends BambooObject {
 
     /**
      * Repository triggers the build when changes are committed.
+     *
+     * @deprecated use {@link #remote(Closure)} instead
      */
     @Deprecated
     void remote(String description, @DelegatesTo(RemoteTrigger) Closure closure) {
@@ -102,6 +110,8 @@ class Triggers extends BambooObject {
 
     /**
      * Single daily build.
+     *
+     * @deprecated use {@link #onceAday(Closure)} instead
      */
     @Deprecated
     void onceAday(String description, @DelegatesTo(OnceADayTrigger) Closure closure) {

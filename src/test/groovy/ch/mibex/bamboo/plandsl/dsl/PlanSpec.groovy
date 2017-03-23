@@ -99,7 +99,7 @@ class PlanSpec extends Specification {
 
         then:
         results != null
-        results.projects[0].plans.size() == 3
+        results.projects[0].plans.size() == 2
         results.projects[0].plans[0].key == 'PLAN1'
         results.projects[0].plans[0].name == 'plan 1'
 
@@ -115,7 +115,6 @@ class PlanSpec extends Specification {
         )
         results.projects[0].plans[0].branches == branches
         results.projects[0].plans[1].branches == branches
-        results.projects[0].plans[2].branches == branches
     }
 
     def 'plan with dependencies'() {

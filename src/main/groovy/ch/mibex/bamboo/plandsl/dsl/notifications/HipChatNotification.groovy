@@ -16,6 +16,9 @@ class HipChatNotification extends NotificationType {
 
     protected HipChatNotification() {}
 
+    /**
+     * @deprecated use {@link #HipChatNotification(String, String, String, BambooFacade)} instead
+     */
     @Deprecated
     HipChatNotification(String conditionKey, BambooFacade bambooFacade) {
         super(NOTIFICATION_RECIPIENT_TYPE, conditionKey, bambooFacade)
@@ -43,7 +46,7 @@ class HipChatNotification extends NotificationType {
     }
 
     /**
-     * @deprecated use #notifyParticipants(boolean notify) instead
+     * @deprecated use {@link #notifyParticipants(boolean)} instead
      */
     @Deprecated
     void notify(boolean notify) {

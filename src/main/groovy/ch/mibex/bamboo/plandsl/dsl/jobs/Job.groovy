@@ -26,6 +26,9 @@ class Job extends BambooObject {
         this.name = Validations.isNotNullOrEmpty(name, 'job name must be specified')
     }
 
+    /**
+     * @deprecated use {@link #Job(String, String, BambooFacade)} instead
+     */
     @Deprecated
     protected Job(String key, BambooFacade bambooFacade) {
         super(bambooFacade)
@@ -52,6 +55,8 @@ class Job extends BambooObject {
 
     /**
      * Specifies the name of the job.
+     *
+     * @deprecated use {@link #Job(String, String, BambooFacade)} instead
      */
     @Deprecated
     void name(String name) {

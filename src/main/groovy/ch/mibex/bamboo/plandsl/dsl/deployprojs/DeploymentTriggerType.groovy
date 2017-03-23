@@ -24,6 +24,7 @@ class DeploymentTriggerType extends BambooObject {
      * The name of the trigger.
      *
      * @param displayName name of the trigger
+     * @deprecated use {@link #description(String)} instead
      */
     @Deprecated
     void displayName(String displayName) {

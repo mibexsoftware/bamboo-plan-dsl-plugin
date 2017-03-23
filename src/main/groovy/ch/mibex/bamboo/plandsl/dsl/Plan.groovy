@@ -31,6 +31,11 @@ class Plan extends BambooObject {
     // for testing
     protected Plan() {}
 
+    /**
+     * @param key the key of the plan consisting of an uppercase letter followed by one or more uppercase
+     * alphanumeric characters
+     * @deprecated use {@link #Plan(String, String, BambooFacade)} instead
+     */
     @Deprecated
     protected Plan(String key, BambooFacade bambooFacade) {
         super(bambooFacade)
@@ -61,6 +66,8 @@ class Plan extends BambooObject {
 
     /**
      * Specifies the name of the plan.
+     *
+     * @deprecated use {@link #Plan(String, String, BambooFacade)} instead
      */
     @Deprecated
     void name(String name) {

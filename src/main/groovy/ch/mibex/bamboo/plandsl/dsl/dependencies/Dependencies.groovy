@@ -67,6 +67,7 @@ class Dependencies extends BambooObject {
      * When the current plan builds successfully, it will trigger the child plans to build.
      *
      * @param planKey The fully qualified plan key, e.g. "MYPROJ-MYPLAN"
+     * @deprecated use {@link #childPlans(String...)} instead
      */
     @Deprecated
     void dependency(String planKey) {
@@ -80,6 +81,7 @@ class Dependencies extends BambooObject {
      *
      * @param params the properties for the dependency. Currently, only "planKey" (the fully qualified plan key)
      * is expected.
+     * @deprecated use {@link #childPlans(String...)} instead
      */
     @Deprecated
     void dependency(Map<String, String> params) {

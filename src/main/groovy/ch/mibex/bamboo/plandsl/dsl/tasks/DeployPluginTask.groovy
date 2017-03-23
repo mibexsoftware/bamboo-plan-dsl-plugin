@@ -42,6 +42,8 @@ class DeployPluginTask extends Task {
 
     /**
      * Select a Bamboo artifact to deploy. The artifact should be a single plugin jar file.
+     *
+     * @deprecated use {@link #DeployPluginTask(String, ProductType, String, String, String, BambooFacade)} instead
      */
     @Deprecated
     void deployArtifactName(String deployArtifactName) {
@@ -50,6 +52,8 @@ class DeployPluginTask extends Task {
 
     /**
      * The Atlassian product type to deploy the artifact to.
+     *
+     * @deprecated use {@link #DeployPluginTask(String, ProductType, String, String, String, BambooFacade)} instead
      */
     @Deprecated
     void productType(ProductType productType) {
@@ -58,6 +62,8 @@ class DeployPluginTask extends Task {
 
     /**
      * The address of the remote Atlassian application where the plugin will be installed.
+     *
+     * @deprecated use {@link #DeployPluginTask(String, ProductType, String, String, String, BambooFacade)} instead
      */
     @Deprecated
     void deployURL(String deployURL) {
@@ -66,6 +72,8 @@ class DeployPluginTask extends Task {
 
     /**
      * User name to deploy.
+     *
+     * @deprecated use {@link #DeployPluginTask(String, ProductType, String, String, String, BambooFacade)} instead
      */
     @Deprecated
     void deployUsername(String deployUsername) {
@@ -74,6 +82,8 @@ class DeployPluginTask extends Task {
 
     /**
      * A Bamboo variable with the password for this user to deploy.
+     *
+     * @deprecated use {@link #DeployPluginTask(String, ProductType, String, String, String, BambooFacade)} instead
      */
     @Deprecated
     void deployPasswordVariable(String deployPasswordVariable) {

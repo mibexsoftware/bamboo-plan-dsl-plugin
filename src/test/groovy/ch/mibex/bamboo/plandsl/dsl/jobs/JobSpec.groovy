@@ -42,7 +42,7 @@ class JobSpec extends Specification {
 
         then:
         def jobs = results.projects[0].plans[0].stages[0].jobs
-        jobs.size() == 3
+        jobs.size() == 2
         jobs[0].key == 'SIMPLEJOB2'
         jobs[0].name ==  'Build plug-in'
         jobs[0].description == 'analyzes the code, runs tests and builds the plug-in'
@@ -51,10 +51,6 @@ class JobSpec extends Specification {
         jobs[1].name ==  'Build plug-in'
         jobs[1].description == 'analyzes the code, runs tests and builds the plug-in'
         jobs[1].tasksList.tasks.size() == 3
-        jobs[2].artifacts.artifactDefinitions.size() == 1
-        jobs[2].key == 'SIMPLEJOB1'
-        jobs[2].tasksList.tasks.size() == 3
-        jobs[2].artifacts.artifactDefinitions.size() == 1
     }
 
     def 'job with misc options'() {

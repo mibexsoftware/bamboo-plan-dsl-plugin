@@ -20,6 +20,7 @@ class Artifacts extends BambooObject {
      * Defines an artifact definition.
      *
      * @param name the name of the artifact definition
+     * @deprecated use {@link #definition(Map, Closure)} instead
      */
     @Deprecated
     void definition(String name, @DelegatesTo(ArtifactDefinition) Closure closure) {

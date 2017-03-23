@@ -10,6 +10,9 @@ class Project extends BambooObject {
     private String projectName
     private List<Plan> plans = []
 
+    /**
+     * @deprecated use {@link #Project(String, String, BambooFacade)} instead
+     */
     @Deprecated
     protected Project(String key, BambooFacade bambooFacade) {
         super(bambooFacade)
@@ -34,6 +37,7 @@ class Project extends BambooObject {
     /**
      * Specifies the mandatory name of the project.
      *
+     * @deprecated use {@link #Project(String, String, BambooFacade)} instead
      */
     @Deprecated
     void name(String name) {
@@ -50,6 +54,7 @@ class Project extends BambooObject {
      *
      * @param key the key of the plan consisting of an uppercase letter followed by one or more uppercase
      * alphanumeric characters
+     * @deprecated use {@link #plan(Map, Closure)} instead
      */
     @Deprecated
     Plan plan(String key, @DelegatesTo(Plan) Closure closure) {

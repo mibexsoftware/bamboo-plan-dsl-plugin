@@ -2,7 +2,6 @@ package dsls.plans
 
 import dsls.plans.commons.MyUtilities
 
-def globalPlan = plan('PLAN0', 'my new plan')
 
 project('PROJECT') {
     name 'my project'
@@ -15,6 +14,4 @@ project('PROJECT') {
     }
     MyUtilities.addCommonBranchSettings(plan1)
     MyUtilities.addCommonBranchSettings(plan2)
-    MyUtilities.addCommonBranchSettings(globalPlan)
-    plan(globalPlan)
 }

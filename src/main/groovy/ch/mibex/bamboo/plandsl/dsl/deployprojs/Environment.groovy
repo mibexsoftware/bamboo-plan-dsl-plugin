@@ -65,6 +65,9 @@ class Environment extends BambooObject {
         this.triggers = triggers
     }
 
+    /**
+     * @deprecated use {@link #deploymentTriggers(Closure)} instead
+     */
     // deprecated because IntelliJ confused this with plan#triggers
     @Deprecated
     DeploymentTriggers triggers(@DelegatesTo(DeploymentTriggers) Closure closure) {

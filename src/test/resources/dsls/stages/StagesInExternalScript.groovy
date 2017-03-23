@@ -2,7 +2,6 @@ package dsls.stages
 
 import dsls.stages.commons.MyCommons
 
-def globalStage = stage('global stage')
 
 project("SIMPLEPROJECT") {
     name "Renamed project"
@@ -25,7 +24,5 @@ project("SIMPLEPROJECT") {
 
         def myStage = stage('local stage')
         MyCommons.addStageProperties(myStage)
-        MyCommons.addStageProperties(globalStage)
-        stage(globalStage)
     }
 }

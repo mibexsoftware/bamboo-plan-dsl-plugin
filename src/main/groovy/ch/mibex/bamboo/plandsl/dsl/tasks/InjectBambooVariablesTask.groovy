@@ -18,6 +18,9 @@ class InjectBambooVariablesTask extends Task {
         super(TASK_ID)
     }
 
+    /**
+     * @deprecated use {@link #InjectBambooVariablesTask(String, String, BambooFacade)} instead
+     */
     @Deprecated
     InjectBambooVariablesTask(BambooFacade bambooFacade) {
         super(bambooFacade, TASK_ID)

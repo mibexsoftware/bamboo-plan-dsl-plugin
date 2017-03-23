@@ -31,6 +31,8 @@ class HerokuDeployWarTask extends Task {
 
     /**
      * API Key.
+     *
+     * @deprecated use {@link #HerokuDeployWarTask(String, String, String, BambooFacade)} instead
      */
     @Deprecated
     void apiKey(String apiKey) {
@@ -39,6 +41,8 @@ class HerokuDeployWarTask extends Task {
 
     /**
      * App Name.
+     *
+     * @deprecated use {@link #HerokuDeployWarTask(String, String, String, BambooFacade)} instead
      */
     @Deprecated
     void appName(String appName) {
@@ -47,6 +51,8 @@ class HerokuDeployWarTask extends Task {
 
     /**
      * WAR File.
+     *
+     * @deprecated use {@link #HerokuDeployWarTask(String, String, String, BambooFacade)} instead
      */
     @Deprecated
     void warFile(String warFile) {

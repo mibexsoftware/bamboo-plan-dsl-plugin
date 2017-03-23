@@ -21,6 +21,8 @@ class Tasks extends BambooObject {
 
     /**
      * Execute a script (e.g. Shell, Bash, PowerShell, Python) from the command line.
+     *
+     * @deprecated use {@link #script(Closure)} instead
      */
     @Deprecated
     void script(String description, @DelegatesTo(ScriptTask) Closure closure) {
@@ -36,6 +38,8 @@ class Tasks extends BambooObject {
 
     /**
      * Execute a globally defined command.
+     *
+     * @deprecated use {@link #command(Closure)} instead
      */
     @Deprecated
     void command(String description, @DelegatesTo(CommandTask) Closure closure) {
@@ -51,6 +55,8 @@ class Tasks extends BambooObject {
 
     /**
      * Injects Bamboo variables from a file with a simple "key=value" format.
+     *
+     * @deprecated use {@link #injectBambooVariables(Map, Closure)} instead
      */
     @Deprecated
     void injectBambooVariables(String description, @DelegatesTo(InjectBambooVariablesTask) Closure closure) {
@@ -82,6 +88,8 @@ class Tasks extends BambooObject {
 
     /**
      * Checkout from a repository.
+     *
+     * @deprecated use {@link #checkout(Closure)} instead
      */
     @Deprecated
     void checkout(String description, @DelegatesTo(VcsCheckoutTask) Closure closure) {
@@ -95,6 +103,9 @@ class Tasks extends BambooObject {
         handleTask(closure, VcsCheckoutTask)
     }
 
+    /**
+     * @deprecated use {@link #cleanWorkingDirectory(Closure)} instead
+     */
     @Deprecated
     void cleanWorkingDirectory(String description, @DelegatesTo(CleanWorkingDirTask) Closure closure) {
         handleTask(closure, CleanWorkingDirTask, description)
@@ -106,6 +117,8 @@ class Tasks extends BambooObject {
 
     /**
      * Copy Bamboo shared artifact to agent working directory.
+     *
+     * @deprecated use {@link #artifactDownload(Closure)} instead
      */
     @Deprecated
     void artifactDownload(String description, @DelegatesTo(ArtifactDownloaderTask) Closure closure) {
@@ -121,6 +134,8 @@ class Tasks extends BambooObject {
 
     /**
      * Deploys an Atlassian plugin to a remote application server.
+     *
+     * @deprecated use {@link #deployPlugin(Map, Closure)} instead
      */
     @RequiresPlugin(key = 'com.atlassian.bamboo.plugins.deploy.continuous-plugin-deployment')
     @Deprecated
@@ -165,6 +180,8 @@ class Tasks extends BambooObject {
 
     /**
      * Deploys your plug-ins to the Atlassian Marketplace.
+     *
+     * @deprecated use {@link #shipIt2marketplace(Map, Closure)} instead
      */
     @Deprecated
     @RequiresPlugin(key = 'ch.mibex.bamboo.shipit2mpac')
@@ -196,6 +213,8 @@ class Tasks extends BambooObject {
 
     /**
      * Execute one or more Maven 3 goals as part of your build.
+     *
+     * @deprecated use {@link #maven3x(Map, Closure)} instead
      */
     @Deprecated
     void maven3(String description, @DelegatesTo(Maven3Task) Closure closure) {
@@ -224,6 +243,8 @@ class Tasks extends BambooObject {
 
     /**
      * Deploy a WAR artifact to Heroku.
+     *
+     * @deprecated use {@link #herokuDeployWar(Map, Closure)} instead
      */
     @Deprecated
     void herokuDeployWar(String description, @DelegatesTo(HerokuDeployWarTask) Closure closure) {
