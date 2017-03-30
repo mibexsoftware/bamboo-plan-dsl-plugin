@@ -74,6 +74,12 @@ project("DPPROJ") {
             description "desc"
             useCustomPlanBranch "develop"
 
+            environment(name: "env1", id: 59998211) {
+            }
+
+            environment(name: "env2", id: 59998212) {
+            }
+
             environment("env") {
                 description "env desc"
 

@@ -3,8 +3,8 @@ package ch.mibex.bamboo.plandsl.dsl.deployprojs
 import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.BambooObject
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
-import ch.mibex.bamboo.plandsl.dsl.permissions.Permissions
 import ch.mibex.bamboo.plandsl.dsl.Validations
+import ch.mibex.bamboo.plandsl.dsl.permissions.Permissions
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
@@ -18,6 +18,7 @@ import groovy.transform.ToString
 @ToString(includeFields=true)
 class DeploymentProject extends BambooObject {
     private String name
+    private Long id
     private String description
     private String useCustomPlanBranch
     private List<Environment> environments = []
@@ -25,8 +26,13 @@ class DeploymentProject extends BambooObject {
     private Permissions permissions = new Permissions(bambooFacade)
 
     DeploymentProject(String name, BambooFacade bambooFacade) {
+        this(name, null, bambooFacade)
+    }
+
+    DeploymentProject(String name, Long id, BambooFacade bambooFacade) {
         super(bambooFacade)
         this.name(name)
+        this.id = id
     }
 
     protected DeploymentProject() {}
@@ -59,11 +65,20 @@ class DeploymentProject extends BambooObject {
     /**
      * Environments represent where releases are deployed to.
      *
-     * @param params A collection of properties. Currently only "name" is supported.
+     * @param params A collection of properties. Currently "name" and "id" are supported.
      */
-    Environment environment(Map<String, String> params, @DelegatesTo(Environment) Closure closure) {
+    Environment environment(Map<String, Object> params, @DelegatesTo(Environment) Closure closure) {
         //FIXME this can be improved once https://issues.apache.org/jira/browse/GROOVY-7956 is implemented
-        environment(params['name'], closure)
+        if (params.containsKey('id')) {
+            environment(params['name'] as String, checkEnvironmentId(params), closure)
+        } else {
+            environment(params['name'] as String, closure)
+        }
+    }
+
+    private checkEnvironmentId(Map<String, Object> params) {
+        Validations.isTrue(params['id'] ==~ /\d+/, 'environment ID must only consist of digits.')
+        params['id'] as Long
     }
 
     /**
@@ -73,6 +88,19 @@ class DeploymentProject extends BambooObject {
      */
     Environment environment(String name, @DelegatesTo(Environment) Closure closure) {
         def env = new Environment(name, bambooFacade)
+        DslScriptHelper.execute(closure, env)
+        environments << env
+        env
+    }
+
+    /**
+     * Environments represent where releases are deployed to.
+     *
+     * @param name Name of environment (e.g. Staging, QA, or Production)
+     * @since 1.6.1
+     */
+    Environment environment(String name, long id, @DelegatesTo(Environment) Closure closure) {
+        def env = new Environment(name, id, bambooFacade)
         DslScriptHelper.execute(closure, env)
         environments << env
         env
@@ -92,10 +120,27 @@ class DeploymentProject extends BambooObject {
     /**
      * Environments represent where releases are deployed to.
      *
-     * @param params A collection of properties. Currently only "name" is supported.
+     * @param name Name of environment (e.g. Staging, QA, or Production)
+     * @param id the ID of the environment
+     * @since 1.6.1
      */
-    Environment environment(Map<String, String> params) {
-        environment(params['name'])
+    Environment environment(String name, long id) {
+        def environment = new Environment(name, id, bambooFacade)
+        environments << environment
+        environment
+    }
+
+    /**
+     * Environments represent where releases are deployed to.
+     *
+     * @param params A collection of properties. Currently only "name" and "id" are supported.
+     */
+    Environment environment(Map<String, Object> params) {
+        if (params.containsKey('id')) {
+            environment(params['name'] as String, checkEnvironmentId(params))
+        } else {
+            environment(params['name'] as String)
+        }
     }
 
     /**

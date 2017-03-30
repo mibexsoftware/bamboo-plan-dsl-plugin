@@ -11,12 +11,11 @@ import ch.mibex.bamboo.plandsl.dsl.tasks.InjectBambooVariablesTask
 import ch.mibex.bamboo.plandsl.dsl.tasks.Tasks
 import ch.mibex.bamboo.plandsl.dsl.variables.Variable
 import ch.mibex.bamboo.plandsl.dsl.variables.Variables
-import spock.lang.Ignore
 import spock.lang.Specification
 
 class DeploymentProjectSpec extends Specification {
 
-    def 'deployment project settings'() {
+    def 'deployment projects'() {
         setup:
         def loader = new DslScriptParserImpl()
         def dsl = getClass().getResource('/dsls/deployprojs/DeploymentProject.groovy').text
@@ -25,7 +24,9 @@ class DeploymentProjectSpec extends Specification {
         def results = loader.parse(new DslScriptContext(dsl))
 
         then:
-        results.projects[0].plans[0].deploymentProjects[0] == new DeploymentProject(
+        results.projects[0].plans[0].deploymentProjects[0] == new DeploymentProject(name: "dp2", id: 59899906)
+        results.projects[0].plans[0].deploymentProjects[1] == new DeploymentProject(name: "dp3", id: 59899907)
+        results.projects[0].plans[0].deploymentProjects[2] == new DeploymentProject(
                 name: "dp1",
                 description: "desc1",
                 useCustomPlanBranch: "develop",
@@ -63,7 +64,7 @@ class DeploymentProjectSpec extends Specification {
                         otherPermissions: ['ROLE_USER': new PermissionTypes(permissionTypes: [PermissionTypes.PermissionType.VIEW, PermissionTypes.PermissionType.EDIT])],
                 )
         )
-        results.projects[0].plans[0].deploymentProjects[1] == new DeploymentProject(
+        results.projects[0].plans[0].deploymentProjects[3] == new DeploymentProject(
                 name: "dp2",
                 description: "desc1",
                 useCustomPlanBranch: "release",
@@ -92,39 +93,6 @@ class DeploymentProjectSpec extends Specification {
                         autoIncrement: false,
                         variables: ["test3", "test4"]
                 )
-        )
-    }
-
-    @Ignore
-    def 'environments'() {
-        setup:
-        def loader = new DslScriptParserImpl()
-        def dsl = getClass().getResource('/dsls/deployprojs/Environments.groovy').text
-
-        when:
-        def results = loader.parse(new DslScriptContext(dsl))
-
-        then:
-        results.projects[0].plans[0].deploymentProjects[0] == new DeploymentProject(
-            name: "name",
-            description: "desc",
-            useCustomPlanBranch: "develop",
-            environments: [new Environment(
-                    name: "env",
-                    description: "env desc",
-                    tasks: new Tasks(tasks: [new CommandTask(
-                            enabled: true,
-                            isFinal: true,
-                            workingSubDirectory: ".",
-                            argument: "-n",
-                            environmentVariables: "what=EVER",
-                            executable: "atlas-clean"
-                    )]),
-                    triggers: new DeploymentTriggers(triggers: [new ScheduledDeploymentTrigger(
-                            cronExpression: "0 0 0 ? * *"
-                    )])
-            )],
-
         )
     }
 

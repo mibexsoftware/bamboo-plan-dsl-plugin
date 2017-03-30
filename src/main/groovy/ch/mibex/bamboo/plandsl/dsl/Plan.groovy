@@ -98,7 +98,6 @@ class Plan extends BambooObject {
      * projects for this plan.
      *
      * @param name the name of the deployment project
-     *
      * @since 1.1.0
      */
     DeploymentProject deploymentProject(String name, @DelegatesTo(DeploymentProject) Closure closure) {
@@ -112,23 +111,51 @@ class Plan extends BambooObject {
      * Defines a deployment project for this plan. This can be called multiple times if you have multiple deployment
      * projects for this plan.
      *
-     * @param params the parameters of the deployment project. Only "name" is expected.
-     * @since 1.1.0
+     * @param name the name of the deployment project
+     * @param id the id of the deployment project
+     * @since 1.6.1
      */
-    DeploymentProject deploymentProject(Map<String, String> params, @DelegatesTo(DeploymentProject) Closure closure) {
-        //FIXME this can be improved once https://issues.apache.org/jira/browse/GROOVY-7956 is implemented
-        deploymentProject(params['name'], closure)
+    DeploymentProject deploymentProject(String name, long id, @DelegatesTo(DeploymentProject) Closure closure) {
+        def deploymentProject = new DeploymentProject(name, id, bambooFacade)
+        DslScriptHelper.execute(closure, deploymentProject)
+        deploymentProjects << deploymentProject
+        deploymentProject
     }
 
     /**
      * Defines a deployment project for this plan. This can be called multiple times if you have multiple deployment
      * projects for this plan.
      *
-     * @param params the parameters of the deployment project. Only "name" is expected
+     * @param params the parameters of the deployment project. Only "name" and "id" are supported.
      * @since 1.1.0
      */
-    DeploymentProject deploymentProject(Map<String, String> params) {
-        deploymentProject(params['name'])
+    DeploymentProject deploymentProject(Map<String, Object> params, @DelegatesTo(DeploymentProject) Closure closure) {
+        //FIXME this can be improved once https://issues.apache.org/jira/browse/GROOVY-7956 is implemented
+        if (params.containsKey('id')) {
+            deploymentProject(params['name'] as String, checkDeploymentProjectId(params), closure)
+        } else {
+            deploymentProject(params['name'] as String, closure)
+        }
+    }
+
+    /**
+     * Defines a deployment project for this plan. This can be called multiple times if you have multiple deployment
+     * projects for this plan.
+     *
+     * @param params the parameters of the deployment project. Only "name" and "id" are supported.
+     * @since 1.1.0
+     */
+    DeploymentProject deploymentProject(Map<String, Object> params) {
+        if (params.containsKey('id')) {
+            deploymentProject(params['name'] as String, checkDeploymentProjectId(params))
+        } else {
+            deploymentProject(params['name'] as String)
+        }
+    }
+
+    private checkDeploymentProjectId(Map<String, Object> params) {
+        Validations.isTrue(params['id'] ==~ /\d+/, 'deployment project ID must only consist of digits.')
+        params['id'] as Long
     }
 
     /**
@@ -136,7 +163,20 @@ class Plan extends BambooObject {
      * projects for this plan.
      *
      * @param name the name of the deployment project
+     * @param id the id of the deployment project
+     * @since 1.6.1
+     */
+    DeploymentProject deploymentProject(String name, long id) {
+        def deploymentProject = new DeploymentProject(name, id, bambooFacade)
+        deploymentProjects << deploymentProject
+        deploymentProject
+    }
+
+    /**
+     * Defines a deployment project for this plan. This can be called multiple times if you have multiple deployment
+     * projects for this plan.
      *
+     * @param name the name of the deployment project
      * @since 1.1.0
      */
     DeploymentProject deploymentProject(String name) {
@@ -150,7 +190,6 @@ class Plan extends BambooObject {
      * projects for this plan.
      *
      * @param name the name of the deployment project
-     *
      * @since 1.1.0
      */
     DeploymentProject deploymentProject(DeploymentProject deploymentProject) {

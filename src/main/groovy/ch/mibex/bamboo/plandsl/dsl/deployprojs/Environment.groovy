@@ -20,6 +20,7 @@ import groovy.transform.ToString
 @ToString(includeFields=true)
 class Environment extends BambooObject {
     private String name
+    private Long id
     private String description
     private Tasks tasks = new Tasks(bambooFacade)
     private DeploymentTriggers triggers = new DeploymentTriggers(bambooFacade)
@@ -28,10 +29,15 @@ class Environment extends BambooObject {
     private Permissions permissions = new Permissions(bambooFacade)
 
     Environment(String name, BambooFacade bambooFacade) {
+        this(name, null, bambooFacade)
+    }
+
+    Environment(String name, Long id, BambooFacade bambooFacade) {
         super(bambooFacade)
         Validations.isNotNullOrEmpty(name, 'environment name must be specified')
         Validations.isValidBambooEntityName(name, 'environment name must not contain special characters.')
         this.name = name
+        this.id = id
     }
 
     protected Environment() {}
