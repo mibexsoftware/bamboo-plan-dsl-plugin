@@ -99,7 +99,7 @@ supported by the plug-in, they can still be used with the
     - [x] Permissions
     - [x] Notifications
     - [x] Variables
-    - [ ] Miscellaneous
+    - [x] Miscellaneous
 - Stage
     - [x] Stage details
 - Job
@@ -131,7 +131,7 @@ supported by the plug-in, they can still be used with the
     - [ ] MBUnit Parser
     - [ ] Mocha Test Parser
     - [ ] Mocha Test Runner
-    - [ ] MSBuild
+    - [x] MSBuild
     - [ ] MSTest Parser
     - [ ] MSTest Runner
     - [ ] NAnt

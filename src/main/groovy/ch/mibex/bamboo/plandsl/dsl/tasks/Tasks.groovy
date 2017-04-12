@@ -242,6 +242,17 @@ class Tasks extends BambooObject {
     }
 
     /**
+     * Run MSBuild as part of your build.
+     *
+     * @params params The mandatory parameters for this task. "executable" and "projectFile" are expected.
+     */
+    void msbuild(Map<String, String> params, @DelegatesTo(MsBuildTask) Closure closure) {
+        def task = new MsBuildTask(params['executable'], params['projectFile'], bambooFacade)
+        DslScriptHelper.execute(closure, task)
+        tasks << task
+    }
+
+    /**
      * Copy files to a remote server using SCP.
      *
      * @params params The mandatory parameters for this task. "host" and "userName" are expected.
