@@ -253,6 +253,15 @@ class Tasks extends BambooObject {
     }
 
     /**
+     * Parses and displays JUnit test results.
+     */
+    void junitParser(@DelegatesTo(JUnitParserTask) Closure closure) {
+        def task = new JUnitParserTask(bambooFacade)
+        DslScriptHelper.execute(closure, task)
+        tasks << task
+    }
+
+    /**
      * Copy files to a remote server using SCP.
      *
      * @params params The mandatory parameters for this task. "host" and "userName" are expected.

@@ -15,6 +15,11 @@ class JUnitParserTask extends Task {
         super(bambooFacade, TASK_ID)
     }
 
+    //for tests
+    protected JUnitParserTask() {
+        super(TASK_ID)
+    }
+
     /**
      * Where does the build place generated test results?
      * This is a comma separated list of test result directories. You can also use Ant style patterns such as
@@ -28,15 +33,15 @@ class JUnitParserTask extends Task {
      * Pick up test results that were created outside of this build. Files created before the current build was started
      * will be analyzed as valid tests results
      */
-    void pickUpTestResultsCreatedOutsideOfBuild(boolean pickUpTestResultsCreatedOutsideOfBuild = true) {
-        this.pickUpTestResultsCreatedOutsideOfBuild = pickUpTestResultsCreatedOutsideOfBuild
+    void pickUpTestResultsCreatedOutsideOfBuild(boolean enabled = true) {
+        this.pickUpTestResultsCreatedOutsideOfBuild = enabled
     }
 
     @Override
     protected def Map<String, String> getConfig(Map<Object, Object> context) {
         def config = [:]
         config.put('testResultsDirectory', testResultsDirectory)
-        config.put('pickUpTestResultsCreatedOutsideOfBuild', pickUpTestResultsCreatedOutsideOfBuild)
+        config.put('pickupOutdatedFiles', pickUpTestResultsCreatedOutsideOfBuild.toString())
         config
     }
 }
