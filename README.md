@@ -122,8 +122,8 @@ supported by the plug-in, they can still be used with the
     - [ ] Grunt 0.4.x
     - [ ] Gulp
     - [x] Heroku: Deploy WAR Artifact
-    - [ ] Inject Bamboo variables
-    - [ ] JUnit Parser
+    - [x] Inject Bamboo variables
+    - [x] JUnit Parser
     - [ ] Maven 1.x
     - [ ] Maven 2.x
     - [x] Maven 3.x
