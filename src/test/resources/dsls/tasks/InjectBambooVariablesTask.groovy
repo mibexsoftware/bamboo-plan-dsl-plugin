@@ -16,12 +16,11 @@ project("SIMPLEPROJECT") {
                 enabled true
 
                 tasks {
-                    injectBambooVariables("inject") {
+                    injectBambooVariables(propertiesFilePath: "env.txt", namespace: "test") {
                         enabled true
                         isFinal true
-                        propertiesFilePath "env.txt"
+                        description "inject"
                         variablesScope VariablesScope.LOCAL
-                        namespace "test"
                     }
                 }
             }

@@ -6,7 +6,7 @@ import spock.lang.Specification
 
 class InectBambooVariablesSpec extends Specification {
 
-    def 'command task'() {
+    def 'inject Bamboo variables task'() {
         setup:
         def loader = new DslScriptParserImpl()
         def dsl = getClass().getResource('/dsls/tasks/InjectBambooVariablesTask.groovy').text
