@@ -143,7 +143,7 @@ supported by the plug-in, they can still be used with the
     - [ ] PHPUnit
     - [ ] PHPUnit 3.3.x
     - [ ] Reload Tomcat Application
-    - [ ] SCP Task
+    - [x] SCP Task
     - [x] Script
     - [x] Source Code Checkout
     - [ ] SSH Task

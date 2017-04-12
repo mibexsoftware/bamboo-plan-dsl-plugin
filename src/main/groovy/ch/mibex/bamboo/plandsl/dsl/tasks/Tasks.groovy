@@ -242,6 +242,17 @@ class Tasks extends BambooObject {
     }
 
     /**
+     * Copy files to a remote server using SCP.
+     *
+     * @params params The mandatory parameters for this task. "host" and "userName" are expected.
+     */
+    void scp(Map<String, String> params, @DelegatesTo(ScpTask) Closure closure) {
+        def task = new ScpTask(params['host'], params['userName'], bambooFacade)
+        DslScriptHelper.execute(closure, task)
+        tasks << task
+    }
+
+    /**
      * Deploy a WAR artifact to Heroku.
      *
      * @deprecated use {@link #herokuDeployWar(Map, Closure)} instead
