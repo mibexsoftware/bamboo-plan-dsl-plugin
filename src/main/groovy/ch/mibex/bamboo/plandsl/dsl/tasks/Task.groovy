@@ -2,6 +2,7 @@ package ch.mibex.bamboo.plandsl.dsl.tasks
 
 import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.BambooObject
+import ch.mibex.bamboo.plandsl.dsl.NullBambooFacade
 import ch.mibex.bamboo.plandsl.dsl.Validations
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
@@ -20,7 +21,7 @@ abstract class Task extends BambooObject {
     }
 
     protected Task(String pluginKey) {
-        this.pluginKey = Validations.isNotNullOrEmpty(pluginKey, 'pluginKey must not be empty')
+        this(new NullBambooFacade(), pluginKey)
     }
 
     protected abstract def Map<String, String> getConfig(Map<Object, Object> context)
@@ -44,5 +45,14 @@ abstract class Task extends BambooObject {
      */
     void description(String description) {
         this.description = description
+    }
+
+    protected String getArtifactId(Map<Object, Object> context, String deployArtifactName, boolean v2 = false) {
+        def contextArtifacts = context['artifacts']
+        def artifact = contextArtifacts[deployArtifactName]
+        Validations.isNotNullOrEmpty(artifact, "artifact details for '$deployArtifactName' not found: " + context)
+        def info = artifact.asType(ArtifactInfo)
+        def prefix = v2 ? 'v2:' : ''
+        "${prefix}${info.artifactId}:${info.taskId}:${info.transferId}:${info.name}".toString()
     }
 }

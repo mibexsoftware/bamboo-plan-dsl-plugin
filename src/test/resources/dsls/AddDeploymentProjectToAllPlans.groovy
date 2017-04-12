@@ -11,10 +11,13 @@ package dsls
                     description "Deploy plug-in to integration server"
 
                     tasks {
-                        cleanWorkingDirectory("Clean the working directory") {}
+                        cleanWorkingDirectory() {
+                            description "Clean the working directory"
+                        }
 
-                        artifactDownload("Download release contents") {
-                            artifact("plug-in") {
+                        artifactDownload() {
+                            description "Download release contents"
+                            artifact(name: "plug-in") {
                             }
                         }
                     }

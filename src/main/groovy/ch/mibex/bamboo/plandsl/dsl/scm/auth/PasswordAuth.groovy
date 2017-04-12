@@ -4,7 +4,7 @@ import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'])
+@EqualsAndHashCode(includeFields=true, excludes=['metaClass'])
 @ToString(includeFields=true)
 class PasswordAuth extends AuthType {
     private String userName

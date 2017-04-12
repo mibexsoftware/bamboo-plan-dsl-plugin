@@ -128,13 +128,8 @@ class DeployPluginTask extends Task {
         config.put('multiProduct', 'true')
         config.put('atlassianIdPasswordVariableCheck', 'false')
         config.put('useAtlassianIdWebSudo', useAtlassianIdWebSudo as String)
-        def contextArtifacts = context['artifacts']
-        def artifact = contextArtifacts[deployArtifactName]
-        if (artifact) {
-            def info = artifact.asType(ArtifactInfo)
-            def artifactKey = "v2:${info.artifactId}:${info.taskId}:${info.transferId}:${info.name}".toString()
-            config.put('confDeployJar', artifactKey)
-        }
+        config.put('confDeployJar', getArtifactId(context, deployArtifactName, true))
+
         config
     }
 

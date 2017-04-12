@@ -16,10 +16,8 @@ project("SIMPLEPROJECT") {
                 enabled true
 
                 tasks {
-                    maven3("build plug-in") {
-                        goal "install"
-                        enabled true
-                        isFinal false
+                    maven3x(goal: 'install') {
+                        description 'build plug-in'
                         workingSubDirectory "."
                         executable "maven323"
                         buildJdk "jdk8"

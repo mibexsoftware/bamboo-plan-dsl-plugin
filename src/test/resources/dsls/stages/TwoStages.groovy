@@ -12,7 +12,7 @@ project("SIMPLEPROJECT", "Renamed project") {
                 branch "master"
                 passwordAuth {
                     userName "admin"
-                    password "admin"
+                    password env('git.admin.password')
                 }
             }
         }

@@ -63,6 +63,11 @@ class NullBambooFacade implements BambooFacade {
     }
 
     @Override
+    String encrypt(String text) {
+        text
+    }
+
+    @Override
     void log(String message) {
         // nop
     }

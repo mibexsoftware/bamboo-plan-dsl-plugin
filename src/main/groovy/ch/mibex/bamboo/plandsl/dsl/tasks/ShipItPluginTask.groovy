@@ -108,13 +108,7 @@ class ShipItPluginTask extends Task {
         config.put('deduceBuildNrFromPluginVersion', deduceBuildNrFromPluginVersion as String)
         config.put('bambooUserId', bambooUserId)
         config.put('jql', jqlToCollectReleaseNotes)
-        def contextArtifacts = context['artifacts']
-        def artifact = contextArtifacts[deployArtifactName]
-        if (artifact) {
-            def info = artifact.asType(ArtifactInfo)
-            def artifactKey = "v2:${info.artifactId}:${info.taskId}:${info.transferId}:${info.name}".toString()
-            config.put('artifactToDeployKey', artifactKey)
-        }
+        config.put('artifactToDeployKey', getArtifactId(context, deployArtifactName, true))
         config
     }
 

@@ -19,7 +19,7 @@ project("SIMPLEPROJECT") {
                     checkout("checkout default repo") {
                         forceCleanBuild true
 
-                        repository("Bamboo Job DSL") {
+                        repository(name: "Bamboo Job DSL") {
                             checkoutDirectory "a/b"
                         }
                         repository("docs") {

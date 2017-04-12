@@ -23,6 +23,8 @@ interface BambooFacade {
 
     Map<String, Object> getExportedBambooObjects()
 
+    String encrypt(String text)
+
     void log(String message)
 
     Logger getBuildLogger()
