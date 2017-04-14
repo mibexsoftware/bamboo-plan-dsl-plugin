@@ -137,7 +137,7 @@ supported by the plug-in, they can still be used with the
     - [ ] NAnt
     - [x] Node.js
     - [ ] Nodeunit
-    - [ ] npm
+    - [x] npm
     - [ ] NUnit Parser
     - [ ] NUnit Runner
     - [ ] PHPUnit
