@@ -233,6 +233,17 @@ class Tasks extends BambooObject {
     }
 
     /**
+     * Execute javascript on the server with Node.js
+     *
+     * @params params The mandatory parameters for this task. "executable" and "script" are expected.
+     */
+    void nodeJs(Map<String, String> params, @DelegatesTo(NodeJsTask) Closure closure) {
+        def task = new NodeJsTask(params['executable'], params['script'], bambooFacade)
+        DslScriptHelper.execute(closure, task)
+        tasks << task
+    }
+
+    /**
      * Execute one or more Maven 3 goals as part of your build.
      *
      * @params params The mandatory parameters for this task. Only "goal" is expected.

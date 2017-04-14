@@ -135,7 +135,7 @@ supported by the plug-in, they can still be used with the
     - [ ] MSTest Parser
     - [ ] MSTest Runner
     - [ ] NAnt
-    - [ ] Node.js
+    - [x] Node.js
     - [ ] Nodeunit
     - [ ] npm
     - [ ] NUnit Parser
