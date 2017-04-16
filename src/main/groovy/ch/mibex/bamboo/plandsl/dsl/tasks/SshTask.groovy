@@ -12,19 +12,16 @@ import groovy.transform.ToString
 
 @EqualsAndHashCode(includeFields=true, excludes=['metaClass'], callSuper=true)
 @ToString(includeFields=true)
-class ScpTask extends Task {
-    private static final TASK_ID = 'com.atlassian.bamboo.plugins.bamboo-scp-plugin:scptask'
+class SshTask extends Task {
+    private static final TASK_ID = 'com.atlassian.bamboo.plugins.bamboo-scp-plugin:sshtask'
     private String host
     private String userName
     private AuthType authType
-    private ScpArtifactByLocalPath artifactLocalPath
-    private String artifactName
-    private String remotePath
+    private String command
     private SshAdvancedOptions advancedOptions
-    private String localPath
 
     //for tests
-    protected ScpTask() {
+    protected SshTask() {
         super(TASK_ID)
     }
 
@@ -33,7 +30,7 @@ class ScpTask extends Task {
      * @param userName Username you want to use to access the remote host
      * @param bambooFacade
      */
-    ScpTask(String host, String userName, BambooFacade bambooFacade) {
+    SshTask(String host, String userName, BambooFacade bambooFacade) {
         super(bambooFacade, TASK_ID)
         this.host = Validations.isNotNullOrEmpty(host, 'host must not be empty')
         this.userName = Validations.isNotNullOrEmpty(userName, 'userName must not be empty')
@@ -55,31 +52,10 @@ class ScpTask extends Task {
     }
 
     /**
-     * Copy an artifact produced by a Bamboo build job.
-     *
-     * @param artifactName The name of the artifact.
+     * Shell command to execute on the remote host
      */
-    void artifactByName(String artifactName) {
-        Validations.isTrue(artifactLocalPath == null, 'either artifactByLocalPath OR artifactName must be provided.')
-        this.artifactName = artifactName
-    }
-
-    /**
-     * Location of files to copy to remote host.
-     *
-     * @param params the parameters of the SCP task. Only "localPath" is supported. "localPath"
-     * is a comma separated list of files or directories.
-     */
-    void artifactByLocalPath(Map<String, String> params, @DelegatesTo(ScpArtifactByLocalPath) Closure closure) {
-        Validations.isTrue(artifactName == null, 'either artifactByLocalPath OR artifactName must be provided.')
-        this.localPath = params['localPath']
-        def artifactByLocalPath = new ScpArtifactByLocalPath()
-        DslScriptHelper.execute(closure, artifactByLocalPath)
-        this.artifactLocalPath = artifactByLocalPath
-    }
-
-    void remotePath(String remotePath) {
-        this.remotePath = remotePath
+    void command(String command) {
+        this.command = command
     }
 
     void advancedOptions(@DelegatesTo(SshAdvancedOptions) Closure closure) {
@@ -93,22 +69,6 @@ class ScpTask extends Task {
         def config = [:]
         config.put('host', host)
         config.put('username', userName)
-
-        if (artifactLocalPath && localPath) {
-            config.put('localPath', localPath)
-            config.put('useAntPattern', artifactLocalPath.useAntPatternsToSelectFiles.toString())
-        } else if (artifactName) {
-            def artifactId = getArtifactId(context, artifactName)
-            config.put('artifactToScp', artifactId)
-        }
-        config.put('remotePath', remotePath)
-        if (advancedOptions) {
-            if (advancedOptions.hostFingerprint) {
-                config.put('verifyFingerprint', true.toString())
-                config.put('fingerprint', advancedOptions.hostFingerprint)
-            }
-            config.put('port', advancedOptions.port.toString())
-        }
         switch (authType) {
             case PasswordAuth:
                 config.put('authType', 'PASSWORD')
@@ -122,8 +82,17 @@ class ScpTask extends Task {
                 break
             case SshWithoutPassphraseAuth:
                 config.put('authType', 'KEY')
+                config.put('change_key', true.toString())
                 config.put('private_key', bambooFacade.encrypt((authType as SshWithoutPassphraseAuth).privateKey))
                 break
+        }
+        config.put('command', command)
+        if (advancedOptions) {
+            if (advancedOptions.hostFingerprint) {
+                config.put('verifyFingerprint', true.toString())
+                config.put('fingerprint', advancedOptions.hostFingerprint)
+            }
+            config.put('port', advancedOptions.port.toString())
         }
         config
     }

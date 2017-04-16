@@ -7,16 +7,16 @@ import groovy.transform.ToString
 
 @EqualsAndHashCode(includeFields=true, excludes = ['metaClass'])
 @ToString(includeFields=true)
-class ScpAdvancedOptions extends BambooObject {
+class SshAdvancedOptions extends BambooObject {
     private String hostFingerprint
     private int port
 
-    ScpAdvancedOptions(BambooFacade bambooFacade) {
+    SshAdvancedOptions(BambooFacade bambooFacade) {
         super(bambooFacade)
     }
 
     // just for testing
-    protected ScpAdvancedOptions() {}
+    protected SshAdvancedOptions() {}
 
     /**
      * Verify remote host fingerprint on connect.

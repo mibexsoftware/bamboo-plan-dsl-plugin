@@ -10,6 +10,9 @@ class SshWithoutPassphraseAuth extends AuthType {
     private String privateKey
     private boolean enableSshCompression
 
+    // just for testing:
+    protected SshWithoutPassphraseAuth() {}
+
     SshWithoutPassphraseAuth(BambooFacade bambooFacade) {
         super(bambooFacade)
     }

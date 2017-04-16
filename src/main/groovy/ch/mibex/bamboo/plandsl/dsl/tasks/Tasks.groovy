@@ -295,6 +295,17 @@ class Tasks extends BambooObject {
     }
 
     /**
+     * Run a remote command over SSH.
+     *
+     * @params params The mandatory parameters for this task. "host" and "userName" are expected.
+     */
+    void ssh(Map<String, String> params, @DelegatesTo(SshTask) Closure closure) {
+        def task = new SshTask(params['host'], params['userName'], bambooFacade)
+        DslScriptHelper.execute(closure, task)
+        tasks << task
+    }
+
+    /**
      * Deploy a WAR artifact to Heroku.
      *
      * @deprecated use {@link #herokuDeployWar(Map, Closure)} instead

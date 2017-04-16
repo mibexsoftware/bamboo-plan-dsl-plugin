@@ -146,7 +146,7 @@ supported by the plug-in, they can still be used with the
     - [x] SCP Task
     - [x] Script
     - [x] Source Code Checkout
-    - [ ] SSH Task
+    - [x] SSH Task
     - [ ] Start Tomcat Application
     - [ ] Stop Tomcat Application
     - [ ] TestNG Parser
