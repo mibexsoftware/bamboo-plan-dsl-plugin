@@ -116,7 +116,7 @@ supported by the plug-in, they can still be used with the
     - [x] Command
     - [x] Deploy Plugin
     - [ ] Deploy Tomcat Application
-    - [ ] Docker
+    - [x] Docker
     - [ ] Dump variables to log
     - [ ] Grails
     - [ ] Grunt 0.4.x

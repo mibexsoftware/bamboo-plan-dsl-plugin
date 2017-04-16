@@ -306,6 +306,17 @@ class Tasks extends BambooObject {
     }
 
     /**
+     * Build, run and deploy Docker containers using the Docker command line interface.
+     *
+     * @params params The mandatory parameters for this task. Only "repository" is expected.
+     */
+    void docker(Map<String, String> params, @DelegatesTo(DockerTask) Closure closure) {
+        def task = new DockerTask(params['repository'], bambooFacade)
+        DslScriptHelper.execute(closure, task)
+        tasks << task
+    }
+
+    /**
      * Deploy a WAR artifact to Heroku.
      *
      * @deprecated use {@link #herokuDeployWar(Map, Closure)} instead

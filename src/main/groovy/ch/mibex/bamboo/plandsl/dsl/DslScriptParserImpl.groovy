@@ -8,9 +8,11 @@ import ch.mibex.bamboo.plandsl.dsl.notifications.EnvironmentNotifications
 import ch.mibex.bamboo.plandsl.dsl.notifications.Notifications
 import ch.mibex.bamboo.plandsl.dsl.permissions.PermissionTypes
 import ch.mibex.bamboo.plandsl.dsl.permissions.Permissions
+import ch.mibex.bamboo.plandsl.dsl.plans.ExpirationDetails
 import ch.mibex.bamboo.plandsl.dsl.scm.ScmCvs
 import ch.mibex.bamboo.plandsl.dsl.scm.ScmType
 import ch.mibex.bamboo.plandsl.dsl.tasks.DeployPluginTask
+import ch.mibex.bamboo.plandsl.dsl.tasks.DockerTask
 import ch.mibex.bamboo.plandsl.dsl.tasks.InjectBambooVariablesTask
 import ch.mibex.bamboo.plandsl.dsl.tasks.ScriptTask
 import ch.mibex.bamboo.plandsl.dsl.tasks.Tasks
@@ -104,9 +106,11 @@ class DslScriptParserImpl implements DslScriptParser {
         importCustomizer.addStaticImport(ScmType.name, ScmType.MatchType.simpleName)
         importCustomizer.addStaticImport(ScmCvs.name, ScmCvs.CvsModuleVersion.simpleName)
         importCustomizer.addStaticImport(ScriptTask.name, ScriptTask.ScriptInterpreter.simpleName)
+        importCustomizer.addStaticImport(DockerTask.name, DockerTask.DockerCommand.simpleName)
         importCustomizer.addStaticImport(Dependencies.name, Dependencies.DependencyBlockingStrategy.simpleName)
         importCustomizer.addStaticImport(PermissionTypes.name, PermissionTypes.PermissionType.simpleName)
         importCustomizer.addStaticImport(Permissions.name, Permissions.OtherUserType.simpleName)
+        importCustomizer.addStaticImport(ExpirationDetails.name, ExpirationDetails.TimeUnit.simpleName)
 
         config.addCompilationCustomizers(importCustomizer)
         // would not allow usage of variables like bamboo or configure block:
