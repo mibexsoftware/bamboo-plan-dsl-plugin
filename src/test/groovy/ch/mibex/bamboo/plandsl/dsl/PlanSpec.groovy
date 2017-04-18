@@ -7,6 +7,8 @@ import ch.mibex.bamboo.plandsl.dsl.dependencies.Dependencies
 import ch.mibex.bamboo.plandsl.dsl.dependencies.Dependency
 import ch.mibex.bamboo.plandsl.dsl.permissions.PermissionTypes
 import ch.mibex.bamboo.plandsl.dsl.permissions.Permissions
+import ch.mibex.bamboo.plandsl.dsl.plans.ExpirationDetails
+import ch.mibex.bamboo.plandsl.dsl.plans.Miscellaneous
 import ch.mibex.bamboo.plandsl.dsl.variables.Variable
 import ch.mibex.bamboo.plandsl.dsl.variables.Variables
 import spock.lang.Specification
@@ -185,6 +187,39 @@ class PlanSpec extends Specification {
                     userPermissions: ['diego': new PermissionTypes(permissionTypes: [PermissionTypes.PermissionType.ADMIN])],
                     groupPermissions: ['devops': new PermissionTypes(permissionTypes: [PermissionTypes.PermissionType.VIEW, PermissionTypes.PermissionType.BUILD])],
                     otherPermissions: ['ROLE_ANONYMOUS': new PermissionTypes(permissionTypes: [PermissionTypes.PermissionType.VIEW, PermissionTypes.PermissionType.ADMIN])],
+                )
+        )
+    }
+
+    def 'plan with miscellaneous options'() {
+        setup:
+        def loader = new DslScriptParserImpl()
+
+        when:
+        def result = loader.parse(new DslScriptContext(getClass().getResource('/dsls/plans/Miscellaneous.groovy').text))
+
+        then:
+        result.projects.size() == 1
+        result.projects[0].plans[0] == new Plan(
+                key: "SIMPLEPLAN",
+                name: "Simple plan",
+                enabled: true,
+                description: "this is a simple plan",
+                miscellaneous: new Miscellaneous(
+                        doNotExpireAnything: false,
+                        expirationDetails: new ExpirationDetails(
+                                expireBuildResults: true,
+                                expireBuildLogs: true,
+                                expireBuildArtifacts: false,
+                                expireAfter: 10,
+                                expireTimeUnit: ExpirationDetails.TimeUnit.WEEKS,
+                                minimumBuildsToKeep: 12,
+                                keepBuildsWithLabels: ["DONOTDELETE", "IMPORTANT"]
+                        ),
+                        customSettings: [
+                                'custom.ruby-config-runtime': 'SYSTEM 2.0.0-p648@default',
+                                'custom.ruby-config-environmentVariables': 'SOME_VAR="-D123 -R345"'
+                        ]
                 )
         )
     }

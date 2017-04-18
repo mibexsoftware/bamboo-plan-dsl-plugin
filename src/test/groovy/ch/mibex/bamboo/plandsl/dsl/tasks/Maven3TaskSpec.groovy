@@ -6,7 +6,7 @@ import spock.lang.Specification
 
 class Maven3TaskSpec extends Specification {
 
-    def 'inline script shell task'() {
+    def 'Maven 3 task'() {
         setup:
         def loader = new DslScriptParserImpl()
         def dsl = getClass().getResource('/dsls/tasks/Maven3Task.groovy').text

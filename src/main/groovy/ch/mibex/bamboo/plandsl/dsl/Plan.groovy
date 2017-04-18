@@ -5,6 +5,7 @@ import ch.mibex.bamboo.plandsl.dsl.dependencies.Dependencies
 import ch.mibex.bamboo.plandsl.dsl.deployprojs.DeploymentProject
 import ch.mibex.bamboo.plandsl.dsl.notifications.Notifications
 import ch.mibex.bamboo.plandsl.dsl.permissions.Permissions
+import ch.mibex.bamboo.plandsl.dsl.plans.Miscellaneous
 import ch.mibex.bamboo.plandsl.dsl.scm.Scm
 import ch.mibex.bamboo.plandsl.dsl.triggers.Triggers
 import ch.mibex.bamboo.plandsl.dsl.variables.Variables
@@ -27,6 +28,7 @@ class Plan extends BambooObject {
     private Variables variables = new Variables(bambooFacade)
     private Dependencies dependencies = new Dependencies(bambooFacade)
     private Permissions permissions = new Permissions(bambooFacade)
+    private Miscellaneous miscellaneous = new Miscellaneous(bambooFacade)
 
     // for testing
     protected Plan() {}
@@ -289,6 +291,15 @@ class Plan extends BambooObject {
     Notifications notifications() {
         notifications = new Notifications(bambooFacade)
         notifications
+    }
+
+    /**
+     * Specifies the miscellaneous options for this plan.
+     */
+    Miscellaneous miscellaneous(@DelegatesTo(Miscellaneous) Closure closure) {
+        def miscellaneous = new Miscellaneous(bambooFacade)
+        DslScriptHelper.execute(closure, miscellaneous)
+        this.miscellaneous = miscellaneous
     }
 
     /**
