@@ -206,7 +206,7 @@ class PlanSpec extends Specification {
                 enabled: true,
                 description: "this is a simple plan",
                 miscellaneous: new Miscellaneous(
-                        doNotExpireAnything: false,
+                        expireNothing: false,
                         expirationDetails: new ExpirationDetails(
                                 expireBuildResults: true,
                                 expireBuildLogs: true,

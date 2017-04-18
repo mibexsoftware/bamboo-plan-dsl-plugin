@@ -73,7 +73,7 @@ class ExpirationDetails extends BambooObject {
     }
 
     static enum TimeUnit {
-        DAYS("days"), WEEKS("weeks"), MONTHS("months")
+        DAYS('days'), WEEKS('weeks'), MONTHS('months')
 
         String value
 
@@ -82,7 +82,7 @@ class ExpirationDetails extends BambooObject {
         }
 
         @Override
-        public String toString() {
+        String toString() {
             this.value
         }
     }
