@@ -146,6 +146,17 @@ class Scm extends ScmType  {
         scms << linkedRepo
     }
 
+    /**
+     * A custom repository not natively supported.
+     *
+     * @params params The mandatory parameters for this repository. Only "pluginKey" and "name" are expected.
+     */
+    void custom(Map<String, String> params, @DelegatesTo(ScmCustom) Closure closure) {
+        def repo = new ScmCustom(bambooFacade, params['pluginKey'], params['name'])
+        DslScriptHelper.execute(closure, repo)
+        scms << repo
+    }
+
     private ScmType handleScm(Closure closure, String displayName, Class<? extends ScmType> clazz) {
         def scm = clazz.newInstance(bambooFacade)
         scm.name = displayName

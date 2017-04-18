@@ -493,4 +493,33 @@ class ScmsSpec extends Specification {
         )
     }
 
+    def 'plan with custom TFS SCM'() {
+        setup:
+        def loader = new DslScriptParserImpl()
+        def dsl = getClass().getResource('/dsls/scms/CustomTfsRepository.groovy').text
+
+        when:
+        def results = loader.parse(new DslScriptContext(dsl))
+        def customScm = results.projects[0].plans[0].scm.scms[0]
+
+        then:
+        customScm == new ScmCustom(
+                buildConfig: [
+                        'stellarity.tfs.repository.url': 'http://localhost:8080/tfs/DefaultCollection',
+                        'stellarity.tfs.repository.path': '$/test-prj/src',
+                        'stellarity.tfs.repository.username': 'admin',
+                        'stellarity.tfs.temporary.passwordChange': 'true',
+                        'stellarity.tfs.temporary.password': 'CHANGEIT',
+                        'stellarity.tfs.repository.removeworkspace': 'true',
+                        'stellarity.tfs.repository.versionspec': '1.x',
+                        'selectedWebRepositoryViewer': 'com.stellarity.bamboo.tfs-repository-plugin:tfsViewer',
+                        'stellarity.tfs.repository.filter.option': 'INCLUDE',
+                        'stellarity.tfs.repository.filter.pattern': 'checkout'
+                ],
+                name: 'TFS',
+                pluginKey: 'com.stellarity.bamboo.tfs-repository-plugin:tfs'
+        )
+    }
+
+
 }
