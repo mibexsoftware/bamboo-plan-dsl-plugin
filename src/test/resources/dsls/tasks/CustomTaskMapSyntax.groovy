@@ -41,6 +41,17 @@ project("SIMPLEPROJECT") {
                                 workingSubDirectory: 'dir'
                         )
                     }
+                    custom(pluginKey: 'com.ugubi.bamboo.releasenotes:releaseNotesTask') {
+                        description 'ReleaseNote erstellen'
+                        enabled true
+                        isFinal false
+                        configure(
+                                "releasenote.filename": '${bamboo.buildResultKey}.${bamboo.deploy.environment}.${bamboo.deploy.release}',
+                                "releasenote.bamboo.password": 'xxx',
+                                "releasenote.bamboo.homepageurl": 'https://bamboo-prod/allPlans.action',
+                                "releasenote.bamboo.user": 'admin'
+                        )
+                    }
                 }
             }
 
