@@ -22,6 +22,9 @@ project("SIMPLEPROJECT") {
             hipchat(event: NotificationEvent.ALL_BUILDS_COMPLETED, apiToken: "XXX", room: "MyRoom") {
                 notify true
             }
+            email(event: NotificationEvent.FIRST_FAILED_JOB_FOR_PLAN) {
+                email: 'your@mail.com'
+            }
         }
     }
 }

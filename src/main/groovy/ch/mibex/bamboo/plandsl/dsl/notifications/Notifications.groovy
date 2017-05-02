@@ -55,11 +55,23 @@ class Notifications extends BambooObject {
 
     /**
      * Notify users via e-mail.
+     *
+     * @deprecated use {@link #email(Map, Closure)} instead
      */
+    @Deprecated
     void email(NotificationEvent event, @DelegatesTo(EmailNotification) Closure closure) {
         def notification = new EmailNotification(event.bambooNotificationConditionKey, bambooFacade)
         DslScriptHelper.execute(closure, notification)
         notifications << notification
+    }
+
+    /**
+     * Notify users via e-mail.
+     *
+     * @param params Mandatory parameters of this notification. "event" is expected.
+     */
+    void email(Map<String, Object> params, @DelegatesTo(EmailNotification) Closure closure) {
+        email(params['event'] as NotificationEvent, closure)
     }
 
     /**
