@@ -10,7 +10,7 @@ project("SIMPLEPROJECT2") {
 
         branches {
             autoBranchManagement {
-                newPlanBranchesForMatchingBranchNames("feature/*")
+                createPlanBranchesForNewPullRequests()
                 deletePlanBranchesAfterDays(7)
                 deleteInactivePlanBranchesAfterDays(14)
             }

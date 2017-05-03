@@ -19,8 +19,7 @@ class PlansWithBranchesSpec extends Specification {
                 autoBranchManagement: new AutoBranchManagement(
                         inactiveBranchesStrategy: AutoBranchManagement.InactiveBranchesStrategy.DELETE_INACTIVE_PLAN_BRANCHES_AFTER_DAYS,
                         deleteInactivePlanBranchesAfterDays: 14,
-                        newBranchesStrategy: AutoBranchManagement.NewBranchesStrategy.NEW_PLAN_BRANCHES_FOR_MATCHING_BRANCH_NAMES,
-                        matchingBranchesRegex: "feature/*",
+                        newBranchesStrategy: AutoBranchManagement.NewBranchesStrategy.NEW_PLAN_BRANCHES_FOR_PULL_REQUESTS,
                         deletedBranchesStrategy: AutoBranchManagement.DeletedBranchesStrategy.DELETE_PLAN_BRANCHES_AFTER_DAYS,
                         deletePlanBranchesAfterDays: 7,
                 )

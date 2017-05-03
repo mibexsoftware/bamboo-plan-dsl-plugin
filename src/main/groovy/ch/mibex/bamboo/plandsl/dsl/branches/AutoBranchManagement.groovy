@@ -2,6 +2,7 @@ package ch.mibex.bamboo.plandsl.dsl.branches
 
 import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.BambooObject
+import ch.mibex.bamboo.plandsl.dsl.RequiresBambooVersion
 import ch.mibex.bamboo.plandsl.dsl.Validations
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
@@ -46,6 +47,16 @@ class AutoBranchManagement extends BambooObject {
      */
     void createPlanBranchesForAllNewBranches() {
         newBranchesStrategy = NewBranchesStrategy.NEW_PLAN_BRANCHES_FOR_ALL_NEW_BRANCHES
+    }
+
+    /**
+     * Create plan branches when pull request is created.
+     *
+     * @since 1.7.1
+     */
+    @RequiresBambooVersion(minimumVersion = '6.0')
+    void createPlanBranchesForNewPullRequests() {
+        newBranchesStrategy = NewBranchesStrategy.NEW_PLAN_BRANCHES_FOR_PULL_REQUESTS
     }
 
     /**
@@ -97,7 +108,8 @@ class AutoBranchManagement extends BambooObject {
     static enum NewBranchesStrategy {
         NEW_PLAN_BRANCHES_FOR_MATCHING_BRANCH_NAMES,
         DO_NOT_CREATE_PLAN_BRANCHES,
-        NEW_PLAN_BRANCHES_FOR_ALL_NEW_BRANCHES
+        NEW_PLAN_BRANCHES_FOR_ALL_NEW_BRANCHES,
+        NEW_PLAN_BRANCHES_FOR_PULL_REQUESTS
     }
 
     static enum InactiveBranchesStrategy {
