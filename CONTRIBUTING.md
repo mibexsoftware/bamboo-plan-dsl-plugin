@@ -59,11 +59,11 @@ retrieve these values is to add the Bamboo task you want to contribute DSL suppo
 it as you would like to have it, and then save the configuration form while watching the POST request in your
  browser's dev tools. See the following example:
 
-![Task configuration form](https://raw.githubusercontent.com/mibexsoftware/bamboo-plan-dsl-plugin/master/doc/images/task-config-ui.png)
+![Task configuration form](https://raw.githubusercontent.com/mibexsoftware/bamboo-plan-dsl-plugin/master/images/task-config-ui.png)
 
 The form data of the POST request contains the field values of the Bamboo task:
 
-![View of Chromes browser tools to watch the POST request](https://raw.githubusercontent.com/mibexsoftware/bamboo-plan-dsl-plugin/master/doc/images/task-config-formdata.png)
+![View of Chromes browser tools to watch the POST request](https://raw.githubusercontent.com/mibexsoftware/bamboo-plan-dsl-plugin/master/images/task-config-formdata.png)
 
 The task key is also part of the POST request and is named `createTaskKey`. 
 
