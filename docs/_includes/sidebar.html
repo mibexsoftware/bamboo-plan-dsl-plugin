@@ -1,0 +1,39 @@
+<div id="sidebar" class="sidebar">
+	<section>
+	<ul id="sidenav">
+		<li class="parent">
+			<a href="/#intro"><h6>Introduction</h6></a>				 
+		</li>
+	</ul>
+	</section>
+	{% assign sorted_collections = site.collections | sort: "position" %}	
+	{% for collection in sorted_collections %}
+		{% if collection.label != "posts" %}
+			<section>
+			<ul id="sidenav">
+				<li class="parent">
+					<a href="{{collection.permalink}}"><h6>{{ collection.title }}</h6></a>				 
+					{% assign sorted_docs = collection.docs | sort: "position" %}
+					{% for doc in sorted_docs %}
+						<ul class="child">
+						<a href="{% if page.url != '/' %}/{% endif %}#{{ doc.id | replace: '/', '' | replace: '.', ''}}">
+							<!-- <a href="{% if page.url != '/' %}/{% endif %}{{ collection.id }}/{{doc.id}}"> -->
+								{{ doc.title }}
+								{% if doc.type %}<span class="endpoint {{ doc.type }}"></span>{% endif %}
+							</a>
+						</ul>
+					{% endfor %}
+				</li>
+			</ul>
+			</section>
+		{% endif %}
+	{% endfor %}
+		<div class="footer">
+			<a href="https://www.mibexsoftware.com">
+			<p class="copyright">
+			With &#9825 By Mibex Software
+			</p></a>
+
+		</div>
+	
+</div>

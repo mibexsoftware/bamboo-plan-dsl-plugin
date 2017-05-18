@@ -1,0 +1,40 @@
+---
+title: Multiple Jobs
+position: 1.4
+right_code: |
+  ~~~ groovy
+    project("SIMPLEPROJECT") {
+        name "Renamed project"
+
+        plan("SIMPLEPLAN") {
+            name "Renamed plan"
+
+            stage("simple stage") {
+                description "this is simple stage"
+                manual false
+
+                job("SIMPLEJOB1") {
+                    name "Simple job 1"
+                    description "This was a simple job"
+                    enabled false
+                }
+                job("SIMPLEJOB2") {
+                    name "Simple job 2"
+                    description "This was a simple job"
+                    enabled false
+                }
+                job("SIMPLEJOB3") {
+                    name "Simple job 3"
+                    description "This was a simple job"
+                    enabled false
+                }
+
+            }
+        }
+    }
+  ~~~
+  {: title="DSL" }
+
+---
+
+

@@ -1,1 +1,75 @@
-theme: jekyll-theme-cayman
+# ----
+# Site
+
+title: Plan DSL for Bamboo Reference
+description: Plan DSL for Bamboo Specs Reference.
+url: mibexsoftware.github.io/plan-dsl-bamboo
+google_analytics_key:
+permalink: /:collections/:id
+
+collections:  
+  projects:
+    id: projects
+    title: Project
+    position: 1
+    permalink: "/#dsl_projects"    
+  deploymentproj:
+    id: deploymentproj
+    title: Deployment Projects
+    position: 2
+    permalink: "/#dsl_deploym_project_simple"    
+  plans:
+    id: plans
+    title: Plan
+    position: 3
+    permalink: "/#dsl_plan"    
+  branches:
+    id: branches
+    title: Plan branches
+    position: 4
+    permalink: "/#dsl_branches"
+  stages:
+    id: stages
+    title: Stage
+    position: 5
+    permalink: "/#dsl_stages_intro"            
+  jobs:
+    id: jobs
+    title: Job
+    position: 6
+    permalink: "/#dsl_job"
+  scms:
+    id: scms
+    title: Repositories
+    position: 9
+    permalink: "/#dsl_scm_intro"                
+  triggers:
+    id: triggers
+    title: Triggers
+    position: 10
+    permalink: "/#dsl_trigger_intro"                    
+  notifications:
+    id: notifications
+    title: Notifications
+    position: 11
+    permalink: "/#dsl_notification_types"        
+  permissions:
+    id: permissions
+    title: Permissions
+    position: 12
+    permalink: "/#dsl_permission_intro"                    
+
+gems:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-redirect-from
+
+exclude:
+  - readme.md
+
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      layout: default
