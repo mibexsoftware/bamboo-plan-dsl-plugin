@@ -70,6 +70,6 @@ exclude:
 defaults:
   -
     scope:
-      path: ""
+      path: "/bamboo-plan-dsl-plugin/"
     values:
       layout: default
