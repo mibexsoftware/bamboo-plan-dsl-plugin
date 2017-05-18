@@ -4,9 +4,9 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" >
 
-		<link rel="stylesheet" href="/css/style.css">
+		<link rel="stylesheet" href="{{site.baseurl}}/css/style.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-		<script src="/js/main.js"></script>
+		<script src="{{site.baseurl}}/js/main.js"></script>
 		{% seo %}
 
 		{% if jekyll.environment == 'production' %}
@@ -23,12 +23,12 @@
 	<body>
 		<header>
 			<div class="open-nav-a">
-				<a class="open-nav-a" href="/">Plan DSL for Bamboo <br><small style="color: #474a54;">API Reference</small></a>
+				<a class="open-nav-a" href="{{site.baseurl}}/">Plan DSL for Bamboo <br><small style="color: #474a54;">API Reference</small></a>
 
 				<button type="button" class="open-nav" id="open-nav"></button>
 				</div>
 
-			<form action="/search/" method="get">
+			<form action="{{site.baseurl}}/search/" method="get">
 				<input type="text" name="q" id="search-input" placeholder="Search">
 				<input type="submit" value="Search" style="display: none;">
 			</form>

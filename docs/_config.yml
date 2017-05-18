@@ -3,9 +3,10 @@
 
 title: Plan DSL for Bamboo Reference
 description: Plan DSL for Bamboo Specs Reference.
-url: mibexsoftware.github.io/bamboo-plan-dsl-plugin
+url: mibexsoftware.github.io
 google_analytics_key:
 permalink: /:collections/:id
+baseurl: /bamboo-plan-dsl-plugin
 
 collections:  
   projects:
