@@ -3,7 +3,7 @@
 
 title: Plan DSL for Bamboo Reference
 description: Plan DSL for Bamboo Specs Reference.
-url: mibexsoftware.github.io/plan-dsl-bamboo
+url: mibexsoftware.github.io/bamboo-plan-dsl-plugin
 google_analytics_key:
 permalink: /:collections/:id
 
@@ -70,6 +70,6 @@ exclude:
 defaults:
   -
     scope:
-      path: "/bamboo-plan-dsl-plugin/"
+      path: ""
     values:
       layout: default
