@@ -112,10 +112,20 @@ class Job extends BambooObject {
     /**
      * Defines the miscellaneous settings for this job.
      */
-    Miscellaneous miscellaneous(@DelegatesTo(Miscellaneous) Closure closure) {
+    Miscellaneous misc(@DelegatesTo(Miscellaneous) Closure closure) {
         def miscellaneous = new Miscellaneous(bambooFacade)
         DslScriptHelper.execute(closure, miscellaneous)
         this.miscellaneous = miscellaneous
+    }
+
+    /**
+     * Defines the miscellaneous settings for this job.
+     *
+     * @deprecated use {@link #misc(Closure)} instead
+     */
+    @Deprecated
+    Miscellaneous miscellaneous(@DelegatesTo(Miscellaneous) Closure closure) {
+        misc(closure)
     }
 
 }
