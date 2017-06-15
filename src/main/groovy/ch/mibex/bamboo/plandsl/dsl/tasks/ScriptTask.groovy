@@ -29,7 +29,7 @@ class ScriptTask extends Task {
     /**
      * File-based script execution.
      */
-    void file(@DelegatesTo(ScriptFile) Closure closure) {
+    void file(@DelegatesTo(value = ScriptFile, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         scriptFile = new ScriptFile()
         DslScriptHelper.execute(closure, scriptFile)
     }
@@ -37,7 +37,7 @@ class ScriptTask extends Task {
     /**
      * Script is given in the Bamboo task.
      */
-    void inline(@DelegatesTo(InlineScript) Closure closure) {
+    void inline(@DelegatesTo(value = InlineScript, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         inlineScript = new InlineScript()
         DslScriptHelper.execute(closure, inlineScript)
     }

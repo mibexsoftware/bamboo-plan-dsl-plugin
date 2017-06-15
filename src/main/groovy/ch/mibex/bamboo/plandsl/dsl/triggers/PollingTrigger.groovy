@@ -20,14 +20,14 @@ class PollingTrigger extends TriggerType {
         super(bambooFacade)
     }
 
-    void scheduled(@DelegatesTo(ScheduledTrigger) Closure closure) {
+    void scheduled(@DelegatesTo(value = ScheduledTrigger, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def trigger = new ScheduledTrigger()
         DslScriptHelper.execute(closure, trigger)
         this.pollingStrategy = 'CRON'
         this.scheduledTrigger = trigger
     }
 
-    void periodically(@DelegatesTo(PeriodicTrigger) Closure closure) {
+    void periodically(@DelegatesTo(value = PeriodicTrigger, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def trigger = new PeriodicTrigger()
         DslScriptHelper.execute(closure, trigger)
         this.periodicTrigger = trigger

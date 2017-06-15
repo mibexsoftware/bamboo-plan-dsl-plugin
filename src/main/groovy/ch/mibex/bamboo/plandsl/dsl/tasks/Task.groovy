@@ -17,7 +17,7 @@ abstract class Task extends BambooObject {
 
     protected Task(BambooFacade bambooFacade, String pluginKey) {
         super(bambooFacade)
-        this.pluginKey = Validations.isNotNullOrEmpty(pluginKey, 'pluginKey must not be empty')
+        this.pluginKey = pluginKey
     }
 
     protected Task(String pluginKey) {

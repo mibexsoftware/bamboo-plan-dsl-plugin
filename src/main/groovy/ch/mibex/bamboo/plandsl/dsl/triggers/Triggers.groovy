@@ -24,8 +24,9 @@ class Triggers extends BambooObject {
      * @deprecated use {@link #bitbucketServerRepositoryTriggered(Closure)} instead
      */
     @Deprecated
-    void bitbucketServerRepositoryTriggered(String description,
-                                            @DelegatesTo(BitbucketServerTrigger) Closure closure) {
+    void bitbucketServerRepositoryTriggered(
+            String description,
+            @DelegatesTo(value = BitbucketServerTrigger, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def trigger = new BitbucketServerTrigger(bambooFacade)
         trigger.description = description
         DslScriptHelper.execute(closure, trigger)
@@ -34,7 +35,8 @@ class Triggers extends BambooObject {
     /**
      * Bitbucket Server triggers the build when changes are committed.
      */
-    void bitbucketServerRepositoryTriggered(@DelegatesTo(BitbucketServerTrigger) Closure closure) {
+    void bitbucketServerRepositoryTriggered(
+            @DelegatesTo(value = BitbucketServerTrigger, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def trigger = new BitbucketServerTrigger(bambooFacade)
         DslScriptHelper.execute(closure, trigger)
         triggers << trigger
@@ -46,7 +48,8 @@ class Triggers extends BambooObject {
      * @deprecated use {@link #scheduled(Closure)} instead
      */
     @Deprecated
-    void scheduled(String description, @DelegatesTo(ScheduledTrigger) Closure closure) {
+    void scheduled(String description,
+                   @DelegatesTo(value = ScheduledTrigger, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def scheduled = new ScheduledTrigger(bambooFacade)
         scheduled.description = description
         DslScriptHelper.execute(closure, scheduled)
@@ -56,7 +59,7 @@ class Triggers extends BambooObject {
     /**
      * Run according to schedule.
      */
-    void scheduled(@DelegatesTo(ScheduledTrigger) Closure closure) {
+    void scheduled(@DelegatesTo(value = ScheduledTrigger, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         scheduled(null, closure)
     }
 
@@ -71,7 +74,7 @@ class Triggers extends BambooObject {
     /**
      * Bamboo polls source repository and builds when new changes are found.
      */
-    void polling(@DelegatesTo(PollingTrigger) Closure closure) {
+    void polling(@DelegatesTo(value = PollingTrigger, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         polling(null, closure)
     }
 
@@ -81,7 +84,8 @@ class Triggers extends BambooObject {
      * @deprecated use {@link #polling(Closure)} instead
      */
     @Deprecated
-    void polling(String description, @DelegatesTo(PollingTrigger) Closure closure) {
+    void polling(String description,
+                 @DelegatesTo(value = PollingTrigger, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def trigger = new PollingTrigger(bambooFacade)
         trigger.description = description
         DslScriptHelper.execute(closure, trigger)
@@ -94,7 +98,8 @@ class Triggers extends BambooObject {
      * @deprecated use {@link #remote(Closure)} instead
      */
     @Deprecated
-    void remote(String description, @DelegatesTo(RemoteTrigger) Closure closure) {
+    void remote(String description,
+                @DelegatesTo(value = RemoteTrigger, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def trigger = new RemoteTrigger(bambooFacade)
         trigger.description = description
         DslScriptHelper.execute(closure, trigger)
@@ -104,7 +109,7 @@ class Triggers extends BambooObject {
     /**
      * Repository triggers the build when changes are committed.
      */
-    void remote(@DelegatesTo(RemoteTrigger) Closure closure) {
+    void remote(@DelegatesTo(value = RemoteTrigger, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         remote(null, closure)
     }
 
@@ -114,7 +119,8 @@ class Triggers extends BambooObject {
      * @deprecated use {@link #onceAday(Closure)} instead
      */
     @Deprecated
-    void onceAday(String description, @DelegatesTo(OnceADayTrigger) Closure closure) {
+    void onceAday(String description,
+                  @DelegatesTo(value = OnceADayTrigger, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def trigger = new OnceADayTrigger(bambooFacade)
         trigger.description = description
         DslScriptHelper.execute(closure, trigger)
@@ -124,7 +130,7 @@ class Triggers extends BambooObject {
     /**
      * Single daily build.
      */
-    void onceAday(@DelegatesTo(OnceADayTrigger) Closure closure) {
+    void onceAday(@DelegatesTo(value = OnceADayTrigger, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         onceAday(null, closure)
     }
 

@@ -26,8 +26,9 @@ class CloverCodeCoverage extends BambooObject {
      *
      * @param cloverLicense Specify your Clover license.
      */
-    void automaticallyIntegrateCloverIntoBuild(String cloverLicense,
-                                               @DelegatesTo(CloverOptions) Closure closure) {
+    void automaticallyIntegrateCloverIntoBuild(
+            String cloverLicense,
+            @DelegatesTo(value = CloverOptions, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         this.cloverLicense = cloverLicense
         def cloverOptions = new CloverOptions()
         DslScriptHelper.execute(closure, cloverOptions)
@@ -39,8 +40,9 @@ class CloverCodeCoverage extends BambooObject {
      *
      * @param params Only "cloverLicense" is expected.
      */
-    void automaticallyIntegrateCloverIntoBuild(Map<String, String> params,
-                                               @DelegatesTo(CloverOptions) Closure closure) {
+    void automaticallyIntegrateCloverIntoBuild(
+            Map<String, String> params,
+            @DelegatesTo(value = CloverOptions, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         automaticallyIntegrateCloverIntoBuild(params['cloverLicense'], closure)
         integrationOptions = IntegrationOptions.AUTOMATICALLY_INTEGRATE_CLOVER_INTO_BUILD
     }

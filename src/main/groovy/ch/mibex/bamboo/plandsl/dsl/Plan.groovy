@@ -3,10 +3,12 @@ package ch.mibex.bamboo.plandsl.dsl
 import ch.mibex.bamboo.plandsl.dsl.branches.Branches
 import ch.mibex.bamboo.plandsl.dsl.dependencies.Dependencies
 import ch.mibex.bamboo.plandsl.dsl.deployprojs.DeploymentProject
+import ch.mibex.bamboo.plandsl.dsl.notifications.NotificationType
 import ch.mibex.bamboo.plandsl.dsl.notifications.Notifications
 import ch.mibex.bamboo.plandsl.dsl.permissions.Permissions
 import ch.mibex.bamboo.plandsl.dsl.plans.Miscellaneous
 import ch.mibex.bamboo.plandsl.dsl.scm.Scm
+import ch.mibex.bamboo.plandsl.dsl.scm.ScmType
 import ch.mibex.bamboo.plandsl.dsl.triggers.Triggers
 import ch.mibex.bamboo.plandsl.dsl.variables.Variables
 import groovy.transform.EqualsAndHashCode
@@ -19,11 +21,13 @@ class Plan extends BambooObject {
     private String name
     private String description
     private Scm scm = new Scm(bambooFacade)
+    private List<ScmType> scms = []
     private boolean enabled = true
     private List<Stage> stages = []
     private List<DeploymentProject> deploymentProjects = []
     private Triggers triggers = new Triggers(bambooFacade)
     private Branches branches = new Branches(bambooFacade)
+    private List<NotificationType> notification = []
     private Notifications notifications = new Notifications(bambooFacade)
     private Variables variables = new Variables(bambooFacade)
     private Dependencies dependencies = new Dependencies(bambooFacade)
@@ -102,7 +106,9 @@ class Plan extends BambooObject {
      * @param name the name of the deployment project
      * @since 1.1.0
      */
-    DeploymentProject deploymentProject(String name, @DelegatesTo(DeploymentProject) Closure closure) {
+    DeploymentProject deploymentProject(
+            String name,
+            @DelegatesTo(value = DeploymentProject, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def deploymentProject = new DeploymentProject(name, bambooFacade)
         DslScriptHelper.execute(closure, deploymentProject)
         deploymentProjects << deploymentProject
@@ -117,7 +123,9 @@ class Plan extends BambooObject {
      * @param id the id of the deployment project
      * @since 1.6.1
      */
-    DeploymentProject deploymentProject(String name, long id, @DelegatesTo(DeploymentProject) Closure closure) {
+    DeploymentProject deploymentProject(
+            String name, long id,
+            @DelegatesTo(value = DeploymentProject, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def deploymentProject = new DeploymentProject(name, id, bambooFacade)
         DslScriptHelper.execute(closure, deploymentProject)
         deploymentProjects << deploymentProject
@@ -131,7 +139,9 @@ class Plan extends BambooObject {
      * @param params the parameters of the deployment project. Only "name" and "id" are supported.
      * @since 1.1.0
      */
-    DeploymentProject deploymentProject(Map<String, Object> params, @DelegatesTo(DeploymentProject) Closure closure) {
+    DeploymentProject deploymentProject(
+            Map<String, Object> params,
+            @DelegatesTo(value = DeploymentProject, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         //FIXME this can be improved once https://issues.apache.org/jira/browse/GROOVY-7956 is implemented
         if (params.containsKey('id')) {
             deploymentProject(params['name'] as String, checkDeploymentProjectId(params), closure)
@@ -155,7 +165,7 @@ class Plan extends BambooObject {
         }
     }
 
-    private checkDeploymentProjectId(Map<String, Object> params) {
+    private static Long checkDeploymentProjectId(Map<String, Object> params) {
         Validations.isTrue(params['id'] ==~ /\d+/, 'deployment project ID must only consist of digits.')
         params['id'] as Long
     }
@@ -202,7 +212,7 @@ class Plan extends BambooObject {
     /**
      * Specifies the repositories for this plan.
      */
-    Scm scm(@DelegatesTo(Scm) Closure closure) {
+    Scm scm(@DelegatesTo(value = Scm, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         Scm scm = new Scm(bambooFacade)
         DslScriptHelper.execute(closure, scm)
         this.scm = scm
@@ -211,7 +221,7 @@ class Plan extends BambooObject {
     /**
      * Specifies the triggers for this plan.
      */
-    Triggers triggers(@DelegatesTo(Triggers) Closure closure) {
+    Triggers triggers(@DelegatesTo(value = Triggers, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         Triggers triggers = new Triggers(bambooFacade)
         DslScriptHelper.execute(closure, triggers)
         this.triggers = triggers
@@ -220,7 +230,7 @@ class Plan extends BambooObject {
     /**
      * Specifies the branches for this plan.
      */
-    Branches branches(@DelegatesTo(Branches) Closure closure) {
+    Branches branches(@DelegatesTo(value = Branches, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         Branches branches = new Branches(bambooFacade)
         DslScriptHelper.execute(closure, branches)
         this.branches = branches
@@ -236,7 +246,7 @@ class Plan extends BambooObject {
      *
      * @param name the name of the stage
      */
-    Stage stage(String name, @DelegatesTo(Stage) Closure closure) {
+    Stage stage(String name, @DelegatesTo(value = Stage, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def stage = new Stage(name, bambooFacade)
         DslScriptHelper.execute(closure, stage)
         stages << stage
@@ -248,7 +258,8 @@ class Plan extends BambooObject {
      *
      * @param stageParams the properties for the stage. Currently, only "name" is expected.
      */
-    Stage stage(Map<String, String> stageParams, @DelegatesTo(Stage) Closure closure) {
+    Stage stage(Map<String, String> stageParams,
+                @DelegatesTo(value = Stage, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         //FIXME this can be improved once https://issues.apache.org/jira/browse/GROOVY-7956 is implemented
         stage(stageParams['name'], closure)
     }
@@ -282,9 +293,9 @@ class Plan extends BambooObject {
     /**
      * Specifies the notifications for this plan.
      */
-    Notifications notifications(@DelegatesTo(Notifications) Closure closure) {
+    Notifications notifications(@DelegatesTo(value = Notifications, strategy = Closure.DELEGATE_FIRST) Closure c) {
         notifications = new Notifications(bambooFacade)
-        DslScriptHelper.execute(closure, notifications)
+        DslScriptHelper.execute(c, notifications)
         notifications
     }
 
@@ -296,16 +307,16 @@ class Plan extends BambooObject {
     /**
      * Specifies the miscellaneous options for this plan.
      */
-    Miscellaneous miscellaneous(@DelegatesTo(Miscellaneous) Closure closure) {
+    Miscellaneous miscellaneous(@DelegatesTo(value = Miscellaneous, strategy = Closure.DELEGATE_FIRST) Closure c) {
         def miscellaneous = new Miscellaneous(bambooFacade)
-        DslScriptHelper.execute(closure, miscellaneous)
+        DslScriptHelper.execute(c, miscellaneous)
         this.miscellaneous = miscellaneous
     }
 
     /**
      * Specifies the variables for this plan.
      */
-    Variables variables(@DelegatesTo(Variables) Closure closure) {
+    Variables variables(@DelegatesTo(value = Variables, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def variables = new Variables(bambooFacade)
         DslScriptHelper.execute(closure, variables)
         this.variables = variables
@@ -314,7 +325,7 @@ class Plan extends BambooObject {
     /**
      * Specifies the dependencies for this plan.
      */
-    Dependencies dependencies(@DelegatesTo(Dependencies) Closure closure) {
+    Dependencies dependencies(@DelegatesTo(value = Dependencies, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def dependencies = new Dependencies(bambooFacade)
         DslScriptHelper.execute(closure, dependencies)
         this.dependencies = dependencies
@@ -325,7 +336,7 @@ class Plan extends BambooObject {
      *
      * @since 1.5.1
      */
-    Permissions permissions(@DelegatesTo(Permissions) Closure closure) {
+    Permissions permissions(@DelegatesTo(value = Permissions, strategy = Closure.DELEGATE_FIRST)  Closure closure) {
         def permissions = new Permissions(bambooFacade)
         DslScriptHelper.execute(closure, permissions)
         this.permissions = permissions

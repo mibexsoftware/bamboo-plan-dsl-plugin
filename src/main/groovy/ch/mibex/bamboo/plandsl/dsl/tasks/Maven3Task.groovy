@@ -68,7 +68,7 @@ class Maven3Task extends Task {
     /**
      * If checked, the build will fail if no tests are found. Test output must be in JUnit XML format.
      */
-    void withTests(@DelegatesTo(WithTests) Closure closure) {
+    void withTests(@DelegatesTo(value = WithTests, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         withTests = new WithTests()
         DslScriptHelper.execute(closure, withTests)
         hasTests = true

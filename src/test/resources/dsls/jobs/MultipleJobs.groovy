@@ -24,6 +24,27 @@ project("SIMPLEPROJECT") {
                 name "Simple job 3"
                 description "This was a simple job"
                 enabled false
+
+                tasks {
+                    script('echo hello world') {
+                    }
+                }
+
+                artifacts {
+                    definition("my JAR") {
+                        location "target"
+                        copyPattern "**/*.jar"
+                        shared true
+                    }
+                }
+
+                requirements {
+
+                }
+
+                miscellaneous {
+
+                }
             }
 
         }

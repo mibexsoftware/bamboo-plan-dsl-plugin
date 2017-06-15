@@ -36,7 +36,8 @@ class Permissions extends BambooObject {
      *
      * @param params A collection of properties. Currently only "name" is supported.
      */
-    void user(Map<String, String> params, @DelegatesTo(PermissionTypes) Closure closure) {
+    void user(Map<String, String> params,
+              @DelegatesTo(value = PermissionTypes, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         user(params['name'], closure)
     }
 
@@ -45,7 +46,7 @@ class Permissions extends BambooObject {
      *
      * @param name Name of the user
      */
-    void user(String name, @DelegatesTo(PermissionTypes) Closure closure) {
+    void user(String name, @DelegatesTo(value = PermissionTypes, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def permissionTypes = new PermissionTypes(bambooFacade)
         DslScriptHelper.execute(closure, permissionTypes)
         userPermissions[name] = permissionTypes
@@ -56,7 +57,8 @@ class Permissions extends BambooObject {
      *
      * @param params A collection of properties. Currently only "name" is supported.
      */
-    void group(Map<String, String> params, @DelegatesTo(PermissionTypes) Closure closure) {
+    void group(Map<String, String> params,
+               @DelegatesTo(value = PermissionTypes, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         group(params['name'], closure)
     }
 
@@ -65,7 +67,7 @@ class Permissions extends BambooObject {
      *
      * @param name Name of the group
      */
-    void group(String name, @DelegatesTo(PermissionTypes) Closure closure) {
+    void group(String name, @DelegatesTo(value = PermissionTypes, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def permissionTypes = new PermissionTypes(bambooFacade)
         DslScriptHelper.execute(closure, permissionTypes)
         groupPermissions[name] = permissionTypes
@@ -76,7 +78,8 @@ class Permissions extends BambooObject {
      *
      * @param params A collection of properties. Currently only "type" is supported.
      */
-    void other(Map<String, Object> params, @DelegatesTo(PermissionTypes) Closure closure) {
+    void other(Map<String, Object> params,
+               @DelegatesTo(value = PermissionTypes, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         other(params['type'] as OtherUserType, closure)
     }
 
@@ -85,7 +88,8 @@ class Permissions extends BambooObject {
      *
      * @param otherUserType user type
      */
-    void other(OtherUserType otherUserType, @DelegatesTo(PermissionTypes) Closure closure) {
+    void other(OtherUserType otherUserType,
+               @DelegatesTo(value = PermissionTypes, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def permissionTypes = new PermissionTypes(bambooFacade)
         DslScriptHelper.execute(closure, permissionTypes)
         otherPermissions[otherUserType.internalName] = permissionTypes

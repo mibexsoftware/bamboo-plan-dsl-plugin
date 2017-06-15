@@ -10,8 +10,8 @@ class WatchersNotification extends NotificationType {
     private static final NOTIFICATION_RECIPIENT_TYPE =
             'com.atlassian.bamboo.plugin.system.notifications:recipient.watcher'
 
-    WatchersNotification(String conditionKey, BambooFacade bambooFacade) {
-        super(NOTIFICATION_RECIPIENT_TYPE, conditionKey, bambooFacade)
+    WatchersNotification(Notifications.NotificationEvent event, BambooFacade bambooFacade) {
+        super(NOTIFICATION_RECIPIENT_TYPE, event, bambooFacade)
     }
 
     @Override

@@ -55,7 +55,7 @@ class PlansWithBranchesSpec extends Specification {
 
         then:
         results.projects[0].plans[0].branches == new Branches(
-                notificationsType: Branch.NotifyOnNewBranchesType.NOTIFY_COMMITTERS_FOR_FAVOURITED_BRANCHES,
+                notificationsType: Branch.NotifyOnNewBranchesType.DO_NOT_SEND_NOTIFICATIONS,
         )
     }
 
@@ -99,6 +99,12 @@ class PlansWithBranchesSpec extends Specification {
                         new Branch(
                                 name: 'test',
                                 description: 'my test branch',
+                                enabled: true,
+                                cleanupAutomatically: true,
+                        ),
+                        new Branch(
+                                name: 'feature_branch_123',
+                                vcsBranchName: 'feature/branch_123',
                                 enabled: true,
                                 cleanupAutomatically: true,
                         )

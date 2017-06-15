@@ -92,7 +92,7 @@ class ShipItPluginTask extends Task {
 
     /**
      * The JQL to collect the JIRA issues associated with the plug-in version for creating release notes. You do not
-     * have to specify "projectKey" and "fixVersion" here because these are set automatically.
+     * have to specify "key" and "fixVersion" here because these are set automatically.
      */
     void jqlToCollectReleaseNotes(String jqlToCollectReleaseNotes) {
         this.jqlToCollectReleaseNotes = jqlToCollectReleaseNotes

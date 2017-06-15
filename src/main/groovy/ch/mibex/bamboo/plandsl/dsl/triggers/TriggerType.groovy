@@ -20,9 +20,10 @@ class TriggerType extends BambooObject {
         super(bambooFacade)
     }
 
-    void onlyRunIfOtherPlansArePassing(@DelegatesTo(OnlyIfOthersPassingTriggerCondition) Closure closure) {
+    void onlyRunIfOtherPlansArePassing(
+            @DelegatesTo(value = OnlyIfOthersPassingTriggerCondition, strategy = Closure.DELEGATE_FIRST) Closure c) {
         onlyRunIfOtherPlansArePassing = new OnlyIfOthersPassingTriggerCondition()
-        DslScriptHelper.execute(closure, onlyRunIfOtherPlansArePassing)
+        DslScriptHelper.execute(c, onlyRunIfOtherPlansArePassing)
     }
 
     void enabled(boolean enabled = true) {

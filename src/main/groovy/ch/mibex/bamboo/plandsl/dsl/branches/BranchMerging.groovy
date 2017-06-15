@@ -19,6 +19,20 @@ class BranchMerging extends BambooObject {
     }
 
     /**
+     * The Gatekeeper should be used when you want to:
+     * <ul>
+     * <li>Automatically merge your feature branch back into the team's master branch, after a successful build
+     * of the merged changes from both branches.</li>
+     * <li>Get notified when a build of combined changes from both branches fails, preventing the feature branch
+     * from being merged back into the team's master branch.</li>
+     */
+    void gateKeeper(@DelegatesTo(value = GateKeeper, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+        def gateKeeper = new GateKeeper()
+        DslScriptHelper.execute(closure, gateKeeper)
+        this.mergeStrategy = gateKeeper
+    }
+
+    /**
      * The Branch Updater should be used when you want to:
      *
      * <ul>
@@ -28,21 +42,7 @@ class BranchMerging extends BambooObject {
      * branch.</li>
      * </ul>
      */
-    void gateKeeper(@DelegatesTo(GateKeeper) Closure closure) {
-        def gateKeeper = new GateKeeper()
-        DslScriptHelper.execute(closure, gateKeeper)
-        this.mergeStrategy = gateKeeper
-    }
-
-    /**
-     * The Gatekeeper should be used when you want to:
-     * <ul>
-     * <li>Automatically merge your feature branch back into the team's master branch, after a successful build
-     * of the merged changes from both branches.</li>
-     * <li>Get notified when a build of combined changes from both branches fails, preventing the feature branch
-     * from being merged back into the team's master branch.</li>
-     */
-    void branchUpdater(@DelegatesTo(BranchUpdater) Closure closure) {
+    void branchUpdater(@DelegatesTo(value = BranchUpdater, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def branchUpdater = new BranchUpdater()
         DslScriptHelper.execute(closure, branchUpdater)
         this.mergeStrategy = branchUpdater

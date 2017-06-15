@@ -41,13 +41,13 @@ class ScmBitbucketCloud extends ScmType {
         this.branch = branch
     }
 
-    void git(@DelegatesTo(ScmBitbucketGit) Closure closure) {
+    void git(@DelegatesTo(value = ScmBitbucketGit, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def git = new ScmBitbucketGit(bambooFacade)
         DslScriptHelper.execute(closure, git)
         scmType = git
     }
 
-    void mercurial(@DelegatesTo(ScmBitbucketHg) Closure closure) {
+    void mercurial(@DelegatesTo(value = ScmBitbucketHg, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def hg = new ScmBitbucketHg(bambooFacade)
         DslScriptHelper.execute(closure, hg)
         scmType = hg
@@ -63,7 +63,7 @@ class ScmBitbucketCloud extends ScmType {
     }
 
     @RequiresBambooVersion(minimumVersion = '5.13')
-    void sshPrivateKey(@DelegatesTo(SshAuth) Closure closure) {
+    void sshPrivateKey(@DelegatesTo(value = SshAuth, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         authType = new SshAuth(bambooFacade)
         DslScriptHelper.execute(closure, authType)
     }
@@ -74,7 +74,7 @@ class ScmBitbucketCloud extends ScmType {
         authType = new SharedCredentialsAuth(SharedCredentialsAuth.SharedCredentialsType.SSH, name, bambooFacade)
     }
 
-    void passwordAuth(@DelegatesTo(PasswordAuth) Closure closure) {
+    void passwordAuth(@DelegatesTo(value = PasswordAuth, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def authByPassword = new PasswordAuth(bambooFacade)
         DslScriptHelper.execute(closure, authByPassword)
         authType = authByPassword

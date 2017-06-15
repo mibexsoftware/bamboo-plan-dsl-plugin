@@ -73,7 +73,8 @@ project("ARTIFACTS3") {
                     artifactDownload() {
                         description("Download release content")
                         artifact("my JAR2") {
-                              destinationPath("doc")
+                            destinationPath("doc")
+                            sourcePlanKey('')
                         }
                         allArtifacts {
                             destinationPath("doc")

@@ -28,8 +28,8 @@ project(key: 'SIMPLEPROJECT', name: 'simple project') {
 
                     overrideDefaultHangingBuildDetectionCriteria {
                         buildTimeMultiplier 2.5
-                        logQuietTime 10
-                        buildQueueTimeout 60
+                        logQuietTimeInMinutes 10
+                        buildQueueTimeoutInMinutes 60
                     }
 
                     nCoverOutputWillBeProduced {

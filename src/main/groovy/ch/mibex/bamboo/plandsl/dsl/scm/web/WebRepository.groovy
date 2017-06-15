@@ -21,7 +21,7 @@ class WebRepository extends BambooObject {
     /**
      * Fisheye web repository.
      */
-    void fisheye(@DelegatesTo(FisheyeWebRepository) Closure closure) {
+    void fisheye(@DelegatesTo(value = FisheyeWebRepository, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         type = new FisheyeWebRepository(bambooFacade)
         DslScriptHelper.execute(closure, type)
     }
@@ -29,7 +29,7 @@ class WebRepository extends BambooObject {
     /**
      * Stash (legacy) web repository.
      */
-    void stash(@DelegatesTo(StashWebRepository) Closure closure) {
+    void stash(@DelegatesTo(value = StashWebRepository, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         type = new StashWebRepository(bambooFacade)
         DslScriptHelper.execute(closure, type)
     }
@@ -37,7 +37,7 @@ class WebRepository extends BambooObject {
     /**
      * Mercurial web repository.
      */
-    void mercurial(@DelegatesTo(MercurialWebRepository) Closure closure) {
+    void mercurial(@DelegatesTo(value = MercurialWebRepository, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         type = new MercurialWebRepository(bambooFacade)
         DslScriptHelper.execute(closure, type)
     }
@@ -45,7 +45,7 @@ class WebRepository extends BambooObject {
     /**
      * Bitbucket web repository.
      */
-    void bitbucket(@DelegatesTo(BitbucketWebRepository) Closure closure) {
+    void bitbucket(@DelegatesTo(value = BitbucketWebRepository, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         type = new BitbucketWebRepository(bambooFacade)
         DslScriptHelper.execute(closure, type)
     }

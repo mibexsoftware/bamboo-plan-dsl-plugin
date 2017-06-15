@@ -36,17 +36,18 @@ class SshTask extends Task {
         this.userName = Validations.isNotNullOrEmpty(userName, 'userName must not be empty')
     }
 
-    void passwordAuth(@DelegatesTo(PasswordAuth) Closure closure) {
+    void passwordAuth(@DelegatesTo(value = PasswordAuth, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         authType = new PasswordAuth(bambooFacade)
         DslScriptHelper.execute(closure, authType)
     }
 
-    void keyWithoutPassphrase(@DelegatesTo(SshWithoutPassphraseAuth) Closure closure) {
+    void keyWithoutPassphrase(
+            @DelegatesTo(value = SshWithoutPassphraseAuth, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         authType = new SshWithoutPassphraseAuth(bambooFacade)
         DslScriptHelper.execute(closure, authType)
     }
 
-    void keyWithPassphrase(@DelegatesTo(SshAuth) Closure closure) {
+    void keyWithPassphrase(@DelegatesTo(value = SshAuth, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         authType = new SshAuth(bambooFacade)
         DslScriptHelper.execute(closure, authType)
     }
@@ -58,7 +59,7 @@ class SshTask extends Task {
         this.command = command
     }
 
-    void advancedOptions(@DelegatesTo(SshAdvancedOptions) Closure closure) {
+    void advancedOptions(@DelegatesTo(value = SshAdvancedOptions, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def advancedScpOptions = new SshAdvancedOptions()
         DslScriptHelper.execute(closure, advancedScpOptions)
         this.advancedOptions = advancedScpOptions

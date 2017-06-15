@@ -6,8 +6,8 @@ import groovy.transform.ToString
 @EqualsAndHashCode(includeFields=true, excludes = ['metaClass'])
 @ToString(includeFields=true)
 class Project extends BambooObject {
-    private String projectKey
-    private String projectName
+    private String key
+    private String name
     private List<Plan> plans = []
 
     /**
@@ -25,13 +25,16 @@ class Project extends BambooObject {
         projectName(name)
     }
 
+    protected Project() { // necessary for testing
+    }
+
     private void projectKey(String key) {
         Validations.isNotNullOrEmpty(key, 'a project key must be specified')
         Validations.isTrue(
                 key ==~ /[A-Z0-9]{2,}/,
                 'a project key must consist of 2 or more upper case alphanumeric characters'
         )
-        this.projectKey = key
+        this.key = key
     }
 
     /**
@@ -46,7 +49,7 @@ class Project extends BambooObject {
 
     private void projectName(String name) {
         Validations.isNotNullOrEmpty(name, 'a project name must be specified')
-        this.projectName = name
+        this.name = name
     }
 
     /**
@@ -57,7 +60,7 @@ class Project extends BambooObject {
      * @deprecated use {@link #plan(Map, Closure)} instead
      */
     @Deprecated
-    Plan plan(String key, @DelegatesTo(Plan) Closure closure) {
+    Plan plan(String key, @DelegatesTo(value = Plan, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def plan = new Plan(key, bambooFacade)
         DslScriptHelper.execute(closure, plan)
         plans << plan
@@ -70,7 +73,8 @@ class Project extends BambooObject {
      * @param key the key of the plan consisting of an uppercase letter followed by one or more uppercase
      * alphanumeric characters
      */
-    Plan plan(Map<String, String> planParams, @DelegatesTo(Plan) Closure closure) {
+    Plan plan(Map<String, String> planParams,
+              @DelegatesTo(value = Plan, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         //FIXME this can be improved once https://issues.apache.org/jira/browse/GROOVY-7956 is implemented
         plan(planParams['key'], planParams['name'], closure)
     }
@@ -93,7 +97,7 @@ class Project extends BambooObject {
      * alphanumeric characters
      * @param name the name of the plan
      */
-    Plan plan(String key, String name, @DelegatesTo(Plan) Closure closure) {
+    Plan plan(String key, String name, @DelegatesTo(value = Plan, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def plan = new Plan(key, name, bambooFacade)
         DslScriptHelper.execute(closure, plan)
         plans << plan

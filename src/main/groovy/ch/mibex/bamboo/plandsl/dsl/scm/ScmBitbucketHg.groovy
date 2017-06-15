@@ -18,7 +18,8 @@ class ScmBitbucketHg extends ScmType {
         super(bambooFacade)
     }
 
-    void advancedOptions(@DelegatesTo(AdvancedHgBitbucketOptions) Closure closure) {
+    void advancedOptions(
+            @DelegatesTo(value = AdvancedHgBitbucketOptions, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def advancedOptions = new AdvancedHgBitbucketOptions(bambooFacade)
         DslScriptHelper.execute(closure, advancedOptions)
         this.advancedOptions = advancedOptions

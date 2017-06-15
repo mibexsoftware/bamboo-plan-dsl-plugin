@@ -71,12 +71,13 @@ class ScmPerforce extends ScmType {
         this.letBambooManageWorkspace = letBambooManageWorkspace
     }
 
-    void passwordAuth(@DelegatesTo(PasswordAuth) Closure closure) {
+    void passwordAuth(@DelegatesTo(value = PasswordAuth, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         passwordAuth = new PasswordAuth(bambooFacade)
         DslScriptHelper.execute(closure, passwordAuth)
     }
 
-    void advancedOptions(@DelegatesTo(AdvancedPerforceOptions) Closure closure) {
+    void advancedOptions(
+            @DelegatesTo(value = AdvancedPerforceOptions, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         advancedOptions = new AdvancedPerforceOptions(bambooFacade)
         DslScriptHelper.execute(closure, advancedOptions)
     }

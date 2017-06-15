@@ -11,8 +11,8 @@ project("SIMPLEPROJECT2") {
         branches {
             autoBranchManagement {
                 createPlanBranchesForNewPullRequests()
-                deletePlanBranchesAfterDays(7)
-                deleteInactivePlanBranchesAfterDays(14)
+                deletePlanBranchesAfterDays 7
+                deleteInactivePlanBranchesAfterDays 14
             }
         }
     }

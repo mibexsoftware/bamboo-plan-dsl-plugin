@@ -18,7 +18,8 @@ class ScmBitbucketGit extends ScmType {
         super(bambooFacade)
     }
 
-    void advancedOptions(@DelegatesTo(AdvancedGitRepoOptions) Closure closure) {
+    void advancedOptions(
+            @DelegatesTo(value = AdvancedGitRepoOptions, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def advancedGitOptions = new AdvancedGitRepoOptions(bambooFacade)
         DslScriptHelper.execute(closure, advancedGitOptions)
         this.advancedOptions = advancedGitOptions

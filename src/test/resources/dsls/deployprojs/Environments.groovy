@@ -107,6 +107,18 @@ project("DPPROJ") {
                     }
                 }
 
+//                agentAssignments {
+//                    requirements {
+//                        requirement(capabilityKey: 'system.builder.gradle.Gradle 2.2',
+//                                    matchType: equalsTo("2.2")) {
+//                        }
+//                    }
+//                    deticatedAgents {
+//                        deticatedAgent(name: '') {
+//                        }
+//                    }
+//                }
+
                 variables {
                     variable "key1", "value1"
                     variable "key2", "value2"

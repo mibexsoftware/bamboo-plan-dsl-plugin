@@ -1,5 +1,7 @@
 package dsls.branches
 
+import ch.mibex.bamboo.plandsl.dsl.branches.Branch
+
 project("SIMPLEPROJECT2") {
     name "Simple project"
 
@@ -9,9 +11,7 @@ project("SIMPLEPROJECT2") {
         enabled true
 
         branches {
-            notifications {
-                custom(NotificationEvent.AFTER_X_BUILD_FAILURES, "") {}
-            }
+            notifications(Branch.NotifyOnNewBranchesType.DO_NOT_SEND_NOTIFICATIONS)
         }
     }
 }

@@ -25,8 +25,8 @@ class PlanSpec extends Specification {
         then:
         results != null
         results.projects.size() == 1
-        results.projects[0].projectKey == "SIMPLEPROJECT"
-        results.projects[0].projectName == "Simple project"
+        results.projects[0].key == "SIMPLEPROJECT"
+        results.projects[0].name == "Simple project"
         results.projects[0].plans[0] == new Plan(
                 key: "SIMPLEPLAN",
                 name: "Simple plan",
@@ -81,8 +81,8 @@ class PlanSpec extends Specification {
         then:
         results != null
         results.projects.size() == 1
-        results.projects[0].projectKey == "SIMPLEPROJECT"
-        results.projects[0].projectName == "Simple project"
+        results.projects[0].key == "SIMPLEPROJECT"
+        results.projects[0].name == "Simple project"
         results.projects[0].plans[0] == new Plan(
                 key: "SIMPLEPLAN",
                 name: "Simple plan",
@@ -129,8 +129,8 @@ class PlanSpec extends Specification {
         then:
         results != null
         results.projects.size() == 1
-        results.projects[0].projectKey == "SIMPLEPROJECT"
-        results.projects[0].projectName == "Simple project"
+        results.projects[0].key == "SIMPLEPROJECT"
+        results.projects[0].name == "Simple project"
         results.projects[0].plans[0] == new Plan(
                 key: "SIMPLEPLAN",
                 name: "Simple plan",
@@ -157,8 +157,8 @@ class PlanSpec extends Specification {
 
         then:
         result.projects.size() == 1
-        result.projects[0].projectKey == 'SIMPLEPROJECT'
-        result.projects[0].projectName == 'Simple project'
+        result.projects[0].key == 'SIMPLEPROJECT'
+        result.projects[0].name == 'Simple project'
         result.projects[0].plans[0] == new Plan(
                 key: "SIMPLEPLAN",
                 name: "Simple plan",
@@ -176,8 +176,8 @@ class PlanSpec extends Specification {
 
         then:
         result.projects.size() == 1
-        result.projects[0].projectKey == 'SIMPLEPROJECT'
-        result.projects[0].projectName == 'Simple project'
+        result.projects[0].key == 'SIMPLEPROJECT'
+        result.projects[0].name == 'Simple project'
         result.projects[0].plans[0] == new Plan(
                 key: "SIMPLEPLAN",
                 name: "Simple plan",

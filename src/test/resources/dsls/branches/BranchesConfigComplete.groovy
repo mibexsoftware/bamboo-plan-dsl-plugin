@@ -1,5 +1,7 @@
 package dsls.branches
 
+import ch.mibex.bamboo.plandsl.dsl.branches.Branch
+
 project("SIMPLEPROJECT2") {
     name "Simple project"
 
@@ -78,10 +80,7 @@ project("SIMPLEPROJECT2") {
                 }
             }
 
-            notifications {
-                custom(event: NotificationEvent.AFTER_X_BUILD_FAILURES, pluginKey: "") {
-                }
-            }
+            notifications(Branch.NotifyOnNewBranchesType.USE_PLANS_NOTIFICATION_SETTINGS)
             triggers(NewPlanBranchesTriggerType.RUN_NEW_PLAN_BRANCHES_MANUALLY)
 
             branch(name: "develop") {
@@ -100,9 +99,10 @@ project("SIMPLEPROJECT2") {
 //                        repositories("myBitbucketGitRepo")
 //                        ipAddresses("127.0.0.1,192.168.1.1")
 //                    }
-//                    onceAday {
-//                        buildTime "12:00"
-//                    }
+                    onceAday {
+                        description "run every day at noon"
+                        buildTime "12:00"
+                    }
 //                    polling {
 //                        scheduled {
 //                            cron("* * * * * * *")

@@ -11,8 +11,8 @@ class GroupNotification extends NotificationType {
             'com.atlassian.bamboo.plugin.system.notifications:recipient.group'
     private String group
 
-    GroupNotification(String conditionKey, BambooFacade bambooFacade) {
-        super(NOTIFICATION_RECIPIENT_TYPE, conditionKey, bambooFacade)
+    GroupNotification(Notifications.NotificationEvent event, BambooFacade bambooFacade) {
+        super(NOTIFICATION_RECIPIENT_TYPE, event, bambooFacade)
     }
 
     /**

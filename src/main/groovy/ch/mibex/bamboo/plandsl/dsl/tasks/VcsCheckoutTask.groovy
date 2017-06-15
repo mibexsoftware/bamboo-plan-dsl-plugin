@@ -35,7 +35,8 @@ class VcsCheckoutTask extends Task {
      * You can call this multiple times for all the repositories you want to checkout. Default always points to
      * Plans default repository.
      */
-    void repository(String name, @DelegatesTo(CheckoutRepository) Closure closure) {
+    void repository(String name,
+                    @DelegatesTo(value = CheckoutRepository, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def repo = new CheckoutRepository(name, bambooFacade)
         DslScriptHelper.execute(closure, repo)
         repositories << repo
@@ -47,7 +48,8 @@ class VcsCheckoutTask extends Task {
      *
      * @param params the properties for the repository. Currently, only "name" is expected.
      */
-    Stage repository(Map<String, String> params, @DelegatesTo(CheckoutRepository) Closure closure) {
+    Stage repository(Map<String, String> params,
+                     @DelegatesTo(value = CheckoutRepository, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         //FIXME this can be improved once https://issues.apache.org/jira/browse/GROOVY-7956 is implemented
         repository(params['name'], closure)
     }

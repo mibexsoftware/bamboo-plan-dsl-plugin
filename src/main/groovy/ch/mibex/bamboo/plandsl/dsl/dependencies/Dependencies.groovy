@@ -40,7 +40,8 @@ class Dependencies extends BambooObject {
         BLOCK_BUILD_IF_PARENT_PLANS_HAVE_UNBUILT_CHANGES
     }
 
-    void advancedOptions(@DelegatesTo(AdvancedDependencyOptions) Closure closure) {
+    void advancedOptions(
+            @DelegatesTo(value = AdvancedDependencyOptions, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def advancedDependencyOptions = new AdvancedDependencyOptions()
         DslScriptHelper.execute(closure, advancedDependencyOptions)
         this.advancedOptions = advancedDependencyOptions

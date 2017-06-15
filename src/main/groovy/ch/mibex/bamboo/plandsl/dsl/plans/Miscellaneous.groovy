@@ -31,7 +31,7 @@ class Miscellaneous extends BambooObject {
      * Bamboo will remove expired data when the global build expiry schedule is triggered. You can override the global
      * criteria for expired data, for this plan, with this method.
      */
-    void expire(@DelegatesTo(ExpirationDetails) Closure closure) {
+    void expire(@DelegatesTo(value = ExpirationDetails, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def expirationDetails = new ExpirationDetails(bambooFacade)
         DslScriptHelper.execute(closure, expirationDetails)
         this.expirationDetails = expirationDetails

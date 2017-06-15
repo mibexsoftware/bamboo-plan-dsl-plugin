@@ -10,8 +10,8 @@ class ImAddressNotification extends NotificationType {
     private static final NOTIFICATION_RECIPIENT_TYPE = 'com.atlassian.bamboo.plugin.system.notifications:recipient.im'
     private String instantMessagingAddress
 
-    ImAddressNotification(String conditionKey, BambooFacade bambooFacade) {
-        super(NOTIFICATION_RECIPIENT_TYPE, conditionKey, bambooFacade)
+    ImAddressNotification(Notifications.NotificationEvent event, BambooFacade bambooFacade) {
+        super(NOTIFICATION_RECIPIENT_TYPE, event, bambooFacade)
     }
 
     /**

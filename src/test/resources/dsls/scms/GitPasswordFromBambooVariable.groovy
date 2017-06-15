@@ -14,7 +14,7 @@ project("GITSCM") {
                 branch "master"
                 passwordAuth {
                     userName "admin"
-                    password bamboo['bamboo.git.admin.password']
+                    password env['bamboo.git.admin.password']
                 }
                 advancedOptions {
                     useShallowClones true

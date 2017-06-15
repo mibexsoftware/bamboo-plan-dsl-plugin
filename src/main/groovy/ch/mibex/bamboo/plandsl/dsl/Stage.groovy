@@ -52,7 +52,7 @@ class Stage extends BambooObject {
      * alphanumeric characters. E. g. CORE (for a module called core)
      * @param name the name of the job
      */
-    Job job(String key, String name, @DelegatesTo(Job) Closure closure) {
+    Job job(String key, String name, @DelegatesTo(value = Job, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def job = new Job(key, name, bambooFacade)
         DslScriptHelper.execute(closure, job)
         jobs << job
@@ -80,7 +80,7 @@ class Stage extends BambooObject {
      * @deprecated use {@link #job(Map, Closure)} instead
      */
     @Deprecated
-    Job job(String key, @DelegatesTo(Job) Closure closure) {
+    Job job(String key, @DelegatesTo(value = Job, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def job = new Job(key, bambooFacade)
         DslScriptHelper.execute(closure, job)
         jobs << job
@@ -102,7 +102,8 @@ class Stage extends BambooObject {
      *
      * @param jobParams the properties for a new job. Currently, "key" and "name" are expected.
      */
-    Job job(Map<String, String> jobParams, @DelegatesTo(Job) Closure closure) {
+    Job job(Map<String, String> jobParams,
+            @DelegatesTo(value = Job, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         //FIXME this can be improved once https://issues.apache.org/jira/browse/GROOVY-7956 is implemented
         job(jobParams['key'], jobParams['name'], closure)
     }

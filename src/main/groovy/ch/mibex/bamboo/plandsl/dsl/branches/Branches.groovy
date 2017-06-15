@@ -29,7 +29,8 @@ class Branches extends BambooObject {
      * Plan branches can be created and deleted automatically based on branch creation and deletion in the
      * primary source repository.
      */
-    void autoBranchManagement(@DelegatesTo(AutoBranchManagement) Closure closure) {
+    void autoBranchManagement(
+            @DelegatesTo(value = AutoBranchManagement, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def autoBranchManagement = new AutoBranchManagement()
         DslScriptHelper.execute(closure, autoBranchManagement)
         this.autoBranchManagement = autoBranchManagement
@@ -39,7 +40,7 @@ class Branches extends BambooObject {
      * Automatic merging can test the merge between branches and push changes back to the repository on a successful
      * build. This setting will be applied to all new plan branches.
      */
-    void merging(@DelegatesTo(BranchMerging) Closure closure) {
+    void merging(@DelegatesTo(value = BranchMerging, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def branchMerging = new BranchMerging()
         DslScriptHelper.execute(closure, branchMerging)
         this.branchMerging = branchMerging
@@ -64,7 +65,7 @@ class Branches extends BambooObject {
      *
      * @param name The name of the new plan branch.
      */
-    Branch branch(String name, @DelegatesTo(Branch) Closure closure) {
+    Branch branch(String name, @DelegatesTo(value = Branch, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def branch = new Branch(name)
         DslScriptHelper.execute(closure, branch)
         branches << branch
@@ -74,9 +75,12 @@ class Branches extends BambooObject {
     /**
      * Configures a new plan branch.
      *
-     * @param params The mandatory parameters for the new plan branch. Only "name" is currently supported.
+     * @param params The mandatory parameters for the new plan branch. Only "name" is currently supported which is both
+     *               the name of the plan branch as well as the VCS branch. Use "vcsBranchName" if you need a different
+     *               name for your repository branch.
      */
-    Branch branch(Map<String, String> params, @DelegatesTo(Branch) Closure closure) {
+    Branch branch(Map<String, String> params,
+                  @DelegatesTo(value = Branch, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         //FIXME this can be improved once https://issues.apache.org/jira/browse/GROOVY-7956 is implemented
         branch(params['name'], closure)
     }

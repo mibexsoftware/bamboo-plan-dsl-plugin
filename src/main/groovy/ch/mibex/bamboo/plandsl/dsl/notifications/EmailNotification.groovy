@@ -8,24 +8,28 @@ import groovy.transform.ToString
 @ToString(includeFields=true)
 class EmailNotification extends NotificationType {
     private static final NOTIFICATION_RECIPIENT_TYPE =
-            'com.atlassian.bamboo.plugin.system.notifications:recipient.email'
-    private String email
+            'com.atlassian.bamboo.plugin.system.notifications:recipient.address'
+    private String address
 
-    EmailNotification(String conditionKey, BambooFacade bambooFacade) {
-        super(NOTIFICATION_RECIPIENT_TYPE, conditionKey, bambooFacade)
+    EmailNotification() {
+        super(NOTIFICATION_RECIPIENT_TYPE)
+    }
+
+    EmailNotification(Notifications.NotificationEvent event, BambooFacade bambooFacade) {
+        super(NOTIFICATION_RECIPIENT_TYPE, event, bambooFacade)
     }
 
     /**
      * Email address (e.g., bob@work.com)
      */
     void email(String email) {
-        this.email = email
+        this.address = email
     }
 
     @Override
     protected Map<String, String[]> getConfig(Map<Object, Object> context) {
         def config = [:]
-        config.put('notificationEmailString', [email] as String[])
+        config.put('notificationEmailString', [address] as String[])
         config
     }
 

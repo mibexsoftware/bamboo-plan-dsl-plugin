@@ -46,11 +46,11 @@ class JobSpec extends Specification {
         jobs[0].key == 'SIMPLEJOB2'
         jobs[0].name ==  'Build plug-in'
         jobs[0].description == 'analyzes the code, runs tests and builds the plug-in'
-        jobs[0].tasksList.tasks.size() == 3
+        jobs[0].tasks.tasks.size() == 3
         jobs[1].key == 'SIMPLEJOB3'
         jobs[1].name ==  'Build plug-in'
         jobs[1].description == 'analyzes the code, runs tests and builds the plug-in'
-        jobs[1].tasksList.tasks.size() == 3
+        jobs[1].tasks.tasks.size() == 3
     }
 
     def 'job with misc options'() {

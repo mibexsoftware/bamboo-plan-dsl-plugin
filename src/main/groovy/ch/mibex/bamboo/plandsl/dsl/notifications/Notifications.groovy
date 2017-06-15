@@ -23,8 +23,9 @@ class Notifications extends BambooObject {
      * @deprecated use {@link #hipchat(Map, Closure)} instead
      */
     @Deprecated
-    void hipchat(NotificationEvent event, @DelegatesTo(HipChatNotification) Closure closure) {
-        def notification = new HipChatNotification(event.bambooNotificationConditionKey, bambooFacade)
+    void hipchat(NotificationEvent event,
+                 @DelegatesTo(value = HipChatNotification, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+        def notification = new HipChatNotification(event, bambooFacade)
         DslScriptHelper.execute(closure, notification)
         notifications << notification
     }
@@ -34,7 +35,8 @@ class Notifications extends BambooObject {
      *
      * @param params Mandatory parameters of this notification. "event", "apiToken" and "room" are expected.
      */
-    void hipchat(Map<String, Object> params, @DelegatesTo(HipChatNotification) Closure closure) {
+    void hipchat(Map<String, Object> params,
+                 @DelegatesTo(value = HipChatNotification, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         hipchat(params['event'] as NotificationEvent, params['apiToken'] as String, params['room'] as String, closure)
     }
 
@@ -47,8 +49,8 @@ class Notifications extends BambooObject {
      * @param room Name of the Hipchat room (or ID)
      */
     void hipchat(NotificationEvent event, String apiToken, String room,
-                 @DelegatesTo(HipChatNotification) Closure closure) {
-        def notification = new HipChatNotification(event.bambooNotificationConditionKey, apiToken, room, bambooFacade)
+                 @DelegatesTo(value = HipChatNotification, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+        def notification = new HipChatNotification(event, apiToken, room, bambooFacade)
         DslScriptHelper.execute(closure, notification)
         notifications << notification
     }
@@ -59,8 +61,9 @@ class Notifications extends BambooObject {
      * @deprecated use {@link #email(Map, Closure)} instead
      */
     @Deprecated
-    void email(NotificationEvent event, @DelegatesTo(EmailNotification) Closure closure) {
-        def notification = new EmailNotification(event.bambooNotificationConditionKey, bambooFacade)
+    void email(NotificationEvent event,
+               @DelegatesTo(value = EmailNotification, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+        def notification = new EmailNotification(event, bambooFacade)
         DslScriptHelper.execute(closure, notification)
         notifications << notification
     }
@@ -70,7 +73,8 @@ class Notifications extends BambooObject {
      *
      * @param params Mandatory parameters of this notification. "event" is expected.
      */
-    void email(Map<String, Object> params, @DelegatesTo(EmailNotification) Closure closure) {
+    void email(Map<String, Object> params,
+               @DelegatesTo(value = EmailNotification, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         email(params['event'] as NotificationEvent, closure)
     }
 
@@ -79,8 +83,9 @@ class Notifications extends BambooObject {
      * every build result automatically.
      */
     @Deprecated
-    void stashLegacy(NotificationEvent event, @DelegatesTo(StashLegacyNotification) Closure closure) {
-        def notification = new StashLegacyNotification(event.bambooNotificationConditionKey, bambooFacade)
+    void stashLegacy(NotificationEvent event,
+                     @DelegatesTo(value = StashLegacyNotification, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+        def notification = new StashLegacyNotification(event, bambooFacade)
         DslScriptHelper.execute(closure, notification)
         notifications << notification
     }
@@ -88,8 +93,9 @@ class Notifications extends BambooObject {
     /**
      * Notify a group.
      */
-    void group(NotificationEvent event, @DelegatesTo(GroupNotification) Closure closure) {
-        def notification = new GroupNotification(event.bambooNotificationConditionKey, bambooFacade)
+    void group(NotificationEvent event,
+               @DelegatesTo(value = GroupNotification, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+        def notification = new GroupNotification(event, bambooFacade)
         DslScriptHelper.execute(closure, notification)
         notifications << notification
     }
@@ -97,8 +103,9 @@ class Notifications extends BambooObject {
     /**
      * Notify a user.
      */
-    void user(NotificationEvent event, @DelegatesTo(UserNotification) Closure closure) {
-        def notification = new UserNotification(event.bambooNotificationConditionKey, bambooFacade)
+    void user(NotificationEvent event,
+              @DelegatesTo(value = UserNotification, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+        def notification = new UserNotification(event, bambooFacade)
         DslScriptHelper.execute(closure, notification)
         notifications << notification
     }
@@ -106,8 +113,9 @@ class Notifications extends BambooObject {
     /**
      * Notify via instant messenger.
      */
-    void imAddress(NotificationEvent event, @DelegatesTo(ImAddressNotification) Closure closure) {
-        def notification = new ImAddressNotification(event.bambooNotificationConditionKey, bambooFacade)
+    void imAddress(NotificationEvent event,
+                   @DelegatesTo(value = ImAddressNotification, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+        def notification = new ImAddressNotification(event, bambooFacade)
         DslScriptHelper.execute(closure, notification)
         notifications << notification
     }
@@ -115,9 +123,10 @@ class Notifications extends BambooObject {
     /**
      * Notify responsible users.
      */
-    void responsibleUsers(NotificationEvent event,
-                          @DelegatesTo(ResponsibleUsersNotification) Closure closure) {
-        def notification = new ResponsibleUsersNotification(event.bambooNotificationConditionKey, bambooFacade)
+    void responsibleUsers(
+            NotificationEvent event,
+            @DelegatesTo(value = ResponsibleUsersNotification, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+        def notification = new ResponsibleUsersNotification(event, bambooFacade)
         DslScriptHelper.execute(closure, notification)
         notifications << notification
     }
@@ -125,8 +134,9 @@ class Notifications extends BambooObject {
     /**
      * Notify users who have committed to the build.
      */
-    void committers(NotificationEvent event, @DelegatesTo(CommittersNotification) Closure closure) {
-        def notification = new CommittersNotification(event.bambooNotificationConditionKey, bambooFacade)
+    void committers(NotificationEvent event,
+                    @DelegatesTo(value = CommittersNotification, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+        def notification = new CommittersNotification(event, bambooFacade)
         DslScriptHelper.execute(closure, notification)
         notifications << notification
     }
@@ -134,8 +144,9 @@ class Notifications extends BambooObject {
     /**
      * Notify users who have marked this build as their favourite.
      */
-    void watchers(NotificationEvent event, @DelegatesTo(WatchersNotification) Closure closure) {
-        def notification = new WatchersNotification(event.bambooNotificationConditionKey, bambooFacade)
+    void watchers(NotificationEvent event,
+                  @DelegatesTo(value = WatchersNotification, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+        def notification = new WatchersNotification(event, bambooFacade)
         DslScriptHelper.execute(closure, notification)
         notifications << notification
     }
@@ -145,8 +156,8 @@ class Notifications extends BambooObject {
      */
     void custom(NotificationEvent event,
                 String pluginKey,
-                @DelegatesTo(CustomNotification) Closure closure) {
-        def notification = new CustomNotification(pluginKey, event.bambooNotificationConditionKey, bambooFacade)
+                @DelegatesTo(value = CustomNotification, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+        def notification = new CustomNotification(pluginKey, event, bambooFacade)
         DslScriptHelper.execute(closure, notification)
         notifications << notification
     }
@@ -156,11 +167,13 @@ class Notifications extends BambooObject {
      *
      * @param params The mandatory parameters of this notification. "event" and "pluginKey" are expected.
      */
-    void custom(Map<String, Object> params, @DelegatesTo(CustomNotification) Closure closure) {
+    void custom(Map<String, Object> params,
+                @DelegatesTo(value = CustomNotification, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         custom(params['event'] as NotificationEvent, params['pluginKey'] as String, closure)
     }
 
     static enum NotificationEvent {
+        /* plan notification events */
         ALL_BUILDS_COMPLETED('com.atlassian.bamboo.plugin.system.notifications:chainCompleted.allBuilds'),
         CHANGE_OF_BUILD_STATUS('com.atlassian.bamboo.plugin.system.notifications:chainCompleted.changedChainStatus'),
         FAILED_BUILDS_AND_FIRST_SUCCESSFUL(
@@ -178,7 +191,12 @@ class Notifications extends BambooObject {
         JOB_ERROR('com.atlassian.bamboo.plugin.system.notifications:buildError'),
         JOB_HUNG('com.atlassian.bamboo.plugin.system.notifications:buildHung'),
         JOB_QUEUE_TIMEOUT('com.atlassian.bamboo.plugin.system.notifications:buildQueueTimeout'),
-        JOB_QUEUE_WITHOUT_CAPABLE_AGENTS('com.atlassian.bamboo.plugin.system.notifications:buildMissingCapableAgent')
+        JOB_QUEUE_WITHOUT_CAPABLE_AGENTS('com.atlassian.bamboo.plugin.system.notifications:buildMissingCapableAgent'),
+
+        /* deployment project notification events */
+        DEPLOYMENT_STARTED_AND_FINISHED('bamboo.deployments:deploymentStartedFinished'),
+        DEPLOYMENT_FINISHED('bamboo.deployments:deploymentFinished'),
+        DEPLOYMENT_FAILED('bamboo.deployments:deploymentFailed')
 
         String bambooNotificationConditionKey
 

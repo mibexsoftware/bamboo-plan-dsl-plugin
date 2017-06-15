@@ -10,8 +10,8 @@ class CommittersNotification extends NotificationType {
     private static final NOTIFICATION_RECIPIENT_TYPE =
             'com.atlassian.bamboo.plugin.system.notifications:recipient.committer'
 
-    CommittersNotification(String conditionKey, BambooFacade bambooFacade) {
-        super(NOTIFICATION_RECIPIENT_TYPE, conditionKey, bambooFacade)
+    CommittersNotification(Notifications.NotificationEvent event, BambooFacade bambooFacade) {
+        super(NOTIFICATION_RECIPIENT_TYPE, event, bambooFacade)
     }
 
     @Override

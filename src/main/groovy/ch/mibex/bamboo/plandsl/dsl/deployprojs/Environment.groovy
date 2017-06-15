@@ -3,9 +3,9 @@ package ch.mibex.bamboo.plandsl.dsl.deployprojs
 import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.BambooObject
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
-import ch.mibex.bamboo.plandsl.dsl.permissions.Permissions
 import ch.mibex.bamboo.plandsl.dsl.Validations
 import ch.mibex.bamboo.plandsl.dsl.notifications.EnvironmentNotifications
+import ch.mibex.bamboo.plandsl.dsl.permissions.Permissions
 import ch.mibex.bamboo.plandsl.dsl.tasks.Tasks
 import ch.mibex.bamboo.plandsl.dsl.variables.Variables
 import groovy.transform.EqualsAndHashCode
@@ -55,7 +55,7 @@ class Environment extends BambooObject {
     /**
      * Tasks define the steps involved in deploying a release to the environment.
      */
-    Tasks tasks(@DelegatesTo(Tasks) Closure closure) {
+    Tasks tasks(@DelegatesTo(value = Tasks, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def newTaskList = new Tasks(bambooFacade)
         DslScriptHelper.execute(closure, newTaskList)
         tasks = newTaskList
@@ -64,20 +64,23 @@ class Environment extends BambooObject {
     /**
      * Set triggers to specify how and when the deployment will be triggered automatically. When a deployment is
      * automatically triggered, a new release is created from the latest successful build result of the linked plan.
+     *
+     * @deprecated use {@link #triggers(Closure)} instead
      */
-    DeploymentTriggers deploymentTriggers(@DelegatesTo(DeploymentTriggers) Closure closure) {
-        def triggers = new DeploymentTriggers()
-        DslScriptHelper.execute(closure, triggers)
-        this.triggers = triggers
+    @Deprecated
+    DeploymentTriggers deploymentTriggers(
+            @DelegatesTo(value = DeploymentTriggers, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+        triggers(closure)
     }
 
     /**
-     * @deprecated use {@link #deploymentTriggers(Closure)} instead
+     * Set triggers to specify how and when the deployment will be triggered automatically. When a deployment is
+     * automatically triggered, a new release is created from the latest successful build result of the linked plan.
      */
-    // deprecated because IntelliJ confused this with plan#triggers
-    @Deprecated
-    DeploymentTriggers triggers(@DelegatesTo(DeploymentTriggers) Closure closure) {
-        deploymentTriggers(closure)
+    DeploymentTriggers triggers(@DelegatesTo(value = DeploymentTriggers, strategy = Closure.DELEGATE_FIRST) Closure c) {
+        def triggers = new DeploymentTriggers()
+        DslScriptHelper.execute(c, triggers)
+        this.triggers = triggers
     }
 
     /**
@@ -85,7 +88,7 @@ class Environment extends BambooObject {
      *
      * @since 1.5.0
      */
-    Variables variables(@DelegatesTo(Variables) Closure closure) {
+    Variables variables(@DelegatesTo(value = Variables, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def vars = new Variables(bambooFacade)
         DslScriptHelper.execute(closure, vars)
         this.variables = vars
@@ -96,7 +99,8 @@ class Environment extends BambooObject {
      *
      * @since 1.5.0
      */
-    EnvironmentNotifications notifications(@DelegatesTo(EnvironmentNotifications) Closure closure) {
+    EnvironmentNotifications notifications(
+            @DelegatesTo(value = EnvironmentNotifications, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         notifications = new EnvironmentNotifications(bambooFacade)
         DslScriptHelper.execute(closure, notifications)
         notifications
@@ -117,7 +121,7 @@ class Environment extends BambooObject {
      *
      * @since 1.5.1
      */
-    Permissions permissions(@DelegatesTo(Permissions) Closure closure) {
+    Permissions permissions(@DelegatesTo(value = Permissions, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def permissions = new Permissions(bambooFacade)
         DslScriptHelper.execute(closure, permissions)
         this.permissions = permissions

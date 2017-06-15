@@ -12,8 +12,8 @@ class CustomNotification extends NotificationType {
     // just for tests:
     protected CustomNotification() {}
 
-    CustomNotification(String pluginKey, String conditionKey, BambooFacade bambooFacade) {
-        super(pluginKey, conditionKey, bambooFacade)
+    CustomNotification(String pluginKey, Notifications.NotificationEvent event, BambooFacade bambooFacade) {
+        super(pluginKey, event, bambooFacade)
     }
 
     def methodMissing(String methodName, args) {

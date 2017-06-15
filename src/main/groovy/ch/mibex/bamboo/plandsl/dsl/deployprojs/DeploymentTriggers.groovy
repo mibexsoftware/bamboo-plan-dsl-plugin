@@ -28,10 +28,11 @@ class DeploymentTriggers extends BambooObject {
      * @deprecated use {@link #scheduledCron(String, Closure)} instead
      */
     @Deprecated
-    void scheduled(String description, @DelegatesTo(ScheduledDeploymentTrigger) Closure closure) {
+    void scheduled(String description,
+                   @DelegatesTo(value = ScheduledDeploymentTrigger, strategy = Closure.DELEGATE_FIRST) Closure c) {
         def scheduled = new ScheduledDeploymentTrigger(bambooFacade)
         scheduled.description = description
-        DslScriptHelper.execute(closure, scheduled)
+        DslScriptHelper.execute(c, scheduled)
         triggers << scheduled
     }
 
@@ -40,7 +41,9 @@ class DeploymentTriggers extends BambooObject {
      *
      * @param cronExpression cron expression
      */
-    void scheduledCron(String cronExpression, @DelegatesTo(ScheduledDeploymentTrigger) Closure closure) {
+    void scheduledCron(
+            String cronExpression,
+            @DelegatesTo(value = ScheduledDeploymentTrigger, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def scheduled = new ScheduledDeploymentTrigger(cronExpression, bambooFacade)
         DslScriptHelper.execute(closure, scheduled)
         triggers << scheduled
@@ -51,7 +54,9 @@ class DeploymentTriggers extends BambooObject {
      *
      * @param cronExpression cron expression
      */
-    void scheduledCron(Map<String, String> params, @DelegatesTo(ScheduledDeploymentTrigger) Closure closure) {
+    void scheduledCron(
+            Map<String, String> params,
+            @DelegatesTo(value = ScheduledDeploymentTrigger, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         scheduledCron(params['cronExpression'], closure)
     }
 
@@ -62,19 +67,21 @@ class DeploymentTriggers extends BambooObject {
      * @deprecated use {@link #afterSuccessfulBuildPlan(Closure)} instead
      */
     @Deprecated
-    void afterSuccessfulBuildPlan(String description,
-                                  @DelegatesTo(AfterSuccessfulBuildDeploymentTrigger) Closure closure) {
+    void afterSuccessfulBuildPlan(
+            String description,
+            @DelegatesTo(value = AfterSuccessfulBuildDeploymentTrigger, strategy = Closure.DELEGATE_FIRST) Closure c) {
         def trigger = new AfterSuccessfulBuildDeploymentTrigger(bambooFacade)
         trigger.description = description
-        DslScriptHelper.execute(closure, trigger)
+        DslScriptHelper.execute(c, trigger)
         triggers << trigger
     }
 
     /**
      * Deployment is started after a plan is successfully built.
      */
-    void afterSuccessfulBuildPlan(@DelegatesTo(AfterSuccessfulBuildDeploymentTrigger) Closure closure) {
-        afterSuccessfulBuildPlan(null, closure)
+    void afterSuccessfulBuildPlan(
+            @DelegatesTo(value = AfterSuccessfulBuildDeploymentTrigger, strategy = Closure.DELEGATE_FIRST) Closure c) {
+        afterSuccessfulBuildPlan(null, c)
     }
 
     /**
@@ -84,11 +91,12 @@ class DeploymentTriggers extends BambooObject {
      * @deprecated use {@link #afterSuccessfulDeployment(String, Closure)} instead
      */
     @Deprecated
-    void afterSuccessfulDeployment(String description,
-                                   @DelegatesTo(AfterSuccessfulDeploymentTrigger) Closure closure) {
+    void afterSuccessfulDeployment(
+            String description,
+            @DelegatesTo(value = AfterSuccessfulBuildDeploymentTrigger, strategy = Closure.DELEGATE_FIRST) Closure c) {
         def trigger = new AfterSuccessfulDeploymentTrigger(bambooFacade)
         trigger.description = description
-        DslScriptHelper.execute(closure, trigger)
+        DslScriptHelper.execute(c, trigger)
         triggers << trigger
     }
 
@@ -97,10 +105,11 @@ class DeploymentTriggers extends BambooObject {
      *
      * @param triggeringEnvironment name of environment
      */
-    void afterSuccessDeployment(String triggeringEnvironment,
-                                @DelegatesTo(AfterSuccessfulDeploymentTrigger) Closure closure) {
+    void afterSuccessDeployment(
+            String triggeringEnvironment,
+            @DelegatesTo(value = AfterSuccessfulBuildDeploymentTrigger, strategy = Closure.DELEGATE_FIRST) Closure c) {
         def trigger = new AfterSuccessfulDeploymentTrigger(triggeringEnvironment, bambooFacade)
-        DslScriptHelper.execute(closure, trigger)
+        DslScriptHelper.execute(c, trigger)
         triggers << trigger
     }
 
@@ -109,9 +118,10 @@ class DeploymentTriggers extends BambooObject {
      *
      * @param triggeringEnvironment name of environment
      */
-    void afterSuccessDeployment(Map<String, String> params,
-                                @DelegatesTo(AfterSuccessfulDeploymentTrigger) Closure closure) {
-        afterSuccessDeployment(params['triggeringEnvironment'], closure)
+    void afterSuccessDeployment(
+            Map<String, String> params,
+            @DelegatesTo(value = AfterSuccessfulBuildDeploymentTrigger, strategy = Closure.DELEGATE_FIRST) Closure c) {
+        afterSuccessDeployment(params['triggeringEnvironment'], c)
     }
 
     /**
@@ -121,18 +131,20 @@ class DeploymentTriggers extends BambooObject {
      * @deprecated use {@link #afterSuccessfulStage(Closure)} instead
      */
     @Deprecated
-    void afterSuccessfulStage(String description,
-                              @DelegatesTo(AfterSuccessfulStageDeploymentTrigger) Closure closure) {
+    void afterSuccessfulStage(
+            String description,
+            @DelegatesTo(value = AfterSuccessfulBuildDeploymentTrigger, strategy = Closure.DELEGATE_FIRST) Closure c) {
         def trigger = new AfterSuccessfulStageDeploymentTrigger(bambooFacade)
         trigger.description = description
-        DslScriptHelper.execute(closure, trigger)
+        DslScriptHelper.execute(c, trigger)
         triggers << trigger
     }
 
     /**
      * Deployment is started after a stage is successfully built.
      */
-    void afterSuccessfulStage(@DelegatesTo(AfterSuccessfulStageDeploymentTrigger) Closure closure) {
-        afterSuccessfulStage(null, closure)
+    void afterSuccessfulStage(
+            @DelegatesTo(value = AfterSuccessfulBuildDeploymentTrigger, strategy = Closure.DELEGATE_FIRST) Closure c) {
+        afterSuccessfulStage(null, c)
     }
 }

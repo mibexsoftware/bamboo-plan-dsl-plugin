@@ -23,7 +23,8 @@ class Artifacts extends BambooObject {
      * @deprecated use {@link #definition(Map, Closure)} instead
      */
     @Deprecated
-    void definition(String name, @DelegatesTo(ArtifactDefinition) Closure closure) {
+    void definition(String name,
+                    @DelegatesTo(value = ArtifactDefinition, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def definition = new ArtifactDefinition(name, bambooFacade)
         DslScriptHelper.execute(closure, definition)
         artifactDefinitions << definition
@@ -36,7 +37,9 @@ class Artifacts extends BambooObject {
      * @param copyPattern the name (or Ant file copy pattern) of the artifact(s) you want to keep,
      * e.g. &#42;&#42;&#47;&#42;.jar
      */
-    void definition(String name, String copyPattern, @DelegatesTo(ArtifactDefinition) Closure closure) {
+    void definition(String name,
+                    String copyPattern,
+                    @DelegatesTo(value = ArtifactDefinition, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def definition = new ArtifactDefinition(name, copyPattern, bambooFacade)
         DslScriptHelper.execute(closure, definition)
         artifactDefinitions << definition
@@ -48,7 +51,8 @@ class Artifacts extends BambooObject {
      * @param params the mandatory parameters for an artifact definition.
      * Currently, "name" and "copyPattern" are expected.
      */
-    void definition(Map<String, String> params, @DelegatesTo(ArtifactDefinition) Closure closure) {
+    void definition(Map<String, String> params,
+                    @DelegatesTo(value = ArtifactDefinition, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         definition(params['name'], params['copyPattern'], closure)
     }
 
@@ -57,7 +61,8 @@ class Artifacts extends BambooObject {
      *
      * @param name the name of the artifact dependency
      */
-    void dependency(String name, @DelegatesTo(ArtifactDependency) Closure closure) {
+    void dependency(String name,
+                    @DelegatesTo(value = ArtifactDependency, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def dependency = new ArtifactDependency(name, bambooFacade)
         DslScriptHelper.execute(closure, dependency)
         artifactDependencies << dependency
@@ -68,7 +73,8 @@ class Artifacts extends BambooObject {
      *
      * @param params the mandatory parameters for an artifact depdencency. Currently, only "name" is expected.
      */
-    void dependency(Map<String, String> params, @DelegatesTo(ArtifactDependency) Closure closure) {
+    void dependency(Map<String, String> params,
+                    @DelegatesTo(value = ArtifactDependency, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         dependency(params['name'], closure)
     }
 }

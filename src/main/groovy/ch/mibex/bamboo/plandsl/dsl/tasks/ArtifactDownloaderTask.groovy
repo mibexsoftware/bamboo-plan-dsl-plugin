@@ -19,9 +19,10 @@ class ArtifactDownloaderTask extends Task {
     /**
      * You can choose multiple artifacts by name here. Just call this method multiple times with different names.
      */
-    void artifact(String name, @DelegatesTo(ArtifactDownloadConfiguration) Closure closure) {
+    void artifact(String name,
+                  @DelegatesTo(value = ArtifactDownloadConfiguration, strategy = Closure.DELEGATE_FIRST) Closure c) {
         def config = new ArtifactDownloadConfiguration(name, bambooFacade)
-        DslScriptHelper.execute(closure, config)
+        DslScriptHelper.execute(c, config)
         artifacts << config
     }
 
@@ -30,16 +31,18 @@ class ArtifactDownloaderTask extends Task {
      *
      * @param params the properties for the artifact. Currently, only "name" is expected.
      */
-    void artifact(Map<String, String> params, @DelegatesTo(ArtifactDownloadConfiguration) Closure closure) {
+    void artifact(Map<String, String> params,
+                  @DelegatesTo(value = ArtifactDownloadConfiguration, strategy = Closure.DELEGATE_FIRST) Closure c) {
         //FIXME this can be improved once https://issues.apache.org/jira/browse/GROOVY-7956 is implemented
-        artifact(params['name'], closure)
+        artifact(params['name'], c)
     }
 
     /**
      * All artifacts get downloaded.
      */
-    void allArtifacts(@DelegatesTo(ArtifactDownloadConfiguration) Closure closure) {
-        artifact(null as String, closure)
+    void allArtifacts(
+            @DelegatesTo(value = ArtifactDownloadConfiguration, strategy = Closure.DELEGATE_FIRST) Closure c) {
+        artifact(null as String, c)
     }
 
     @Override

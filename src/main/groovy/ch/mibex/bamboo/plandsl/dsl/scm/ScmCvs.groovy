@@ -55,13 +55,13 @@ class ScmCvs extends ScmType {
         this.moduleVersion = moduleVersion
     }
 
-    void passwordAuth(@DelegatesTo(PasswordAuth) Closure closure) {
+    void passwordAuth(@DelegatesTo(value = PasswordAuth, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def authByPassword = new PasswordAuth(bambooFacade)
         DslScriptHelper.execute(closure, authByPassword)
         authType = authByPassword
     }
 
-    void advancedOptions(@DelegatesTo(AdvancedCvsOptions) Closure closure) {
+    void advancedOptions(@DelegatesTo(value = AdvancedCvsOptions, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def advancedOptions = new AdvancedCvsOptions(bambooFacade)
         DslScriptHelper.execute(closure, advancedOptions)
         this.advancedOptions = advancedOptions

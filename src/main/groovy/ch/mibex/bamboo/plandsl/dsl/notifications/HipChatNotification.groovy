@@ -17,15 +17,18 @@ class HipChatNotification extends NotificationType {
     protected HipChatNotification() {}
 
     /**
-     * @deprecated use {@link #HipChatNotification(String, String, String, BambooFacade)} instead
+     * @deprecated use {@link #HipChatNotification(Notifications.NotificationEvent, String, String, BambooFacade)}
+     * instead
      */
     @Deprecated
-    HipChatNotification(String conditionKey, BambooFacade bambooFacade) {
-        super(NOTIFICATION_RECIPIENT_TYPE, conditionKey, bambooFacade)
+    HipChatNotification(Notifications.NotificationEvent event, BambooFacade bambooFacade) {
+        super(NOTIFICATION_RECIPIENT_TYPE, event, bambooFacade)
     }
 
-    HipChatNotification(String conditionKey, String apiToken, String room, BambooFacade bambooFacade) {
-        super(NOTIFICATION_RECIPIENT_TYPE, conditionKey, bambooFacade)
+    HipChatNotification(Notifications.NotificationEvent event,
+                        String apiToken, String room,
+                        BambooFacade bambooFacade) {
+        super(NOTIFICATION_RECIPIENT_TYPE, event, bambooFacade)
         this.apiToken = Validations.isNotNullOrEmpty(apiToken, 'apiToken must not be empty')
         this.room = Validations.isNotNullOrEmpty(room, 'room must not be empty')
     }

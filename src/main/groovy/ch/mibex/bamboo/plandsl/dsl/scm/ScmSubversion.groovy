@@ -39,22 +39,23 @@ class ScmSubversion extends ScmType {
         this.userName = userName
     }
 
-    void passwordAuth(@DelegatesTo(PasswordAuth) Closure closure) {
+    void passwordAuth(@DelegatesTo(value = PasswordAuth, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         authType = new PasswordAuth(bambooFacade)
         DslScriptHelper.execute(closure, authType)
     }
 
-    void sshAuth(@DelegatesTo(SshAuth) Closure closure) {
+    void sshAuth(@DelegatesTo(value = SshAuth, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         authType = new SshAuth(bambooFacade)
         DslScriptHelper.execute(closure, authType)
     }
 
-    void sslClientCertificate(@DelegatesTo(SslClientCertificateAuth) Closure closure) {
+    void sslClientCertificate(
+            @DelegatesTo(value = SslClientCertificateAuth, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         authType = new SslClientCertificateAuth(bambooFacade)
         DslScriptHelper.execute(closure, authType)
     }
 
-    void advancedOptions(@DelegatesTo(AdvancedSvnOptions) Closure closure) {
+    void advancedOptions(@DelegatesTo(value = AdvancedSvnOptions, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         advancedOptions = new AdvancedSvnOptions(bambooFacade)
         DslScriptHelper.execute(closure, advancedOptions)
     }

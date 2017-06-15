@@ -4,6 +4,7 @@ import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.BambooObject
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import ch.mibex.bamboo.plandsl.dsl.Validations
+import ch.mibex.bamboo.plandsl.dsl.tasks.Task
 import ch.mibex.bamboo.plandsl.dsl.tasks.Tasks
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
@@ -15,8 +16,11 @@ class Job extends BambooObject {
     private String name
     private String description
     private boolean enabled = true
-    private Tasks tasksList = new Tasks(bambooFacade)
+    private List<Task> task = []
+    private Tasks tasks = new Tasks(bambooFacade)
     private Artifacts artifacts = new Artifacts(bambooFacade)
+    private List<ArtifactDefinition> artifactDefinitions = []
+    private List<ArtifactDependency> artifactDependencies = []
     private Requirements requirements = new Requirements(bambooFacade)
     private Miscellaneous miscellaneous = new Miscellaneous(bambooFacade)
 
@@ -36,7 +40,7 @@ class Job extends BambooObject {
     }
 
     // for testing:
-    protected Job() {}
+    Job() {}
 
     /**
      * Creates a job definition.
@@ -82,7 +86,7 @@ class Job extends BambooObject {
     /**
      * Defines the artifact(s) for this job.
      */
-    Artifacts artifacts(@DelegatesTo(Artifacts) Closure closure) {
+    Artifacts artifacts(@DelegatesTo(value = Artifacts, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def artifacts = new Artifacts(bambooFacade)
         DslScriptHelper.execute(closure, artifacts)
         this.artifacts = artifacts
@@ -91,10 +95,10 @@ class Job extends BambooObject {
     /**
      * Defines the task(s) for this job.
      */
-    Tasks tasks(@DelegatesTo(Tasks) Closure closure) {
+    Tasks tasks(@DelegatesTo(value = Tasks, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def newTaskList = new Tasks(bambooFacade)
         DslScriptHelper.execute(closure, newTaskList)
-        tasksList = newTaskList
+        tasks = newTaskList
     }
 
     /**
@@ -103,7 +107,7 @@ class Job extends BambooObject {
      *
      * @since 1.5.0
      */
-    Requirements requirements(@DelegatesTo(Requirements) Closure closure) {
+    Requirements requirements(@DelegatesTo(value = Requirements, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def newRequirements = new Requirements(bambooFacade)
         DslScriptHelper.execute(closure, newRequirements)
         requirements = newRequirements
@@ -111,8 +115,12 @@ class Job extends BambooObject {
 
     /**
      * Defines the miscellaneous settings for this job.
+     *
+     * @since 1.7.2
+     * @deprecated use {@link #miscellaneous(Closure)} instead
      */
-    Miscellaneous misc(@DelegatesTo(Miscellaneous) Closure closure) {
+    @Deprecated
+    Miscellaneous misc(@DelegatesTo(value = Miscellaneous, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def miscellaneous = new Miscellaneous(bambooFacade)
         DslScriptHelper.execute(closure, miscellaneous)
         this.miscellaneous = miscellaneous
@@ -120,12 +128,12 @@ class Job extends BambooObject {
 
     /**
      * Defines the miscellaneous settings for this job.
-     *
-     * @deprecated use {@link #misc(Closure)} instead
      */
-    @Deprecated
-    Miscellaneous miscellaneous(@DelegatesTo(Miscellaneous) Closure closure) {
-        misc(closure)
+    Miscellaneous miscellaneous(
+            @DelegatesTo(value = Miscellaneous, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+        def miscellaneous = new Miscellaneous(bambooFacade)
+        DslScriptHelper.execute(closure, miscellaneous)
+        this.miscellaneous = miscellaneous
     }
 
 }

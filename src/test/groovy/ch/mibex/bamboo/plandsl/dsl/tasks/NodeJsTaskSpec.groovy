@@ -15,7 +15,7 @@ class NodeJsTaskSpec extends Specification {
         def results = loader.parse(new DslScriptContext(dsl))
 
         then:
-        results.projects[0].plans[0].stages[0].jobs[0].tasksList.tasks[0] == new NodeJsTask(
+        results.projects[0].plans[0].stages[0].jobs[0].tasks.tasks[0] == new NodeJsTask(
                 enabled: true,
                 isFinal: false,
                 description: "execute Node",

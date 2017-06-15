@@ -67,7 +67,8 @@ class DeploymentProject extends BambooObject {
      *
      * @param params A collection of properties. Currently "name" and "id" are supported.
      */
-    Environment environment(Map<String, Object> params, @DelegatesTo(Environment) Closure closure) {
+    Environment environment(Map<String, Object> params,
+                            @DelegatesTo(value = Environment, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         //FIXME this can be improved once https://issues.apache.org/jira/browse/GROOVY-7956 is implemented
         if (params.containsKey('id')) {
             environment(params['name'] as String, checkEnvironmentId(params), closure)
@@ -86,7 +87,8 @@ class DeploymentProject extends BambooObject {
      *
      * @param name Name of environment (e.g. Staging, QA, or Production)
      */
-    Environment environment(String name, @DelegatesTo(Environment) Closure closure) {
+    Environment environment(String name,
+                            @DelegatesTo(value = Environment, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def env = new Environment(name, bambooFacade)
         DslScriptHelper.execute(closure, env)
         environments << env
@@ -99,7 +101,8 @@ class DeploymentProject extends BambooObject {
      * @param name Name of environment (e.g. Staging, QA, or Production)
      * @since 1.6.1
      */
-    Environment environment(String name, long id, @DelegatesTo(Environment) Closure closure) {
+    Environment environment(String name, long id,
+                            @DelegatesTo(value = Environment, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def env = new Environment(name, id, bambooFacade)
         DslScriptHelper.execute(closure, env)
         environments << env
@@ -150,7 +153,9 @@ class DeploymentProject extends BambooObject {
      *
      * @param nextReleaseVersion What version should Bamboo use for the next release? e.g. 1.0-${bamboo.buildNumber}
      */
-    ReleaseVersioning releaseVersioning(String nextReleaseVersion, @DelegatesTo(ReleaseVersioning) Closure closure) {
+    ReleaseVersioning releaseVersioning(
+            String nextReleaseVersion,
+            @DelegatesTo(value = ReleaseVersioning, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def releaseVersioning = new ReleaseVersioning(nextReleaseVersion, bambooFacade)
         DslScriptHelper.execute(closure, releaseVersioning)
         this.releaseVersioning = releaseVersioning
@@ -164,7 +169,9 @@ class DeploymentProject extends BambooObject {
      *
      * @param params A collection of properties. Currently only "nextReleaseVersion" is supported.
      */
-    ReleaseVersioning releaseVersioning(Map<String, String> params, @DelegatesTo(ReleaseVersioning) Closure closure) {
+    ReleaseVersioning releaseVersioning(
+            Map<String, String> params,
+            @DelegatesTo(value = ReleaseVersioning, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         //FIXME this can be improved once https://issues.apache.org/jira/browse/GROOVY-7956 is implemented
         releaseVersioning(params['nextReleaseVersion'], closure)
     }
@@ -174,7 +181,7 @@ class DeploymentProject extends BambooObject {
      *
      * @since 1.5.1
      */
-    Permissions permissions(@DelegatesTo(Permissions) Closure closure) {
+    Permissions permissions(@DelegatesTo(value = Permissions, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def permissions = new Permissions(bambooFacade)
         DslScriptHelper.execute(closure, permissions)
         this.permissions =  permissions

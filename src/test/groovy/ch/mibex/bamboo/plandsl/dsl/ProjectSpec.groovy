@@ -13,8 +13,8 @@ class ProjectSpec extends Specification {
 
         then:
         result.projects.size() == 1
-        result.projects[0].projectKey == 'SIMPLEPROJECT'
-        result.projects[0].projectName == 'Simple project'
+        result.projects[0].key == 'SIMPLEPROJECT'
+        result.projects[0].name == 'Simple project'
     }
 
     def 'project without name should yield exception'() {

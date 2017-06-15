@@ -87,7 +87,7 @@ class AdvancedGitRepoOptions extends BambooObject {
     /**
      * Select, if any, the browsable web repository associated with this build.
      */
-    void webRepository(@DelegatesTo(WebRepository) Closure closure) {
+    void webRepository(@DelegatesTo(value = WebRepository, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         webRepository = new WebRepository(bambooFacade)
         DslScriptHelper.execute(closure, webRepository)
     }
@@ -96,7 +96,7 @@ class AdvancedGitRepoOptions extends BambooObject {
      * Quiet period allows you to delay building after a single commit is detected, aggregating multiple
      * commits per build.
      */
-    void quietPeriod(@DelegatesTo(QuietPeriod) Closure closure) {
+    void quietPeriod(@DelegatesTo(value = QuietPeriod, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         quietPeriod = new QuietPeriod(bambooFacade)
         DslScriptHelper.execute(closure, quietPeriod)
     }
@@ -104,10 +104,11 @@ class AdvancedGitRepoOptions extends BambooObject {
     /**
      * Customise what files Bamboo uses to detect changes.
      */
-    void includeExcludeFiles(MatchType type, @DelegatesTo(IncludeExcludeFiles) Closure closure) {
+    void includeExcludeFiles(MatchType type,
+                             @DelegatesTo(value = IncludeExcludeFiles, strategy = Closure.DELEGATE_FIRST) Closure c) {
         includeExcludeFiles = new IncludeExcludeFiles(bambooFacade)
         includeExcludeFiles.matchType = type
-        DslScriptHelper.execute(closure, includeExcludeFiles)
+        DslScriptHelper.execute(c, includeExcludeFiles)
     }
 
 }

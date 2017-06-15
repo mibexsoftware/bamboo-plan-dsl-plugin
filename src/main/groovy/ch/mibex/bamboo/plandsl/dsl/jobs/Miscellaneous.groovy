@@ -37,7 +37,8 @@ class Miscellaneous extends BambooObject {
      * <li>log quiet time - the length of time (in minutes) between log entries for a build.</li>
      * </ul>
      */
-    void overrideDefaultHangingBuildDetectionCriteria(@DelegatesTo(BuildHungOptions) Closure closure) {
+    void overrideDefaultHangingBuildDetectionCriteria(
+            @DelegatesTo(value = BuildHungOptions, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def buildHungOptions = new BuildHungOptions()
         DslScriptHelper.execute(closure, buildHungOptions)
         this.buildHungOptions = buildHungOptions
@@ -47,16 +48,17 @@ class Miscellaneous extends BambooObject {
      * NCover is a code coverage tool that helps ensure that your code base is well tested. Where should Bamboo look
      * for the NCover code-coverage output?
      */
-    void nCoverOutputWillBeProduced(@DelegatesTo(NCoverOutput) Closure closure) {
+    void nCoverOutputWillBeProduced(@DelegatesTo(value = NCoverOutput, strategy = Closure.DELEGATE_FIRST) Closure c) {
         def nCoverOutput = new NCoverOutput()
-        DslScriptHelper.execute(closure, nCoverOutput)
+        DslScriptHelper.execute(c, nCoverOutput)
         this.nCoverOutput = nCoverOutput
     }
 
     /**
      * Pattern Match Labelling
      */
-    void patternMatchLabelling(@DelegatesTo(PatternMatchLabelling) Closure closure) {
+    void patternMatchLabelling(
+            @DelegatesTo(value = PatternMatchLabelling, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def patternMatchLabelling = new PatternMatchLabelling()
         DslScriptHelper.execute(closure, patternMatchLabelling)
         this.patternMatchLabelling = patternMatchLabelling
@@ -66,9 +68,9 @@ class Miscellaneous extends BambooObject {
      * Would you like to view Clover Code Coverage for this plan? Clover is a code coverage tool reports how
      * well tested your code is and also highlights parts of code that require more testing.
      */
-    void cloverCodeCoverage(@DelegatesTo(CloverCodeCoverage) Closure closure) {
+    void cloverCodeCoverage(@DelegatesTo(value = CloverCodeCoverage, strategy = Closure.DELEGATE_FIRST) Closure c) {
         def cloverCodeCoverage = new CloverCodeCoverage()
-        DslScriptHelper.execute(closure, cloverCodeCoverage)
+        DslScriptHelper.execute(c, cloverCodeCoverage)
         this.cloverCodeCoverage = cloverCodeCoverage
     }
 }

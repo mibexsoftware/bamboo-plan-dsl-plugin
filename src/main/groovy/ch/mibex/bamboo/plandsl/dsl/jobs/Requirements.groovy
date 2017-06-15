@@ -25,7 +25,9 @@ class Requirements extends BambooObject {
      * @param capabilityKey the key of the required capability, e.g. "system.builder.gradle.Gradle 2.2"
      * @param matchType the match type: "Equals", "Exists" or "Matches"
      */
-    void requirement(String capabilityKey, Requirement.MatchType matchType, @DelegatesTo(Requirement) Closure closure) {
+    void requirement(String capabilityKey,
+                     Requirement.MatchType matchType,
+                     @DelegatesTo(value = Requirement, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         Validations.isTrue(
             ! requirements.find { it.capabilityKey == capabilityKey },
             'The requirement with this key already exists'
@@ -41,7 +43,8 @@ class Requirements extends BambooObject {
      * @param params the mandatory parameters for a requirement definition.
      * Currently, "capabilityKey" and "matchType" are expected.
      */
-    void requirement(Map<String, Object> params, @DelegatesTo(Requirement) Closure closure) {
+    void requirement(Map<String, Object> params,
+                     @DelegatesTo(value = Requirement, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         requirement(params['capabilityKey'] as String, params['matchType'] as Requirement.MatchType, closure)
     }
 

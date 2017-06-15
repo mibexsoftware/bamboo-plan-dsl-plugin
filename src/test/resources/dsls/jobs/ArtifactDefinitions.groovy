@@ -1,5 +1,8 @@
 package dsls.jobs
 
+
+out.println(env(''))
+
 project("SIMPLEPROJECT") {
     name "Renamed project"
 

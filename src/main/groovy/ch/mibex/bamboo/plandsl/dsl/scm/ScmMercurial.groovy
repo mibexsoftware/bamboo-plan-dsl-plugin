@@ -48,27 +48,30 @@ class ScmMercurial extends ScmType {
         authType = new SharedCredentialsAuth(SharedCredentialsAuth.SharedCredentialsType.USERNAMEPW, name, bambooFacade)
     }
 
-    void passwordAuth(@DelegatesTo(PasswordAuth) Closure closure) {
+    void passwordAuth(@DelegatesTo(value = PasswordAuth, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         authType = new PasswordAuth(bambooFacade)
         DslScriptHelper.execute(closure, authType)
     }
 
-    void keyfileWithoutPassphrase(@DelegatesTo(SshWithoutPassphraseAuth) Closure closure) {
+    void keyfileWithoutPassphrase(
+            @DelegatesTo(value = SshWithoutPassphraseAuth, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         authType = new SshWithoutPassphraseAuth(bambooFacade)
         DslScriptHelper.execute(closure, authType)
     }
 
-    void keyfileWithPassphrase(@DelegatesTo(SshAuth) Closure closure) {
+    void keyfileWithPassphrase(@DelegatesTo(value = SshAuth, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         authType = new SshWithoutPassphraseAuth(bambooFacade)
         DslScriptHelper.execute(closure, authType)
     }
 
-    void defaultMercurialCredentials(@DelegatesTo(DefaultMercurialAuth) Closure closure) {
+    void defaultMercurialCredentials(
+            @DelegatesTo(value = DefaultMercurialAuth, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         authType = new DefaultMercurialAuth(bambooFacade)
         DslScriptHelper.execute(closure, authType)
     }
 
-    void advancedOptions(@DelegatesTo(AdvancedHgMercurialOptions) Closure closure) {
+    void advancedOptions(
+            @DelegatesTo(value = AdvancedHgMercurialOptions, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         advancedOptions = new AdvancedHgMercurialOptions(bambooFacade)
         DslScriptHelper.execute(closure, advancedOptions)
     }

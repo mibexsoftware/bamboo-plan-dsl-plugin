@@ -13,13 +13,13 @@ class CustomTaskSpec extends Specification {
 
         when:
         def results = loader.parse(new DslScriptContext(dsl))
-        def customTask = results.projects[0].plans[0].stages[0].jobs[0].tasksList.tasks[0]
+        CustomTask customTask = results.projects[0].plans[0].stages[0].jobs[0].tasks.tasks[0]
 
         then:
         customTask.pluginKey == "ch.mibex.bamboo.sonar4bamboo:sonar4bamboo.maven3task"
         customTask.enabled
         customTask.description == "Analyze with SonarQube"
-        customTask.buildConfig == [
+        customTask.taskConfig == [
                               chosenSonarConfigId           : "1",
                               useGradleWrapper              : "false",
                               failBuildForBrokenQualityGates: "false",
@@ -45,13 +45,13 @@ class CustomTaskSpec extends Specification {
 
         when:
         def results = loader.parse(new DslScriptContext(dsl))
-        def customTask = results.projects[0].plans[0].stages[0].jobs[0].tasksList.tasks[0]
+        CustomTask customTask = results.projects[0].plans[0].stages[0].jobs[0].tasks.tasks[0]
 
         then:
         customTask.pluginKey == "ch.mibex.bamboo.sonar4bamboo:sonar4bamboo.maven3task"
         customTask.enabled
         customTask.description == "Analyze with SonarQube"
-        customTask.buildConfig == [
+        customTask.taskConfig == [
                               chosenSonarConfigId           : "1",
                               useGradleWrapper              : "false",
                               failBuildForBrokenQualityGates: "false",
