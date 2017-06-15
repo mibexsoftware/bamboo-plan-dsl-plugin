@@ -3,7 +3,7 @@
 
 contributor(context(scope: scriptScope())) {
     property(name: 'env', type: 'ch.mibex.bamboo.plandsl.dsl.BambooEnvironment')
-    property(name: 'out', type: 'ch.mibex.bamboo.plandsl.dsl.BambooFacade')
+    property(name: 'out', type: 'ch.mibex.bamboo.plandsl.dsl.Logger')
 }
 
 contributor(context(pathRegexp: /.*\/dsls\/.*\.groovy/), {
