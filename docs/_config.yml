@@ -13,52 +13,62 @@ collections:
     id: projects
     title: Project
     position: 1
-    permalink: "/#dsl_projects"    
-  deploymentproj:
-    id: deploymentproj
-    title: Deployment Projects
-    position: 2
-    permalink: "/#dsl_deploym_project_simple"    
+    permalink: "/#dsl_projects"
   plans:
     id: plans
     title: Plan
-    position: 3
-    permalink: "/#dsl_plan"    
+    position: 2
+    permalink: "/#plan"
   branches:
     id: branches
     title: Plan branches
-    position: 4
+    position: 3
     permalink: "/#dsl_branches"
   stages:
     id: stages
     title: Stage
-    position: 5
+    position: 4
     permalink: "/#dsl_stages_intro"            
   jobs:
     id: jobs
     title: Job
-    position: 6
+    position: 5
     permalink: "/#dsl_job"
+  tasks:
+    id: tasks
+    title: Tasks
+    position: 6
+    permalink: "/#dsl_tasks"
   scms:
     id: scms
-    title: Repositories
-    position: 9
+    title: SCM
+    position: 7
     permalink: "/#dsl_scm_intro"                
-  triggers:
-    id: triggers
-    title: Triggers
-    position: 10
-    permalink: "/#dsl_trigger_intro"                    
+  plantriggers:
+    id: plantriggers
+    title: Plan triggers
+    position: 8
+    permalink: "/#plan_triggers"
   notifications:
     id: notifications
     title: Notifications
-    position: 11
+    position: 9
     permalink: "/#dsl_notification_types"        
   permissions:
     id: permissions
     title: Permissions
+    position: 10
+    permalink: "/#dsl_permission_intro"
+  deploymentproj:
+    id: deploymentproj
+    title: Deployment Projects
+    position: 11
+    permalink: "/#dsl_deploym_project_simple"
+  examples:
+    id: examples
+    title: Examples
     position: 12
-    permalink: "/#dsl_permission_intro"                    
+    permalink: "/#dsl_examples"
 
 gems:
   - jekyll-sitemap
