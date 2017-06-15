@@ -4,8 +4,8 @@ import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.BambooObject
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import ch.mibex.bamboo.plandsl.dsl.Validations
-import ch.mibex.bamboo.plandsl.dsl.variables.Variables
 import ch.mibex.bamboo.plandsl.dsl.triggers.Triggers
+import ch.mibex.bamboo.plandsl.dsl.variables.Variables
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
@@ -13,6 +13,7 @@ import groovy.transform.ToString
 @ToString(includeFields=true)
 class Branch extends BambooObject {
     private String name
+    private String vcsBranchName
     private String description
     private boolean enabled = true
     private boolean cleanupAutomatically
@@ -31,13 +32,24 @@ class Branch extends BambooObject {
     protected Branch() {}
 
     Branch(String name) {
-        Validations.isNotNullOrEmpty(name, 'branch name must be specified')
-        Validations.isValidBambooEntityName(name, 'branch name must not contain special characters.')
+        Validations.isNotNullOrEmpty(name, 'Plan branch name must be specified')
+        Validations.isValidBambooEntityName(name, 'Plan branch name must not contain special characters. ' +
+                'Use vcsBranchName for the name of the branch in your repository.')
         this.name = name
     }
 
     /**
-     * The description for the new plan branch.
+     * The name of the branch in your repository.
+     *
+     * @param vcsBranchName The repository branch name.
+     */
+    void vcsBranchName(String vcsBranchName) {
+        this.vcsBranchName = vcsBranchName
+    }
+
+    /**
+     * The description for the new plan branch. Choose a meaningful description for the new branch.
+     * For example, "Bamboo tasks feature branch".
      *
      * @param description A description for the new plan branch
      */
@@ -46,7 +58,8 @@ class Branch extends BambooObject {
     }
 
     /**
-     * Specifies if the plan branch should be initially enabled or not.
+     * Specifies if the plan branch should be initially enabled or not. If enabled, your branch will be available for
+     * building and change detection straight away.
      */
     void enabled(boolean enabled = true) {
         this.enabled = enabled
@@ -62,7 +75,7 @@ class Branch extends BambooObject {
     /**
      * Change the way that Bamboo triggers this plan branch.
      */
-    void triggers(@DelegatesTo(Triggers) Closure closure) {
+    void triggers(@DelegatesTo(value = Triggers, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def triggers = new Triggers(bambooFacade)
         DslScriptHelper.execute(closure, triggers)
         this.triggers = triggers
@@ -72,7 +85,8 @@ class Branch extends BambooObject {
      * If you switch this option on, you can override entire repository configuration. When this options is off,
      * the settings shown below are inherited from plan's repository.
      */
-    void overridePlansDefaultRepository(@DelegatesTo(BranchSourceRepository) Closure closure) {
+    void overridePlansDefaultRepository(
+            @DelegatesTo(value = BranchSourceRepository, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def sourceRepository = new BranchSourceRepository(bambooFacade)
         DslScriptHelper.execute(closure, sourceRepository)
         this.sourceRepository = sourceRepository
@@ -82,7 +96,7 @@ class Branch extends BambooObject {
      * Enable automatic merging to integrate changes between the branch and the mainline, as well as (optionally)
      * push the merge back to the repository upon a successful integrated build.
      */
-    void merging(@DelegatesTo(BranchMerging) Closure closure) {
+    void merging(@DelegatesTo(value = BranchMerging, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def branchMerging = new BranchMerging(bambooFacade)
         DslScriptHelper.execute(closure, branchMerging)
         this.branchMerging = branchMerging
@@ -92,7 +106,7 @@ class Branch extends BambooObject {
      * You can override plan variables for this branch. The inherited plan variables and overridden.
      * Values are available on every build run in Bamboo and can be accessed using ${bamboo.variablename}
      */
-    void variables(@DelegatesTo(Variables) Closure closure) {
+    void variables(@DelegatesTo(value = Variables, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def variables = new Variables(bambooFacade)
         DslScriptHelper.execute(closure, variables)
         this.variables =  variables

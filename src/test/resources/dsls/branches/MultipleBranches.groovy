@@ -24,6 +24,11 @@ project("SIMPLEPROJECT2") {
                 enabled true
                 cleanupAutomatically true
             }
+            branch(name: "feature_branch_123") {
+                vcsBranchName "feature/branch_123"
+                enabled true
+                cleanupAutomatically true
+            }
         }
     }
 }
