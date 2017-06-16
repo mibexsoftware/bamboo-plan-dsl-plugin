@@ -6,6 +6,38 @@ import groovy.transform.ToString
 @ToString
 @EqualsAndHashCode
 class NullBambooFacade implements BambooFacade {
+    private final BambooEnvironment environment
+
+    @Deprecated
+    NullBambooFacade() {
+        environment = new NullBambooEnvironment()
+    }
+
+    NullBambooFacade(Map<String, String> environment) {
+        this.environment = new KeyValueEnv(environment)
+    }
+
+    static class KeyValueEnv implements BambooEnvironment {
+        private final Map<String, String> env
+
+        KeyValueEnv(Map<String, String> environment) {
+            this.env = environment
+        }
+
+        @Override
+        String getAt(String key) {
+            String value = env[key]
+            if (!value) {
+                throw new IllegalArgumentException("No environment variable found for '$key'")
+            }
+            value
+        }
+
+        @Override
+        String call(String key) {
+            getAt(key)
+        }
+    }
 
     @Override
     void requirePlugin(String pluginKey) {
@@ -79,7 +111,7 @@ class NullBambooFacade implements BambooFacade {
 
     @Override
     BambooEnvironment getVariableContext() {
-        new NullBambooEnvironment()
+        environment
     }
 
     // this is used to allow checking of DSL scripts without throwing errors

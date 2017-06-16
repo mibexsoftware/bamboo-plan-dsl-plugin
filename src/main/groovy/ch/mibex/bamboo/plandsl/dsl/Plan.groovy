@@ -3,12 +3,10 @@ package ch.mibex.bamboo.plandsl.dsl
 import ch.mibex.bamboo.plandsl.dsl.branches.Branches
 import ch.mibex.bamboo.plandsl.dsl.dependencies.Dependencies
 import ch.mibex.bamboo.plandsl.dsl.deployprojs.DeploymentProject
-import ch.mibex.bamboo.plandsl.dsl.notifications.NotificationType
 import ch.mibex.bamboo.plandsl.dsl.notifications.Notifications
 import ch.mibex.bamboo.plandsl.dsl.permissions.Permissions
 import ch.mibex.bamboo.plandsl.dsl.plans.Miscellaneous
 import ch.mibex.bamboo.plandsl.dsl.scm.Scm
-import ch.mibex.bamboo.plandsl.dsl.scm.ScmType
 import ch.mibex.bamboo.plandsl.dsl.triggers.Triggers
 import ch.mibex.bamboo.plandsl.dsl.variables.Variables
 import groovy.transform.EqualsAndHashCode
@@ -21,13 +19,11 @@ class Plan extends BambooObject {
     private String name
     private String description
     private Scm scm = new Scm(bambooFacade)
-    private List<ScmType> scms = []
     private boolean enabled = true
     private List<Stage> stages = []
     private List<DeploymentProject> deploymentProjects = []
     private Triggers triggers = new Triggers(bambooFacade)
     private Branches branches = new Branches(bambooFacade)
-    private List<NotificationType> notification = []
     private Notifications notifications = new Notifications(bambooFacade)
     private Variables variables = new Variables(bambooFacade)
     private Dependencies dependencies = new Dependencies(bambooFacade)

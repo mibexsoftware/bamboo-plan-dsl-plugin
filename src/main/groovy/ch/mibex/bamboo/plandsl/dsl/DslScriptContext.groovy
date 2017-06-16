@@ -9,20 +9,26 @@ class DslScriptContext {
     final String location
     final String body
     final URL[] urlRoots
+    final ScriptLanguage scriptLanguage
 
+    // we need this for backwards-compatibility in the unit tests
     DslScriptContext(String body) {
-        this(null, body, new File('.').toURI().toURL())
+        this(body, ScriptLanguage.GROOVY_DSL)
     }
 
-    DslScriptContext(File file) {
-        this(file.absolutePath, null, file.toURI().toURL())
+    DslScriptContext(String body, ScriptLanguage scriptLanguage) {
+        this(null, body, scriptLanguage, new File('.').toURI().toURL())
     }
 
-    DslScriptContext(String location, String body, URL urlRoot) {
-        this(location, body, urlRoot as URL[])
+    DslScriptContext(File file, ScriptLanguage scriptLanguage) {
+        this(file.absolutePath, null, scriptLanguage, file.toURI().toURL())
     }
 
-    DslScriptContext(String location, String body, URL[] urlRoots) {
+    DslScriptContext(String location, String body, ScriptLanguage scriptLanguage, URL urlRoot) {
+        this(location, body, scriptLanguage, urlRoot as URL[])
+    }
+
+    DslScriptContext(String location, String body, ScriptLanguage scriptLanguage, URL[] urlRoots) {
         if (location && !isValidScriptName(location)) {
             throw new DslException('Invalid script filename detected. Note that filenames need to be valid Java ' +
                     'identifiers, which e.g. means that "-" in filenames are not allowed. ' +
@@ -30,6 +36,7 @@ class DslScriptContext {
         }
         this.location = location
         this.body = body
+        this.scriptLanguage = scriptLanguage
         this.urlRoots = urlRoots
     }
 

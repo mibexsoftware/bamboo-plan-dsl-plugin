@@ -13,8 +13,7 @@ class Tasks extends BambooObject {
     private List<Task> tasks = []
 
     // for tests
-    Tasks() {
-        super()
+    protected Tasks() {
     }
 
     Tasks(BambooFacade bambooFacade) {

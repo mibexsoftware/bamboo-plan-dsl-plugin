@@ -4,7 +4,6 @@ import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.BambooObject
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import ch.mibex.bamboo.plandsl.dsl.Validations
-import ch.mibex.bamboo.plandsl.dsl.tasks.Task
 import ch.mibex.bamboo.plandsl.dsl.tasks.Tasks
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
@@ -16,7 +15,6 @@ class Job extends BambooObject {
     private String name
     private String description
     private boolean enabled = true
-    private List<Task> task = []
     private Tasks tasks = new Tasks(bambooFacade)
     private Artifacts artifacts = new Artifacts(bambooFacade)
     private List<ArtifactDefinition> artifactDefinitions = []

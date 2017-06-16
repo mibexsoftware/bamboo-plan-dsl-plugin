@@ -1,6 +1,5 @@
 package dsls.jobs
 
-
 out.println(env(''))
 
 project("SIMPLEPROJECT") {

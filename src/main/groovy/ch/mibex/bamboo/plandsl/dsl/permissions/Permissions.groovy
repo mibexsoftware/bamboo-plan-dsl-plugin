@@ -6,12 +6,12 @@ import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'])
+@EqualsAndHashCode(includeFields=false, excludes = ['metaClass'])
 @ToString(includeFields=true)
 class Permissions extends BambooObject {
-    private Map<String, PermissionTypes> userPermissions = [:]
-    private Map<String, PermissionTypes> groupPermissions = [:]
-    private Map<String, PermissionTypes> otherPermissions = [:]
+    private Map<String, PermissionTypes> user = [:]
+    private Map<String, PermissionTypes> group = [:]
+    private Map<OtherUserType, PermissionTypes> other = [:]
 
     protected Permissions(BambooFacade bambooFacade) {
         super(bambooFacade)
@@ -49,7 +49,7 @@ class Permissions extends BambooObject {
     void user(String name, @DelegatesTo(value = PermissionTypes, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def permissionTypes = new PermissionTypes(bambooFacade)
         DslScriptHelper.execute(closure, permissionTypes)
-        userPermissions[name] = permissionTypes
+        user[name] = permissionTypes
     }
 
     /**
@@ -70,7 +70,7 @@ class Permissions extends BambooObject {
     void group(String name, @DelegatesTo(value = PermissionTypes, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def permissionTypes = new PermissionTypes(bambooFacade)
         DslScriptHelper.execute(closure, permissionTypes)
-        groupPermissions[name] = permissionTypes
+        group[name] = permissionTypes
     }
 
     /**
@@ -92,6 +92,6 @@ class Permissions extends BambooObject {
                @DelegatesTo(value = PermissionTypes, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def permissionTypes = new PermissionTypes(bambooFacade)
         DslScriptHelper.execute(closure, permissionTypes)
-        otherPermissions[otherUserType.internalName] = permissionTypes
+        other[otherUserType] = permissionTypes
     }
 }

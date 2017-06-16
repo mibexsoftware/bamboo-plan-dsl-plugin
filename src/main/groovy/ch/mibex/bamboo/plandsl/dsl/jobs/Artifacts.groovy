@@ -16,7 +16,11 @@ class Artifacts extends BambooObject {
         super(bambooFacade)
     }
 
-    /**
+    // for tests
+    protected Artifacts() {
+    }
+
+        /**
      * Defines an artifact definition.
      *
      * @param name the name of the artifact definition

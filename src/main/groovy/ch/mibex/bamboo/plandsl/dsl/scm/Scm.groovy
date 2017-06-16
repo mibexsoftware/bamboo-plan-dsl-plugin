@@ -14,6 +14,10 @@ class Scm extends ScmType  {
         super(bambooFacade)
     }
 
+    // for tests
+    protected Scm() {
+    }
+
     /**
      * A Bitbucket Cloud repository.
      */

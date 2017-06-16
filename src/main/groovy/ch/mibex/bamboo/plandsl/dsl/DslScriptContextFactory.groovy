@@ -10,12 +10,13 @@ class DslScriptContextFactory {
     static Set<DslScriptContext> createContexts(List<String> dslLocations,
                                                 boolean inlineScript,
                                                 String dslText,
+                                                ScriptLanguage scriptLanguage,
                                                 File rootDir,
                                                 List<String> additionalClassPaths) {
         Set<DslScriptContext> scriptContexts = new LinkedHashSet<>()
 
         if (inlineScript) {
-            scriptContexts << new DslScriptContext(dslText)
+            scriptContexts << new DslScriptContext(dslText, scriptLanguage)
         } else {
             List<URL> classPaths = resolveClassPaths(additionalClassPaths, rootDir)
 
@@ -29,7 +30,7 @@ class DslScriptContextFactory {
                 srcFiles.each { srcFile ->
                     def file = new File(rootDir, srcFile)
                     def urlRoot = file.parentFile.toURI().toURL()
-                    scriptContexts << new DslScriptContext(file.name, null, [urlRoot] + classPaths as URL[])
+                    scriptContexts << new DslScriptContext(file.name, null, scriptLanguage, [urlRoot] + classPaths as URL[])
                 }
             }
         }
