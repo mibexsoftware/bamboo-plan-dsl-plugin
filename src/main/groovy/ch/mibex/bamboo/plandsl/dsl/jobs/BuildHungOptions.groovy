@@ -9,8 +9,8 @@ import groovy.transform.ToString
 @ToString(includeFields=true)
 class BuildHungOptions extends BambooObject {
     private double buildTimeMultiplier
-    private int logQuietTime
-    private int buildQueueTimeout
+    private int logQuietTimeInMinutes
+    private int buildQueueTimeoutInMinutes
 
     // just for testing
     protected BuildHungOptions() {}
@@ -30,7 +30,7 @@ class BuildHungOptions extends BambooObject {
      * The length of time (in whole minutes) without logs being received (e.g. 10 minutes)
      */
     void logQuietTimeInMinutes(int logQuietTime) {
-        this.logQuietTime = logQuietTime
+        this.logQuietTimeInMinutes = logQuietTime
     }
 
     /**
@@ -59,6 +59,6 @@ class BuildHungOptions extends BambooObject {
      * The length of time (in whole minutes) before queue timeout would be detected (e.g. 60 minutes)
      */
     void buildQueueTimeoutInMinutes(int buildQueueTimeout) {
-        this.buildQueueTimeout = buildQueueTimeout
+        this.buildQueueTimeoutInMinutes = buildQueueTimeout
     }
 }

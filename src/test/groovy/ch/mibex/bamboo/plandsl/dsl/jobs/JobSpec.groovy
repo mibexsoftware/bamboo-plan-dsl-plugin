@@ -70,7 +70,7 @@ class JobSpec extends Specification {
                 cleanWorkingDirectoryAfterEachBuild: true,
                 buildHungOptions: new BuildHungOptions(
                         buildTimeMultiplier: 2.5,
-                        logQuietTime: 10,
+                        logQuietTimeInMinutes: 10,
                         buildQueueTimeout: 60
                 ),
                 nCoverOutput: new NCoverOutput(

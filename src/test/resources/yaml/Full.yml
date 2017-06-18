@@ -12,6 +12,36 @@ project:
         - !scheduled
           description: run every day at noon
           cronExpression: 0 0 0 ? * *
+      dependencies:
+        blockingStrategy: !dependencyBlocking BLOCK_BUILD_IF_PARENT_BUILDS_ARE_QUEUED
+        advancedOptions:
+          enableDependenciesForAllBranches: true
+          triggerDependenciesOnlyWhenAllStagesHaveRunSuccessfully: true
+          autoDependencyManagement: false
+        dependencies:
+          - planKey: MYPLAN1
+          - planKey: MYPLAN2
+      variables:
+        - key: myPlanKey1
+          value: myPlanValue1
+        - key: myPlanKey2
+          value: myPlanValue2
+      miscellaneous:
+        expireNothing: true
+        expirationDetails:
+            keepBuildsWithLabels:
+              - 'label1'
+              - 'label2'
+              - 'label3'
+            expireAfter: 3
+            expireTimeUnit: !timeUnit DAYS
+            minimumBuildsToKeep: 10
+            expireBuildResults: true
+            expireBuildArtifacts: false
+            expireBuildLogs: true
+        customSettings:
+          mykey1: myvalue1
+          mykey2: myvalue2
       scm:
         - !bitbucket
           repoSlug: repo1
@@ -33,6 +63,115 @@ project:
                   taskConfig:
                     key1: value1
                     key2: value2
+                - !artifactDownload
+                  artifacts:
+                  - name: JAR
+                    destinationPath: out
+                    sourcePlanKey: myPlan
+                - !cleanWorkingDir
+                  isFinal: true
+                - !deployPlugin
+                  productType: !productType JIRA
+                  deployURL: http://myserver/jira
+                  deployUsername: admin
+                  deployPasswordVariable: !env mypw
+                  deployBranchEnabled: true
+                  certificateCheckDisabled: false
+                  useAtlassianIdWebSudo: true
+                  deployArtifactName: jar
+                - !docker
+                  repository: myrepo
+                  command: !dockerCommand BUILD
+                  existingDockerfile: true
+                  dockerfileContents: FROM debian:jessie-slim
+                  doNotUseCachingWhenBuildingImage: false
+                  saveTheImageAsFile: image.iso
+                  environmentVariables: what=EVER
+                  workingSubDirectory: .
+                - !herokuDeployWar
+                  apiKey: !env apiKey
+                  appName: myapp
+                  warFile: my.war
+                  enabled: false
+                  description: push to heroku
+                - !injectBambooVariables
+                  propertiesFilePath: path/to/props.txt
+                  namespace: myNs
+                  variablesScope: !variablesScope RESULT
+                - !junitParser
+                  testResultsDirectory: path/to/test/results
+                  pickUpTestResultsCreatedOutsideOfBuild: true
+                - !maven3
+                  goal: install
+                  executable: maven323
+                  buildJdk: jdk8
+                  environmentVariables: what=EVER
+                  workingSubDirectory: .
+                  useMavenReturnCode: false
+                  projectFile: a/b/pom.xml
+                  withTests:
+                    testResultsDirectory: tests/
+                - !msbuild
+                  executable: msbuild
+                  projectFile: MySolution.sln
+                  workingSubDirectory: .
+                  environmentVariables: what=EVER
+                  options: /d
+                  description: run MSBuild
+                - !nodeJs
+                  executable: /usr/bin/nodejs
+                  script: package.json
+                  environmentVariables: what=EVER
+                  workingSubDirectory: .
+                  arguments: -n
+                - !npm
+                  executable: /usr/bin/nodejs
+                  command: install
+                  environmentVariables: what=EVER
+                  workingSubDirectory: .
+                  useIsolatedCache: true
+                - !scp
+                  host: localhost
+                  userName: bob
+                  description: what=EVER
+                  authType: !passwordAuth
+                      password: !env mypw
+                  localPath: '*.zip,*.jar'
+                  artifactLocalPath:
+                    useAntPatternsToSelectFiles: true
+                  remotePath: a/b
+                  advancedOptions:
+                    hostFingerprint: test
+                    port: 22
+                - !shipit2marketplace
+                  deployArtifactName: Plan DSL
+                  description: ship it to the Atlassian Marketplace
+                  enabled: true
+                  isFinal: false
+                  onlyAllowToTriggerFromJira: true
+                  runOnBranchBuilds: false
+                  publicVersion: true
+                  deduceBuildNrFromPluginVersion: true
+                  bambooUserId: admin
+                  jqlToCollectReleaseNotes: status in (resolved,closed,done)
+                - !ssh
+                  host: localhost
+                  userName: bob
+                  description: show dir on remote server
+                  authType: !sshWithoutPassphraseAuth
+                    privateKey: !env privateKey
+                    enableSshCompression: true
+                  command: ls -l
+                  advancedOptions:
+                    hostFingerprint: test
+                    port: 22
+                - !vcsCheckout
+                  repositories:
+                    - name: myrepo1
+                      checkoutDirectory: a/
+                    - name: myrepo2
+                      checkoutDirectory: b/
+                  forceCleanBuild: true
               artifactDependencies:
                 - name: myExe
                   destinationDirectory: targets
@@ -41,6 +180,24 @@ project:
                   copyPattern: '*.exe'
                   isShared: true
                   name: def
+              miscellaneous:
+                cleanWorkingDirectoryAfterEachBuild: true
+                buildHungOptions:
+                  buildTimeMultiplier: 1.2
+                  logQuietTimeInMinutes: 10
+                  buildQueueTimeoutInMinutes: 20
+                cloverCodeCoverage:
+                  cloverXmlLocation: 'test/abc'
+                  cloverLicense: 'lic'
+                  cloverOptions:
+                    generateCloverHistoricalReport: true
+                    generateJSONReport: false
+                  integrationOptions: !integration CLOVER_IS_ALREADY_INTEGRATED_INTO_BUILD
+                nCoverOutput:
+                  nCoverXmlDirectory: 'xml/'
+                patternMatchLabelling:
+                  regexPattern: '**/*'
+                  labels: 'what'
       branches:
         autoBranchManagement:
           deletePlanBranchesAfterDays: 2
@@ -83,10 +240,24 @@ project:
                 - key: myKey2
                   value: myValue2
               notifications:
-                 - !hipchat
-                   apiToken: ABC
-                   room: myroom
-                   event: !event DEPLOYMENT_FAILED
+                - !hipchat
+                  apiToken: ABC
+                  room: myroom
+                  event: !event DEPLOYMENT_FAILED
+                  notify: true
+              permissions:
+                user:
+                  paul: !permission VIEW
+                  peter: !permission ADMIN
+                group:
+                  devs: !permission ADMIN
+                other:
+                  !userType ANONYMOUS_USERS: !permission VIEW
+              triggers:
+                - !afterSuccessfulBuildDeploymentTrigger
+                  description: run after successful build
+                  customPlanBranchName: 'DEV'
+                  enabled: true
           releaseVersioning:
              nextReleaseVersion: 1.0.0
              autoIncrement: true

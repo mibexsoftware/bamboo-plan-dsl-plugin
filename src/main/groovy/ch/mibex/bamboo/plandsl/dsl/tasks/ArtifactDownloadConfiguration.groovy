@@ -8,13 +8,17 @@ import groovy.transform.ToString
 @EqualsAndHashCode(includeFields=true)
 @ToString(includeFields=true)
 class ArtifactDownloadConfiguration extends BambooObject {
-    private final String name
+    private String name
     private String destinationPath
     private String sourcePlanKey
 
     ArtifactDownloadConfiguration(String name, BambooFacade bambooFacade) {
         super(bambooFacade)
         this.name = name
+    }
+
+    // for testing
+    protected ArtifactDownloadConfiguration() {
     }
 
     /**

@@ -17,8 +17,6 @@ class Job extends BambooObject {
     private boolean enabled = true
     private Tasks tasks = new Tasks(bambooFacade)
     private Artifacts artifacts = new Artifacts(bambooFacade)
-    private List<ArtifactDefinition> artifactDefinitions = []
-    private List<ArtifactDependency> artifactDependencies = []
     private Requirements requirements = new Requirements(bambooFacade)
     private Miscellaneous miscellaneous = new Miscellaneous(bambooFacade)
 

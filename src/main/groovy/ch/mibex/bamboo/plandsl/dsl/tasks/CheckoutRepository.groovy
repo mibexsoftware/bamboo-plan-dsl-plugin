@@ -8,8 +8,12 @@ import groovy.transform.ToString
 @EqualsAndHashCode(includeFields=true, excludes = ['metaClass'])
 @ToString(includeFields=true)
 class CheckoutRepository extends BambooObject {
-    private final String name
+    private String name
     private String checkoutDirectory
+
+    // for testing
+    protected CheckoutRepository() {
+    }
 
     CheckoutRepository(String name, BambooFacade bambooFacade) {
         super(bambooFacade)

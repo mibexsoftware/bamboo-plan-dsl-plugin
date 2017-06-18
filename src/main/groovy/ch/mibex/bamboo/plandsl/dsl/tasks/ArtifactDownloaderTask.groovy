@@ -16,6 +16,11 @@ class ArtifactDownloaderTask extends Task {
         super(bambooFacade, TASK_ID)
     }
 
+    // for testing
+    protected ArtifactDownloaderTask() {
+        super(TASK_ID)
+    }
+
     /**
      * You can choose multiple artifacts by name here. Just call this method multiple times with different names.
      */
