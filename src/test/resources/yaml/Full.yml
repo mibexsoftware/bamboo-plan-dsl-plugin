@@ -8,10 +8,53 @@ project:
         - !email
           address: test@test.com
           event: !event ALL_BUILDS_COMPLETED
+        - !committers
+          event: !event CHANGE_OF_BUILD_STATUS
+        - !customNotification
+          event: !event FAILED_BUILDS_AND_FIRST_SUCCESSFUL
+          notificationRecipientType: ch.mibex.bamboo.smsnotification:smsnotification.recipient
+          numberOfFailures: 1
+          config:
+            twilioAccountSid: [!env twilioAccountSid]
+            twilioAuthToken: [!env twilioAuthToken]
+            smsFromNumber: [!env smsFromNumber]
+            smsToNumber: [!env smsToNumber]
+        - !hipchat
+          event: !event AFTER_X_BUILD_FAILURES
+          apiToken: !env hipchat
+          room: MYROOM
+          notify: true
+        - !group
+          event: !event COMMENT_ADDED
+          group: mygroup
+        - !imAddress
+          event: !event CHANGE_OF_RESPONSIBILITIES
+          instantMessagingAddress: MyAddress
+        - !responsibleUsers
+          event: !event ALL_JOBS_COMPLETED
+        - !stashLegacy
+          event: !event CHANGE_OF_JOB_STATUS
+        - !user
+          event: !event FAILED_JOBS_AND_FIRST_SUCCESSFUL
+          user: bob
+        - !watchers
+          event: !event FIRST_FAILED_JOB_FOR_PLAN
       triggers:
+        - !bitbucketServerTrigger
+          description: trigger on push
+        - !manual
+          description: manually
+        - !polling
+          periodicTrigger:
+            pollingFrequencyInSecs: 30
         - !scheduled
           description: run every day at noon
           cronExpression: 0 0 0 ? * *
+        - !onceADay
+          buildTime: 17:30
+        - !remote
+          repositories: [repo1, repo2]
+          ipAddresses: [192.168.0.1, 192.168.0.2]
       dependencies:
         blockingStrategy: !dependencyBlocking BLOCK_BUILD_IF_PARENT_BUILDS_ARE_QUEUED
         advancedOptions:
@@ -30,9 +73,9 @@ project:
         expireNothing: true
         expirationDetails:
             keepBuildsWithLabels:
-              - 'label1'
-              - 'label2'
-              - 'label3'
+              - label1
+              - label2
+              - label3
             expireAfter: 3
             expireTimeUnit: !timeUnit DAYS
             minimumBuildsToKeep: 10
@@ -43,11 +86,132 @@ project:
           mykey1: myvalue1
           mykey2: myvalue2
       scm:
-        - !bitbucket
+        - !bitbucketCloud
           repoSlug: repo1
           branch: master
           authType: !password
             userName: user
+            password: pw
+        - !bitbucketServer
+          serverName: MYBBS
+          repositoryUrl: http://localhost:7990/git
+          projectKey: PROJECT_1
+          repoSlug: myrepo
+          branch: develop
+          advancedOptions:
+            enableRepositoryCachingOnRemoteAgents: true
+            useShallowClones: true
+            useSubmodules: false
+            commandTimeoutInMinutes: 15
+            verboseLogs: true
+            fetchWholeRepository: false
+            enableLfsSupport: true
+            quietPeriod:
+              waitTimeInSeconds: 10
+              maximumRetries: 15
+            includeExcludeFiles:
+              matchType: !matchType INCLUDE_ONLY_MATCHING_CHANGES
+              filePattern: '*.exe'
+            excludeChangesetsRegex: true
+            webRepository:
+              type: !fisheyeWeb
+                url: http://fisheye
+                repositoryPath: my/path
+                repositoryName: repo1
+        - !customScm
+          name: TFS
+          pluginKey: com.stellarity.bamboo.tfs-repository-plugin:tfs
+          config:
+            stellarity.tfs.repository.url: http://localhost:8080/tfs/DefaultCollection
+            stellarity.tfs.repository.path: $/test-prj/src
+            stellarity.tfs.repository.username: admin
+            stellarity.tfs.temporary.passwordChange: true
+            stellarity.tfs.temporary.password: CHANGEIT
+            stellarity.tfs.repository.removeworkspace: true
+            stellarity.tfs.repository.versionspec: 1.x
+            selectedWebRepositoryViewer: com.stellarity.bamboo.tfs-repository-plugin:tfsViewer
+            stellarity.tfs.repository.filter.option: INCLUDE
+            stellarity.tfs.repository.filter.pattern: checkout
+        - !cvs
+          name: myCvsRepo
+          cvsRoot: http://localhost:7990/bitbucket/scm/project_1/java-maven-simple.cvs
+          quietPeriodInSeconds: 60
+          module: test
+          moduleVersion: !cvsModuleVersion HEAD
+          authType: !password
+            password: pw
+        - !git
+            name: myGitRepo
+            url: http://localhost:7990/bitbucket/scm/project_1/java-maven-simple.git
+            branch: master
+            authType: !sharedCredentials
+              sharedCredentialsType: !sharedCredentialsType USERNAMEPW
+              name: sharedpw
+        - !github
+          name: myGithubRepo
+          repoSlug: test/HelloWorld
+          branch: master
+          authType: !password
+            userName: test
+            password: pw
+        - !linkedRepository
+          name: myGlobalRepo1
+        - !mercurial
+          name: myHg
+          repositoryUrl: http://hg.red-bean.com/repos/test
+          branch: master
+#          authType: !defaultMercurialAuth
+          advancedOptions:
+            enableCommitIsolation: true
+            commandTimeoutInMinutes: 180
+            verboseLogs: true
+            disableRepositoryCaching: false
+            quietPeriod:
+              waitTimeInSeconds: 120
+              maximumRetries: 3
+            includeExcludeFiles:
+              matchType: !matchType EXCLUDE_ALL_MATCHING_CHANGES
+              filePattern: exe
+            excludeChangesetsRegex: 'FIXES .*'
+#            webRepository:
+#              type: !bitbucketWeb
+        - !perforce
+          name: myPerforceRepo
+          port: 9091
+          client: perforce
+          depotView: //perforce/workspace
+          environmentVariables: P4CHARSET=utf8
+          letBambooManageWorkspace: true
+          useClientMapping: true
+          passwordAuth: !password
+            userName: admin
+            password: pw
+        - !subversion
+          advancedOptions:
+            detectChangesInExternals: true
+            useSvnExport: true
+            enableCommitIsolation: true
+            autoDetectRootUrlForBranches: false
+            branchesRootUrl: /branches
+            autoDetectRootUrlForTags: false
+            tagRootUrl: /tags
+            quietPeriod:
+              waitTimeInSeconds: 120
+              maximumRetries: 3
+            includeExcludeFiles:
+              matchType: !matchType EXCLUDE_ALL_MATCHING_CHANGES
+              filePattern: exe
+            excludeChangesetsRegex: 'FIXES .*'
+            webRepository:
+              type: !fisheyeWeb
+                url: http://localhost:7990
+                repositoryPath: a/b/c
+                repositoryName: d
+          repositoryUrl: http://svn.red-bean.com/repos/test
+          userName: admin
+          name: mySvn
+          authType: !password
+            userName: admin
             password: pw
       stages:
         - name: mystage
@@ -58,7 +222,7 @@ project:
                 - !script
                   inlineScript:
                     scriptBody: !env mykey
-                - !custom
+                - !customTask
                   pluginKey: ch.mibex.bamboo.plandsl
                   taskConfig:
                     key1: value1
@@ -254,10 +418,18 @@ project:
                 other:
                   !userType ANONYMOUS_USERS: !permission VIEW
               triggers:
-                - !afterSuccessfulBuildDeploymentTrigger
+                - !afterSuccessfulBuildDeployment
                   description: run after successful build
-                  customPlanBranchName: 'DEV'
+                  customPlanBranchName: DEV
                   enabled: true
+                - !afterSuccessfulDeployment
+                  triggeringEnvironment: UAT
+                - !afterSuccessfulStageDeployment
+                  planStageToTriggerThisDeployment: STAGE1
+                  customPlanBranchName: TEST
+                - !scheduledDeployment
+                  cronExpression: 0 0 0 6 * *
+                  customPlanBranchName: PROD
           releaseVersioning:
              nextReleaseVersion: 1.0.0
              autoIncrement: true

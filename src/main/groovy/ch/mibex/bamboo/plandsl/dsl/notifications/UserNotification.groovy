@@ -8,7 +8,11 @@ import groovy.transform.ToString
 @ToString(includeFields=true)
 class UserNotification extends NotificationType {
     static final NOTIFICATION_RECIPIENT_TYPE = 'com.atlassian.bamboo.plugin.system.notifications:recipient.user'
-    String user
+    private String user
+
+    // just for testing:
+    protected UserNotification() {
+    }
 
     UserNotification(Notifications.NotificationEvent event, BambooFacade bambooFacade) {
         super(NOTIFICATION_RECIPIENT_TYPE, event, bambooFacade)

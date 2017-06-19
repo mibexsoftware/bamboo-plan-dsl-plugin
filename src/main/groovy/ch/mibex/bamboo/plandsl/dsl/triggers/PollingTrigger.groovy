@@ -9,7 +9,6 @@ import groovy.transform.ToString
 @ToString(includeFields=true)
 class PollingTrigger extends TriggerType {
     private List<String> repositories
-    private String pollingStrategy
     private ScheduledTrigger scheduledTrigger
     private PeriodicTrigger periodicTrigger
 
@@ -23,7 +22,6 @@ class PollingTrigger extends TriggerType {
     void scheduled(@DelegatesTo(value = ScheduledTrigger, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def trigger = new ScheduledTrigger()
         DslScriptHelper.execute(closure, trigger)
-        this.pollingStrategy = 'CRON'
         this.scheduledTrigger = trigger
     }
 
@@ -31,7 +29,6 @@ class PollingTrigger extends TriggerType {
         def trigger = new PeriodicTrigger()
         DslScriptHelper.execute(closure, trigger)
         this.periodicTrigger = trigger
-        this.pollingStrategy = 'PERIOD'
     }
 
     /**
@@ -40,5 +37,4 @@ class PollingTrigger extends TriggerType {
     void repositories(String... repositories) {
         this.repositories = repositories
     }
-
 }

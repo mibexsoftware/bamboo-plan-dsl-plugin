@@ -9,6 +9,10 @@ import groovy.transform.ToString
 class StashLegacyNotification extends NotificationType {
     static final NOTIFICATION_RECIPIENT_TYPE = 'com.atlassian.bamboo.plugins.bamboo-stash-plugin:recipient.stash'
 
+    // just for testing
+    protected StashLegacyNotification() {
+    }
+
     StashLegacyNotification(Notifications.NotificationEvent event, BambooFacade bambooFacade) {
         super(NOTIFICATION_RECIPIENT_TYPE, event, bambooFacade)
     }

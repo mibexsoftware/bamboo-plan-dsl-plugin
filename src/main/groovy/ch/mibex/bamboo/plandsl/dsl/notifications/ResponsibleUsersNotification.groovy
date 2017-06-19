@@ -9,6 +9,10 @@ import groovy.transform.ToString
 class ResponsibleUsersNotification extends NotificationType {
     private static final NOTIFICATION_RECIPIENT_TYPE = 'com.atlassian.bamboo.brokenbuildtracker:recipient.responsible'
 
+    // just for testing:
+    protected ResponsibleUsersNotification() {
+    }
+
     ResponsibleUsersNotification(Notifications.NotificationEvent event, BambooFacade bambooFacade) {
         super(NOTIFICATION_RECIPIENT_TYPE, event, bambooFacade)
     }

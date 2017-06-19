@@ -29,8 +29,12 @@ class DslScriptContextFactory {
 
                 srcFiles.each { srcFile ->
                     def file = new File(rootDir, srcFile)
-                    def urlRoot = file.parentFile.toURI().toURL()
-                    scriptContexts << new DslScriptContext(file.name, null, scriptLanguage, [urlRoot] + classPaths as URL[])
+                    if (scriptLanguage == ScriptLanguage.GROOVY_DSL) {
+                        def urlRoots = [file.parentFile.toURI().toURL()] + classPaths as URL[]
+                        scriptContexts << new DslScriptContext(file.name, null, scriptLanguage, urlRoots)
+                    } else {
+                        scriptContexts << new DslScriptContext(file.absolutePath, null, scriptLanguage)
+                    }
                 }
             }
         }

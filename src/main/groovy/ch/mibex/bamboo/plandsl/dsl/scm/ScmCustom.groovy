@@ -7,7 +7,7 @@ import groovy.transform.ToString
 @EqualsAndHashCode(includeFields=true, excludes = ['metaClass'], callSuper = true)
 @ToString(includeFields=true)
 class ScmCustom extends ScmType {
-    private Map<String, String> buildConfig = [:]
+    private Map<String, String> config = [:]
     private String pluginKey
 
     // just for testing
@@ -20,10 +20,10 @@ class ScmCustom extends ScmType {
     }
 
     def methodMissing(String methodName, args) {
-        buildConfig << [(methodName): args[0].toString()]
+        config << [(methodName): args[0].toString()]
     }
 
     def configure(Map<String, Object> config) {
-        config.each { k, v -> buildConfig << [(k): v.toString()] }
+        config.each { k, v -> config << [(k): v.toString()] }
     }
 }

@@ -65,7 +65,6 @@ class BranchSpecificSettingsSpec extends Specification {
                 triggers: new Triggers(
                         triggers: [new PollingTrigger(
                                 repositories: ["repo123", "repo456"],
-                                pollingStrategy: 'PERIOD',
                                 periodicTrigger: new PeriodicTrigger(
                                         pollingFrequencyInSecs: 30
                                 ),

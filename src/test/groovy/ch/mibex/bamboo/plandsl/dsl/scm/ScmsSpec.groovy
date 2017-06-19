@@ -504,7 +504,7 @@ class ScmsSpec extends Specification {
 
         then:
         customScm == new ScmCustom(
-                buildConfig: [
+                config: [
                         'stellarity.tfs.repository.url': 'http://localhost:8080/tfs/DefaultCollection',
                         'stellarity.tfs.repository.path': '$/test-prj/src',
                         'stellarity.tfs.repository.username': 'admin',

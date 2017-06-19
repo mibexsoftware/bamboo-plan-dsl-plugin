@@ -113,8 +113,8 @@ project("DPPROJ") {
 //                                    matchType: equalsTo("2.2")) {
 //                        }
 //                    }
-//                    deticatedAgents {
-//                        deticatedAgent(name: '') {
+//                    dedicatedAgents {
+//                        dedicatedAgent(name: '') {
 //                        }
 //                    }
 //                }

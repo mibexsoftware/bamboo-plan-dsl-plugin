@@ -14,6 +14,10 @@ class CommittersNotification extends NotificationType {
         super(NOTIFICATION_RECIPIENT_TYPE, event, bambooFacade)
     }
 
+    // for testing:
+    protected CommittersNotification() {
+    }
+
     @Override
     protected Map<String, String[]> getConfig(Map<Object, Object> context) {
         [:]

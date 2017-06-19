@@ -1,21 +1,26 @@
 package ch.mibex.bamboo.plandsl.dsl
 
 import ch.mibex.bamboo.plandsl.dsl.branches.AutoBranchManagement
+import ch.mibex.bamboo.plandsl.dsl.branches.BranchUpdater
 import ch.mibex.bamboo.plandsl.dsl.branches.GateKeeper
 import ch.mibex.bamboo.plandsl.dsl.dependencies.Dependencies
 import ch.mibex.bamboo.plandsl.dsl.deployprojs.AfterSuccessfulBuildDeploymentTrigger
+import ch.mibex.bamboo.plandsl.dsl.deployprojs.AfterSuccessfulDeploymentTrigger
+import ch.mibex.bamboo.plandsl.dsl.deployprojs.AfterSuccessfulStageDeploymentTrigger
+import ch.mibex.bamboo.plandsl.dsl.deployprojs.ScheduledDeploymentTrigger
 import ch.mibex.bamboo.plandsl.dsl.jobs.CloverCodeCoverage
-import ch.mibex.bamboo.plandsl.dsl.notifications.EmailNotification
-import ch.mibex.bamboo.plandsl.dsl.notifications.HipChatNotification
-import ch.mibex.bamboo.plandsl.dsl.notifications.Notifications
+import ch.mibex.bamboo.plandsl.dsl.notifications.*
 import ch.mibex.bamboo.plandsl.dsl.permissions.PermissionTypes
 import ch.mibex.bamboo.plandsl.dsl.permissions.Permissions
 import ch.mibex.bamboo.plandsl.dsl.plans.ExpirationDetails
-import ch.mibex.bamboo.plandsl.dsl.scm.ScmBitbucketCloud
+import ch.mibex.bamboo.plandsl.dsl.scm.*
 import ch.mibex.bamboo.plandsl.dsl.scm.auth.*
+import ch.mibex.bamboo.plandsl.dsl.scm.web.BitbucketWebRepository
+import ch.mibex.bamboo.plandsl.dsl.scm.web.FisheyeWebRepository
+import ch.mibex.bamboo.plandsl.dsl.scm.web.MercurialWebRepository
+import ch.mibex.bamboo.plandsl.dsl.scm.web.StashWebRepository
 import ch.mibex.bamboo.plandsl.dsl.tasks.*
-import ch.mibex.bamboo.plandsl.dsl.triggers.BitbucketServerTrigger
-import ch.mibex.bamboo.plandsl.dsl.triggers.ScheduledTrigger
+import ch.mibex.bamboo.plandsl.dsl.triggers.*
 import org.yaml.snakeyaml.TypeDescription
 import org.yaml.snakeyaml.Yaml
 import org.yaml.snakeyaml.constructor.AbstractConstruct
@@ -31,60 +36,32 @@ class YamlParser {
         this.bambooFacade = bambooFacade
     }
 
-    static class YamlDsl {
-        Project project
+    Project parse(File file) {
+        parse(file.text)
     }
 
-    static class EnvConstructor extends Constructor {
-        private final BambooFacade bambooFacade
-
-        EnvConstructor(BambooFacade bambooFacade) {
-            this.bambooFacade = bambooFacade
-            this.yamlConstructors.put(new Tag('!env'), new ConstructEnv())
-        }
-
-        private class ConstructEnv extends AbstractConstruct {
-
-            @Override
-            Object construct(org.yaml.snakeyaml.nodes.Node node) {
-                if (!(node instanceof ScalarNode)) {
-                    throw new IllegalArgumentException('Non-scalar !env: ' + node.toString());
-                }
-                String key = (String) constructScalar(node)
-                bambooFacade.variableContext[key]
-            }
-        }
-    }
-
-    YamlDsl parseYaml(String input) {
+    Project parse(String input) {
         Constructor constructor = new EnvConstructor(bambooFacade)
         addTypeAliases(constructor)
         def yaml = new Yaml(constructor)
         yaml.setBeanAccess(BeanAccess.FIELD)
         String str = removeDuplicateNesting(yaml, input)
-        yaml.loadAs(str, YamlDsl)
+        yaml.loadAs(str, YamlDsl).project
     }
 
     private void addTypeAliases(Constructor constructor) {
-        constructor.addTypeDescription(new TypeDescription(BitbucketServerTrigger, '!bitbucketServerTrigger'))
-        constructor.addTypeDescription(new TypeDescription(AfterSuccessfulBuildDeploymentTrigger, '!afterSuccessfulBuildDeploymentTrigger'))
-        constructor.addTypeDescription(new TypeDescription(ScheduledTrigger, '!scheduled'))
-
-        constructor.addTypeDescription(new TypeDescription(GateKeeper, '!gateKeeper'))
-
+        addTriggerTypeAliases(constructor)
         addTaskTypeAliases(constructor)
+        addNotificationTypeAliases(constructor)
+        addScmTypeAliases(constructor)
+        addScmTypeAliases(constructor)
+        addAutoBranchTypeAliases(constructor)
+        addOtherTypeAliases(constructor)
+    }
 
-        constructor.addTypeDescription(new TypeDescription(ScmBitbucketCloud, '!bitbucket'))
-        constructor.addTypeDescription(new TypeDescription(PasswordAuth, '!password'))
-
-        constructor.addTypeDescription(new TypeDescription(EmailNotification, '!email'))
-        constructor.addTypeDescription(new TypeDescription(HipChatNotification, '!hipchat'))
-        constructor.addTypeDescription(new TypeDescription(Notifications.NotificationEvent, '!event'))
-
-        constructor.addTypeDescription(new TypeDescription(AutoBranchManagement.DeletedBranchesStrategy, '!deletedBranches'))
-        constructor.addTypeDescription(new TypeDescription(AutoBranchManagement.InactiveBranchesStrategy, '!inactiveBranches'))
-        constructor.addTypeDescription(new TypeDescription(AutoBranchManagement.NewBranchesStrategy, '!newBranches'))
-
+    private void addOtherTypeAliases(Constructor constructor) {
+        constructor.addTypeDescription(new TypeDescription(GateKeeper, '!gateKeeper'))
+        constructor.addTypeDescription(new TypeDescription(BranchUpdater, '!branchUpdater'))
         constructor.addTypeDescription(new TypeDescription(PermissionTypes.PermissionType, '!permission'))
         constructor.addTypeDescription(new TypeDescription(Permissions.OtherUserType, '!userType'))
         constructor.addTypeDescription(new TypeDescription(Dependencies.DependencyBlockingStrategy, '!dependencyBlocking'))
@@ -92,12 +69,68 @@ class YamlParser {
         constructor.addTypeDescription(new TypeDescription(ExpirationDetails.TimeUnit, '!timeUnit'))
     }
 
+    private void addAutoBranchTypeAliases(Constructor constructor) {
+        constructor.addTypeDescription(new TypeDescription(AutoBranchManagement.DeletedBranchesStrategy, '!deletedBranches'))
+        constructor.addTypeDescription(new TypeDescription(AutoBranchManagement.InactiveBranchesStrategy, '!inactiveBranches'))
+        constructor.addTypeDescription(new TypeDescription(AutoBranchManagement.NewBranchesStrategy, '!newBranches'))
+    }
+
+    private void addScmTypeAliases(Constructor constructor) {
+        constructor.addTypeDescription(new TypeDescription(ScmBitbucketCloud, '!bitbucketCloud'))
+        constructor.addTypeDescription(new TypeDescription(ScmBitbucketServer, '!bitbucketServer'))
+        constructor.addTypeDescription(new TypeDescription(FisheyeWebRepository, '!fisheyeWeb'))
+        constructor.addTypeDescription(new TypeDescription(BitbucketWebRepository, '!bitbucketWeb'))
+        constructor.addTypeDescription(new TypeDescription(MercurialWebRepository, '!mercurialWeb'))
+        constructor.addTypeDescription(new TypeDescription(StashWebRepository, '!stashWeb'))
+        constructor.addTypeDescription(new TypeDescription(ScmType.MatchType, '!matchType'))
+        constructor.addTypeDescription(new TypeDescription(ScmCustom, '!customScm'))
+        constructor.addTypeDescription(new TypeDescription(ScmCvs, '!cvs'))
+        constructor.addTypeDescription(new TypeDescription(ScmCvs.CvsModuleVersion, '!cvsModuleVersion'))
+        constructor.addTypeDescription(new TypeDescription(ScmGit, '!git'))
+        constructor.addTypeDescription(new TypeDescription(SharedCredentialsAuth, '!sharedCredentials'))
+        constructor.addTypeDescription(new TypeDescription(SharedCredentialsAuth.SharedCredentialsType, '!sharedCredentialsType'))
+        constructor.addTypeDescription(new TypeDescription(ScmGithub, '!github'))
+        constructor.addTypeDescription(new TypeDescription(ScmLinkedRepository, '!linkedRepository'))
+        constructor.addTypeDescription(new TypeDescription(ScmMercurial, '!mercurial'))
+        constructor.addTypeDescription(new TypeDescription(DefaultMercurialAuth, '!defaultMercurialAuth'))
+        constructor.addTypeDescription(new TypeDescription(ScmPerforce, '!perforce'))
+        constructor.addTypeDescription(new TypeDescription(ScmSubversion, '!subversion'))
+        constructor.addTypeDescription(new TypeDescription(PasswordAuth, '!password'))
+    }
+
+    private void addNotificationTypeAliases(Constructor constructor) {
+        constructor.addTypeDescription(new TypeDescription(CommittersNotification, '!committers'))
+        constructor.addTypeDescription(new TypeDescription(CustomNotification, '!customNotification'))
+        constructor.addTypeDescription(new TypeDescription(EmailNotification, '!email'))
+        constructor.addTypeDescription(new TypeDescription(HipChatNotification, '!hipchat'))
+        constructor.addTypeDescription(new TypeDescription(Notifications.NotificationEvent, '!event'))
+        constructor.addTypeDescription(new TypeDescription(GroupNotification, '!group'))
+        constructor.addTypeDescription(new TypeDescription(ImAddressNotification, '!imAddress'))
+        constructor.addTypeDescription(new TypeDescription(ResponsibleUsersNotification, '!responsibleUsers'))
+        constructor.addTypeDescription(new TypeDescription(StashLegacyNotification, '!stashLegacy'))
+        constructor.addTypeDescription(new TypeDescription(UserNotification, '!user'))
+        constructor.addTypeDescription(new TypeDescription(WatchersNotification, '!watchers'))
+    }
+
+    private void addTriggerTypeAliases(Constructor constructor) {
+        constructor.addTypeDescription(new TypeDescription(BitbucketServerTrigger, '!bitbucketServerTrigger'))
+        constructor.addTypeDescription(new TypeDescription(AfterSuccessfulBuildDeploymentTrigger, '!afterSuccessfulBuildDeployment'))
+        constructor.addTypeDescription(new TypeDescription(AfterSuccessfulDeploymentTrigger, '!afterSuccessfulDeployment'))
+        constructor.addTypeDescription(new TypeDescription(AfterSuccessfulStageDeploymentTrigger, '!afterSuccessfulStageDeployment'))
+        constructor.addTypeDescription(new TypeDescription(ScheduledDeploymentTrigger, '!scheduledDeployment'))
+        constructor.addTypeDescription(new TypeDescription(ScheduledTrigger, '!scheduled'))
+        constructor.addTypeDescription(new TypeDescription(ManualTrigger, '!manual'))
+        constructor.addTypeDescription(new TypeDescription(OnceADayTrigger, '!onceADay'))
+        constructor.addTypeDescription(new TypeDescription(PollingTrigger, '!polling'))
+        constructor.addTypeDescription(new TypeDescription(RemoteTrigger, '!remote'))
+    }
+
     private void addTaskTypeAliases(Constructor constructor) {
         constructor.addTypeDescription(new TypeDescription(ArtifactDownloaderTask, '!artifactDownload'))
         constructor.addTypeDescription(new TypeDescription(CleanWorkingDirTask, '!cleanWorkingDir'))
         constructor.addTypeDescription(new TypeDescription(CommandTask, '!command'))
         constructor.addTypeDescription(new TypeDescription(ScriptTask, '!script'))
-        constructor.addTypeDescription(new TypeDescription(CustomTask, '!custom'))
+        constructor.addTypeDescription(new TypeDescription(CustomTask, '!customTask'))
         constructor.addTypeDescription(new TypeDescription(DeployPluginTask.ProductType, '!productType'))
         constructor.addTypeDescription(new TypeDescription(DeployPluginTask, '!deployPlugin'))
         constructor.addTypeDescription(new TypeDescription(DockerTask, '!docker'))
@@ -228,6 +261,31 @@ class YamlParser {
             }
         }
         yaml.dump(map)
+    }
+
+    static class YamlDsl {
+        Project project
+    }
+
+    static class EnvConstructor extends Constructor {
+        private final BambooFacade bambooFacade
+
+        EnvConstructor(BambooFacade bambooFacade) {
+            this.bambooFacade = bambooFacade
+            this.yamlConstructors.put(new Tag('!env'), new ConstructEnv())
+        }
+
+        private class ConstructEnv extends AbstractConstruct {
+
+            @Override
+            Object construct(org.yaml.snakeyaml.nodes.Node node) {
+                if (!(node instanceof ScalarNode)) {
+                    throw new IllegalArgumentException('Non-scalar !env: ' + node.toString());
+                }
+                String key = (String) constructScalar(node)
+                bambooFacade.variableContext[key]
+            }
+        }
     }
 
 }
