@@ -75,8 +75,6 @@ class DslScriptParserImpl implements DslScriptParser {
     private Binding createBinding() {
         Binding binding = new Binding()
         binding.setVariable('out', bambooFacade.buildLogger)
-        // DEPRECATED: remove this with version API 2.0:
-        binding.setVariable('bamboo', bambooFacade.variableContext)
         binding.setVariable('env', bambooFacade.variableContext)
 
         bambooFacade.exportedBambooObjects.each { key, value ->
