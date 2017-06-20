@@ -9,18 +9,18 @@ right_code: |
           useCustomPlanBranch 'PLAN_BRANCH_NAME'
 
           environment(name: 'staging', id: 1) {
-              description: Staging env
+              description 'Staging env'
           }
           environment(name: 'prod', id: 2) {
-              description: Production env
+              description 'Production env'
           }
-          releaseVersioning(nextReleaseVersion: '1.0.0') {
+          releaseVersioning(nextReleaseVersion: '1.0-${bamboo.buildNumber}') {
               autoIncrement()
               variables 'var1', 'var2'
           }
           permissions {
           }
-    }
+      }
   }
   ~~~
   {: title="DSL" }
@@ -41,7 +41,7 @@ right_code: |
               id: 2
               description: Production env
           releaseVersioning:
-             nextReleaseVersion: 1.0.0
+             nextReleaseVersion: 1.0-${bamboo.buildNumber}
              autoIncrement: true
              variables:
                - var1
@@ -50,7 +50,8 @@ right_code: |
   ~~~
   {: title="YAML" }
 ---
-A deployment project consists of a description, the name of the associated plan branch (if not the default one), and a number of deployment environments:
+A deployment project consists of a description, the name of the associated [plan branch](#branches)
+(if not the default one), a number of [deployment environments](#environments) and release versioning information.
 
-
-
+Note that the ID for both the deployment projects and the environments is optional and will be auto-generated if not
+specified.

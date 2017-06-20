@@ -93,7 +93,7 @@ class DeploymentTriggers extends BambooObject {
     @Deprecated
     void afterSuccessfulDeployment(
             String description,
-            @DelegatesTo(value = AfterSuccessfulBuildDeploymentTrigger, strategy = Closure.DELEGATE_FIRST) Closure c) {
+            @DelegatesTo(value = AfterSuccessfulDeploymentTrigger, strategy = Closure.DELEGATE_FIRST) Closure c) {
         def trigger = new AfterSuccessfulDeploymentTrigger(bambooFacade)
         trigger.description = description
         DslScriptHelper.execute(c, trigger)
@@ -107,7 +107,7 @@ class DeploymentTriggers extends BambooObject {
      */
     void afterSuccessDeployment(
             String triggeringEnvironment,
-            @DelegatesTo(value = AfterSuccessfulBuildDeploymentTrigger, strategy = Closure.DELEGATE_FIRST) Closure c) {
+            @DelegatesTo(value = AfterSuccessfulDeploymentTrigger, strategy = Closure.DELEGATE_FIRST) Closure c) {
         def trigger = new AfterSuccessfulDeploymentTrigger(triggeringEnvironment, bambooFacade)
         DslScriptHelper.execute(c, trigger)
         triggers << trigger
@@ -120,7 +120,7 @@ class DeploymentTriggers extends BambooObject {
      */
     void afterSuccessDeployment(
             Map<String, String> params,
-            @DelegatesTo(value = AfterSuccessfulBuildDeploymentTrigger, strategy = Closure.DELEGATE_FIRST) Closure c) {
+            @DelegatesTo(value = AfterSuccessfulDeploymentTrigger, strategy = Closure.DELEGATE_FIRST) Closure c) {
         afterSuccessDeployment(params['triggeringEnvironment'], c)
     }
 
@@ -133,7 +133,7 @@ class DeploymentTriggers extends BambooObject {
     @Deprecated
     void afterSuccessfulStage(
             String description,
-            @DelegatesTo(value = AfterSuccessfulBuildDeploymentTrigger, strategy = Closure.DELEGATE_FIRST) Closure c) {
+            @DelegatesTo(value = AfterSuccessfulStageDeploymentTrigger, strategy = Closure.DELEGATE_FIRST) Closure c) {
         def trigger = new AfterSuccessfulStageDeploymentTrigger(bambooFacade)
         trigger.description = description
         DslScriptHelper.execute(c, trigger)
@@ -144,7 +144,7 @@ class DeploymentTriggers extends BambooObject {
      * Deployment is started after a stage is successfully built.
      */
     void afterSuccessfulStage(
-            @DelegatesTo(value = AfterSuccessfulBuildDeploymentTrigger, strategy = Closure.DELEGATE_FIRST) Closure c) {
+            @DelegatesTo(value = AfterSuccessfulStageDeploymentTrigger, strategy = Closure.DELEGATE_FIRST) Closure c) {
         afterSuccessfulStage(null, c)
     }
 }

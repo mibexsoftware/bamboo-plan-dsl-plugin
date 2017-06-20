@@ -97,8 +97,7 @@ project("DPPROJ") {
                 }
 
                 triggers {
-                    scheduled("test") {
-                        cronExpression "0 0 0 ? * *"
+                    scheduledCron("0 0 0 ? * *") {
                     }
                     afterSuccessfulStage() {
                         customPlanBranchName("develop")
@@ -106,6 +105,8 @@ project("DPPROJ") {
                     }
                     afterSuccessfulBuildPlan() {
                         customPlanBranchName("develop")
+                    }
+                    afterSuccessDeployment(triggeringEnvironment: 'PROD') {
                     }
                 }
 

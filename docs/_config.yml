@@ -66,9 +66,14 @@ collections:
     permalink: "/#permissions"
   deploymentproj:
     id: deploymentproj
-    title: Deployment Projects
+    title: Deployment projects
     position: 12
     permalink: "/#deployment_projects"
+  envtriggers:
+    id: envtriggers
+    title: Environment triggers
+    position: 13
+    permalink: "/#environment_triggers"
 
 gems:
   - jekyll-sitemap

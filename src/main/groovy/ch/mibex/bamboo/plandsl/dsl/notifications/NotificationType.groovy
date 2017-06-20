@@ -27,7 +27,7 @@ abstract class NotificationType extends BambooObject {
 
     protected NotificationType() {}
 
-    def Map<String, String[]> getNotificationConfig(Map<Object, Object> context) {
+    Map<String, String[]> getNotificationConfig(Map<Object, Object> context) {
         def config = getConfig(context)
         if (numberOfFailures > 0) {
             config.put('numFailedTimes', [numberOfFailures] as String[])
@@ -35,7 +35,7 @@ abstract class NotificationType extends BambooObject {
         config
     }
 
-    protected abstract def Map<String, String[]> getConfig(Map<Object, Object> context)
+    protected abstract Map<String, String[]> getConfig(Map<Object, Object> context)
 
     void numberOfFailures(int num) {
         this.numberOfFailures = num
