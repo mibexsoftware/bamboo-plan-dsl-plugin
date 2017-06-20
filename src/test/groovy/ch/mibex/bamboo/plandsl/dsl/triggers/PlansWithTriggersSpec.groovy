@@ -33,7 +33,6 @@ class PlansWithTriggersSpec extends Specification {
         results.projects[0].plans[0].triggers.triggers[0] == new PollingTrigger(
             description: "mypollsched",
             repositories: ["mygit", "mybitbucket"],
-            pollingStrategy: PollingTrigger.PollingStrategy.CRON,
             scheduledTrigger: new ScheduledTrigger(cronExpression: "0 0 0 ? * *"),
             onlyRunIfOtherPlansArePassing: new OnlyIfOthersPassingTriggerCondition(planKeys: ["PROJ-PLAN1"])
         )
@@ -63,7 +62,6 @@ class PlansWithTriggersSpec extends Specification {
         results.projects[0].plans[0].triggers.triggers[0] == new PollingTrigger(
             description: "mypollper",
             repositories: ["test2"],
-            pollingStrategy: PollingTrigger.PollingStrategy.PERIOD,
             periodicTrigger: new PeriodicTrigger(pollingFrequencyInSecs: 180),
             onlyRunIfOtherPlansArePassing: new OnlyIfOthersPassingTriggerCondition(planKeys: ["PROJ-PLAN1", "PROJ-PLAN3", "PROJ-PLAN5"])
         )
@@ -98,7 +96,6 @@ class PlansWithTriggersSpec extends Specification {
         results.projects[0].plans[0].triggers.triggers[0] == new PollingTrigger(
                 description: "mypollsched",
                 repositories: ["mygit", "mybitbucket"],
-                pollingStrategy: PollingTrigger.PollingStrategy.CRON,
                 scheduledTrigger: new ScheduledTrigger(cronExpression: "0 0 0 ? * *"),
                 onlyRunIfOtherPlansArePassing: new OnlyIfOthersPassingTriggerCondition(planKeys: ["PROJ-PLAN1"])
         )

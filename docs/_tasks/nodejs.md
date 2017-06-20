@@ -13,8 +13,16 @@ right_code: |
   }
   ~~~
   {: title="DSL" }
-  ~~~ yml       
+  ~~~ yml
+  tasks:
+    - !nodeJs
+      executable: /usr/bin/nodejs
+      script: package.json
+      description: execute Node
+      workingSubDirectory: .
+      arguments: -n
+      environmentVariables: what=EVER
   ~~~
   {: title="YAML" }
 ---
-Execute JavaScript on the server with Node.js
+A task to execute JavaScript on the server with Node.js.

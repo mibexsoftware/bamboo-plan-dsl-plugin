@@ -20,24 +20,47 @@ right_code: |
           }
           notifications {
           }
+          dependencies {
+          }
+          variables {
+          }
+          miscellaneous {
+          }
           deploymentProject(name: 'staging') {
           }
           deploymentProject(name: 'production') {
           }
       }
-      plan(key: 'PLAN2KEY', name: 'my plan 2') {
-          // ...
-      }
   }
   ~~~
   {: title="DSL" }
   ~~~ yml
+  project:
+    key: PROJECTKEY
+    name: my project
+    plans:
+      - key: PLAN1KEY
+        name: my plan 1
+        stages:
+          - name: package
+          - name: test
+        scm:          
+        triggers:
+        branches:
+        notifications:
+        dependencies:
+        variables:
+        miscellaneous:
+        deploymentProjects:
+          - name: staging
+          - name: production
   ~~~
   {: title="YAML" }
 
 ---
-A plan contains every thing related to a build plan in Bamboo. It consists of multiple stages, SCM information, triggers,
-branches, notifications and deployment projects. Note that you only need to specify the elements you really need. 
+A plan contains everything related to a build plan in Bamboo. It consists of multiple stages, SCM information, triggers,
+branches, notifications, build variables, dependencies, misc options and deployment projects. Note that you only need to
+specify the elements you really need.
 
-Note that the key of the plan must consist of an uppercase letter followed by one or more uppercase alphanumeric 
+Also note that the key of the plan must consist of an uppercase letter followed by one or more uppercase alphanumeric
 characters.

@@ -17,7 +17,14 @@ right_code: |
   }
   ~~~
   {: title="DSL" }
-  ~~~ yml       
+  ~~~ yml
+  triggers:
+    - !polling
+      description: mypollsched
+      scheduledTrigger:
+        cronExpression: '0 0 0 ? * *'
+      onlyRunIfOtherPlansArePassing:
+        planKeys: [PROJKEY-PLANKEY]
   ~~~
   {: title="YAML" }
 ---

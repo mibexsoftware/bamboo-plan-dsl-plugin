@@ -8,8 +8,11 @@ right_code: |
   }
   ~~~
   {: title="DSL" }
-  ~~~ yml       
+  ~~~ yml
+  scm:
+    - !linkedRepository
+      name: myGlobalRepo
   ~~~
   {: title="YAML" }
 ---
-An example of a linked repository definition.
+A definition for a linked Bamboo repository. Linked repositories are global to the Bamboo installation.

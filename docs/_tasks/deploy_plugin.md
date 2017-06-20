@@ -15,11 +15,24 @@ right_code: |
           enabled true
           deployBranchEnabled true
           certificateCheckDisabled true
+          useAtlassianIdWebSudo false
       }
   }
   ~~~
   {: title="DSL" }
-  ~~~ yml       
+  ~~~ yml
+  tasks:
+    - !deployPlugin
+      productType: !productType STASH
+      deployUsername: admin
+      deployURL: http://myserver
+      deployArtifactName: Plan DSL
+      deployPasswordVariable: !env bitbucket_server_password
+      description: Deploy plug-in to staging server
+      enabled: true
+      deployBranchEnabled: true
+      certificateCheckDisabled: false
+      useAtlassianIdWebSudo: false
   ~~~
   {: title="YAML" }
 ---

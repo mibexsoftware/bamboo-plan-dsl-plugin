@@ -21,6 +21,8 @@ ruleset {
         exclude 'BuilderMethodWithSideEffects'
         // a lot of false positive ignoring that we want to set these fields in unit tests by using maps in initializers
         exclude 'PrivateFieldCouldBeFinal'
+        // we don't care
+        exclude 'Instanceof'
     }
 
     // the DRY rules do not necessarily lead to better code
@@ -58,6 +60,8 @@ ruleset {
             ignoreThisReference = true
         }
 
+        exclude 'ExplicitCallToGetAtMethod'
+
         // not necessarily an issue, problems should be detected by unit tests
         exclude 'GStringExpressionWithinString'
     }
@@ -67,6 +71,8 @@ ruleset {
         MisorderedStaticImports {
             comesBefore = false
         }
+        // we don't care
+        exclude 'NoWildcardImports'
     }
 
     ruleset('rulesets/logging.xml')
@@ -102,5 +108,6 @@ ruleset {
         exclude 'UnnecessaryOverridingMethod'
     }
 
-    ruleset('rulesets/unused.xml')
+    // we don't care for now
+    // ruleset('rulesets/unused.xml')
 }

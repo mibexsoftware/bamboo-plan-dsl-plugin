@@ -10,8 +10,11 @@ right_code: |
   }
   ~~~
   {: title="DSL" }
-  ~~~ yml       
+  ~~~ yml
+  tasks:
+    - !cleanWorkingDir
+      isFinal: true
   ~~~
   {: title="YAML" }
 ---
-A task.
+A task to clean the working directory of a build job.

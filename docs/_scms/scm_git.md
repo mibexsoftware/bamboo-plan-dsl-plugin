@@ -20,7 +20,7 @@ right_code: |
                   maximumRetries 3
               }
               includeExcludeFiles(MatchType.EXCLUDE_ALL_MATCHING_CHANGES) {
-                  filePattern "exe"
+                  filePattern "*.exe"
               }
               excludeChangesetsRegex "FIXES .*"
               webRepository {
@@ -35,8 +35,34 @@ right_code: |
   }
   ~~~
   {: title="DSL" }
-  ~~~ yml       
+  ~~~ yml
+  scm:
+    - !git
+        name: myGitRepo
+        url: http://localhost:7990/bitbucket/scm/project_1/java-maven-simple.git
+        branch: master
+        authType: !sharedCredentials
+          sharedCredentialsType: !sharedCredentialsType USERNAMEPW
+          name: sharedpw
+        advancedOptions:
+          useShallowClones: true
+          useSubmodules: true
+          commandTimeoutInMinutes: 20
+          verboseLogs: true
+          fetchWholeRepository: true
+          quietPeriod:
+            waitTimeInSeconds: 120
+            maximumRetries: 3
+          includeExcludeFiles:
+            matchType: !matchType EXCLUDE_ALL_MATCHING_CHANGES
+          filePattern: '*.exe'
+          excludeChangesetsRegex: 'FIXES .*'
+          webRepository:
+            type: !fisheyeWeb
+              url: http://localhost:7990
+                repositoryPath: a/b/c
+                repositoryName: d
   ~~~
   {: title="YAML" }
 ---
-An example of a Git repository definition.
+A definition for plain Git repositories.

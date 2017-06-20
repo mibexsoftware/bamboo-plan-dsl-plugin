@@ -38,8 +38,33 @@ right_code: |
   }
   ~~~
   {: title="DSL" }
-  ~~~ yml       
+  ~~~ yml
+  scm:
+    - !github
+      name: myGithubRepo
+      repoSlug: test/HelloWorld
+      branch: master
+      authType: !password
+        userName: myUser
+      advancedOptions:
+        useShallowClones: true
+        useSubmodules: true
+        commandTimeoutInMinutes: 20
+        verboseLogs: true
+        fetchWholeRepository: true
+        quietPeriod:
+          waitTimeInSeconds: 120
+          maximumRetries: 3
+        includeExcludeFiles:
+          matchType: !matchType EXCLUDE_ALL_MATCHING_CHANGES
+        filePattern: '*.exe'
+        excludeChangesetsRegex: 'FIXES .*'
+        webRepository:
+          type: !fisheyeWeb
+            url: http://localhost:7990
+            repositoryPath: a/b/c
+            repositoryName: d
   ~~~
   {: title="YAML" }
 ---
-An example of a GitHub repository definition.
+A definition for GitHub repositories.

@@ -31,6 +31,7 @@ cat *.txt
                             deployArtifactName: 'message',
                             deployPasswordVariable: '${bamboo.bitbucket_server_password}'
                     ) {
+                        useAtlassianIdWebSudo false
                         description "Deploy plug-in to staging server"
                         enabled true
                         deployBranchEnabled true

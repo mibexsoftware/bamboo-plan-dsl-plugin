@@ -16,8 +16,17 @@ right_code: |
   }
   ~~~
   {: title="DSL" }
-  ~~~ yml       
+  ~~~ yml
+  tasks:
+    - !command
+      description: my command
+      enabled: true
+      isFinal: true
+      workingSubDirectory: mydir
+      argument: -n
+      environmentVariables: what=EVER
+      executable: atlas-clean
   ~~~
   {: title="YAML" }
 ---
-A command task.
+A task to execute a command.

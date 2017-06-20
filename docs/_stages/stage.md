@@ -16,6 +16,16 @@ right_code: |
   ~~~
   {: title="DSL" }
   ~~~ yml
+  plans:
+    - key: PLAN1KEY
+      name: my plan 1
+      stages:
+        - name: mystage
+          description: packages the software
+          manual: false
+          jobs:
+            - key: TEST
+              name: tests the software
   ~~~
   {: title="YAML" }
 ---

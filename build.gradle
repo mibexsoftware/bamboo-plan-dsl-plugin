@@ -58,5 +58,6 @@ dependencies {
     astCompile "org.codehaus.groovy:groovy-all:${groovyVersion}"
     compile "org.codehaus.groovy:groovy-all:${groovyVersion}"
     compile group: 'org.apache.ant', name: 'ant', version: '1.8.2'
+    compile group: 'org.yaml', name: 'snakeyaml', version: '1.18'
     testCompile('org.spockframework:spock-core:1.0-groovy-2.4')
 }

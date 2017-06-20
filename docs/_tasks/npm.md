@@ -13,8 +13,15 @@ right_code: |
   }
   ~~~
   {: title="DSL" }
-  ~~~ yml       
+  ~~~ yml
+  nodes:
+    - !npm
+      executable: /usr/bin/nodejs
+      command: install
+      workingSubDirectory: .
+      useIsolatedCache: true
+      environmentVariables: what=EVER
   ~~~
   {: title="YAML" }
 ---
-NPM package manager for Node.js.
+A task to use the NPM package manager for Node.js.

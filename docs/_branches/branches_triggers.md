@@ -5,20 +5,13 @@ position: 2.4
 right_code: |
   ~~~groovy
   branches {
-      branch("develop") {
-          triggers {
-              polling {
-                  periodically {
-                      pollingFrequencyInSecs 30
-                  }
-                  repositories('repo123', 'repo456')
-              }
-          }
-      }
+      triggers(NewPlanBranchesTriggerType.RUN_NEW_PLAN_BRANCHES_MANUALLY)
   }
   ~~~
   {: title="DSL" }
   ~~~ yml
+  branches:
+    triggers: !newPlanBranchesTriggerType RUN_NEW_PLAN_BRANCHES_MANUALLY
   ~~~
   {: title="YAML" }
 ---

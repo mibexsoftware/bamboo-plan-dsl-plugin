@@ -23,7 +23,7 @@ class ScmCustom extends ScmType {
         config << [(methodName): args[0].toString()]
     }
 
-    def configure(Map<String, Object> config) {
-        config.each { k, v -> config << [(k): v.toString()] }
+    def configure(Map<String, Object> newConfig) {
+        newConfig.each { k, v -> config << [(k): v.toString()] }
     }
 }

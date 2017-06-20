@@ -13,8 +13,16 @@ right_code: |
   }
   ~~~
   {: title="DSL" }
-  ~~~ yml       
+  ~~~ yml
+  tasks:
+    - !msbuild
+      executable: msbuild
+      projectFile: MySolution.sln
+      description: run MSBuild
+      workingSubDirectory: .
+      environmentVariables: what=EVER
+      options: /d
   ~~~
   {: title="YAML" }
 ---
-Run MSBuild as part of your build.
+A task to run MSBuild as part of a build.

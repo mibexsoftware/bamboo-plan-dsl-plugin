@@ -48,8 +48,9 @@ project:
           periodicTrigger:
             pollingFrequencyInSecs: 30
         - !scheduled
-          description: run every day at noon
-          cronExpression: 0 0 0 ? * *
+          cronExpression: '* * * * * * *'
+          onlyRunIfOtherPlansArePassing:
+            planKeys: [SEED-SEED-JOB1]
         - !onceADay
           buildTime: 17:30
         - !remote
@@ -222,6 +223,14 @@ project:
                 - !script
                   inlineScript:
                     scriptBody: !env mykey
+                - !command
+                  description: my command
+                  enabled: true
+                  isFinal: true
+                  workingSubDirectory: mydir
+                  argument: -n
+                  environmentVariables: what=EVER
+                  executable: atlas-clean
                 - !customTask
                   pluginKey: ch.mibex.bamboo.plandsl
                   taskConfig:
@@ -265,7 +274,7 @@ project:
                 - !junitParser
                   testResultsDirectory: path/to/test/results
                   pickUpTestResultsCreatedOutsideOfBuild: true
-                - !maven3
+                - !maven3x
                   goal: install
                   executable: maven323
                   buildJdk: jdk8
@@ -329,7 +338,7 @@ project:
                   advancedOptions:
                     hostFingerprint: test
                     port: 22
-                - !vcsCheckout
+                - !checkout
                   repositories:
                     - name: myrepo1
                       checkoutDirectory: a/
@@ -344,6 +353,10 @@ project:
                   copyPattern: '*.exe'
                   isShared: true
                   name: def
+              requirements:
+                - capabilityKey: system.builder.ant.Ant
+                  matchType: !equals
+                    matchValue: 1
               miscellaneous:
                 cleanWorkingDirectoryAfterEachBuild: true
                 buildHungOptions:
@@ -364,16 +377,17 @@ project:
                   labels: 'what'
       branches:
         autoBranchManagement:
-          deletePlanBranchesAfterDays: 2
-          deletedBranchesStrategy: !deletedBranches DO_NOT_DELETE_PLAN_BRANCHES
+          newBranchesStrategy: !newBranches NEW_PLAN_BRANCHES_FOR_PULL_REQUESTS
+          deletedBranchesStrategy: !deletedBranches DELETE_PLAN_BRANCHES_AFTER_DAYS
+          deletePlanBranchesAfterDays: 7
           inactiveBranchesStrategy: !inactiveBranches DELETE_INACTIVE_PLAN_BRANCHES_AFTER_DAYS
-          deleteInactivePlanBranchesAfterDays: 3
-          newBranchesStrategy: !newBranches NEW_PLAN_BRANCHES_FOR_MATCHING_BRANCH_NAMES
-          matchingBranchesRegex: '.*'
-        branchMerging:
+          deleteInactivePlanBranchesAfterDays: 14
+        merging:
           mergeStrategy: !gateKeeper
             planBranchKey: PLANKEY
             pushEnabled: false
+        notifications: !notifyOnNewBranchesType NOTIFY_COMMITTERS_FOR_FAVOURITED_BRANCHES
+        triggers: !newPlanBranchesTriggerType SAME_AS_IN_PARENT_PLAN
         branches:
           - name: feature_1234
             vcsBranchName: feature/1234
@@ -382,6 +396,14 @@ project:
             triggers:
               - !bitbucketServerTrigger
                 description: run when push
+            merging:
+              mergeStrategy: !branchUpdater
+                planBranchKey: 'DEVELOP'
+                pushEnabled: false
+            variables:
+              - key: name
+                value: value
+            notifications: !notifyOnNewBranchesType USE_PLANS_NOTIFICATION_SETTINGS
       deploymentProjects:
         - id: 1
           name: DP1
@@ -397,6 +419,7 @@ project:
               tasks:
                 - !script
                   inlineScript:
+                    interpreter: !scriptInterpreter LEGACY_SH_BAT
                     scriptBody: !env mykey2
               variables:
                 - key: myKey1
@@ -414,7 +437,7 @@ project:
                   paul: !permission VIEW
                   peter: !permission ADMIN
                 group:
-                  devs: !permission ADMIN
+                  devops: !permission VIEW
                 other:
                   !userType ANONYMOUS_USERS: !permission VIEW
               triggers:

@@ -60,9 +60,9 @@ class DeploymentProjectSpec extends Specification {
                         variables: ["test1", "test2"]
                 ),
                 permissions:  new Permissions(
-                        userPermissions: ['diego': new PermissionTypes(permissionTypes: [PermissionTypes.PermissionType.VIEW])],
-                        groupPermissions: ['devops': new PermissionTypes(permissionTypes: [PermissionTypes.PermissionType.VIEW])],
-                        otherPermissions: ['ROLE_USER': new PermissionTypes(permissionTypes: [PermissionTypes.PermissionType.VIEW, PermissionTypes.PermissionType.EDIT])],
+                        user: ['diego': new PermissionTypes(permissionTypes: [PermissionTypes.PermissionType.VIEW])],
+                        group: ['devops': new PermissionTypes(permissionTypes: [PermissionTypes.PermissionType.VIEW])],
+                        other: ['ROLE_USER': new PermissionTypes(permissionTypes: [PermissionTypes.PermissionType.VIEW, PermissionTypes.PermissionType.EDIT])],
                 )
         )
         results.projects[0].plans[0].deploymentProjects[3] == new DeploymentProject(
@@ -84,9 +84,9 @@ class DeploymentProjectSpec extends Specification {
                                 notify: true
                         )]),
                         permissions:  new Permissions(
-                                userPermissions: ['diego': new PermissionTypes(permissionTypes: [PermissionTypes.PermissionType.VIEW])],
-                                groupPermissions: ['devops': new PermissionTypes(permissionTypes: [PermissionTypes.PermissionType.VIEW, PermissionTypes.PermissionType.DEPLOY])],
-                                otherPermissions: ['ROLE_USER': new PermissionTypes(permissionTypes: [PermissionTypes.PermissionType.VIEW, PermissionTypes.PermissionType.EDIT])]
+                                user: ['diego': new PermissionTypes(permissionTypes: [PermissionTypes.PermissionType.VIEW])],
+                                group: ['devops': new PermissionTypes(permissionTypes: [PermissionTypes.PermissionType.VIEW, PermissionTypes.PermissionType.DEPLOY])],
+                                other: ['ROLE_USER': new PermissionTypes(permissionTypes: [PermissionTypes.PermissionType.VIEW, PermissionTypes.PermissionType.EDIT])]
                         )
                 )],
                 releaseVersioning: new ReleaseVersioning(

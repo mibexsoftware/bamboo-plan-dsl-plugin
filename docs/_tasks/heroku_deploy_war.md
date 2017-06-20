@@ -11,8 +11,15 @@ right_code: |
   }
   ~~~
   {: title="DSL" }
-  ~~~ yml       
+  ~~~ yml
+  tasks:
+    - !herokuDeployWar
+      apiKey: key
+      appName: myapp
+      warFile: my.war
+      enabled: true
+      description: Deploy WAR to Heroku
   ~~~
   {: title="YAML" }
 ---
-Deploy a WAR artifact to Heroku.
+A task to deploy a WAR artifact to Heroku.

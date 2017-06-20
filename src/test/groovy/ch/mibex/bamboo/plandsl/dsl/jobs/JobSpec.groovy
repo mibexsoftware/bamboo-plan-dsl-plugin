@@ -71,7 +71,7 @@ class JobSpec extends Specification {
                 buildHungOptions: new BuildHungOptions(
                         buildTimeMultiplier: 2.5,
                         logQuietTimeInMinutes: 10,
-                        buildQueueTimeout: 60
+                        buildQueueTimeoutInMinutes: 60
                 ),
                 nCoverOutput: new NCoverOutput(
                         nCoverXmlDirectory: 'a/b/c'

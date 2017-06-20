@@ -1,7 +1,7 @@
 package dsls
 
 
-project(env('my.projectkey')) {
+project(env('MYPROJECTKEY')) {
     name "Renamed project"
 
     plan("SIMPLEPLAN") {

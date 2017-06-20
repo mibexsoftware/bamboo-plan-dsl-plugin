@@ -19,12 +19,11 @@ right_code: |
       - key: PLAN1KEY
         name: my plan 1
       - key: PLAN2KEY
-        name: my plan 2        
+        name: my plan 2
   ~~~
   {: title="YAML" }
 
 ---
 
-A project contains of a collection of plans. Each project has a ```key```, a ```name``` and multiple 
-plans. Of course, if you only want to mutate one plan then you only have to specify this one plan and not all the other
-plans of the project.
+A project contains of a collection of plans. Each project has a key (which must consist of an uppercase letter followed
+by one or more uppercase alphanumeric characters), a name and its build plans.

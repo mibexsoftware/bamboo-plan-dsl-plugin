@@ -6,14 +6,19 @@ right_code: |
   tasks {
       junitParser {
           description 'parse test results'
-          testResultsDirectory 'test-reports/*.xml'
+          testResultsDirectory 'test-reports/'
           pickUpTestResultsCreatedOutsideOfBuild()
       }
   }
   ~~~
   {: title="DSL" }
-  ~~~ yml       
+  ~~~ yml
+  tasks:
+    - !junitParser
+      description parse test results
+      testResultsDirectory: test-reports/
+      pickUpTestResultsCreatedOutsideOfBuild: true
   ~~~
   {: title="YAML" }
 ---
-Parses and displays JUnit test results.
+A task to parse and display JUnit test results.

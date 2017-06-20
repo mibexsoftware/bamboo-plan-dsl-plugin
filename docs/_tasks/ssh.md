@@ -5,9 +5,10 @@ right_code: |
   ~~~groovy
   tasks {
       ssh(host: 'localhost', userName: 'bob') {
-          description 'login to remote server'
+          description 'show dir on remote server'
           keyWithoutPassphrase {
               privateKey env('MY_PRIVATE_KEY')
+              enableSshCompression()
           }
           command 'ls -l'
           advancedOptions {
@@ -18,8 +19,20 @@ right_code: |
   }
   ~~~
   {: title="DSL" }
-  ~~~ yml       
+  ~~~ yml
+  tasks:
+    - !ssh
+      host: localhost
+      userName: bob
+      description: show dir on remote server
+      authType: !sshWithoutPassphraseAuth
+        privateKey: !env MY_PRIVATE_KEY
+        enableSshCompression: true
+      command: ls -l
+      advancedOptions:
+        hostFingerprint: test
+        port: 22
   ~~~
   {: title="YAML" }
 ---
-Run a remote command over SSH.
+A task to run a remote command over SSH.

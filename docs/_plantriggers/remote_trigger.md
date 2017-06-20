@@ -15,7 +15,14 @@ right_code: |
   }
   ~~~
   {: title="DSL" }
-  ~~~ yml       
+  ~~~ yml
+  triggers:
+    - !remote
+      description: my remote trigger
+      repositories: [myrepo]
+      ipAddresses: [127.0.0.1, 192.168.0.1]
+      onlyRunIfOtherPlansArePassing:
+        planKeys: [PROJ-PLAN1, PROJ-PLAN3, PROJ-PLAN5]
   ~~~
   {: title="YAML" }
 ---

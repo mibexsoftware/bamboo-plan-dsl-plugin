@@ -7,7 +7,6 @@ right_code: |
       job(key: 'TEST', name: 'Tests the software') {
           description 'This is the job description'
           enabled true
-
           tasks {
           }
           artifacts {
@@ -21,6 +20,18 @@ right_code: |
   ~~~
   {: title="DSL" }
   ~~~ yml
+  stages:
+    - name: package
+      jobs:
+        - key: TEST
+          name: Tests the software
+          description: This is the job description
+          enabled: true
+          tasks:
+          artifactDependencies:
+          artifactDefinitions:
+          requirements:
+          miscellaneous:
   ~~~
   {: title="YAML" }  
 ---

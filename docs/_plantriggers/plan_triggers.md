@@ -3,26 +3,34 @@ title: Plan triggers
 position: 1.0
 right_code: |
   ~~~groovy
-  triggers {
-      scheduled() {
-          description 'run every day at noon'
-          cron '0 0 0 ? * *'
-              onlyRunIfOtherPlansArePassing {
-                  planKeys 'OTHER-PLAN'
-              }
-          }
+  plan(key: 'PLAN1KEY', name: 'my plan 1') {
+    triggers {
+    }
+    branches {
+      branch(name: 'develop') {
+        triggers {
+        }
       }
-  }    
+    }
+  }
   ~~~
   {: title="DSL" }
-  ~~~ yml       
+  ~~~ yml
+  plans:
+    - key: MYPLAN
+      name: my plan
+      triggers:
+      # Plan triggers
+      branches:
+        - name: develop
+        triggers:
+          # Plan branch triggers
   ~~~
   {: title="YAML" }
 ---
-Plan triggers can be installed on plans and plan branches. The definitions are wrapped in 
-the `triggers` block. Here's an example for a scheduled cron-based trigger.
+Plan triggers can be installed on plans and plan branches.
 
-The following trigger types are supported by the DSL:
+The following trigger types are supported by the plug-in:
 
   - [Bitbucket Server trigger](#bbs_trigger)
   - [Scheduled trigger](#scheduled_trigger)

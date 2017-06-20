@@ -12,8 +12,13 @@ right_code: |
   }
   ~~~
   {: title="DSL" }
-  ~~~ yml       
+  ~~~ yml
+  tasks:
+    - !injectBambooVariables
+      propertiesFilePath: path/to/props.txt
+      namespace: myNs
+      variablesScope: !variablesScope RESULT
   ~~~
   {: title="YAML" }
 ---
-A task.
+A task to inject Bamboo variables from a file with a simple "key=value" format.

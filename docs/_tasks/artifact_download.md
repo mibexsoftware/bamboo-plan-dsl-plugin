@@ -4,14 +4,25 @@ position: 1.6
 right_code: |
   ~~~groovy
   tasks {
-      cleanWorkingDirectory() {
-          description 'Clean the working directory'
+      artifactDownload() {
+          description 'Download release content'
+          artifact(name: 'my JAR2') {
+              destinationPath 'doc'
+              sourcePlanKey 'MYPLAN'
+          }
       }
   }
   ~~~
   {: title="DSL" }
-  ~~~ yml       
+  ~~~ yml
+  tasks:
+    - !artifactDownload
+      description Download release content
+      artifacts:
+      - name: my JAR2
+        destinationPath: doc
+        sourcePlanKey: MYPLAN
   ~~~
   {: title="YAML" }
 ---
-A task.
+A task to copy a Bamboo shared artifact to an agent working directory.

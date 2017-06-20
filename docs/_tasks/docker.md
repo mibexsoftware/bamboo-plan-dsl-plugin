@@ -8,6 +8,7 @@ right_code: |
           description 'build docker image'
           command DockerCommand.BUILD
           dockerfileContents 'FROM debian:jessie-slim'
+          useAnExistingDockerfile()
           workingSubDirectory '.'
           environmentVariables 'what=EVER'
           saveTheImageAsFile 'image.iso'
@@ -16,8 +17,19 @@ right_code: |
   }
   ~~~
   {: title="DSL" }
-  ~~~ yml       
+  ~~~ yml
+  tasks:
+    - !docker
+      repository: registry.address:port/namespace/repository:tag
+      description: build docker imag
+      command: !dockerCommand BUILD
+      existingDockerfile: true
+      dockerfileContents: FROM debian:jessie-slim
+      workingSubDirectory: .
+      environmentVariables: what=EVER
+      saveTheImageAsFile: image.iso
+      doNotUseCachingWhenBuildingImage: false
   ~~~
   {: title="YAML" }
 ---
-Build, run and deploy Docker containers using the Docker command line interface.
+A task to build, run and deploy Docker containers using the Docker command line interface.

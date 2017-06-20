@@ -19,6 +19,15 @@ right_code: |
   ~~~
   {: title="DSL" }
   ~~~ yml
+  branches:
+    merging:
+      mergeStrategy: !gateKeeper
+        planBranchKey: PLANKEY
+        pushEnabled: true 
+      # OR:
+      mergeStrategy: !branchUpdater
+        planBranchKey: PLANKEY
+        pushEnabled: false    
   ~~~
   {: title="YAML" }
 ---

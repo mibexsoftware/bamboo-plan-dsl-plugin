@@ -7,15 +7,21 @@ right_code: |
       script() {
           description 'my task'
           inline {
-              interpreter ScriptInterpreter.LEGACY_SH_BAT
+              interpreter: !scriptInterpreter LEGACY_SH_BAT
               scriptBody 'echo "Hello World"'
           }
       }
   }
   ~~~
   {: title="DSL" }
-  ~~~ yml       
+  ~~~ yml
+  tasks:
+    - !script
+      description my task
+      inlineScript:
+        interpreter: !scriptInterpreter LEGACY_SH_BAT
+        scriptBody: echo "Hello World"
   ~~~
   {: title="YAML" }
 ---
-A script task.
+A simple script task.

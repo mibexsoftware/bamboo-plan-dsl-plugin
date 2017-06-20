@@ -9,7 +9,10 @@ right_code: |
   }
   ~~~
   {: title="DSL" }
-  ~~~ yml       
+  ~~~ yml
+  triggers:
+    - !manual
+      description: manually
   ~~~
   {: title="YAML" }
 ---

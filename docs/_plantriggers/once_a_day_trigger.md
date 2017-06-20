@@ -11,7 +11,11 @@ right_code: |
   }
   ~~~
   {: title="DSL" }
-  ~~~ yml       
+  ~~~ yml
+  triggers:
+    - !onceADay
+      description run every day at noon
+      buildTime: '12:00'
   ~~~
   {: title="YAML" }
 ---

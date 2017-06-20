@@ -9,6 +9,8 @@ right_code: |
   ~~~
   {: title="DSL" }
   ~~~ yml
+  branches:
+    notifications: !notifyOnNewBranchesType DO_NOT_SEND_NOTIFICATIONS
   ~~~
   {: title="YAML" }
 ---

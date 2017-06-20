@@ -6,7 +6,14 @@ class DslScriptContextFactorySpec extends Specification {
 
     def 'Ant pattern for plan dsl lookup'() {
         when:
-        def contexts = DslScriptContextFactory.createContexts(['jobs/**/*.groovy'], false, null, new File('src/test/resources/dsls'), [])
+        def contexts = DslScriptContextFactory.createContexts(
+                ['jobs/**/*.groovy'],
+                false,
+                null,
+                ScriptLanguage.GROOVY_DSL,
+                new File('src/test/resources/dsls'),
+                []
+        )
 
         then:
         contexts.size() == 10
@@ -34,7 +41,13 @@ class DslScriptContextFactorySpec extends Specification {
 
     def 'Ant pattern with no matching files should yield exception'() {
         when:
-        DslScriptContextFactory.createContexts(['XXX/**/*.groovy'], false, null, new File('src/test/resources/dsls'), [])
+        DslScriptContextFactory.createContexts(
+                ['XXX/**/*.groovy'],
+                false,
+                null,
+                ScriptLanguage.GROOVY_DSL,
+                new File('src/test/resources/dsls'), []
+        )
 
         then:
         Exception e = thrown(DslException)
@@ -43,7 +56,13 @@ class DslScriptContextFactorySpec extends Specification {
 
     def 'inline body DSL'() {
         when:
-        def contexts = DslScriptContextFactory.createContexts([], true, 'project("KEY") {}', null, [])
+        def contexts = DslScriptContextFactory.createContexts(
+                [],
+                true,
+                'project("KEY") {}',
+                ScriptLanguage.GROOVY_DSL,
+                null, []
+        )
 
         then:
         contexts.size() == 1

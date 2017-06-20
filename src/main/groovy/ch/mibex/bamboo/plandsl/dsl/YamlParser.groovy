@@ -1,14 +1,13 @@
 package ch.mibex.bamboo.plandsl.dsl
 
-import ch.mibex.bamboo.plandsl.dsl.branches.AutoBranchManagement
-import ch.mibex.bamboo.plandsl.dsl.branches.BranchUpdater
-import ch.mibex.bamboo.plandsl.dsl.branches.GateKeeper
+import ch.mibex.bamboo.plandsl.dsl.branches.*
 import ch.mibex.bamboo.plandsl.dsl.dependencies.Dependencies
 import ch.mibex.bamboo.plandsl.dsl.deployprojs.AfterSuccessfulBuildDeploymentTrigger
 import ch.mibex.bamboo.plandsl.dsl.deployprojs.AfterSuccessfulDeploymentTrigger
 import ch.mibex.bamboo.plandsl.dsl.deployprojs.AfterSuccessfulStageDeploymentTrigger
 import ch.mibex.bamboo.plandsl.dsl.deployprojs.ScheduledDeploymentTrigger
 import ch.mibex.bamboo.plandsl.dsl.jobs.CloverCodeCoverage
+import ch.mibex.bamboo.plandsl.dsl.jobs.Requirement
 import ch.mibex.bamboo.plandsl.dsl.notifications.*
 import ch.mibex.bamboo.plandsl.dsl.permissions.PermissionTypes
 import ch.mibex.bamboo.plandsl.dsl.permissions.Permissions
@@ -64,15 +63,32 @@ class YamlParser {
         constructor.addTypeDescription(new TypeDescription(BranchUpdater, '!branchUpdater'))
         constructor.addTypeDescription(new TypeDescription(PermissionTypes.PermissionType, '!permission'))
         constructor.addTypeDescription(new TypeDescription(Permissions.OtherUserType, '!userType'))
-        constructor.addTypeDescription(new TypeDescription(Dependencies.DependencyBlockingStrategy, '!dependencyBlocking'))
+        constructor.addTypeDescription(
+                new TypeDescription(Dependencies.DependencyBlockingStrategy, '!dependencyBlocking')
+        )
         constructor.addTypeDescription(new TypeDescription(CloverCodeCoverage.IntegrationOptions, '!integration'))
         constructor.addTypeDescription(new TypeDescription(ExpirationDetails.TimeUnit, '!timeUnit'))
+        constructor.addTypeDescription(
+                new TypeDescription(Branch.NotifyOnNewBranchesType, '!notifyOnNewBranchesType')
+        )
+        constructor.addTypeDescription(
+                new TypeDescription(Branches.NewPlanBranchesTriggerType, '!newPlanBranchesTriggerType')
+        )
+        constructor.addTypeDescription(new TypeDescription(Requirement.Equals, '!equals'))
+        constructor.addTypeDescription(new TypeDescription(Requirement.Exists, '!exists'))
+        constructor.addTypeDescription(new TypeDescription(Requirement.Matches, '!matches'))
     }
 
     private void addAutoBranchTypeAliases(Constructor constructor) {
-        constructor.addTypeDescription(new TypeDescription(AutoBranchManagement.DeletedBranchesStrategy, '!deletedBranches'))
-        constructor.addTypeDescription(new TypeDescription(AutoBranchManagement.InactiveBranchesStrategy, '!inactiveBranches'))
-        constructor.addTypeDescription(new TypeDescription(AutoBranchManagement.NewBranchesStrategy, '!newBranches'))
+        constructor.addTypeDescription(
+                new TypeDescription(AutoBranchManagement.DeletedBranchesStrategy, '!deletedBranches')
+        )
+        constructor.addTypeDescription(
+                new TypeDescription(AutoBranchManagement.InactiveBranchesStrategy, '!inactiveBranches')
+        )
+        constructor.addTypeDescription(
+                new TypeDescription(AutoBranchManagement.NewBranchesStrategy, '!newBranches')
+        )
     }
 
     private void addScmTypeAliases(Constructor constructor) {
@@ -88,7 +104,9 @@ class YamlParser {
         constructor.addTypeDescription(new TypeDescription(ScmCvs.CvsModuleVersion, '!cvsModuleVersion'))
         constructor.addTypeDescription(new TypeDescription(ScmGit, '!git'))
         constructor.addTypeDescription(new TypeDescription(SharedCredentialsAuth, '!sharedCredentials'))
-        constructor.addTypeDescription(new TypeDescription(SharedCredentialsAuth.SharedCredentialsType, '!sharedCredentialsType'))
+        constructor.addTypeDescription(
+                new TypeDescription(SharedCredentialsAuth.SharedCredentialsType, '!sharedCredentialsType')
+        )
         constructor.addTypeDescription(new TypeDescription(ScmGithub, '!github'))
         constructor.addTypeDescription(new TypeDescription(ScmLinkedRepository, '!linkedRepository'))
         constructor.addTypeDescription(new TypeDescription(ScmMercurial, '!mercurial'))
@@ -114,9 +132,15 @@ class YamlParser {
 
     private void addTriggerTypeAliases(Constructor constructor) {
         constructor.addTypeDescription(new TypeDescription(BitbucketServerTrigger, '!bitbucketServerTrigger'))
-        constructor.addTypeDescription(new TypeDescription(AfterSuccessfulBuildDeploymentTrigger, '!afterSuccessfulBuildDeployment'))
-        constructor.addTypeDescription(new TypeDescription(AfterSuccessfulDeploymentTrigger, '!afterSuccessfulDeployment'))
-        constructor.addTypeDescription(new TypeDescription(AfterSuccessfulStageDeploymentTrigger, '!afterSuccessfulStageDeployment'))
+        constructor.addTypeDescription(
+                new TypeDescription(AfterSuccessfulBuildDeploymentTrigger, '!afterSuccessfulBuildDeployment')
+        )
+        constructor.addTypeDescription(
+                new TypeDescription(AfterSuccessfulDeploymentTrigger, '!afterSuccessfulDeployment')
+        )
+        constructor.addTypeDescription(
+                new TypeDescription(AfterSuccessfulStageDeploymentTrigger, '!afterSuccessfulStageDeployment')
+        )
         constructor.addTypeDescription(new TypeDescription(ScheduledDeploymentTrigger, '!scheduledDeployment'))
         constructor.addTypeDescription(new TypeDescription(ScheduledTrigger, '!scheduled'))
         constructor.addTypeDescription(new TypeDescription(ManualTrigger, '!manual'))
@@ -130,6 +154,7 @@ class YamlParser {
         constructor.addTypeDescription(new TypeDescription(CleanWorkingDirTask, '!cleanWorkingDir'))
         constructor.addTypeDescription(new TypeDescription(CommandTask, '!command'))
         constructor.addTypeDescription(new TypeDescription(ScriptTask, '!script'))
+        constructor.addTypeDescription(new TypeDescription(ScriptTask.ScriptInterpreter, '!scriptInterpreter'))
         constructor.addTypeDescription(new TypeDescription(CustomTask, '!customTask'))
         constructor.addTypeDescription(new TypeDescription(DeployPluginTask.ProductType, '!productType'))
         constructor.addTypeDescription(new TypeDescription(DeployPluginTask, '!deployPlugin'))
@@ -137,9 +162,11 @@ class YamlParser {
         constructor.addTypeDescription(new TypeDescription(DockerTask.DockerCommand, '!dockerCommand'))
         constructor.addTypeDescription(new TypeDescription(HerokuDeployWarTask, '!herokuDeployWar'))
         constructor.addTypeDescription(new TypeDescription(InjectBambooVariablesTask, '!injectBambooVariables'))
-        constructor.addTypeDescription(new TypeDescription(InjectBambooVariablesTask.VariablesScope, '!variablesScope'))
+        constructor.addTypeDescription(
+                new TypeDescription(InjectBambooVariablesTask.VariablesScope, '!variablesScope')
+        )
         constructor.addTypeDescription(new TypeDescription(JUnitParserTask, '!junitParser'))
-        constructor.addTypeDescription(new TypeDescription(Maven3Task, '!maven3'))
+        constructor.addTypeDescription(new TypeDescription(Maven3Task, '!maven3x'))
         constructor.addTypeDescription(new TypeDescription(MsBuildTask, '!msbuild'))
         constructor.addTypeDescription(new TypeDescription(NodeJsTask, '!nodeJs'))
         constructor.addTypeDescription(new TypeDescription(NpmTask, '!npm'))
@@ -153,7 +180,7 @@ class YamlParser {
         constructor.addTypeDescription(new TypeDescription(DefaultMercurialAuth, '!defaultMercurialAuth'))
         constructor.addTypeDescription(new TypeDescription(SshAuth, 'sSshAuth'))
         constructor.addTypeDescription(new TypeDescription(SharedCredentialsAuth, 'sharedCredentialsAuth'))
-        constructor.addTypeDescription(new TypeDescription(VcsCheckoutTask, '!vcsCheckout'))
+        constructor.addTypeDescription(new TypeDescription(VcsCheckoutTask, '!checkout'))
     }
 
     private String removeDuplicateNesting(Yaml yaml, String input) {
@@ -198,6 +225,11 @@ class YamlParser {
                     def newTriggers = [:]
                     newTriggers.triggers = branch.triggers
                     branch.triggers = newTriggers
+                }
+                if (branch.variables) {
+                    def newVariables = [:]
+                    newVariables.variables = branch.variables
+                    branch.variables = newVariables
                 }
             }
 
@@ -257,6 +289,13 @@ class YamlParser {
                         job.remove('artifactDefinitions')
                     }
                     job.artifacts = newArtifacts
+
+                    def requirements = job.requirements ?: []
+                    if (requirements) {
+                        def newRequirements = [:]
+                        newRequirements.requirements = requirements
+                        job.requirements = newRequirements
+                    }
                 }
             }
         }
@@ -280,7 +319,7 @@ class YamlParser {
             @Override
             Object construct(org.yaml.snakeyaml.nodes.Node node) {
                 if (!(node instanceof ScalarNode)) {
-                    throw new IllegalArgumentException('Non-scalar !env: ' + node.toString());
+                    throw new IllegalArgumentException('Non-scalar !env: ' + node.toString())
                 }
                 String key = (String) constructScalar(node)
                 bambooFacade.variableContext[key]

@@ -18,7 +18,19 @@ right_code: |
   }
   ~~~
   {: title="DSL" }
-  ~~~ yml       
+  ~~~ yml
+  tasks:
+    - !shipit2marketplace
+      deployArtifactName: Plan DSL
+      description: ship it to the Atlassian Marketplace
+      enabled: true
+      isFinal: false
+      onlyAllowToTriggerFromJira: true
+      runOnBranchBuilds: false
+      publicVersion: true
+      deduceBuildNrFromPluginVersion: true
+      bambooUserId: admin
+      jqlToCollectReleaseNotes: status in (resolved,closed,done)
   ~~~
   {: title="YAML" }
 ---

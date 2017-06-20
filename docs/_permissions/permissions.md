@@ -1,6 +1,5 @@
 ---
 title: Permissions
-description: Not working!!
 position: 1.0
 right_code: |
   ~~~groovy
@@ -10,18 +9,28 @@ right_code: |
       }
 
       group(name: 'devops') {
-          permissionTypes PermissionType.VIEW, PermissionType.BUILD
+          permissionTypes PermissionType.BUILD
       }
 
       other(type: OtherUserType.ANONYMOUS_USERS) {
-          permissionTypes PermissionType.VIEW, PermissionType.ADMIN
+          permissionTypes PermissionType.VIEW
       }
   }
   ~~~
   {: title="DSL" }
-
+  ~~~ yml
+  permissions:
+    user:
+      diego: !permission ADMIN
+    group:
+      devops: !permission BUiLD
+    other:
+      !userType ANONYMOUS_USERS: !permission VIEW
+  ~~~
+  {: title="YAML" }
 ---
-The `permissions` block can be used to configure permissions on plan, deployment project and environment level.
+
+Can be used to configure permissions on plan, deployment project and environment level.
 
 Permissions apply to users, groups and special user groups like logged and anonymous users. 
 The permission types correspond to the ones shown in the Bamboo UI.

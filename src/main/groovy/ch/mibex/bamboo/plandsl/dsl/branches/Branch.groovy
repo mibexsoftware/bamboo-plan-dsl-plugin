@@ -18,9 +18,9 @@ class Branch extends BambooObject {
     private boolean enabled = true
     private boolean cleanupAutomatically
     private Triggers triggers = new Triggers(bambooFacade)
-    private BranchMerging branchMerging
+    private BranchMerging merging
     private Variables variables = new Variables(bambooFacade)
-    private NotifyOnNewBranchesType notificationsType =
+    private NotifyOnNewBranchesType notifications =
             NotifyOnNewBranchesType.NOTIFY_COMMITTERS_FOR_FAVOURITED_BRANCHES
     private BranchSourceRepository sourceRepository
 
@@ -99,7 +99,7 @@ class Branch extends BambooObject {
     void merging(@DelegatesTo(value = BranchMerging, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def branchMerging = new BranchMerging(bambooFacade)
         DslScriptHelper.execute(closure, branchMerging)
-        this.branchMerging = branchMerging
+        this.merging = branchMerging
     }
 
     /**
@@ -116,7 +116,7 @@ class Branch extends BambooObject {
      * How do you want to be notified about builds for this branch?
      */
     void notifications(NotifyOnNewBranchesType notificationsType) {
-        this.notificationsType = notificationsType
+        this.notifications = notificationsType
     }
 
     static enum NotifyOnNewBranchesType {

@@ -38,8 +38,36 @@ right_code: |
   }
   ~~~
   {: title="DSL" }
-  ~~~ yml       
+  ~~~ yml
+  scm:
+    - !subversion
+      repositoryUrl: http://svn.red-bean.com/repos/test
+      userName: admin
+      name: mySvn
+      authType: !password
+        userName: admin
+        password: pw
+      advancedOptions:
+        detectChangesInExternals: true
+        useSvnExport: true
+        enableCommitIsolation: true
+        autoDetectRootUrlForBranches: false
+        branchesRootUrl: /branches
+        autoDetectRootUrlForTags: false
+        tagRootUrl: /tags
+        quietPeriod:
+          waitTimeInSeconds: 120
+          maximumRetries: 3
+        includeExcludeFiles:
+          matchType: !matchType EXCLUDE_ALL_MATCHING_CHANGES
+          filePattern: exe
+        excludeChangesetsRegex: 'FIXES .*'
+        webRepository:
+          type: !fisheyeWeb
+            url: http://localhost:7990
+            repositoryPath: a/b/c
+            repositoryName: d
   ~~~
   {: title="YAML" }
 ---
-An example of a Subversion repository definition.
+A definition for Subversion repositories.

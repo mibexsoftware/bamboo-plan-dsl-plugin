@@ -14,7 +14,13 @@ right_code: |
   }
   ~~~
   {: title="DSL" }
-  ~~~ yml       
+  ~~~ yml
+  triggers:
+    - !scheduled
+      description scheduled
+      cronExpression: '0 0 0 ? * *'
+      onlyRunIfOtherPlansArePassing:
+        planKeys: [PROJKEY-PLANKEY]
   ~~~
   {: title="YAML" }
 ---

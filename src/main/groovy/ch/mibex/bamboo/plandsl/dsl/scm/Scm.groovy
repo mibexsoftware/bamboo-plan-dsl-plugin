@@ -146,7 +146,7 @@ class Scm extends ScmType  {
     }
 
     /**
-     * A Bamboo linked repository,
+     * A Bamboo linked repository.
      */
     void linkedRepository(String name) {
         bambooFacade.requireLinkedRepository(name)
@@ -156,7 +156,7 @@ class Scm extends ScmType  {
     }
 
     /**
-     * A Bamboo linked repository,
+     * A Bamboo linked repository.
      */
     void linkedRepository(Map<String, String> params) {
         bambooFacade.requireLinkedRepository(params['name'])

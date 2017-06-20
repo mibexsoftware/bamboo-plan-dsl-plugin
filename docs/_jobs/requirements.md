@@ -13,6 +13,13 @@ right_code: |
   ~~~
   {: title="DSL" }
   ~~~ yml
+  jobs:
+    - key: PACKAGE
+      name: Packages the software
+      requirements:
+        - capabilityKey: system.builder.mvn3.maven323
+          matchType: !matches
+            matchValue: '[A-Z0-9]*'
   ~~~
   {: title="YAML" } 
 ---

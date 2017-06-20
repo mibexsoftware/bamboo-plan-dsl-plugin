@@ -19,8 +19,20 @@ right_code: |
   }
   ~~~
   {: title="DSL" }
-  ~~~ yml       
+  ~~~ yml
+  tasks:
+    - !maven3x
+      goal: install
+      description: build plug-in
+      workingSubDirectory: .
+      executable: maven323
+      buildJdk: jdk8
+      environmentVariables: what=EVER
+      withTests:
+        testResultsDirectory: tests/
+      projectFile: a/b
+      useMavenReturnCode: false
   ~~~
   {: title="YAML" }
 ---
-Execute one or more Maven 3 goals as part of your build.
+A task to execute one or more Maven 3 goals as part of a build.

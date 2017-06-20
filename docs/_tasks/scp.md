@@ -21,8 +21,22 @@ right_code: |
   }
   ~~~
   {: title="DSL" }
-  ~~~ yml       
+  ~~~ yml
+  tasks:
+    - !scp
+      host: localhost
+      userName: bob
+      description: Ship it to remote server
+      authType: !passwordAuth
+          password: !env MY_PASSWORD_VARIABLE
+      localPath: '*.zip,*.jar'
+      artifactLocalPath:
+        useAntPatternsToSelectFiles: true
+      remotePath: a/b
+      advancedOptions:
+        hostFingerprint: test
+        port: 22
   ~~~
   {: title="YAML" }
 ---
-Copy files to a remote server using SCP.
+A task to copy files to a remote server using SCP.

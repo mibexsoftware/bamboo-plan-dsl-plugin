@@ -13,7 +13,7 @@ collections:
     id: projects
     title: Project
     position: 1
-    permalink: "/#dsl_projects"
+    permalink: "/#project"
   plans:
     id: plans
     title: Plan
@@ -23,52 +23,52 @@ collections:
     id: branches
     title: Plan branches
     position: 3
-    permalink: "/#dsl_branches"
+    permalink: "/#branches"
   stages:
     id: stages
     title: Stage
     position: 4
-    permalink: "/#dsl_stages_intro"            
+    permalink: "/#stage"
   jobs:
     id: jobs
     title: Job
     position: 5
-    permalink: "/#dsl_job"
+    permalink: "/#jobs"
   tasks:
     id: tasks
     title: Tasks
     position: 6
-    permalink: "/#dsl_tasks"
+    permalink: "/#tasks"
   scms:
     id: scms
     title: SCM
     position: 7
-    permalink: "/#dsl_scm_intro"                
+    permalink: "/#scm_intro"
+  variables:
+    id: variables
+    title: Variables
+    position: 8
+    permalink: "/#variables"
   plantriggers:
     id: plantriggers
     title: Plan triggers
-    position: 8
+    position: 9
     permalink: "/#plan_triggers"
   notifications:
     id: notifications
     title: Notifications
-    position: 9
-    permalink: "/#dsl_notification_types"        
+    position: 10
+    permalink: "/#notifications"
   permissions:
     id: permissions
     title: Permissions
-    position: 10
-    permalink: "/#dsl_permission_intro"
+    position: 11
+    permalink: "/#permissions"
   deploymentproj:
     id: deploymentproj
     title: Deployment Projects
-    position: 11
-    permalink: "/#dsl_deploym_project_simple"
-  examples:
-    id: examples
-    title: Examples
     position: 12
-    permalink: "/#dsl_examples"
+    permalink: "/#deployment_projects"
 
 gems:
   - jekyll-sitemap

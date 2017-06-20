@@ -15,6 +15,15 @@ right_code: |
   ~~~
   {: title="DSL" }
   ~~~ yml
+  jobs:
+    - key: DEPLOY
+      name: Deploys the software
+      artifactDefinitions:
+        - name: my JAR
+          copyPattern: **/*.jar'
+          location: target
+          isShared: true
+        #  more artifact definitions
   ~~~
   {: title="YAML" } 
 ---

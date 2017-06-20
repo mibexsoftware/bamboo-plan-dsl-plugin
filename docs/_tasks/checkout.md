@@ -8,15 +8,22 @@ right_code: |
           description 'checkout repo'
           forceCleanBuild true
 
-          repository(name: 'Bamboo Job DSL') {
+          repository(name: 'Bamboo Plan DSL') {
               checkoutDirectory 'src'
           }
       }
   }
   ~~~
   {: title="DSL" }
-  ~~~ yml       
+  ~~~ yml
+  tasks:
+    - !checkout
+      description: checkout repo
+      forceCleanBuild: true
+      repositories:
+        - name: Bamboo Plan DSL
+          checkoutDirectory: src
   ~~~
   {: title="YAML" }
 ---
-A task.
+A task to checkout a repository to a working directoy.

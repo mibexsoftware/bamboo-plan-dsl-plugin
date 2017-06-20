@@ -13,9 +13,16 @@ right_code: |
   ~~~
   {: title="DSL" }
   ~~~ yml
+  branches:
+    autoBranchManagement:
+      newBranchesStrategy: !newBranches NEW_PLAN_BRANCHES_FOR_PULL_REQUESTS
+      deletedBranchesStrategy: !deletedBranches DELETE_PLAN_BRANCHES_AFTER_DAYS
+      deletePlanBranchesAfterDays: 7
+      inactiveBranchesStrategy: !inactiveBranches DELETE_INACTIVE_PLAN_BRANCHES_AFTER_DAYS
+      deleteInactivePlanBranchesAfterDays: 14
   ~~~
   {: title="YAML" }
 
 ---
-Plan branches can be created and deleted automatically based on branch creation and deletion in the
-primary source repository. This can be configured inside the `autoBranchManagement` block.
+Plan branches can be created and deleted automatically based on branch creation and deletion settings for the
+primary source repository. This can be configured inside the auth branch management section.

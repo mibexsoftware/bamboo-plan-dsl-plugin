@@ -36,7 +36,11 @@ class Requirement extends BambooObject {
      */
     @Deprecated
     static class Equals extends MatchType {
-        final String matchValue
+        String matchValue
+
+        // for testing:
+        protected Equals() {
+        }
 
         Equals(String matchValue) {
             Validations.isNotNullOrEmpty(matchValue, "Matching value for capability type 'Equals' must not be empty")
@@ -49,7 +53,11 @@ class Requirement extends BambooObject {
      */
     @Deprecated
     static class Matches extends MatchType {
-        final String regex
+        String regex
+
+        // for testing:
+        protected Matches() {
+        }
 
         Matches(String regex) {
             Validations.isNotNullOrEmpty(regex, "Matching regex for capability type 'Matches' must not be empty")

@@ -36,7 +36,7 @@ class PlansWithBranchesSpec extends Specification {
 
         then:
         results.projects[0].plans[0].branches == new Branches(
-                branchMerging: new BranchMerging(
+                merging: new BranchMerging(
                         mergeStrategy: new GateKeeper(
                                 planBranchKey: "SIMPLEPROJECT-SIMPLEPLAN",
                                 pushEnabled: true
@@ -55,7 +55,7 @@ class PlansWithBranchesSpec extends Specification {
 
         then:
         results.projects[0].plans[0].branches == new Branches(
-                notificationsType: Branch.NotifyOnNewBranchesType.DO_NOT_SEND_NOTIFICATIONS,
+                notifications: Branch.NotifyOnNewBranchesType.DO_NOT_SEND_NOTIFICATIONS,
         )
     }
 
@@ -69,7 +69,7 @@ class PlansWithBranchesSpec extends Specification {
 
         then:
         results.projects[0].plans[0].branches == new Branches(
-                newPlanBranchesTriggerType: Branches.NewPlanBranchesTriggerType.RUN_NEW_PLAN_BRANCHES_MANUALLY
+                triggers: Branches.NewPlanBranchesTriggerType.RUN_NEW_PLAN_BRANCHES_MANUALLY
         )
     }
 

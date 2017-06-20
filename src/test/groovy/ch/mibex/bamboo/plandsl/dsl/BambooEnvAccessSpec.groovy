@@ -12,7 +12,7 @@ class BambooEnvAccessSpec extends Specification {
             @Override
             BambooEnvironment getVariableContext() {
                 new StrictBambooEnvironment(
-                        ['my.projectkey': 'MYPROJ', 'my.key': 'my.value' , 'my.otherkey': 'my.othervalue']
+                        ['MYPROJECTKEY': 'MYPROJ', 'my.key': 'my.value' , 'my.otherkey': 'my.othervalue']
                 )
             }
         }

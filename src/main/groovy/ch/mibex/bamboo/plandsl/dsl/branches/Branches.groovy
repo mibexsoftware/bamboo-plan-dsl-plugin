@@ -13,10 +13,9 @@ import static ch.mibex.bamboo.plandsl.dsl.branches.Branch.NotifyOnNewBranchesTyp
 class Branches extends BambooObject {
     private List<Branch> branches = []
     private AutoBranchManagement autoBranchManagement
-    private BranchMerging branchMerging
-    private NotifyOnNewBranchesType notificationsType =
-            NotifyOnNewBranchesType.NOTIFY_COMMITTERS_FOR_FAVOURITED_BRANCHES
-    private NewPlanBranchesTriggerType newPlanBranchesTriggerType = NewPlanBranchesTriggerType.SAME_AS_IN_PARENT_PLAN
+    private BranchMerging merging
+    private NotifyOnNewBranchesType notifications = NotifyOnNewBranchesType.NOTIFY_COMMITTERS_FOR_FAVOURITED_BRANCHES
+    private NewPlanBranchesTriggerType triggers = NewPlanBranchesTriggerType.SAME_AS_IN_PARENT_PLAN
 
     // just for testing
     protected Branches() {}
@@ -41,23 +40,23 @@ class Branches extends BambooObject {
      * build. This setting will be applied to all new plan branches.
      */
     void merging(@DelegatesTo(value = BranchMerging, strategy = Closure.DELEGATE_FIRST) Closure closure) {
-        def branchMerging = new BranchMerging()
-        DslScriptHelper.execute(closure, branchMerging)
-        this.branchMerging = branchMerging
+        def merging = new BranchMerging()
+        DslScriptHelper.execute(closure, merging)
+        this.merging = merging
     }
 
     /**
      * Notification preferences are applied to all new plan branches.
      */
     void notifications(NotifyOnNewBranchesType notificationsType) {
-        this.notificationsType = notificationsType
+        this.notifications = notificationsType
     }
 
     /**
      * How new plan branches should be triggered.
      */
     void triggers(NewPlanBranchesTriggerType newPlanBranchesTriggerType) {
-        this.newPlanBranchesTriggerType = newPlanBranchesTriggerType
+        this.triggers = newPlanBranchesTriggerType
     }
 
     /**

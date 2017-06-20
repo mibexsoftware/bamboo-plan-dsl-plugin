@@ -1,5 +1,7 @@
 package dsls.deployprojs
 
+import ch.mibex.bamboo.plandsl.dsl.notifications.Notifications
+
 project("DPPROJ") {
     name "deployment project with custom branch"
 
@@ -107,6 +109,31 @@ project("DPPROJ") {
                     }
                 }
 
+                notifications {
+                    email(event: Notifications.NotificationEvent.DEPLOYMENT_FAILED) {
+                        email: 'your@mail.com'
+                    }
+                }
+
+                permissions {
+                    user(name: 'diego') {
+                        permissionTypes PermissionType.VIEW
+                    }
+
+                    group(name: 'devops') {
+                        permissionTypes PermissionType.VIEW
+                    }
+
+                    other(type: OtherUserType.LOGGED_IN_USERS) {
+                        permissionTypes PermissionType.VIEW, PermissionType.EDIT
+                    }
+                }
+
+                variables {
+                    variable "key1", "value1"
+                    variable "key2", "value2"
+                }
+
 //                agentAssignments {
 //                    requirements {
 //                        requirement(capabilityKey: 'system.builder.gradle.Gradle 2.2',
@@ -118,11 +145,6 @@ project("DPPROJ") {
 //                        }
 //                    }
 //                }
-
-                variables {
-                    variable "key1", "value1"
-                    variable "key2", "value2"
-                }
             }
         }
 

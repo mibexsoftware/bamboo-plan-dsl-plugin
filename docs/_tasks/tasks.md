@@ -1,5 +1,5 @@
 ---
-title: Tasks Overview
+title: Tasks
 position: 1.0
 right_code: |
   ~~~ groovy
@@ -11,7 +11,34 @@ right_code: |
   ~~~
   {: title="DSL" }
   ~~~ yml
+  jobs:
+   - key: PACKAGE
+     name: Packages the software
+     tasks:
+       # your tasks
   ~~~
   {: title="YAML" } 
 ---
-Defines the task(s) for this job.
+Defines the task(s) for this build job or deployment project environment.
+
+The DSL supports the following built-in tasks:
+
+  - [Artifact Download](#artifact_download)
+  - [Checkout](#checkout)
+  - [Clean working dir](#clean_working_dir)
+  - [Command](#command.md)
+  - [Deploy Plug-in](#deploy_plugin)
+  - [Docker](#docker)
+  - [Heroku Deploy WAR](#heroku_deploy_war)
+  - [Inject Bamboo Variables](#inject_bamboo_variables)
+  - [JUnit parser](#junit_parser)
+  - [Maven 3.x](#maven3)
+  - [MSBuild](#msbuild)
+  - [NodeJS](#nodejs)
+  - [NPM](#npm)
+  - [SCP](#scp)
+  - [Script](#script)
+  - [ShipIt to Marketplace](#shipit2marketplace)
+  - [SSH](#ssh)
+
+For other tasks not listed here, please see [custom tasks](#custom_task) on how to use them.

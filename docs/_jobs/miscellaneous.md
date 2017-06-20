@@ -29,7 +29,27 @@ right_code: |
   ~~~
   {: title="DSL" }
   ~~~ yml
+  jobs:
+    - key: PACKAGE
+      name: Packages the software
+      miscellaneous:
+        cleanWorkingDirectoryAfterEachBuild: true
+        buildHungOptions:
+          buildTimeMultiplier: 2.5
+          logQuietTimeInMinutes: 10
+          buildQueueTimeoutInMinutes: 60
+        nCoverOutput:
+          nCoverXmlDirectory: a/b/c
+        cloverCodeCoverage:
+          cloverLicense: 'LICENSE'
+          cloverOptions:
+            generateCloverHistoricalReport: true
+            generateJSONReport: false
+          integrationOptions: !integration AUTOMATICALLY_INTEGRATE_CLOVER_INTO_BUILD
+        patternMatchLabelling:
+          regexPattern: [a-z]+
+          labels: test
   ~~~
   {: title="YAML" } 
 ---
-Defines the miscellaneous options for this job.
+Defines the miscellaneous options for this job. Here you can configure the build hung options, NCover and Clover settings.

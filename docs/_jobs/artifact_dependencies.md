@@ -13,6 +13,12 @@ right_code: |
   ~~~
   {: title="DSL" }
   ~~~ yml
+  jobs:
+    - key: DEPLOY
+      name: Deploys the software
+      artifactDependencies:
+        - name: my JAR
+          destinationDirectory: deploy
   ~~~
   {: title="YAML" } 
 ---

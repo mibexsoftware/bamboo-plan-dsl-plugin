@@ -1,15 +1,13 @@
 package ch.mibex.bamboo.plandsl.dsl
 
-import ch.mibex.bamboo.plandsl.dsl.branches.AutoBranchManagement
-import ch.mibex.bamboo.plandsl.dsl.branches.Branch
-import ch.mibex.bamboo.plandsl.dsl.branches.BranchMerging
-import ch.mibex.bamboo.plandsl.dsl.branches.GateKeeper
+import ch.mibex.bamboo.plandsl.dsl.branches.*
 import ch.mibex.bamboo.plandsl.dsl.dependencies.AdvancedDependencyOptions
 import ch.mibex.bamboo.plandsl.dsl.dependencies.Dependencies
 import ch.mibex.bamboo.plandsl.dsl.dependencies.Dependency
 import ch.mibex.bamboo.plandsl.dsl.deployprojs.*
 import ch.mibex.bamboo.plandsl.dsl.jobs.ArtifactDefinition
 import ch.mibex.bamboo.plandsl.dsl.jobs.ArtifactDependency
+import ch.mibex.bamboo.plandsl.dsl.jobs.Requirement
 import ch.mibex.bamboo.plandsl.dsl.notifications.*
 import ch.mibex.bamboo.plandsl.dsl.permissions.PermissionTypes
 import ch.mibex.bamboo.plandsl.dsl.permissions.Permissions
@@ -115,21 +113,30 @@ class YamlParserSpec extends Specification {
         project.plans[0].stages[0].jobs[0].tasks.tasks[0] == new ScriptTask(
                 inlineScript: new InlineScript(scriptBody: 'myvalue')
         )
-        project.plans[0].stages[0].jobs[0].tasks.tasks[1] == new CustomTask(
+        project.plans[0].stages[0].jobs[0].tasks.tasks[1] == new CommandTask(
+                description: 'my command',
+                enabled: true,
+                isFinal: true,
+                workingSubDirectory: 'mydir',
+                argument: '-n',
+                environmentVariables: 'what=EVER',
+                executable: 'atlas-clean'
+        )
+        project.plans[0].stages[0].jobs[0].tasks.tasks[2] == new CustomTask(
                 pluginKey: 'ch.mibex.bamboo.plandsl',
                 taskConfig: ['key1': 'value1', 'key2': 'value2']
         )
-        project.plans[0].stages[0].jobs[0].tasks.tasks[2] == new ArtifactDownloaderTask(
+        project.plans[0].stages[0].jobs[0].tasks.tasks[3] == new ArtifactDownloaderTask(
                 artifacts: [new ArtifactDownloadConfiguration(
                         name: 'JAR',
                         destinationPath: 'out',
                         sourcePlanKey: 'myPlan'
                 )]
         )
-        project.plans[0].stages[0].jobs[0].tasks.tasks[3] == new CleanWorkingDirTask(
+        project.plans[0].stages[0].jobs[0].tasks.tasks[4] == new CleanWorkingDirTask(
                 isFinal: true
         )
-        project.plans[0].stages[0].jobs[0].tasks.tasks[4] == new DeployPluginTask(
+        project.plans[0].stages[0].jobs[0].tasks.tasks[5] == new DeployPluginTask(
                 productType: DeployPluginTask.ProductType.JIRA,
                 deployURL: 'http://myserver/jira',
                 deployUsername: 'admin',
@@ -139,7 +146,7 @@ class YamlParserSpec extends Specification {
                 useAtlassianIdWebSudo: true,
                 deployArtifactName: 'jar'
         )
-        project.plans[0].stages[0].jobs[0].tasks.tasks[5] == new DockerTask(
+        project.plans[0].stages[0].jobs[0].tasks.tasks[6] == new DockerTask(
                 repository: 'myrepo',
                 command: DockerTask.DockerCommand.BUILD,
                 existingDockerfile: true,
@@ -149,23 +156,23 @@ class YamlParserSpec extends Specification {
                 environmentVariables: 'what=EVER',
                 workingSubDirectory: '.'
         )
-        project.plans[0].stages[0].jobs[0].tasks.tasks[6] == new HerokuDeployWarTask(
+        project.plans[0].stages[0].jobs[0].tasks.tasks[7] == new HerokuDeployWarTask(
                 apiKey: 'apiValue',
                 appName: 'myapp',
                 warFile: 'my.war',
                 enabled: false,
                 description: 'push to heroku'
         )
-        project.plans[0].stages[0].jobs[0].tasks.tasks[7] == new InjectBambooVariablesTask(
+        project.plans[0].stages[0].jobs[0].tasks.tasks[8] == new InjectBambooVariablesTask(
                 propertiesFilePath: 'path/to/props.txt',
                 namespace: 'myNs',
                 variablesScope: InjectBambooVariablesTask.VariablesScope.RESULT
         )
-        project.plans[0].stages[0].jobs[0].tasks.tasks[8] == new JUnitParserTask(
+        project.plans[0].stages[0].jobs[0].tasks.tasks[9] == new JUnitParserTask(
                 testResultsDirectory: 'path/to/test/results',
                 pickUpTestResultsCreatedOutsideOfBuild: true
         )
-        project.plans[0].stages[0].jobs[0].tasks.tasks[9] == new Maven3Task(
+        project.plans[0].stages[0].jobs[0].tasks.tasks[10] == new Maven3Task(
                 goal: 'install',
                 executable: 'maven323',
                 buildJdk: 'jdk8',
@@ -177,7 +184,7 @@ class YamlParserSpec extends Specification {
                         testResultsDirectory: 'tests/'
                 )
         )
-        project.plans[0].stages[0].jobs[0].tasks.tasks[10] == new MsBuildTask(
+        project.plans[0].stages[0].jobs[0].tasks.tasks[11] == new MsBuildTask(
                 executable: 'msbuild',
                 projectFile: 'MySolution.sln',
                 workingSubDirectory: '.',
@@ -185,21 +192,21 @@ class YamlParserSpec extends Specification {
                 options: '/d',
                 description: 'run MSBuild'
         )
-        project.plans[0].stages[0].jobs[0].tasks.tasks[11] == new NodeJsTask(
+        project.plans[0].stages[0].jobs[0].tasks.tasks[12] == new NodeJsTask(
                 executable: '/usr/bin/nodejs',
                 script: 'package.json',
                 environmentVariables: 'what=EVER',
                 workingSubDirectory: '.',
                 arguments: '-n'
         )
-        project.plans[0].stages[0].jobs[0].tasks.tasks[12] == new NpmTask(
+        project.plans[0].stages[0].jobs[0].tasks.tasks[13] == new NpmTask(
                 executable: '/usr/bin/nodejs',
                 command: 'install',
                 environmentVariables: 'what=EVER',
                 workingSubDirectory: '.',
                 useIsolatedCache: true
         )
-        project.plans[0].stages[0].jobs[0].tasks.tasks[13] == new ScpTask(
+        project.plans[0].stages[0].jobs[0].tasks.tasks[14] == new ScpTask(
                 host: 'localhost',
                 userName: 'bob',
                 description: 'what=EVER',
@@ -216,7 +223,7 @@ class YamlParserSpec extends Specification {
                         port: 22
                 )
         )
-        project.plans[0].stages[0].jobs[0].tasks.tasks[14] == new ShipItPluginTask(
+        project.plans[0].stages[0].jobs[0].tasks.tasks[15] == new ShipItPluginTask(
                 deployArtifactName: 'Plan DSL',
                 description: 'ship it to the Atlassian Marketplace',
                 enabled: true,
@@ -228,7 +235,7 @@ class YamlParserSpec extends Specification {
                 bambooUserId: 'admin',
                 jqlToCollectReleaseNotes: 'status in (resolved,closed,done)'
         )
-        project.plans[0].stages[0].jobs[0].tasks.tasks[15] == new SshTask(
+        project.plans[0].stages[0].jobs[0].tasks.tasks[16] == new SshTask(
             host: 'localhost',
             userName: 'bob',
             description: 'show dir on remote server',
@@ -242,12 +249,16 @@ class YamlParserSpec extends Specification {
                 port: 22
             )
         )
-        project.plans[0].stages[0].jobs[0].tasks.tasks[16] == new VcsCheckoutTask(
+        project.plans[0].stages[0].jobs[0].tasks.tasks[17] == new VcsCheckoutTask(
                 forceCleanBuild: true,
                 repositories: [
                         new CheckoutRepository(name: 'myrepo1', checkoutDirectory: 'a/'),
                         new CheckoutRepository(name: 'myrepo2', checkoutDirectory: 'b/')
                 ]
+        )
+        project.plans[0].stages[0].jobs[0].requirements.requirements[0] == new Requirement(
+                capabilityKey: 'system.builder.ant.Ant',
+                matchType: new Requirement.Equals(matchValue: '1')
         )
         project.plans[0].stages[0].jobs[0].artifacts.artifactDependencies[0] == new ArtifactDependency(
                 name: 'myExe',
@@ -458,8 +469,10 @@ class YamlParserSpec extends Specification {
                 )
         )
         project.plans[0].triggers.triggers[3] == new ScheduledTrigger(
-                cronExpression: '0 0 0 ? * *',
-                description: 'run every day at noon'
+                cronExpression: '* * * * * * *',
+                onlyRunIfOtherPlansArePassing: new OnlyIfOthersPassingTriggerCondition(
+                        planKeys: ['SEED-SEED-JOB1']
+                )
         )
         project.plans[0].triggers.triggers[4] == new OnceADayTrigger(
                 buildTime: '17:30'
@@ -473,22 +486,24 @@ class YamlParserSpec extends Specification {
                 vcsBranchName: 'feature/1234',
                 cleanupAutomatically: true,
                 description: 'my important feature branch',
-                triggers: new Triggers(triggers: [new BitbucketServerTrigger(description: 'run when push')])
-        )
-        project.plans[0].branches.autoBranchManagement == new AutoBranchManagement(
-                deletePlanBranchesAfterDays: 2,
-                deletedBranchesStrategy: AutoBranchManagement.DeletedBranchesStrategy.DO_NOT_DELETE_PLAN_BRANCHES,
-                inactiveBranchesStrategy: AutoBranchManagement.InactiveBranchesStrategy.DELETE_INACTIVE_PLAN_BRANCHES_AFTER_DAYS,
-                deleteInactivePlanBranchesAfterDays: 3,
-                newBranchesStrategy: AutoBranchManagement.NewBranchesStrategy.NEW_PLAN_BRANCHES_FOR_MATCHING_BRANCH_NAMES,
-                matchingBranchesRegex: '.*'
-        )
-        project.plans[0].branches.branchMerging == new BranchMerging(
-                mergeStrategy: new GateKeeper(
-                        planBranchKey: 'PLANKEY',
-                        pushEnabled: false
+                triggers: new Triggers(triggers: [new BitbucketServerTrigger(description: 'run when push')]),
+                notifications: Branch.NotifyOnNewBranchesType.USE_PLANS_NOTIFICATION_SETTINGS,
+                merging: new BranchMerging(
+                    mergeStrategy: new BranchUpdater(planBranchKey: 'DEVELOP', pushEnabled: false)
+                ),
+                variables: new Variables(
+                    variables: [new Variable('name', 'value')]
                 )
         )
+        project.plans[0].branches.autoBranchManagement == new AutoBranchManagement(
+                deletePlanBranchesAfterDays: 7,
+                deletedBranchesStrategy: AutoBranchManagement.DeletedBranchesStrategy.DELETE_PLAN_BRANCHES_AFTER_DAYS,
+                inactiveBranchesStrategy: AutoBranchManagement.InactiveBranchesStrategy.DELETE_INACTIVE_PLAN_BRANCHES_AFTER_DAYS,
+                deleteInactivePlanBranchesAfterDays: 14,
+                newBranchesStrategy: AutoBranchManagement.NewBranchesStrategy.NEW_PLAN_BRANCHES_FOR_PULL_REQUESTS
+        )
+        project.plans[0].branches.notifications == Branch.NotifyOnNewBranchesType.NOTIFY_COMMITTERS_FOR_FAVOURITED_BRANCHES
+        project.plans[0].branches.triggers == Branches.NewPlanBranchesTriggerType.SAME_AS_IN_PARENT_PLAN
         project.plans[0].deploymentProjects[0] == new DeploymentProject(
                 id: 1,
                 name: 'DP1',
@@ -523,7 +538,10 @@ class YamlParserSpec extends Specification {
                             description: 'Production env',
                             tasks: new Tasks(
                                    tasks: [new ScriptTask(
-                                           inlineScript: new InlineScript(scriptBody: 'myvalue2')
+                                           inlineScript: new InlineScript(
+                                                   interpreter: ScriptTask.ScriptInterpreter.LEGACY_SH_BAT,
+                                                   scriptBody: 'myvalue2'
+                                           )
                                    )]
                             ),
                             variables: new Variables(
@@ -548,9 +566,9 @@ class YamlParserSpec extends Specification {
                                                     enabled: true
                                             ),
                                             new ScheduledDeploymentTrigger(
-                                            customPlanBranchName: 'PROD',
-                                            cronExpression: '0 0 0 6 * *'
-                                    )
+                                                customPlanBranchName: 'PROD',
+                                                cronExpression: '0 0 0 6 * *'
+                                            )
                                     ]
                             ],
                             notifications: [

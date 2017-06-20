@@ -10,7 +10,10 @@ right_code: |
   }
   ~~~
   {: title="DSL" }
-  ~~~ yml       
+  ~~~ yml
+  triggers:
+    - !bitbucketServerTrigger
+      description: run when new code
   ~~~
   {: title="YAML" }
 ---

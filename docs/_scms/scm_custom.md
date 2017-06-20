@@ -21,8 +21,24 @@ right_code: |
   }
   ~~~
   {: title="DSL" }
-  ~~~ yml       
+  ~~~ yml
+  scm
+    - !customScm
+      name: TFS
+      pluginKey: com.stellarity.bamboo.tfs-repository-plugin:tfs
+      config:
+        stellarity.tfs.repository.url: http://localhost:8080/tfs/DefaultCollection
+        stellarity.tfs.repository.path: $/test-prj/src
+        stellarity.tfs.repository.username: admin
+        stellarity.tfs.temporary.passwordChange: true
+        stellarity.tfs.temporary.password: CHANGEIT
+        stellarity.tfs.repository.removeworkspace: true
+        stellarity.tfs.repository.versionspec: 1.x
+        selectedWebRepositoryViewer: com.stellarity.bamboo.tfs-repository-plugin:tfsViewer
+        stellarity.tfs.repository.filter.option: INCLUDE
+        stellarity.tfs.repository.filter.pattern: checkout
   ~~~
   {: title="YAML" }
 ---
-An example of a custom TFS repository definition.
+Custom repositories provide a way to use plug-in provided repository types. Here you can see an example for the
+TFS repository.
