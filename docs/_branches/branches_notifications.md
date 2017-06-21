@@ -14,4 +14,4 @@ right_code: |
   ~~~
   {: title="YAML" }
 ---
-These notification preferences are applied to all new plan branches.
+These notification preferences are applied to all new [plan branches](#branches).

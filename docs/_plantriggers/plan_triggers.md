@@ -28,7 +28,7 @@ right_code: |
   ~~~
   {: title="YAML" }
 ---
-Plan triggers can be installed on plans and plan branches.
+Plan triggers can be installed on [build plans](#plan) and [plan branches](#branches).
 
 The following trigger types are supported by the plug-in:
 

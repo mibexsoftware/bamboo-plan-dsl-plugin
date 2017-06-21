@@ -99,7 +99,10 @@ class YamlParserSpec extends Specification {
                         expireBuildArtifacts: false,
                         expireBuildLogs: true
                 ),
-                customSettings: ['mykey1' : 'myvalue1', 'mykey2': 'myvalue2']
+                customSettings: [
+                        'custom.ruby-config-runtime' : 'SYSTEM 2.0.0-p648@default',
+                        'custom.ruby-config-environmentVariables': 'SOME_VAR="-D123 -R345"'
+                ]
         )
         project.plans[0].variables == new Variables(
                 variables: [

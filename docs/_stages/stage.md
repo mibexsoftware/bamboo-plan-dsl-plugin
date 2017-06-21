@@ -29,4 +29,5 @@ right_code: |
   ~~~
   {: title="YAML" }
 ---
-A stage consists of a name, a description, a manual field (should the stage run automatically or not) and multiple jobs.
+A stage consists of a name, a description, a manual field (should the stage run automatically or not) and multiple
+[jobs](#jobs).

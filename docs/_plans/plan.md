@@ -58,8 +58,10 @@ right_code: |
   {: title="YAML" }
 
 ---
-A plan contains everything related to a build plan in Bamboo. It consists of multiple stages, SCM information, triggers,
-branches, notifications, build variables, dependencies, misc options and deployment projects. Note that you only need to
+A plan contains everything related to a build plan in Bamboo. It consists of multiple [stages](#stage),
+[SCM information](#scm_intro), [triggers](#plan_triggers),
+[plan branches](#branches), [notifications](#notifications), [build variables](#variables), [dependencies](#dependencies),
+[miscellaneous options](#plan_misc) and [deployment projects](#deployment_projects). Note that you only need to
 specify the elements you really need.
 
 Also note that the key of the plan must consist of an uppercase letter followed by one or more uppercase alphanumeric

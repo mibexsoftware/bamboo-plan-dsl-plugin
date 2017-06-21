@@ -16,4 +16,4 @@ right_code: |
   ~~~
   {: title="YAML" }
 ---
-Manual trigger.
+Trigger a build manually in the Bamboo UI.

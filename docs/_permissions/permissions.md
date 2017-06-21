@@ -30,7 +30,8 @@ right_code: |
   {: title="YAML" }
 ---
 
-Can be used to configure permissions on plan, deployment project and environment level.
+Can be used to configure permissions on [plan](#plan), [deployment project](#deployment_projects) and
+[environment](#environments) level.
 
-Permissions apply to users, groups and special user groups like logged and anonymous users. 
+Permissions apply to users, groups and special user groups like logged-in and anonymous users.
 The permission types correspond to the ones shown in the Bamboo UI.

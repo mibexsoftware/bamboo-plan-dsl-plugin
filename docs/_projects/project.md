@@ -25,5 +25,5 @@ right_code: |
 
 ---
 
-A project contains of a collection of plans. Each project has a key (which must consist of an uppercase letter followed
-by one or more uppercase alphanumeric characters), a name and its build plans.
+A project contains of a collection of [plans](#plan). Each project has a key (which must consist of an uppercase
+letter followed by one or more uppercase alphanumeric characters), a name and its build plans.

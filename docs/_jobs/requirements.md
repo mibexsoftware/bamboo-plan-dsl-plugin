@@ -23,4 +23,4 @@ right_code: |
   ~~~
   {: title="YAML" } 
 ---
-Defines the requirements for this job.
+Defines the requirements for this [job](#jobs).

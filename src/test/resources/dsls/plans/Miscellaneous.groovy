@@ -7,6 +7,7 @@ project(name: 'Simple project', key: 'SIMPLEPROJECT') {
 
         miscellaneous {
             expire {
+                expireBuildArtifacts false
                 expireBuildResults true
                 expireBuildLogs true
                 expireAfter 10, TimeUnit.WEEKS

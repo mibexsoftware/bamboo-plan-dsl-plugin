@@ -1,5 +1,5 @@
 ---
-title: Plan Branches
+title: Plan branches
 position: 2.0
 redirect_to: "/#branches/"
 right_code: |

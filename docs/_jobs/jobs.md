@@ -35,5 +35,5 @@ right_code: |
   ~~~
   {: title="YAML" }  
 ---
-A build job has a key, a name, a description, an enabled flag, a list of tasks, artifacts, requirements and 
-miscellaneous options. 
+A build job has a key, a name, a description, an enabled flag, a list of [tasks](#tasks), [artifacts](#artifacts),
+[requirements](#requirements) and [miscellaneous options](#job_misc).

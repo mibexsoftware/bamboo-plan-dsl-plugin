@@ -22,6 +22,6 @@ right_code: |
   ~~~
   {: title="YAML" } 
 ---
-Defines the artifact dependencies for this job.
+Defines the artifact dependencies for this [job](#jobs).
 
 

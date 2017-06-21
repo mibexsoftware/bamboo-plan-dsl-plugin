@@ -84,8 +84,8 @@ project:
             expireBuildArtifacts: false
             expireBuildLogs: true
         customSettings:
-          mykey1: myvalue1
-          mykey2: myvalue2
+          custom.ruby-config-runtime: SYSTEM 2.0.0-p648@default
+          custom.ruby-config-environmentVariables: SOME_VAR="-D123 -R345"
       scm:
         - !bitbucketCloud
           repoSlug: repo1

@@ -18,13 +18,13 @@ right_code: |
   ~~~
   {: title="YAML" }
 ---
-Notifications can be specified on the plan and deployment project level.
+Notifications can be specified on the [plan](#plan) and [deployment project](#deployment_projects) level.
 
 The following notification types are supported by the plug-in:
 
   - [HipChat](#hipchat)
   - [E-Mail](#email)
-  - [Stash legacy](#stashLegacy)
+  - [Stash legacy](#stash_legacy)
   - [Group](#group)
   - [User](#user)
   - [IM address](#imAddress)

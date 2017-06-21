@@ -19,15 +19,15 @@ right_code: |
   ~~~
   {: title="YAML" }
 ---
-SCM is a collection of repository definition(s) for a plan or plan branch. The first repository in the list is
-automatically the default one.
+SCM is a collection of repository definition(s) for a [plan](#plan) or [plan branch](#branches). The first repository
+in the list is automatically the default one.
 
 The DSL supports the following repository types:
 
   - [Bitbucket Cloud](#scm_bitbucket_cloud)
   - [Bitbucket Server](#scm_bbs)
-  - [Plain Git](#scm_git)
-  - [Github](#scm_github)
+  - [Git](#scm_git)
+  - [GitHub](#scm_github)
   - [Subversion](#scm_subversion)
   - [Mercurial](#scm_mercurial)
   - [CVS](#scm_cvs)

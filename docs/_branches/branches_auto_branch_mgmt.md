@@ -24,5 +24,5 @@ right_code: |
   {: title="YAML" }
 
 ---
-Plan branches can be created and deleted automatically based on branch creation and deletion settings for the
+[Plan branches](#branches) can be created and deleted automatically based on branch creation and deletion settings for the
 primary source repository. This can be configured inside the auth branch management section.

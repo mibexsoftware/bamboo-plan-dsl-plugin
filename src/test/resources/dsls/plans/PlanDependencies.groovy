@@ -17,8 +17,7 @@ project("SIMPLEPROJECT") {
 
             blockingStrategy DependencyBlockingStrategy.BLOCK_BUILD_IF_PARENT_BUILDS_ARE_QUEUED
 
-            dependency "HELLO-HELLO"
-            dependency "SEED-SEED"
+            childPlans "HELLO-HELLO", "SEED-SEED"
         }
     }
 }

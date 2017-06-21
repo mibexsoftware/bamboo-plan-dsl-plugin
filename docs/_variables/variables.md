@@ -18,4 +18,5 @@ right_code: |
   ~~~
   {: title="YAML" }
 ---
-Variables can be declared in build plans, deployment project environment and plan branches.
+Variables can be declared in [build plans](#plan), [deployment project environment](#environments) and
+[plan branches](#branches).

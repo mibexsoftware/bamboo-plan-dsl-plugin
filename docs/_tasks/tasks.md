@@ -19,14 +19,14 @@ right_code: |
   ~~~
   {: title="YAML" } 
 ---
-Defines the task(s) for this build job or deployment project environment.
+Defines the task(s) for this build [job](#jobs) or [deployment project environment](#environments).
 
 The DSL supports the following built-in tasks:
 
   - [Artifact Download](#artifact_download)
   - [Checkout](#checkout)
   - [Clean working dir](#clean_working_dir)
-  - [Command](#command.md)
+  - [Command](#command)
   - [Deploy Plug-in](#deploy_plugin)
   - [Docker](#docker)
   - [Heroku Deploy WAR](#heroku_deploy_war)

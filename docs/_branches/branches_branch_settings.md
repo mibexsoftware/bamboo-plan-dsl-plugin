@@ -56,5 +56,5 @@ right_code: |
   ~~~
   {: title="YAML" }
 ---
-This configures the setting for a specific plan branch. A plan branch can have triggers, merging settings, build
-variables and notification settings.
+This configures the setting for a specific [plan branch](#branches). A plan branch can have [triggers](#branches_triggers),
+[merging settings](#branches_merging), [build variables](#variables) and [notification settings](#notifications).

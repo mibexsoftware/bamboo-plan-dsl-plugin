@@ -21,4 +21,4 @@ right_code: |
   ~~~
   {: title="YAML" }
 ---
-A task to inject Bamboo variables from a file with a simple "key=value" format.
+A task to inject Bamboo [variables](#variables) from a file with a simple "key=value" format.

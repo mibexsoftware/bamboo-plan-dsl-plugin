@@ -27,4 +27,4 @@ right_code: |
   ~~~
   {: title="YAML" } 
 ---
-Defines the artifact(s) for this job.
+Defines the artifact(s) for this [job](#jobs).

@@ -52,4 +52,5 @@ right_code: |
   ~~~
   {: title="YAML" } 
 ---
-Defines the miscellaneous options for this job. Here you can configure the build hung options, NCover and Clover settings.
+Defines the miscellaneous options for this [job](#jobs). Here you can configure the build hung options,
+NCover and Clover settings.

@@ -32,4 +32,4 @@ right_code: |
   {: title="YAML" }
 ---
 Automatic merging can test the merge between branches and push changes back to the repository on a successful
-build. This setting will be applied to all new plan branches.
+build. This setting will be applied to all new [plan branches](#branches).

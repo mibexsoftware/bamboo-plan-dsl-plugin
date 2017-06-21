@@ -11,7 +11,6 @@ project("SIMPLEPROJECT") {
 
         deploymentProject(name: "dp3", id: 59899907) {
         }
-
         deploymentProject("dp1") {
             description "desc1"
             useCustomPlanBranch "develop"

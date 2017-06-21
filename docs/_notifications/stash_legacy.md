@@ -4,7 +4,7 @@ position: 1.3
 right_code: |
   ~~~groovy
   notifications {
-    stashLegact(event: NotificationEvent.CHANGE_OF_JOB_STATUS) {
+    stashLegacy(event: NotificationEvent.CHANGE_OF_JOB_STATUS) {
     }
   }
   ~~~
