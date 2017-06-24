@@ -20,7 +20,7 @@ right_code: |
       name: Deploys the software
       artifactDefinitions:
         - name: my JAR
-          copyPattern: **/*.jar'
+          copyPattern: '**/*.jar'
           location: target
           isShared: true
         #  more artifact definitions
