@@ -20,7 +20,7 @@ class Artifacts extends BambooObject {
     protected Artifacts() {
     }
 
-        /**
+    /**
      * Defines an artifact definition.
      *
      * @param name the name of the artifact definition

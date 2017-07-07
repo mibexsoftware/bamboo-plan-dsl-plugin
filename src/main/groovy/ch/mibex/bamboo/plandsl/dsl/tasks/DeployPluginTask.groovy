@@ -129,7 +129,6 @@ class DeployPluginTask extends Task {
         config.put('atlassianIdPasswordVariableCheck', 'false')
         config.put('useAtlassianIdWebSudo', useAtlassianIdWebSudo as String)
         config.put('confDeployJar', getArtifactId(context, deployArtifactName, true))
-
         config
     }
 

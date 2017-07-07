@@ -50,7 +50,9 @@ abstract class Task extends BambooObject {
     protected String getArtifactId(Map<Object, Object> context, String deployArtifactName, boolean v2 = false) {
         def contextArtifacts = context['artifacts']
         def artifact = contextArtifacts[deployArtifactName]
-        Validations.isNotNullOrEmpty(artifact, "artifact details for '$deployArtifactName' not found: " + context)
+        Validations.isNotNullOrEmpty(
+                artifact, "artifact details for '$deployArtifactName' not found in task $pluginKey: " + context
+        )
         def info = artifact.asType(ArtifactInfo)
         def prefix = v2 ? 'v2:' : ''
         "${prefix}${info.artifactId}:${info.taskId}:${info.transferId}:${info.name}".toString()
