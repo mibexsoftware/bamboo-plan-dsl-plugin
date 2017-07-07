@@ -4,18 +4,17 @@ position: 1.9
 right_code: |
   ~~~groovy
   scm {
-      custom(name: 'TFS', pluginKey: 'com.stellarity.bamboo.tfs-repository-plugin:tfs') {
+      custom(name: 'MYREPO', pluginKey: 'com.stellarity.bamboo.tfs-repository-plugin:tfs') {
           configure(
-              'stellarity.tfs.repository.url': 'http://localhost:8080/tfs/DefaultCollection',
-              'stellarity.tfs.repository.path': '$/test-prj/src',
-              'stellarity.tfs.repository.username': 'admin',
-              'stellarity.tfs.temporary.passwordChange': true,
-              'stellarity.tfs.temporary.password': 'CHANGEIT',
+              'stellarity.tfs.repository.url': 'https://server/DefaultCollection',
+              'stellarity.tfs.repository.path': "\$/proj/SimpleDriver/TheSimpliest",
+              'stellarity.tfs.repository.username': 'username',
+              'stellarity.tfs.repository.password': encryptionService.encrypt('password'),
               'stellarity.tfs.repository.removeworkspace': true,
-              'stellarity.tfs.repository.versionspec': '1.x',
+              'stellarity.tfs.repository.versionspec': '',
               'selectedWebRepositoryViewer': 'com.stellarity.bamboo.tfs-repository-plugin:tfsViewer',
               'stellarity.tfs.repository.filter.option': 'INCLUDE',
-              'stellarity.tfs.repository.filter.pattern': 'checkout'
+              'stellarity.tfs.repository.filter.pattern': '.*\\.h'
           )
       }
   }
@@ -27,16 +26,15 @@ right_code: |
       name: TFS
       pluginKey: com.stellarity.bamboo.tfs-repository-plugin:tfs
       config:
-        stellarity.tfs.repository.url: http://localhost:8080/tfs/DefaultCollection
-        stellarity.tfs.repository.path: $/test-prj/src
-        stellarity.tfs.repository.username: admin
-        stellarity.tfs.temporary.passwordChange: true
-        stellarity.tfs.temporary.password: CHANGEIT
+        stellarity.tfs.repository.url: 'https://server/DefaultCollection'
+        stellarity.tfs.repository.path: '$/proj/SimpleDriver/TheSimpliest'
+        stellarity.tfs.repository.username: username
+        stellarity.tfs.temporary.password: !encrypt password
         stellarity.tfs.repository.removeworkspace: true
-        stellarity.tfs.repository.versionspec: 1.x
-        selectedWebRepositoryViewer: com.stellarity.bamboo.tfs-repository-plugin:tfsViewer
+        stellarity.tfs.repository.versionspec:
+        selectedWebRepositoryViewer: 'com.stellarity.bamboo.tfs-repository-plugin:tfsViewer'
         stellarity.tfs.repository.filter.option: INCLUDE
-        stellarity.tfs.repository.filter.pattern: checkout
+        stellarity.tfs.repository.filter.pattern: '.*\\.h'
   ~~~
   {: title="YAML" }
 ---
