@@ -312,6 +312,7 @@ class YamlParser {
         EnvConstructor(BambooFacade bambooFacade) {
             this.bambooFacade = bambooFacade
             this.yamlConstructors.put(new Tag('!env'), new ConstructEnv())
+            this.yamlConstructors.put(new Tag('!encrypt'), new ConstructEncrypt())
         }
 
         private class ConstructEnv extends AbstractConstruct {
@@ -323,6 +324,18 @@ class YamlParser {
                 }
                 String key = (String) constructScalar(node)
                 bambooFacade.variableContext[key]
+            }
+        }
+
+        private class ConstructEncrypt extends AbstractConstruct {
+
+            @Override
+            Object construct(org.yaml.snakeyaml.nodes.Node node) {
+                if (!(node instanceof ScalarNode)) {
+                    throw new IllegalArgumentException('Non-scalar !encrypt: ' + node.toString())
+                }
+                String text = (String) constructScalar(node)
+                bambooFacade.encrypt(text)
             }
         }
     }
