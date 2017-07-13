@@ -14,6 +14,11 @@ class CleanWorkingDirTask extends Task {
         super(bambooFacade, TASK_ID)
     }
 
+    // necessary for YAML !cleanWorkingDir single-arg ctor
+    protected CleanWorkingDirTask(String s) {
+        super(TASK_ID)
+    }
+
     // just for testing
     protected CleanWorkingDirTask() {
         super(TASK_ID)

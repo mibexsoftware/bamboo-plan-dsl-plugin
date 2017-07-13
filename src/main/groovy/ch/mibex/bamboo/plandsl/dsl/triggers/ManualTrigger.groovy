@@ -14,4 +14,7 @@ class ManualTrigger extends TriggerType {
     protected ManualTrigger(BambooFacade bambooFacade) {
         super(bambooFacade)
     }
+
+    // necessary for YAML !cleanWorkingDir single-arg ctor
+    protected ManualTrigger(String s) {}
 }

@@ -14,12 +14,14 @@ import ch.mibex.bamboo.plandsl.dsl.permissions.Permissions
 import ch.mibex.bamboo.plandsl.dsl.plans.ExpirationDetails
 import ch.mibex.bamboo.plandsl.dsl.plans.Miscellaneous
 import ch.mibex.bamboo.plandsl.dsl.scm.*
+import ch.mibex.bamboo.plandsl.dsl.scm.auth.DefaultMercurialAuth
 import ch.mibex.bamboo.plandsl.dsl.scm.auth.PasswordAuth
 import ch.mibex.bamboo.plandsl.dsl.scm.auth.SharedCredentialsAuth
 import ch.mibex.bamboo.plandsl.dsl.scm.auth.SshWithoutPassphraseAuth
 import ch.mibex.bamboo.plandsl.dsl.scm.options.AdvancedGitOptions
 import ch.mibex.bamboo.plandsl.dsl.scm.options.AdvancedHgMercurialOptions
 import ch.mibex.bamboo.plandsl.dsl.scm.options.AdvancedSvnOptions
+import ch.mibex.bamboo.plandsl.dsl.scm.web.BitbucketWebRepository
 import ch.mibex.bamboo.plandsl.dsl.scm.web.FisheyeWebRepository
 import ch.mibex.bamboo.plandsl.dsl.scm.web.WebRepository
 import ch.mibex.bamboo.plandsl.dsl.tasks.*
@@ -136,9 +138,7 @@ class YamlParserSpec extends Specification {
                         sourcePlanKey: 'myPlan'
                 )]
         )
-        project.plans[0].stages[0].jobs[0].tasks.tasks[4] == new CleanWorkingDirTask(
-                isFinal: true
-        )
+        project.plans[0].stages[0].jobs[0].tasks.tasks[4] == new CleanWorkingDirTask()
         project.plans[0].stages[0].jobs[0].tasks.tasks[5] == new DeployPluginTask(
                 productType: DeployPluginTask.ProductType.JIRA,
                 deployURL: 'http://myserver/jira',
@@ -263,6 +263,10 @@ class YamlParserSpec extends Specification {
                 capabilityKey: 'system.builder.ant.Ant',
                 matchType: new Requirement.Equals(matchValue: '1')
         )
+        project.plans[0].stages[0].jobs[0].requirements.requirements[1] == new Requirement(
+                capabilityKey: 'system.builder.mvn.Maven3',
+                matchType: new Requirement.Exists()
+        )
         project.plans[0].stages[0].jobs[0].artifacts.artifactDependencies[0] == new ArtifactDependency(
                 name: 'myExe',
                 destinationDirectory: 'targets'
@@ -355,7 +359,7 @@ class YamlParserSpec extends Specification {
                 name: "myHg",
                 repositoryUrl: "http://hg.red-bean.com/repos/test",
                 branch: "master",
-//                authType: new DefaultMercurialAuth(),
+                authType: new DefaultMercurialAuth(),
                 advancedOptions: new AdvancedHgMercurialOptions(
                         enableCommitIsolation: true,
                         commandTimeoutInMinutes: 180,
@@ -370,7 +374,7 @@ class YamlParserSpec extends Specification {
                                 filePattern: 'exe'
                         ),
                         excludeChangesetsRegex: 'FIXES .*',
-//                        webRepository: new WebRepository(type: new BitbucketWebRepository())
+                        webRepository: new WebRepository(type: new BitbucketWebRepository())
                 )
         )
         project.plans[0].scm.scms[8] == new ScmPerforce(
@@ -460,12 +464,8 @@ class YamlParserSpec extends Specification {
         project.plans[0].notifications.notifications[9] == new WatchersNotification(
                 event: Notifications.NotificationEvent.FIRST_FAILED_JOB_FOR_PLAN
         )
-        project.plans[0].triggers.triggers[0] == new BitbucketServerTrigger(
-                description: 'trigger on push'
-        )
-        project.plans[0].triggers.triggers[1] == new ManualTrigger(
-                description: 'manually'
-        )
+        project.plans[0].triggers.triggers[0] == new BitbucketServerTrigger()
+        project.plans[0].triggers.triggers[1] == new ManualTrigger()
         project.plans[0].triggers.triggers[2] == new PollingTrigger(
                 periodicTrigger: new PeriodicTrigger(
                         pollingFrequencyInSecs: 30
@@ -581,7 +581,10 @@ class YamlParserSpec extends Specification {
                                                     event: Notifications.NotificationEvent.DEPLOYMENT_FAILED,
                                                     notify: true,
                                                     room: 'myroom'
-                                            )
+                                            ),
+                                            new ResponsibleUsersNotification(),
+                                            new StashLegacyNotification(),
+                                            new WatchersNotification()
                                     ]
                             ],
                             permissions: new Permissions(

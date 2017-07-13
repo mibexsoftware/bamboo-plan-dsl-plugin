@@ -70,5 +70,11 @@ class Requirement extends BambooObject {
      */
     @Deprecated
     static class Exists extends MatchType {
+        Exists() {
+        }
+
+        // single-arg ctor necessary for !exists
+        protected Exists(String e) {
+        }
     }
 }

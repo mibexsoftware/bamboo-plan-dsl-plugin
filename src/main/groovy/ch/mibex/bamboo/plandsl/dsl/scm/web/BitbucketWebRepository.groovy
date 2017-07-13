@@ -12,6 +12,9 @@ class BitbucketWebRepository extends WebRepositoryType {
         super(bambooFacade)
     }
 
+    // single-arg ctor necessary for !bitbucketWeb
+    protected BitbucketWebRepository(String e) {}
+
     // just for testing
     protected BitbucketWebRepository() {}
 }

@@ -13,6 +13,10 @@ class ResponsibleUsersNotification extends NotificationType {
     protected ResponsibleUsersNotification() {
     }
 
+    // single-arg ctor necessary for !responsibleUsers
+    protected ResponsibleUsersNotification(String e) {
+    }
+
     ResponsibleUsersNotification(Notifications.NotificationEvent event, BambooFacade bambooFacade) {
         super(NOTIFICATION_RECIPIENT_TYPE, event, bambooFacade)
     }

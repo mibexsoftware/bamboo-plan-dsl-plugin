@@ -12,6 +12,10 @@ class DefaultMercurialAuth extends AuthType {
         super(bambooFacade)
     }
 
+    // single-arg ctor necessary for !defaultMercurialAuth
+    protected DefaultMercurialAuth(String e) {
+    }
+
     // just for testing
     protected DefaultMercurialAuth() {}
 }

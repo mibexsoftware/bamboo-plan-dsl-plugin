@@ -41,9 +41,7 @@ project:
           event: !event FIRST_FAILED_JOB_FOR_PLAN
       triggers:
         - !bitbucketServerTrigger
-          description: trigger on push
         - !manual
-          description: manually
         - !polling
           periodicTrigger:
             pollingFrequencyInSecs: 30
@@ -161,7 +159,7 @@ project:
           name: myHg
           repositoryUrl: http://hg.red-bean.com/repos/test
           branch: master
-#          authType: !defaultMercurialAuth
+          authType: !defaultMercurialAuth
           advancedOptions:
             enableCommitIsolation: true
             commandTimeoutInMinutes: 180
@@ -174,8 +172,8 @@ project:
               matchType: !matchType EXCLUDE_ALL_MATCHING_CHANGES
               filePattern: exe
             excludeChangesetsRegex: 'FIXES .*'
-#            webRepository:
-#              type: !bitbucketWeb
+            webRepository:
+              type: !bitbucketWeb
         - !perforce
           name: myPerforceRepo
           port: 9091
@@ -242,7 +240,6 @@ project:
                     destinationPath: out
                     sourcePlanKey: myPlan
                 - !cleanWorkingDir
-                  isFinal: true
                 - !deployPlugin
                   productType: !productType JIRA
                   deployURL: http://myserver/jira
@@ -357,6 +354,8 @@ project:
                 - capabilityKey: system.builder.ant.Ant
                   matchType: !equals
                     matchValue: 1
+                - capabilityKey: system.builder.mvn.Maven3
+                  matchType: !exists
               miscellaneous:
                 cleanWorkingDirectoryAfterEachBuild: true
                 buildHungOptions:
@@ -432,6 +431,9 @@ project:
                   room: myroom
                   event: !event DEPLOYMENT_FAILED
                   notify: true
+                - !responsibleUsers
+                - !stashLegacy
+                - !watchers
               permissions:
                 user:
                   paul: !permission VIEW

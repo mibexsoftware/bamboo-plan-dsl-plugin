@@ -11,6 +11,10 @@ class BitbucketServerTrigger extends TriggerType {
     // for tests
     protected BitbucketServerTrigger() {}
 
+    // necessary for YAML !bitbucketServerTrigger single-arg ctor
+    protected BitbucketServerTrigger(String s) {
+    }
+
     protected BitbucketServerTrigger(BambooFacade bambooFacade) {
         super(bambooFacade)
     }
