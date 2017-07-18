@@ -8,7 +8,7 @@ import groovy.transform.ToString
 @ToString(includeFields=true)
 class EmailNotification extends NotificationType {
     private static final NOTIFICATION_RECIPIENT_TYPE =
-            'com.atlassian.bamboo.plugin.system.notifications:recipient.address'
+            'com.atlassian.bamboo.plugin.system.notifications:recipient.email'
     private String address
 
     EmailNotification() {
