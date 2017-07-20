@@ -6,12 +6,12 @@ import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@EqualsAndHashCode(includeFields=false, excludes = ['metaClass'])
+@EqualsAndHashCode(includeFields=false, excludes=['metaClass'])
 @ToString(includeFields=true)
 class Permissions extends BambooObject {
-    private Map<String, PermissionTypes> user = [:]
-    private Map<String, PermissionTypes> group = [:]
-    private Map<OtherUserType, PermissionTypes> other = [:]
+    private Map<String, Set<PermissionTypes.PermissionType>> user = [:]
+    private Map<String, Set<PermissionTypes.PermissionType>> group = [:]
+    private Map<OtherUserType, Set<PermissionTypes.PermissionType>> other = [:]
 
     protected Permissions(BambooFacade bambooFacade) {
         super(bambooFacade)
@@ -46,10 +46,10 @@ class Permissions extends BambooObject {
      *
      * @param name Name of the user
      */
-    void user(String name, @DelegatesTo(value = PermissionTypes, strategy = Closure.DELEGATE_FIRST) Closure closure) {
-        def permissionTypes = new PermissionTypes(bambooFacade)
+    void user(String name,
+              @DelegatesTo(value = PermissionTypes, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+        def permissionTypes = new PermissionTypes(bambooFacade, { permissions -> user[name] = permissions })
         DslScriptHelper.execute(closure, permissionTypes)
-        user[name] = permissionTypes
     }
 
     /**
@@ -67,10 +67,10 @@ class Permissions extends BambooObject {
      *
      * @param name Name of the group
      */
-    void group(String name, @DelegatesTo(value = PermissionTypes, strategy = Closure.DELEGATE_FIRST) Closure closure) {
-        def permissionTypes = new PermissionTypes(bambooFacade)
+    void group(String name,
+               @DelegatesTo(value = PermissionTypes, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+        def permissionTypes = new PermissionTypes(bambooFacade, { permissions -> group[name] = permissions })
         DslScriptHelper.execute(closure, permissionTypes)
-        group[name] = permissionTypes
     }
 
     /**
@@ -90,8 +90,7 @@ class Permissions extends BambooObject {
      */
     void other(OtherUserType otherUserType,
                @DelegatesTo(value = PermissionTypes, strategy = Closure.DELEGATE_FIRST) Closure closure) {
-        def permissionTypes = new PermissionTypes(bambooFacade)
+        def permissionTypes = new PermissionTypes(bambooFacade, { permissions -> other[otherUserType] = permissions })
         DslScriptHelper.execute(closure, permissionTypes)
-        other[otherUserType] = permissionTypes
     }
 }

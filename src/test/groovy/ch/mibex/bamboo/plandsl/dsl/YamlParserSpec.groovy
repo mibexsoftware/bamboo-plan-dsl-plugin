@@ -519,14 +519,14 @@ class YamlParserSpec extends Specification {
                 ),
                 permissions: new Permissions(
                   user: [
-                          'bob': PermissionTypes.PermissionType.VIEW,
-                          'carol': PermissionTypes.PermissionType.EDIT
+                          'bob': [PermissionTypes.PermissionType.VIEW, PermissionTypes.PermissionType.EDIT],
+                          'carol': [PermissionTypes.PermissionType.EDIT]
                   ],
                   group: [
-                          'devops': PermissionTypes.PermissionType.ADMIN
+                          'devops': [PermissionTypes.PermissionType.ADMIN, PermissionTypes.PermissionType.VIEW]
                   ],
                   other: [
-                          (Permissions.OtherUserType.LOGGED_IN_USERS): PermissionTypes.PermissionType.VIEW
+                          (Permissions.OtherUserType.LOGGED_IN_USERS): [PermissionTypes.PermissionType.VIEW, PermissionTypes.PermissionType.EDIT]
                   ]
                 ),
                 environments: [
@@ -589,14 +589,14 @@ class YamlParserSpec extends Specification {
                             ],
                             permissions: new Permissions(
                                     user: [
-                                            'paul': PermissionTypes.PermissionType.VIEW,
-                                            'peter': PermissionTypes.PermissionType.ADMIN
+                                            'paul': [PermissionTypes.PermissionType.VIEW, PermissionTypes.PermissionType.EDIT],
+                                            'peter': [PermissionTypes.PermissionType.ADMIN, PermissionTypes.PermissionType.VIEW]
                                     ],
                                     group: [
-                                            'devs': PermissionTypes.PermissionType.ADMIN
+                                            'devops': [PermissionTypes.PermissionType.VIEW, PermissionTypes.PermissionType.EDIT]
                                     ],
                                     other: [
-                                            (Permissions.OtherUserType.ANONYMOUS_USERS): PermissionTypes.PermissionType.VIEW
+                                            (Permissions.OtherUserType.ANONYMOUS_USERS): [PermissionTypes.PermissionType.VIEW, PermissionTypes.PermissionType.EDIT]
                                     ]
                             ),
                         )

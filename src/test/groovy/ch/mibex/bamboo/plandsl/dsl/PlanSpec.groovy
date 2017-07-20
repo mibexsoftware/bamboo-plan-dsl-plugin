@@ -184,9 +184,9 @@ class PlanSpec extends Specification {
                 enabled: true,
                 description: "this is a simple plan",
                 permissions: new Permissions(
-                    user: ['diego': new PermissionTypes(permissionTypes: [PermissionTypes.PermissionType.ADMIN])],
-                    group: ['devops': new PermissionTypes(permissionTypes: [PermissionTypes.PermissionType.VIEW, PermissionTypes.PermissionType.BUILD])],
-                    other: ['ROLE_ANONYMOUS': new PermissionTypes(permissionTypes: [PermissionTypes.PermissionType.VIEW, PermissionTypes.PermissionType.ADMIN])],
+                    user: ['diego': [PermissionTypes.PermissionType.ADMIN]],
+                    group: ['devops': [PermissionTypes.PermissionType.VIEW, PermissionTypes.PermissionType.BUILD]],
+                    other: [(Permissions.OtherUserType.ANONYMOUS_USERS): [PermissionTypes.PermissionType.VIEW, PermissionTypes.PermissionType.ADMIN]],
                 )
         )
     }

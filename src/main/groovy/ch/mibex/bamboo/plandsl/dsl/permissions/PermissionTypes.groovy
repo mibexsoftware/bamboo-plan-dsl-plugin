@@ -5,10 +5,10 @@ import ch.mibex.bamboo.plandsl.dsl.BambooObject
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'])
+@EqualsAndHashCode(includeFields=true, excludes=['metaClass'])
 @ToString(includeFields=true)
 class PermissionTypes extends BambooObject {
-    private Set<PermissionType> permissionTypes = []
+    private callbackFun
 
     static enum PermissionType {
         /**
@@ -49,8 +49,9 @@ class PermissionTypes extends BambooObject {
     // just for testing
     protected PermissionTypes() {}
 
-    protected PermissionTypes(BambooFacade bambooFacade) {
+    protected PermissionTypes(BambooFacade bambooFacade, callbackFun) {
         super(bambooFacade)
+        this.callbackFun = callbackFun
     }
 
     /**
@@ -59,6 +60,6 @@ class PermissionTypes extends BambooObject {
      * @param permissionTypes List of permission types
      */
     void permissionTypes(PermissionType... permissionTypes) {
-        permissionTypes.each { this.permissionTypes.add(it) }
+        callbackFun(permissionTypes)
     }
 }

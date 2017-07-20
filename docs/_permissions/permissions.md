@@ -5,11 +5,11 @@ right_code: |
   ~~~groovy
    permissions {
       user(name: 'diego') {
-          permissionTypes PermissionType.ADMIN
+          permissionTypes PermissionType.EDIT, PermissionType.CLONE, PermissionType.BUILD
       }
 
       group(name: 'devops') {
-          permissionTypes PermissionType.BUILD
+          permissionTypes PermissionType.VIEW, PermissionType.BUILD
       }
 
       other(type: OtherUserType.ANONYMOUS_USERS) {
@@ -21,11 +21,17 @@ right_code: |
   ~~~ yml
   permissions:
     user:
-      diego: !permission ADMIN
+      diego: 
+        - !permission EDIT
+        - !permission CLONE
+        - !permission BUILD
     group:
-      devops: !permission BUiLD
+      devops: 
+        - !permission VIEW
+        - !permission BUILD
     other:
-      !userType ANONYMOUS_USERS: !permission VIEW
+      !userType ANONYMOUS_USERS: 
+        - !permission VIEW
   ~~~
   {: title="YAML" }
 ---

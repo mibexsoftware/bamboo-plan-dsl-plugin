@@ -4,6 +4,9 @@ project:
   plans:
     - key: MYPLAN
       name: my plan
+      permissions:
+        user:
+          paul: !permission VIEW
       notifications:
         - !email
           address: test@test.com
@@ -436,12 +439,20 @@ project:
                 - !watchers
               permissions:
                 user:
-                  paul: !permission VIEW
-                  peter: !permission ADMIN
+                  paul:
+                    - !permission VIEW
+                    - !permission EDIT
+                  peter:
+                    - !permission ADMIN
+                    - !permission VIEW
                 group:
-                  devops: !permission VIEW
+                  devops:
+                    - !permission VIEW
+                    - !permission EDIT
                 other:
-                  !userType ANONYMOUS_USERS: !permission VIEW
+                  !userType ANONYMOUS_USERS:
+                    - !permission VIEW
+                    - !permission EDIT
               triggers:
                 - !afterSuccessfulBuildDeployment
                   description: run after successful build

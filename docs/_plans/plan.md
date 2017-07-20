@@ -26,6 +26,8 @@ right_code: |
           }
           miscellaneous {
           }
+          permissions {
+          }
           deploymentProject(name: 'staging') {
           }
           deploymentProject(name: 'production') {
@@ -51,6 +53,7 @@ right_code: |
         dependencies:
         variables:
         miscellaneous:
+        permissions:
         deploymentProjects:
           - name: staging
           - name: production
