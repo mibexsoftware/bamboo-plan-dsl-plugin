@@ -1,12 +1,16 @@
 package ch.mibex.bamboo.plandsl.dsl.notifications
 
 import ch.mibex.bamboo.plandsl.dsl.BambooFacade
+import ch.mibex.bamboo.plandsl.dsl.BambooObject
+import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'], callSuper = true)
+@EqualsAndHashCode(includeFields=true, excludes = ['metaClass'])
 @ToString(includeFields=true)
-class EnvironmentNotifications extends AbstractNotifications {
+class EnvironmentNotifications extends BambooObject {
+    private List<NotificationType> notifications = []
+
     protected EnvironmentNotifications() {}
 
     EnvironmentNotifications(BambooFacade bambooFacade) {
@@ -14,63 +18,77 @@ class EnvironmentNotifications extends AbstractNotifications {
     }
 
     /**
-     * @deprecated use {@link Notifications.NotificationEvent)} instead
+     * Notify a user.
      */
-    @Deprecated
-    void hipchat(EnvironmentNotificationEvent event, String apiToken, String room,
+    void user(Map<String, Object> params,
+              @DelegatesTo(value = UserNotification, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+        def notification = new UserNotification(params['event'] as Notifications.NotificationEvent, bambooFacade)
+        DslScriptHelper.execute(closure, notification)
+        notifications << notification
+    }
+
+    /**
+     * Notify users via HipChat.
+     *
+     * @param params Mandatory parameters of this notification. "event", "apiToken" and "room" are expected.
+     */
+    void hipchat(Map<String, Object> params,
                  @DelegatesTo(value = HipChatNotification, strategy = Closure.DELEGATE_FIRST) Closure closure) {
-        hipchat(translateEventNotifications(event), apiToken, room, closure)
+        def notification = new HipChatNotification(
+            params['event'] as Notifications.NotificationEvent,
+            params['apiToken'] as String,
+            params['room'] as String,
+            bambooFacade
+        )
+        DslScriptHelper.execute(closure, notification)
+        notifications << notification
     }
 
     /**
-     * @deprecated use {@link Notifications.NotificationEvent)} instead
+     * Notify a group.
      */
-    @Deprecated
-    void email(EnvironmentNotificationEvent event,
-               @DelegatesTo(value = EmailNotification, strategy = Closure.DELEGATE_FIRST) Closure closure) {
-        email(translateEventNotifications(event), closure)
-    }
-
-    /**
-     * @deprecated use {@link Notifications.NotificationEvent)} instead
-     */
-    @Deprecated
-    void group(EnvironmentNotificationEvent event,
+    void group(Map<String, Object> params,
                @DelegatesTo(value = GroupNotification, strategy = Closure.DELEGATE_FIRST) Closure closure) {
-        group(translateEventNotifications(event), closure)
+        def notification = new GroupNotification(params['event'] as Notifications.NotificationEvent, bambooFacade)
+        DslScriptHelper.execute(closure, notification)
+        notifications << notification
     }
 
     /**
-     * @deprecated use {@link Notifications.NotificationEvent)} instead
+     * Notify users via e-mail.
+     *
+     * @param params Mandatory parameters of this notification. "event" is expected.
      */
-    @Deprecated
-    void user(EnvironmentNotificationEvent event,
-             @DelegatesTo(value = UserNotification, strategy = Closure.DELEGATE_FIRST) Closure closure) {
-        user(translateEventNotifications(event), closure)
+    void email(Map<String, Object> params,
+               @DelegatesTo(value = EmailNotification, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+        def notification = new EmailNotification(params['event'] as Notifications.NotificationEvent, bambooFacade)
+        DslScriptHelper.execute(closure, notification)
+        notifications << notification
     }
 
     /**
-     * @deprecated use {@link Notifications.NotificationEvent)} instead
+     * Notify via instant messenger.
      */
-    @Deprecated
-    void imAddress(EnvironmentNotificationEvent event,
-                   @DelegatesTo(value = ImAddressNotification, strategy = Closure.DELEGATE_FIRST) Closure closure) {
-        imAddress(translateEventNotifications(event), closure)
+    void imAddress(Map<String, Object> params,
+                   @DelegatesTo(value = EmailNotification, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+        def notification = new ImAddressNotification(params['event'] as Notifications.NotificationEvent, bambooFacade)
+        DslScriptHelper.execute(closure, notification)
+        notifications << notification
     }
 
     /**
-     * @deprecated use {@link Notifications.NotificationEvent} instead
+     * A custom (i.e., not built-in) notification.
+     *
+     * @param params The mandatory parameters of this notification. "event" and "pluginKey" are expected.
      */
-    @Deprecated
-    static enum EnvironmentNotificationEvent {
-        DEPLOYMENT_STARTED_AND_FINISHED('bamboo.deployments:deploymentStartedFinished'),
-        DEPLOYMENT_FINISHED('bamboo.deployments:deploymentFinished'),
-        DEPLOYMENT_FAILED('bamboo.deployments:deploymentFailed')
-
-        String bambooNotificationConditionKey
-
-        EnvironmentNotificationEvent(String bambooNotificationConditionKey) {
-            this.bambooNotificationConditionKey = bambooNotificationConditionKey
-        }
+    void custom(Map<String, Object> params,
+                @DelegatesTo(value = CustomNotification, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+        def notification = new CustomNotification(
+            params['pluginKey'] as String,
+            params['event'] as Notifications.NotificationEvent,
+            bambooFacade
+        )
+        DslScriptHelper.execute(closure, notification)
+        notifications << notification
     }
 }

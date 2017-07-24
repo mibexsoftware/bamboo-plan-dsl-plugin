@@ -1,5 +1,7 @@
 package dsls.deployprojs
 
+import ch.mibex.bamboo.plandsl.dsl.notifications.Notifications
+
 project("SIMPLEPROJECT") {
     name "simple project"
 
@@ -70,7 +72,7 @@ project("SIMPLEPROJECT") {
                 }
 
                 notifications {
-                    hipchat(event: EnvironmentNotificationEvent.DEPLOYMENT_FAILED, apiToken: "XXX", room: "MyRoom") {
+                    hipchat(event: Notifications.NotificationEvent.DEPLOYMENT_FAILED, apiToken: "XXX", room: "MyRoom") {
                         notifyParticipants true
                     }
                 }

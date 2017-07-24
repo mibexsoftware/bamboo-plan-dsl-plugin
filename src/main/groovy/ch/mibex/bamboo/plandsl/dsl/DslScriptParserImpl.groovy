@@ -4,18 +4,13 @@ import ch.mibex.bamboo.plandsl.dsl.branches.Branch
 import ch.mibex.bamboo.plandsl.dsl.branches.Branches
 import ch.mibex.bamboo.plandsl.dsl.dependencies.Dependencies
 import ch.mibex.bamboo.plandsl.dsl.jobs.Requirement
-import ch.mibex.bamboo.plandsl.dsl.notifications.EnvironmentNotifications
 import ch.mibex.bamboo.plandsl.dsl.notifications.Notifications
 import ch.mibex.bamboo.plandsl.dsl.permissions.PermissionTypes
 import ch.mibex.bamboo.plandsl.dsl.permissions.Permissions
 import ch.mibex.bamboo.plandsl.dsl.plans.ExpirationDetails
 import ch.mibex.bamboo.plandsl.dsl.scm.ScmCvs
 import ch.mibex.bamboo.plandsl.dsl.scm.ScmType
-import ch.mibex.bamboo.plandsl.dsl.tasks.DeployPluginTask
-import ch.mibex.bamboo.plandsl.dsl.tasks.DockerTask
-import ch.mibex.bamboo.plandsl.dsl.tasks.InjectBambooVariablesTask
-import ch.mibex.bamboo.plandsl.dsl.tasks.ScriptTask
-import ch.mibex.bamboo.plandsl.dsl.tasks.Tasks
+import ch.mibex.bamboo.plandsl.dsl.tasks.*
 import org.codehaus.groovy.control.CompilationFailedException
 import org.codehaus.groovy.control.CompilerConfiguration
 import org.codehaus.groovy.control.customizers.ImportCustomizer
@@ -93,9 +88,6 @@ class DslScriptParserImpl implements DslScriptParser {
         importCustomizer.addStaticImport(Notifications.name, Notifications.NotificationEvent.simpleName)
         importCustomizer.addImports(Requirement.name)
         importCustomizer.addImports(Tasks.name)
-        importCustomizer.addStaticImport(
-                EnvironmentNotifications.name, EnvironmentNotifications.EnvironmentNotificationEvent.simpleName
-        )
         importCustomizer.addStaticImport(
                 InjectBambooVariablesTask.name, InjectBambooVariablesTask.VariablesScope.simpleName
         )

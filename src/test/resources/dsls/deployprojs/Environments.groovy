@@ -112,7 +112,20 @@ project("DPPROJ") {
 
                 notifications {
                     email(event: Notifications.NotificationEvent.DEPLOYMENT_FAILED) {
-                        email: 'your@mail.com'
+                        email 'your@mail.com'
+                    }
+                    user(event: Notifications.NotificationEvent.DEPLOYMENT_FAILED) {
+                        user 'bob'
+                    }
+                    custom(event: Notifications.NotificationEvent.AFTER_X_BUILD_FAILURES,
+                            pluginKey: "ch.mibex.bamboo.smsnotification:smsnotification.recipient") {
+                        numberOfFailures 1
+                        configure(
+                                twilioAccountSid: "twilioAccountSid",
+                                twilioAuthToken: "twilioAuthToken",
+                                smsFromNumber: "smsFromNumber",
+                                smsToNumber: "smsToNumber"
+                        )
                     }
                 }
 

@@ -6,7 +6,7 @@ import ch.mibex.bamboo.plandsl.dsl.notifications.Notifications
 static void notifyWithHipChatAndSms(Notifications notifications, BambooEnvironment env) {
     notifications.with {
         custom(NotificationEvent.JOB_ERROR,
-                "ch.mibex.bamboo.smsnotification:smsnotification.recipient") {
+               "ch.mibex.bamboo.smsnotification:smsnotification.recipient") {
             numberOfFailures 1
             configure(
                     twilioAccountSid: env('twilio_account_sid_password'),

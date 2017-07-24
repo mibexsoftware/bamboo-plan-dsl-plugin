@@ -220,6 +220,7 @@ project:
           jobs:
             - key: MYJOB
               name: myjob
+              enabled: false
               tasks:
                 - !script
                   inlineScript:
@@ -452,7 +453,7 @@ project:
                 other:
                   !userType ANONYMOUS_USERS:
                     - !permission VIEW
-                    - !permission EDIT
+                    - !permission DEPLOY
               triggers:
                 - !afterSuccessfulBuildDeployment
                   description: run after successful build
@@ -479,4 +480,6 @@ project:
             group:
               devops: !permission ADMIN
             other:
-              !userType LOGGED_IN_USERS: !permission VIEW
+              !userType LOGGED_IN_USERS:
+                - !permission VIEW
+                - !permission EDIT

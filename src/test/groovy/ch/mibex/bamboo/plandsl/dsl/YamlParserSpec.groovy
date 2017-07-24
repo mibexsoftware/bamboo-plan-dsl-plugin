@@ -115,6 +115,7 @@ class YamlParserSpec extends Specification {
         project.plans[0].stages[0].name == 'mystage'
         project.plans[0].stages[0].jobs[0].key == 'MYJOB'
         project.plans[0].stages[0].jobs[0].name == 'myjob'
+        project.plans[0].stages[0].jobs[0].enabled == false
         project.plans[0].stages[0].jobs[0].tasks.tasks[0] == new ScriptTask(
                 inlineScript: new InlineScript(scriptBody: 'myvalue')
         )
@@ -519,11 +520,11 @@ class YamlParserSpec extends Specification {
                 ),
                 permissions: new Permissions(
                   user: [
-                          'bob': [PermissionTypes.PermissionType.VIEW, PermissionTypes.PermissionType.EDIT],
-                          'carol': [PermissionTypes.PermissionType.EDIT]
+                          'bob': PermissionTypes.PermissionType.VIEW,
+                          'carol': PermissionTypes.PermissionType.EDIT
                   ],
                   group: [
-                          'devops': [PermissionTypes.PermissionType.ADMIN, PermissionTypes.PermissionType.VIEW]
+                          'devops': PermissionTypes.PermissionType.ADMIN
                   ],
                   other: [
                           (Permissions.OtherUserType.LOGGED_IN_USERS): [PermissionTypes.PermissionType.VIEW, PermissionTypes.PermissionType.EDIT]
@@ -596,7 +597,7 @@ class YamlParserSpec extends Specification {
                                             'devops': [PermissionTypes.PermissionType.VIEW, PermissionTypes.PermissionType.EDIT]
                                     ],
                                     other: [
-                                            (Permissions.OtherUserType.ANONYMOUS_USERS): [PermissionTypes.PermissionType.VIEW, PermissionTypes.PermissionType.EDIT]
+                                            (Permissions.OtherUserType.ANONYMOUS_USERS): [PermissionTypes.PermissionType.VIEW, PermissionTypes.PermissionType.DEPLOY]
                                     ]
                             ),
                         )

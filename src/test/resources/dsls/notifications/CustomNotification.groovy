@@ -23,7 +23,7 @@ project("SIMPLEPROJECT") {
                 notify true
             }
             email(event: NotificationEvent.FIRST_FAILED_JOB_FOR_PLAN) {
-                email: 'your@mail.com'
+                email 'your@mail.com'
             }
         }
     }

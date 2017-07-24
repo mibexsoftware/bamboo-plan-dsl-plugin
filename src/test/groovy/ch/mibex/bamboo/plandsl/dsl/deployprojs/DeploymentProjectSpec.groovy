@@ -62,7 +62,7 @@ class DeploymentProjectSpec extends Specification {
                 permissions:  new Permissions(
                         user: ['diego': [PermissionTypes.PermissionType.VIEW]],
                         group: ['devops': [PermissionTypes.PermissionType.VIEW]],
-                        other: ['ROLE_USER': [PermissionTypes.PermissionType.VIEW, PermissionTypes.PermissionType.EDIT]],
+                        other: [(Permissions.OtherUserType.LOGGED_IN_USERS): [PermissionTypes.PermissionType.VIEW, PermissionTypes.PermissionType.EDIT]],
                 )
         )
         results.projects[0].plans[0].deploymentProjects[3] == new DeploymentProject(
