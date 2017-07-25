@@ -192,7 +192,7 @@ supported by the plug-in, they can still be used with the
         - [x] Details
         - [x] Tasks
         - [x] Triggers
-        - [ ] Agent assignments
+        - [x] Agent assignments
         - [x] Notifications
         - [x] Variables
         - [x] Environment permissions

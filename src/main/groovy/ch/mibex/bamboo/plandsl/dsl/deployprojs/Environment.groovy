@@ -27,6 +27,7 @@ class Environment extends BambooObject {
     private Variables variables = new Variables(bambooFacade)
     private EnvironmentNotifications notifications = new EnvironmentNotifications(bambooFacade)
     private Permissions permissions = new Permissions(bambooFacade)
+    private AgentsAssignment agentsAssignment = new AgentsAssignment(bambooFacade)
 
     Environment(String name, BambooFacade bambooFacade) {
         this(name, null, bambooFacade)
@@ -125,5 +126,17 @@ class Environment extends BambooObject {
         def permissions = new Permissions(bambooFacade)
         DslScriptHelper.execute(closure, permissions)
         this.permissions = permissions
+    }
+
+    /**
+     * This environment can only be deployed by agents whose capabilities meet the 1 requirement below.
+     *
+     * @since 1.9.0
+     */
+    AgentsAssignment agentsAssignment(
+            @DelegatesTo(value = AgentsAssignment, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+        def agentsAssignment = new AgentsAssignment(bambooFacade)
+        DslScriptHelper.execute(closure, agentsAssignment)
+        this.agentsAssignment = agentsAssignment
     }
 }

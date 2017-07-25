@@ -8,6 +8,9 @@ right_code: |
           requirement(capabilityKey: 'system.builder.mvn3.maven323',
                       matchType: matches('[A-Z0-9]*')) {
           }
+          requirement(capabilityKey: 'system.builder.msbuild.MSBuild v4.0 (64bit)',
+                      matchType: exists()) {
+          }
       }
   }
   ~~~
@@ -20,6 +23,8 @@ right_code: |
         - capabilityKey: system.builder.mvn3.maven323
           matchType: !matches
             matchValue: '[A-Z0-9]*'
+        - capabilityKey: system.builder.msbuild.MSBuild v4.0 (64bit)
+          matchType: !exists
   ~~~
   {: title="YAML" } 
 ---

@@ -438,6 +438,16 @@ project:
                 - !responsibleUsers
                 - !stashLegacy
                 - !watchers
+              agentsAssignment:
+                requirements:
+                  - capabilityKey: system.builder.ant.Ant
+                    matchType: !equals
+                      matchValue: 1
+                  - capabilityKey: system.builder.mvn.Maven3
+                    matchType: !exists
+                dedicatedAgentNames:
+                  - local agent
+                  - remote agent
               permissions:
                 user:
                   paul:

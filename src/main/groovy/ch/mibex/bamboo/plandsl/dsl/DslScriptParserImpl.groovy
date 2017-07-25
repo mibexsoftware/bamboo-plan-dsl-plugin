@@ -4,6 +4,7 @@ import ch.mibex.bamboo.plandsl.dsl.branches.Branch
 import ch.mibex.bamboo.plandsl.dsl.branches.Branches
 import ch.mibex.bamboo.plandsl.dsl.dependencies.Dependencies
 import ch.mibex.bamboo.plandsl.dsl.jobs.Requirement
+import ch.mibex.bamboo.plandsl.dsl.notifications.EnvironmentNotifications
 import ch.mibex.bamboo.plandsl.dsl.notifications.Notifications
 import ch.mibex.bamboo.plandsl.dsl.permissions.PermissionTypes
 import ch.mibex.bamboo.plandsl.dsl.permissions.Permissions
@@ -85,6 +86,7 @@ class DslScriptParserImpl implements DslScriptParser {
         def importCustomizer = new ImportCustomizer()
         // we need to embed these enums in files of the DSL and not in separate files because otherwise lookup
         // does not work in IDEs:
+        importCustomizer.addStaticImport(EnvironmentNotifications.name, Notifications.NotificationEvent.simpleName)
         importCustomizer.addStaticImport(Notifications.name, Notifications.NotificationEvent.simpleName)
         importCustomizer.addImports(Requirement.name)
         importCustomizer.addImports(Tasks.name)

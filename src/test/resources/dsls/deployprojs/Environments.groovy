@@ -148,17 +148,14 @@ project("DPPROJ") {
                     variable "key2", "value2"
                 }
 
-//                agentAssignments {
-//                    requirements {
-//                        requirement(capabilityKey: 'system.builder.gradle.Gradle 2.2',
-//                                    matchType: equalsTo("2.2")) {
-//                        }
-//                    }
-//                    dedicatedAgents {
-//                        dedicatedAgent(name: '') {
-//                        }
-//                    }
-//                }
+                agentsAssignment {
+                    requirements {
+                        requirement(capabilityKey: 'system.builder.gradle.Gradle 2.2',
+                                    matchType: equalsTo("2.2")) {
+                        }
+                    }
+                    dedicatedAgents 'Default Agent', 'localhost'
+                }
             }
         }
 

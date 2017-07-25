@@ -16,6 +16,8 @@ right_code: |
           }
           permissions {
           }
+          agentsAssignment {
+          }
       }
   }
   ~~~
@@ -33,6 +35,7 @@ right_code: |
           notifications:
           permissions:
           triggers:
+          agentsAssignment:
   ~~~
   {: title="YAML" }
 ---

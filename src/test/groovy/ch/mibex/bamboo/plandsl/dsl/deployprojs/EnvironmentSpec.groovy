@@ -30,14 +30,62 @@ class EnvironmentSpec extends Specification {
 //                        environmentVariables: "what=EVER",
 //                        executable: "atlas-clean"
 //                )]),
-//                triggers: new DeploymentTriggers(triggers: [new ScheduledDeploymentTrigger(
-//                        cronExpression: "0 0 0 ? * *"
-//                ), new AfterSuccessfulStageDeploymentTrigger(
-//                        customPlanBranchName: "develop",
-//                        planStageToTriggerThisDeployment: "another stage"
-//                ), new AfterSuccessfulBuildDeploymentTrigger(
-//                        customPlanBranchName: "develop"
-//                )]),
+//                permissions: new Permissions(
+//                        user: ['diego': [PermissionTypes.PermissionType.VIEW]],
+//                        group: ['devops': [PermissionTypes.PermissionType.VIEW]],
+//                        other: [(Permissions.OtherUserType.LOGGED_IN_USERS): [PermissionTypes.PermissionType.VIEW, PermissionTypes.PermissionType.EDIT]],
+//                ),
+//                triggers: new DeploymentTriggers(
+//                        triggers: [
+//                                new ScheduledTrigger(
+//                                    cronExpression: "0 0 0 ? * *"
+//                                ),
+//                                new AfterSuccessfulStageDeploymentTrigger(
+//                                        customPlanBranchName: "develop",
+//                                        planStageToTriggerThisDeployment: "another stage"
+//                                ),
+//                                new AfterSuccessfulBuildDeploymentTrigger(
+//                                        customPlanBranchName: "develop"
+//                                ),
+//                                new AfterSuccessfulDeploymentTrigger(
+//                                        triggeringEnvironment: "PROD"
+//                                )
+//                        ]
+//                ),
+//                notifications: new EnvironmentNotifications(
+//                        notifications: [
+//                                new EmailNotification(
+//                                        event: Notifications.NotificationEvent.DEPLOYMENT_FAILED,
+//                                        address: 'your@mail.com'
+//                                ),
+//                                new UserNotification(
+//                                        event: Notifications.NotificationEvent.DEPLOYMENT_FAILED,
+//                                        user: 'bob'
+//                                ),
+//                                new CustomNotification(
+//                                        notificationRecipientType: 'ch.mibex.bamboo.smsnotification:smsnotification.recipient',
+//                                        event: Notifications.NotificationEvent.FAILED_BUILDS_AND_FIRST_SUCCESSFUL,
+//                                        numberOfFailures: 1,
+//                                        config: [
+//                                                'twilioAccountSid': ['twilioAccountSid'],
+//                                                'twilioAuthToken': ['twilioAuthToken'],
+//                                                'smsFromNumber': ['smsFromNumber'],
+//                                                'smsToNumber': ['smsToNumber']
+//                                        ]
+//                                )
+//                        ]
+//                ),
+//                agentsAssignment: new AgentsAssignment(
+//                        requirements: new Requirements(
+//                            requirements: [
+//                                    new Requirement(
+//                                        capabilityKey: 'system.builder.gradle.Gradle 2.2',
+//                                        matchType: new Requirement.Equals(matchValue: '2.2')
+//                                    )
+//                            ]
+//                        ),
+//                        dedicatedAgentNames: ['Default Agent', 'localhost']
+//                ),
 //                variables: new Variables(variables: [new Variable("key1", "value1"), new Variable("key2", "value2")])
 //        )
     }

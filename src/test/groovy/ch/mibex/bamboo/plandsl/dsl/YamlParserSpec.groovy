@@ -8,6 +8,7 @@ import ch.mibex.bamboo.plandsl.dsl.deployprojs.*
 import ch.mibex.bamboo.plandsl.dsl.jobs.ArtifactDefinition
 import ch.mibex.bamboo.plandsl.dsl.jobs.ArtifactDependency
 import ch.mibex.bamboo.plandsl.dsl.jobs.Requirement
+import ch.mibex.bamboo.plandsl.dsl.jobs.Requirements
 import ch.mibex.bamboo.plandsl.dsl.notifications.*
 import ch.mibex.bamboo.plandsl.dsl.permissions.PermissionTypes
 import ch.mibex.bamboo.plandsl.dsl.permissions.Permissions
@@ -575,6 +576,21 @@ class YamlParserSpec extends Specification {
                                             )
                                     ]
                             ],
+                            agentsAssignment: new AgentsAssignment(
+                                requirements: new Requirements(
+                                    requirements: [
+                                            new Requirement(
+                                                capabilityKey: 'system.builder.ant.Ant',
+                                                matchType: new Requirement.Equals(matchValue: '1')
+                                            ),
+                                            new Requirement(
+                                                    capabilityKey: 'system.builder.mvn.Maven3',
+                                                    matchType: new Requirement.Exists()
+                                            )
+                                    ]
+                                ),
+                                dedicatedAgentNames: ['local agent', 'remote agent']
+                            ),
                             notifications: [
                                     notifications: [
                                             new HipChatNotification(

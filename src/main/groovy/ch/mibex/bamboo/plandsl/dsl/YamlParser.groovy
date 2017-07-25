@@ -262,6 +262,14 @@ class YamlParser {
                         newNotifications.notifications = envNotifications
                         env.notifications = newNotifications
                     }
+                    if (env.agentsAssignment) {
+                        def requirements = env.agentsAssignment.requirements ?: []
+                        if (requirements) {
+                            def newRequirements = [:]
+                            newRequirements.requirements = requirements
+                            env.agentsAssignment.requirements = newRequirements
+                        }
+                    }
                 }
             }
 
