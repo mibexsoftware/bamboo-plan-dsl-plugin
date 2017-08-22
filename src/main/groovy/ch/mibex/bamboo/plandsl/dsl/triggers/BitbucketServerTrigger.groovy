@@ -7,6 +7,7 @@ import groovy.transform.ToString
 @EqualsAndHashCode(includeFields=true, excludes = ['metaClass'], callSuper = true)
 @ToString(includeFields=true)
 class BitbucketServerTrigger extends TriggerType {
+    private List<String> repositories
 
     // for tests
     protected BitbucketServerTrigger() {}
@@ -17,5 +18,14 @@ class BitbucketServerTrigger extends TriggerType {
 
     protected BitbucketServerTrigger(BambooFacade bambooFacade) {
         super(bambooFacade)
+    }
+
+    /**
+     * Which repositories should the trigger apply to?
+     *
+     * @since 1.9.2
+     */
+    void repositories(String... repositories) {
+        this.repositories = repositories
     }
 }

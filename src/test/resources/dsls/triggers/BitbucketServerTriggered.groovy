@@ -11,6 +11,7 @@ project("BITBUCKETSERVER") {
         triggers {
             bitbucketServerRepositoryTriggered {
                 description "run when new code"
+                repositories "REP1", "REP2"
             }
         }
 

@@ -47,7 +47,10 @@ class PlansWithTriggersSpec extends Specification {
         def results = loader.parse(new DslScriptContext(dsl))
 
         then:
-        results.projects[0].plans[0].triggers.triggers[0] == new BitbucketServerTrigger(description: "run when new code")
+        results.projects[0].plans[0].triggers.triggers[0] == new BitbucketServerTrigger(
+                description: "run when new code",
+                repositories: ["REP1", "REP2"]
+        )
     }
 
     def 'polling periodically trigger'() {

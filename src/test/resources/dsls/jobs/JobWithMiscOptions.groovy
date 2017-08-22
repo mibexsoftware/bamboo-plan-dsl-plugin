@@ -48,6 +48,11 @@ project(key: 'SIMPLEPROJECT', name: 'simple project') {
                         regexPattern '[a-z]+'
                         labels 'test'
                     }
+
+                    configure(
+                            'custom.bamboo.task.list': 'test',
+                            'custom.bamboo.dsl.filename': 'test.groovy'
+                    )
                 }
             }
         }
