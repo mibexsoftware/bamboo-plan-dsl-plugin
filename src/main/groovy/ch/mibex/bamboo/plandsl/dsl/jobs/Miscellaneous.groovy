@@ -14,6 +14,7 @@ class Miscellaneous extends BambooObject {
     private CloverCodeCoverage cloverCodeCoverage
     private NCoverOutput nCoverOutput
     private PatternMatchLabelling patternMatchLabelling
+    private Map<String, String> customSettings = [:]
 
     // just for testing
     protected Miscellaneous() {}
@@ -72,5 +73,14 @@ class Miscellaneous extends BambooObject {
         def cloverCodeCoverage = new CloverCodeCoverage()
         DslScriptHelper.execute(c, cloverCodeCoverage)
         this.cloverCodeCoverage = cloverCodeCoverage
+    }
+
+    /**
+     * Configure custom job settings.
+     *
+     * @since 1.9.2
+     */
+    def configure(Map<String, Object> config) {
+        config.each { k, v -> customSettings << [(k): v.toString()] }
     }
 }
