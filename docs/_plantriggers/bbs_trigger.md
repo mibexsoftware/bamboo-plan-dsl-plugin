@@ -6,6 +6,7 @@ right_code: |
   triggers {
       bitbucketServerRepositoryTriggered {
           description 'run when new code'
+          repositories 'REPO1', 'REPO2'
       }
   }
   ~~~
@@ -14,6 +15,7 @@ right_code: |
   triggers:
     - !bitbucketServerTrigger
       description: run when new code
+      repositories: [REPO1, REPO2]
   ~~~
   {: title="YAML" }
 ---

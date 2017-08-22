@@ -466,7 +466,7 @@ class YamlParserSpec extends Specification {
         project.plans[0].notifications.notifications[9] == new WatchersNotification(
                 event: Notifications.NotificationEvent.FIRST_FAILED_JOB_FOR_PLAN
         )
-        project.plans[0].triggers.triggers[0] == new BitbucketServerTrigger()
+        project.plans[0].triggers.triggers[0] == new BitbucketServerTrigger(repositories: ['REPO1', 'REPO2'])
         project.plans[0].triggers.triggers[1] == new ManualTrigger()
         project.plans[0].triggers.triggers[2] == new PollingTrigger(
                 periodicTrigger: new PeriodicTrigger(

@@ -24,6 +24,10 @@ right_code: |
               regexPattern '[a-z]+'
               labels 'test'
           }
+          configure(
+              'custom.xxx.list': 'test',
+              'custom.xxx.filename': 'test.groovy'
+          )
       }
   }
   ~~~
@@ -49,6 +53,9 @@ right_code: |
         patternMatchLabelling:
           regexPattern: [a-z]+
           labels: test
+        customSettings:
+          custom.xxx.list: test
+          custom.xxx.filename: test.groovy
   ~~~
   {: title="YAML" } 
 ---
