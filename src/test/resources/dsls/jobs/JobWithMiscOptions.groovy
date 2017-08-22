@@ -50,8 +50,8 @@ project(key: 'SIMPLEPROJECT', name: 'simple project') {
                     }
 
                     configure(
-                            'custom.bamboo.task.list': 'test',
-                            'custom.bamboo.dsl.filename': 'test.groovy'
+                            'custom.xxx.list': 'test',
+                            'custom.xxx.filename': 'test.groovy'
                     )
                 }
             }

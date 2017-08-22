@@ -87,7 +87,8 @@ class JobSpec extends Specification {
                                 generateJSONReport: true
                         ),
                         integrationOptions: CloverCodeCoverage.IntegrationOptions.AUTOMATICALLY_INTEGRATE_CLOVER_INTO_BUILD
-                )
+                ),
+                customSettings:  ['custom.xxx.list': 'test', 'custom.xxx.filename': 'test.groovy']
         )
     }
 
