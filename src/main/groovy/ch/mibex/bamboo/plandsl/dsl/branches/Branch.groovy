@@ -3,6 +3,7 @@ package ch.mibex.bamboo.plandsl.dsl.branches
 import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.BambooObject
 import ch.mibex.bamboo.plandsl.dsl.DslScriptHelper
+import ch.mibex.bamboo.plandsl.dsl.RequiresBambooVersion
 import ch.mibex.bamboo.plandsl.dsl.Validations
 import ch.mibex.bamboo.plandsl.dsl.triggers.Triggers
 import ch.mibex.bamboo.plandsl.dsl.variables.Variables
@@ -43,6 +44,7 @@ class Branch extends BambooObject {
      *
      * @param vcsBranchName The repository branch name.
      */
+    @RequiresBambooVersion(minimumVersion = "5.14")
     void vcsBranchName(String vcsBranchName) {
         this.vcsBranchName = vcsBranchName
     }
