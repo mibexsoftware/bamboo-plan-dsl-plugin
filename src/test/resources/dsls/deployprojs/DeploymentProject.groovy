@@ -38,6 +38,7 @@ project("SIMPLEPROJECT") {
 
             releaseVersioning(nextReleaseVersion: '1.0-m1') {
                 autoIncrement()
+                applicableToBranches()
                 variables "test1", "test2"
             }
 

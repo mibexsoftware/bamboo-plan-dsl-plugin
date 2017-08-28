@@ -16,6 +16,7 @@ right_code: |
           }
           releaseVersioning(nextReleaseVersion: '1.0-${bamboo.buildNumber}') {
               autoIncrement()
+              applicableToBranches()
               variables 'var1', 'var2'
           }
           permissions {
@@ -43,6 +44,7 @@ right_code: |
           releaseVersioning:
              nextReleaseVersion: 1.0-${bamboo.buildNumber}
              autoIncrement: true
+             applicableToBranches: true
              variables:
                - var1
                - var2

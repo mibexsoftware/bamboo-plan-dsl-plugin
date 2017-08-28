@@ -57,6 +57,7 @@ class DeploymentProjectSpec extends Specification {
                 releaseVersioning: new ReleaseVersioning(
                         nextReleaseVersion: "1.0-m1",
                         autoIncrement: true,
+                        applicableToBranches: true,
                         variables: ["test1", "test2"]
                 ),
                 permissions:  new Permissions(

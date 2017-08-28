@@ -2,6 +2,7 @@ package ch.mibex.bamboo.plandsl.dsl.deployprojs
 
 import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.BambooObject
+import ch.mibex.bamboo.plandsl.dsl.RequiresBambooVersion
 import ch.mibex.bamboo.plandsl.dsl.Validations
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
@@ -14,6 +15,7 @@ import groovy.transform.ToString
 class ReleaseVersioning extends BambooObject {
     private String nextReleaseVersion
     private boolean autoIncrement
+    private boolean applicableToBranches
     private Set<String> variables = []
 
     ReleaseVersioning(String nextReleaseVersion, BambooFacade bambooFacade) {
@@ -29,6 +31,17 @@ class ReleaseVersioning extends BambooObject {
      */
     void autoIncrement(boolean autoIncrement = true) {
         this.autoIncrement = autoIncrement
+    }
+
+    /**
+     * Apply the same naming scheme to releases created from branches?
+     * If switched off, releases created from branches are named after the branch.
+     *
+     * @since 1.9.3
+     */
+    @RequiresBambooVersion(minimumVersion = "6.1.0")
+    void applicableToBranches(boolean applicableToBranches = true) {
+        this.applicableToBranches = applicableToBranches
     }
 
     /**

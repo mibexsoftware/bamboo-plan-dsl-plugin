@@ -517,6 +517,7 @@ class YamlParserSpec extends Specification {
                 releaseVersioning: new ReleaseVersioning(
                         nextReleaseVersion: '1.0.0',
                         autoIncrement: true,
+                        applicableToBranches: true,
                         variables: ['var1', 'var2']
                 ),
                 permissions: new Permissions(
