@@ -39,7 +39,7 @@ class ReleaseVersioning extends BambooObject {
      *
      * @since 1.9.3
      */
-    @RequiresBambooVersion(minimumVersion = "6.1.0")
+    @RequiresBambooVersion(minimumVersion = '6.1.0')
     void applicableToBranches(boolean applicableToBranches = true) {
         this.applicableToBranches = applicableToBranches
     }

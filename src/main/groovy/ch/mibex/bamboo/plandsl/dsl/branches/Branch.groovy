@@ -44,7 +44,7 @@ class Branch extends BambooObject {
      *
      * @param vcsBranchName The repository branch name.
      */
-    @RequiresBambooVersion(minimumVersion = "5.14")
+    @RequiresBambooVersion(minimumVersion = '5.14')
     void vcsBranchName(String vcsBranchName) {
         this.vcsBranchName = vcsBranchName
     }
