@@ -8,7 +8,7 @@ right_code: |
       }
       plan(key: 'PLAN2KEY', name: 'my plan 2') {
       }
-      permissions {
+      projectPermissions {
           user(name: 'diego') {
               permissionTypes PermissionType.CREATE, PermissionType.ADMIN
           }
@@ -18,7 +18,21 @@ right_code: |
           other(type: OtherUserType.LOGGED_IN_USERS) {
               permissionTypes PermissionType.CREATE
           }
-      }      
+      }   
+      planPermissions {
+          user(name: 'paul') {
+              permissionTypes PermissionType.ADMIN
+          }
+          group(name: 'mgmt') {
+              permissionTypes PermissionType.CREATE
+          }
+          other(type: OtherUserType.LOGGED_IN_USERS) {
+              permissionTypes PermissionType.ADMIN, PermissionType.CREATE
+          }
+          other(type: OtherUserType.ANONYMOUS_USERS) {
+              permissionTypes PermissionType.CREATE
+          }
+      }
   }
   ~~~
   {: title="DSL" }
@@ -31,16 +45,25 @@ right_code: |
         name: my plan 1
       - key: PLAN2KEY
         name: my plan 2
-    permissions:
+    projectPermissions:
+      user:
+        diego:
+          - !permission ADMIN
+          - !permission CREATE        
+      group:
+        devops: !permission CREATE
+      other:
+        !userType LOGGED_IN_USERS: !permission CREATE     
+    planPermissions:
       user:
         paul: !permission ADMIN
       group:
-        devops:
-          - !permission ADMIN
-          - !permission CREATE
+        mgmt: !permission CREATE
       other:
         !userType LOGGED_IN_USERS:
-          - !permission CREATE        
+          - !permission ADMIN        
+          - !permission CREATE     
+        !userType ANONYMOUS_USERS:  !permission CREATE                   
   ~~~
   {: title="YAML" }
 
@@ -48,4 +71,4 @@ right_code: |
 
 A project contains of a collection of [plans](#plan). Each project has a key (which must consist of an uppercase
 letter followed by one or more uppercase alphanumeric characters), a name and its build plans. Since Bamboo 6.2, it
-can also have project permissions for users and groups.
+can also have project and plan permissions for users and groups.

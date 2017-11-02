@@ -1,16 +1,25 @@
 project:
   key: MYPROJECT
   name: This is my project
-  permissions:
+  projectPermissions:
+    user:
+      diego:
+        - !permission ADMIN
+        - !permission CREATE
+    group:
+      devops: !permission CREATE
+    other:
+      !userType LOGGED_IN_USERS: !permission CREATE
+  planPermissions:
     user:
       paul: !permission ADMIN
     group:
-      devops:
-        - !permission ADMIN
-        - !permission CREATE
+      mgmt: !permission CREATE
     other:
       !userType LOGGED_IN_USERS:
+        - !permission ADMIN
         - !permission CREATE
+      !userType ANONYMOUS_USERS:  !permission CREATE
   plans:
     - key: MYPLAN
       name: my plan

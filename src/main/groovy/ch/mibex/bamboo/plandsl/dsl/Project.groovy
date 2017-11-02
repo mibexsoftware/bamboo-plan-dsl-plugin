@@ -10,7 +10,8 @@ class Project extends BambooObject {
     private String key
     private String name
     private List<Plan> plans = []
-    private Permissions permissions = new Permissions(bambooFacade)
+    private Permissions projectPermissions = new Permissions(bambooFacade)
+    private Permissions planPermissions = new Permissions(bambooFacade)
 
     /**
      * @deprecated use {@link #Project(String, String, BambooFacade)} instead
@@ -130,9 +131,22 @@ class Project extends BambooObject {
      * @since 1.9.7
      */
     @RequiresBambooVersion(minimumVersion = '6.2.0')
-    Permissions permissions(@DelegatesTo(value = Permissions, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+    Permissions projectPermissions(@DelegatesTo(value = Permissions, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def permissions = new Permissions(bambooFacade)
         DslScriptHelper.execute(closure, permissions)
-        this.permissions = permissions
+        this.projectPermissions = permissions
+    }
+
+
+    /**
+     * Specifies the plan permissions for this project.
+     *
+     * @since 1.9.7
+     */
+    @RequiresBambooVersion(minimumVersion = '6.2.0')
+    Permissions planPermissions(@DelegatesTo(value = Permissions, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+        def permissions = new Permissions(bambooFacade)
+        DslScriptHelper.execute(closure, permissions)
+        this.planPermissions = permissions
     }
 }

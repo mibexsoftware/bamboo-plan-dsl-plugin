@@ -80,15 +80,27 @@ class YamlParserSpec extends Specification {
         then:
         project.key == 'MYPROJECT'
         project.name == 'This is my project'
-        project.permissions ==  new Permissions(
+        project.projectPermissions ==  new Permissions(
                 user: [
-                        'paul': PermissionTypes.PermissionType.ADMIN
+                        'diego': [PermissionTypes.PermissionType.ADMIN, PermissionTypes.PermissionType.CREATE]
                 ],
                 group: [
-                        'devops': [PermissionTypes.PermissionType.ADMIN, PermissionTypes.PermissionType.CREATE]
+                        'devops': [PermissionTypes.PermissionType.CREATE]
                 ],
                 other: [
                         (Permissions.OtherUserType.LOGGED_IN_USERS): [PermissionTypes.PermissionType.CREATE]
+                ]
+        )
+        project.planPermissions ==  new Permissions(
+                user: [
+                        'paul': [PermissionTypes.PermissionType.ADMIN]
+                ],
+                group: [
+                        'mgmt': [PermissionTypes.PermissionType.CREATE]
+                ],
+                other: [
+                        (Permissions.OtherUserType.LOGGED_IN_USERS): [PermissionTypes.PermissionType.ADMIN, PermissionTypes.PermissionType.CREATE],
+                        (Permissions.OtherUserType.ANONYMOUS_USERS): [PermissionTypes.PermissionType.CREATE]
                 ]
         )
         project.plans[0].key == 'MYPLAN'
