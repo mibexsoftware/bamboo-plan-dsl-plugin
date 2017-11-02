@@ -31,13 +31,13 @@ class ProjectSpec extends Specification {
         result.projects[0].projectPermissions == new Permissions(
             user: ['diego': [PermissionTypes.PermissionType.CREATE, PermissionTypes.PermissionType.ADMIN]],
             group: ['devops': [PermissionTypes.PermissionType.CREATE]],
-            other: [(Permissions.OtherUserType.ANONYMOUS_USERS): [PermissionTypes.PermissionType.CREATE]]
+            other: [(Permissions.OtherUserType.LOGGED_IN_USERS): [PermissionTypes.PermissionType.CREATE]]
         )
         result.projects[0].planPermissions == new Permissions(
                 user: ['paul': [PermissionTypes.PermissionType.ADMIN]],
-                group: ['mgmt': [PermissionTypes.PermissionType.CREATE]],
-                other: [(Permissions.OtherUserType.ANONYMOUS_USERS): [PermissionTypes.PermissionType.ADMIN, PermissionTypes.PermissionType.CREATE],
-                        (Permissions.OtherUserType.LOGGED_IN_USERS): [PermissionTypes.PermissionType.CREATE]]
+                group: ['mgmt': [PermissionTypes.PermissionType.EDIT]],
+                other: [(Permissions.OtherUserType.LOGGED_IN_USERS): [PermissionTypes.PermissionType.ADMIN, PermissionTypes.PermissionType.EDIT],
+                        (Permissions.OtherUserType.ANONYMOUS_USERS): [PermissionTypes.PermissionType.VIEW]]
         )
     }
 

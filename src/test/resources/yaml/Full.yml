@@ -14,12 +14,12 @@ project:
     user:
       paul: !permission ADMIN
     group:
-      mgmt: !permission CREATE
+      mgmt: !permission EDIT
     other:
       !userType LOGGED_IN_USERS:
         - !permission ADMIN
-        - !permission CREATE
-      !userType ANONYMOUS_USERS:  !permission CREATE
+        - !permission EDIT
+      !userType ANONYMOUS_USERS:  !permission VIEW
   plans:
     - key: MYPLAN
       name: my plan

@@ -24,13 +24,13 @@ right_code: |
               permissionTypes PermissionType.ADMIN
           }
           group(name: 'mgmt') {
-              permissionTypes PermissionType.CREATE
+              permissionTypes PermissionType.EDIT
           }
           other(type: OtherUserType.LOGGED_IN_USERS) {
-              permissionTypes PermissionType.ADMIN, PermissionType.CREATE
+              permissionTypes PermissionType.ADMIN, PermissionType.EDIT
           }
           other(type: OtherUserType.ANONYMOUS_USERS) {
-              permissionTypes PermissionType.CREATE
+              permissionTypes PermissionType.VIEW
           }
       }
   }
@@ -58,12 +58,12 @@ right_code: |
       user:
         paul: !permission ADMIN
       group:
-        mgmt: !permission CREATE
+        mgmt: !permission EDIT
       other:
         !userType LOGGED_IN_USERS:
           - !permission ADMIN        
-          - !permission CREATE     
-        !userType ANONYMOUS_USERS:  !permission CREATE                   
+          - !permission EDIT     
+        !userType ANONYMOUS_USERS:  !permission VIEW                   
   ~~~
   {: title="YAML" }
 
