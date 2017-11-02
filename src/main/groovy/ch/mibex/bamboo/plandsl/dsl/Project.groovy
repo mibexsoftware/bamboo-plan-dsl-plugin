@@ -1,5 +1,6 @@
 package ch.mibex.bamboo.plandsl.dsl
 
+import ch.mibex.bamboo.plandsl.dsl.permissions.Permissions
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
@@ -9,6 +10,7 @@ class Project extends BambooObject {
     private String key
     private String name
     private List<Plan> plans = []
+    private Permissions permissions = new Permissions(bambooFacade)
 
     /**
      * @deprecated use {@link #Project(String, String, BambooFacade)} instead
@@ -122,4 +124,15 @@ class Project extends BambooObject {
         plan
     }
 
+    /**
+     * Specifies the permissions for this project.
+     *
+     * @since 1.9.7
+     */
+    @RequiresBambooVersion(minimumVersion = '6.2.0')
+    Permissions permissions(@DelegatesTo(value = Permissions, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+        def permissions = new Permissions(bambooFacade)
+        DslScriptHelper.execute(closure, permissions)
+        this.permissions = permissions
+    }
 }

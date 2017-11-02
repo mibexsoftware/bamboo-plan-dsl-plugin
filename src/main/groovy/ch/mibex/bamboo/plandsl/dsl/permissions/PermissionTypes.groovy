@@ -31,13 +31,17 @@ class PermissionTypes extends BambooObject {
          */
         CLONE('CLONE'),
         /**
-         * User can administrate all components of this plan including the stages and the plan's permissions.
+         * User can administrate all components of this plan/project including the stages and the plan's permissions.
          */
         ADMIN('ADMINISTRATION'),
         /**
          * Defines who can releases for this project and who can deploy them to this environment.
          */
-        DEPLOY('BUILD')
+        DEPLOY('BUILD'),
+        /**
+         * Defines who can create a plan for this project.
+         */
+        CREATE('CREATE')
 
         private final String internalName
 
