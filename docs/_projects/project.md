@@ -9,29 +9,8 @@ right_code: |
       plan(key: 'PLAN2KEY', name: 'my plan 2') {
       }
       projectPermissions {
-          user(name: 'diego') {
-              permissionTypes PermissionType.CREATE, PermissionType.ADMIN
-          }
-          group(name: 'devops') {
-              permissionTypes PermissionType.CREATE
-          }
-          other(type: OtherUserType.LOGGED_IN_USERS) {
-              permissionTypes PermissionType.CREATE
-          }
       }   
       planPermissions {
-          user(name: 'paul') {
-              permissionTypes PermissionType.ADMIN
-          }
-          group(name: 'mgmt') {
-              permissionTypes PermissionType.EDIT
-          }
-          other(type: OtherUserType.LOGGED_IN_USERS) {
-              permissionTypes PermissionType.ADMIN, PermissionType.EDIT
-          }
-          other(type: OtherUserType.ANONYMOUS_USERS) {
-              permissionTypes PermissionType.VIEW
-          }
       }
   }
   ~~~
@@ -45,25 +24,8 @@ right_code: |
         name: my plan 1
       - key: PLAN2KEY
         name: my plan 2
-    projectPermissions:
-      user:
-        diego:
-          - !permission ADMIN
-          - !permission CREATE        
-      group:
-        devops: !permission CREATE
-      other:
-        !userType LOGGED_IN_USERS: !permission CREATE     
-    planPermissions:
-      user:
-        paul: !permission ADMIN
-      group:
-        mgmt: !permission EDIT
-      other:
-        !userType LOGGED_IN_USERS:
-          - !permission ADMIN        
-          - !permission EDIT     
-        !userType ANONYMOUS_USERS:  !permission VIEW                   
+    projectPermissions:   
+    planPermissions:                 
   ~~~
   {: title="YAML" }
 
