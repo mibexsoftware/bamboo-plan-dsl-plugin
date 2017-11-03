@@ -33,4 +33,5 @@ right_code: |
 
 A project contains of a collection of [plans](#plan). Each project has a key (which must consist of an uppercase
 letter followed by one or more uppercase alphanumeric characters), a name and its build plans. Since Bamboo 6.2, it
-can also have project and plan permissions for users and groups.
+can also have [project permissions](#project_permissions) and [plan inheritance permissions](#plan_permissions)
+for users and groups.
