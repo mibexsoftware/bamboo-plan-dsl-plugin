@@ -131,12 +131,12 @@ class Project extends BambooObject {
      * @since 1.9.7
      */
     @RequiresBambooVersion(minimumVersion = '6.2.0')
-    Permissions projectPermissions(@DelegatesTo(value = Permissions, strategy = Closure.DELEGATE_FIRST) Closure closure) {
+    Permissions projectPermissions(
+            @DelegatesTo(value = Permissions, strategy = Closure.DELEGATE_FIRST) Closure closure) {
         def permissions = new Permissions(bambooFacade)
         DslScriptHelper.execute(closure, permissions)
         this.projectPermissions = permissions
     }
-
 
     /**
      * Specifies the plan permissions for this project.
