@@ -114,6 +114,8 @@ supported by the plug-in, they can still be used with the
 
 - Project 
     - [x] Project details
+    - [x] Project permissions
+    - [x] Plan permissions inheritance
 - Plans
     - [x] Plan details
     - [x] Stages
