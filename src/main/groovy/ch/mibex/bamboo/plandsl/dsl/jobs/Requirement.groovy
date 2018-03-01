@@ -2,9 +2,10 @@ package ch.mibex.bamboo.plandsl.dsl.jobs
 
 import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import ch.mibex.bamboo.plandsl.dsl.BambooObject
-import ch.mibex.bamboo.plandsl.dsl.Validations
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
+
+import static ch.mibex.bamboo.plandsl.dsl.Validations.requireNotNullOrEmpty
 
 @EqualsAndHashCode(includeFields=true, excludes = ['metaClass'])
 @ToString(includeFields=true)
@@ -43,7 +44,7 @@ class Requirement extends BambooObject {
         }
 
         Equals(String matchValue) {
-            Validations.isNotNullOrEmpty(matchValue, "Matching value for capability type 'Equals' must not be empty")
+            requireNotNullOrEmpty(matchValue, "Matching value for capability type 'Equals' must not be empty")
             this.matchValue = matchValue
         }
     }
@@ -60,7 +61,7 @@ class Requirement extends BambooObject {
         }
 
         Matches(String regex) {
-            Validations.isNotNullOrEmpty(regex, "Matching regex for capability type 'Matches' must not be empty")
+            requireNotNullOrEmpty(regex, "Matching regex for capability type 'Matches' must not be empty")
             this.regex = regex
         }
     }

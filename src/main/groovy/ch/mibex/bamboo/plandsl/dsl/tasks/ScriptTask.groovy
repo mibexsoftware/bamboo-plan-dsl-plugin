@@ -68,10 +68,10 @@ class ScriptTask extends Task {
         def config = [:]
         config.put('argument', argument)
         if (inlineScript) {
-            Validations.isNotNullOrEmpty(inlineScript.scriptBody, 'Script body must not be empty')
+            Validations.requireNotNullOrEmpty(inlineScript.scriptBody, 'Script body must not be empty')
             config.put('scriptBody', inlineScript.scriptBody)
         } else if (scriptFile) {
-            Validations.isNotNullOrEmpty(scriptFile.scriptFile, 'Script file must not be empty')
+            Validations.requireNotNullOrEmpty(scriptFile.scriptFile, 'Script file must not be empty')
             config.put('script', scriptFile.scriptFile)
         }
         addInterpreterSettings(config)

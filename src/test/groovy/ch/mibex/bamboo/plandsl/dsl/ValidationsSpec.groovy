@@ -6,7 +6,7 @@ class ValidationsSpec extends Specification {
 
     def 'when null should yield error text'() {
         when:
-        Validations.isNotNullOrEmpty(null, 'must not be null')
+        Validations.requireNotNullOrEmpty(null, 'must not be null')
 
         then:
         Exception e = thrown(DslScriptException)
@@ -15,7 +15,7 @@ class ValidationsSpec extends Specification {
 
     def 'when not null should not do anything'() {
         when:
-        Validations.isNotNullOrEmpty('project("KEY") {}', 'must not be null')
+        Validations.requireNotNullOrEmpty('project("KEY") {}', 'must not be null')
 
         then:
         true
@@ -23,7 +23,7 @@ class ValidationsSpec extends Specification {
 
     def 'when false should yield error text'() {
         when:
-        Validations.isTrue(false, 'must not be false')
+        Validations.requireTrue(false, 'must not be false')
 
         then:
         Exception e = thrown(DslScriptException)
@@ -32,7 +32,7 @@ class ValidationsSpec extends Specification {
 
     def 'when true should not do anything'() {
         when:
-        Validations.isTrue(true, 'must not be false')
+        Validations.requireTrue(true, 'must not be false')
 
         then:
         true
@@ -40,7 +40,7 @@ class ValidationsSpec extends Specification {
 
     def 'safe Bamboo string check with non-safe chars'() {
         when:
-        Validations.isSafeBambooString('must "not" be false')
+        Validations.requireSafeBambooString('must "not" be false')
 
         then:
         Exception e = thrown(DslScriptException)
@@ -49,7 +49,7 @@ class ValidationsSpec extends Specification {
 
     def 'safe Bamboo string check with only safe chars'() {
         when:
-        Validations.isSafeBambooString('must not, be false')
+        Validations.requireSafeBambooString('must not, be false')
 
         then:
         true
@@ -57,14 +57,16 @@ class ValidationsSpec extends Specification {
 
     def 'valid Bamboo entity name with only valid chars'() {
         when:
-        Validations.isValidBambooEntityName('9The_Project-is-here .', 'error msg')
+        Validations.requireValidBambooEntityName('9The_Project-is-here() .', 'error msg')
+
         then:
         true
     }
 
     def 'valid Bamboo entity name with invalid chars'() {
         when:
-        Validations.isValidBambooEntityName('#/!', 'error msg')
+        Validations.requireValidBambooEntityName('#/!', 'error msg')
+
         then:
         Exception e = thrown(DslScriptException)
         e.message.contains('error msg')

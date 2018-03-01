@@ -28,7 +28,7 @@ class Requirements extends BambooObject {
     void requirement(String capabilityKey,
                      Requirement.MatchType matchType,
                      @DelegatesTo(value = Requirement, strategy = Closure.DELEGATE_FIRST) Closure closure) {
-        Validations.isTrue(
+        Validations.requireTrue(
             ! requirements.find { it.capabilityKey == capabilityKey },
             'The requirement with this key already exists'
         )

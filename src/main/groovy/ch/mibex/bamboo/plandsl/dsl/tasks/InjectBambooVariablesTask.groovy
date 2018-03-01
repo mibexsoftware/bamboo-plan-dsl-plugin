@@ -29,8 +29,8 @@ class InjectBambooVariablesTask extends Task {
     InjectBambooVariablesTask(String propertiesFilePath, String namespace, BambooFacade bambooFacade) {
         super(bambooFacade, TASK_ID)
         this.propertiesFilePath =
-                Validations.isNotNullOrEmpty(propertiesFilePath, 'propertiesFilePath must not be empty')
-        this.namespace = Validations.isNotNullOrEmpty(namespace, 'namespace must not be empty')
+                Validations.requireNotNullOrEmpty(propertiesFilePath, 'propertiesFilePath must not be empty')
+        this.namespace = Validations.requireNotNullOrEmpty(namespace, 'namespace must not be empty')
     }
 
     /**

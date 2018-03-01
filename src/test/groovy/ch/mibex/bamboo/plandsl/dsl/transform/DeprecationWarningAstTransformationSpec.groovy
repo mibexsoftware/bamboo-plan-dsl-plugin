@@ -16,4 +16,12 @@ class DeprecationWarningAstTransformationSpec extends Specification {
         1 * bambooFacade.log(_)
     }
 
+    def 'do not log deprecation warning for different overload'() {
+        when:
+        testPlan.deprecatedWithOverload("test")
+
+        then:
+        0 * bambooFacade.log(_)
+    }
+
 }

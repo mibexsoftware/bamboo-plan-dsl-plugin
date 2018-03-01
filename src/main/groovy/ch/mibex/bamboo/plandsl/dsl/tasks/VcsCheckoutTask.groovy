@@ -61,7 +61,7 @@ class VcsCheckoutTask extends Task {
         repositories.eachWithIndex { item, index ->
             config.put('checkoutDir_' + index, item.checkoutDirectory)
             def id = repoIdMappings.get(item.name)
-            Validations.isNotNullOrEmpty(id, "Could not find a repository for '${item.name}'")
+            Validations.requireNotNullOrEmpty(id, "Could not find a repository for '${item.name}'")
             config.put('selectedRepository_' + index, id)
         }
         config.put('cleanCheckout', String.valueOf(forceCleanBuild))

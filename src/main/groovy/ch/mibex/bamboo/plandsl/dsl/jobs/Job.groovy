@@ -23,7 +23,7 @@ class Job extends BambooObject {
     protected Job(String key, String name, BambooFacade bambooFacade) {
         super(bambooFacade)
         this.key(key)
-        this.name = Validations.isNotNullOrEmpty(name, 'job name must be specified')
+        this.name = Validations.requireNotNullOrEmpty(name, 'job name must be specified')
     }
 
     /**
@@ -45,8 +45,8 @@ class Job extends BambooObject {
      * alphanumeric characters. E. g. CORE (for a module called core)
      */
     private void key(String key) {
-        Validations.isNotNullOrEmpty(key, 'job key must be specified')
-        Validations.isTrue(
+        Validations.requireNotNullOrEmpty(key, 'job key must be specified')
+        Validations.requireTrue(
                 key ==~ /[A-Z][A-Z0-9]*/,
                 'job key must consist of an uppercase letter followed by one or more uppercase alphanumeric characters.'
         )
@@ -60,7 +60,7 @@ class Job extends BambooObject {
      */
     @Deprecated
     void name(String name) {
-        Validations.isNotNullOrEmpty(name, 'job name must be specified')
+        Validations.requireNotNullOrEmpty(name, 'job name must be specified')
         this.name = name
     }
 
@@ -68,7 +68,7 @@ class Job extends BambooObject {
      * Specifies the description of the job.
      */
     void description(String description) {
-        Validations.isSafeBambooString(description)
+        Validations.requireSafeBambooString(description)
         this.description = description
     }
 

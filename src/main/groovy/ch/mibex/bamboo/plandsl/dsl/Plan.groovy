@@ -58,8 +58,8 @@ class Plan extends BambooObject {
     }
 
     private void planKey(String key) {
-        Validations.isNotNullOrEmpty(key, 'plan key must be specified')
-        Validations.isTrue(
+        Validations.requireNotNullOrEmpty(key, 'plan key must be specified')
+        Validations.requireTrue(
                 key ==~ /[A-Z][A-Z0-9]*/,
                 'key must consist of an uppercase letter followed by one or more uppercase alphanumeric characters.'
         )
@@ -77,7 +77,7 @@ class Plan extends BambooObject {
     }
 
     private void planName(String name) {
-        Validations.isNotNullOrEmpty(name, 'plan name must be specified')
+        Validations.requireNotNullOrEmpty(name, 'plan name must be specified')
         this.name = name
     }
 
@@ -85,7 +85,7 @@ class Plan extends BambooObject {
      * Specifies the description of the plan.
      */
     void description(String description) {
-        this.description = Validations.isSafeBambooString(description)
+        this.description = Validations.requireSafeBambooString(description)
     }
 
     /**
@@ -162,7 +162,7 @@ class Plan extends BambooObject {
     }
 
     private static Long checkDeploymentProjectId(Map<String, Object> params) {
-        Validations.isTrue(params['id'] ==~ /\d+/, 'deployment project ID must only consist of digits.')
+        Validations.requireTrue(params['id'] ==~ /\d+/, 'deployment project ID must only consist of digits.')
         params['id'] as Long
     }
 

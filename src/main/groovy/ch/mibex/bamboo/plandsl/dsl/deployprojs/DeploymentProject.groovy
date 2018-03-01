@@ -38,8 +38,8 @@ class DeploymentProject extends BambooObject {
     protected DeploymentProject() {}
 
     private void name(String name) {
-        Validations.isNotNullOrEmpty(name, 'deployment project name must be specified')
-        Validations.isValidBambooEntityName(name, 'deployment project name must not contain special characters.')
+        Validations.requireNotNullOrEmpty(name, 'deployment project name must be specified')
+        Validations.requireValidBambooEntityName(name, 'deployment project name must not contain special characters.')
         this.name = name
     }
 
@@ -49,7 +49,7 @@ class DeploymentProject extends BambooObject {
      * @param description A description for this deployment plan
      */
     void description(String description) {
-        Validations.isSafeBambooString(description)
+        Validations.requireSafeBambooString(description)
         this.description = description
     }
 
@@ -78,7 +78,7 @@ class DeploymentProject extends BambooObject {
     }
 
     private checkEnvironmentId(Map<String, Object> params) {
-        Validations.isTrue(params['id'] ==~ /\d+/, 'environment ID must only consist of digits.')
+        Validations.requireTrue(params['id'] ==~ /\d+/, 'environment ID must only consist of digits.')
         params['id'] as Long
     }
 

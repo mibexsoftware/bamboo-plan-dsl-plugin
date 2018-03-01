@@ -33,8 +33,8 @@ class Branch extends BambooObject {
     protected Branch() {}
 
     Branch(String name) {
-        Validations.isNotNullOrEmpty(name, 'Plan branch name must be specified')
-        Validations.isValidBambooEntityName(name, 'Plan branch name must not contain special characters. ' +
+        Validations.requireNotNullOrEmpty(name, 'Plan branch name must be specified')
+        Validations.requireValidBambooEntityName(name, 'Plan branch name must not contain special characters. ' +
                 'Use vcsBranchName for the name of the branch in your repository.')
         this.name = name
     }

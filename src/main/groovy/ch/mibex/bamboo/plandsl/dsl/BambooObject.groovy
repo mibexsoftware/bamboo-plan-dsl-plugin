@@ -9,7 +9,7 @@ abstract class BambooObject {
     }
 
     protected BambooObject(BambooFacade bambooFacade) {
-        Validations.isNotNullOrEmpty(bambooFacade, 'Bamboo facade must not be null')
+        Validations.requireNotNullOrEmpty(bambooFacade, 'Bamboo facade must not be null')
         this.bambooFacade = bambooFacade
     }
 

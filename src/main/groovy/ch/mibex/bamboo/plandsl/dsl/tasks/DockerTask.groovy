@@ -30,7 +30,7 @@ class DockerTask extends Task {
      */
     DockerTask(String repository, BambooFacade bambooFacade) {
         super(bambooFacade, TASK_ID)
-        this.repository = Validations.isNotNullOrEmpty(repository, 'repository must not be empty')
+        this.repository = Validations.requireNotNullOrEmpty(repository, 'repository must not be empty')
     }
 
     /**

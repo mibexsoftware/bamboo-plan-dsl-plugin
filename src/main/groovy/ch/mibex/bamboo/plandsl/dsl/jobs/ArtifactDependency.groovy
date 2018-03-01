@@ -19,7 +19,7 @@ class ArtifactDependency extends BambooObject {
      */
     ArtifactDependency(String name, BambooFacade bambooFacade) {
         super(bambooFacade)
-        this.name = Validations.isNotNullOrEmpty(name, 'name must not be empty')
+        this.name = Validations.requireNotNullOrEmpty(name, 'name must not be empty')
     }
 
     // just for testing

@@ -32,8 +32,8 @@ class SshTask extends Task {
      */
     SshTask(String host, String userName, BambooFacade bambooFacade) {
         super(bambooFacade, TASK_ID)
-        this.host = Validations.isNotNullOrEmpty(host, 'host must not be empty')
-        this.userName = Validations.isNotNullOrEmpty(userName, 'userName must not be empty')
+        this.host = Validations.requireNotNullOrEmpty(host, 'host must not be empty')
+        this.userName = Validations.requireNotNullOrEmpty(userName, 'userName must not be empty')
     }
 
     void passwordAuth(@DelegatesTo(value = PasswordAuth, strategy = Closure.DELEGATE_FIRST) Closure closure) {

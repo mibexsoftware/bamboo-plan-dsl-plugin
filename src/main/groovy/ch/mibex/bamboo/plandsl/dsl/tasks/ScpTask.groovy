@@ -10,6 +10,8 @@ import ch.mibex.bamboo.plandsl.dsl.scm.auth.SshWithoutPassphraseAuth
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
+import static ch.mibex.bamboo.plandsl.dsl.Validations.requireTrue
+
 @EqualsAndHashCode(includeFields=true, excludes=['metaClass'], callSuper=true)
 @ToString(includeFields=true)
 class ScpTask extends Task {
@@ -35,8 +37,8 @@ class ScpTask extends Task {
      */
     ScpTask(String host, String userName, BambooFacade bambooFacade) {
         super(bambooFacade, TASK_ID)
-        this.host = Validations.isNotNullOrEmpty(host, 'host must not be empty')
-        this.userName = Validations.isNotNullOrEmpty(userName, 'userName must not be empty')
+        this.host = Validations.requireNotNullOrEmpty(host, 'host must not be empty')
+        this.userName = Validations.requireNotNullOrEmpty(userName, 'userName must not be empty')
     }
 
     void passwordAuth(@DelegatesTo(value = PasswordAuth, strategy = Closure.DELEGATE_FIRST) Closure closure) {
@@ -61,7 +63,7 @@ class ScpTask extends Task {
      * @param artifactName The name of the artifact.
      */
     void artifactByName(String artifactName) {
-        Validations.isTrue(artifactLocalPath == null, 'either artifactByLocalPath OR artifactName must be provided.')
+        requireTrue(artifactLocalPath == null, 'either artifactByLocalPath OR artifactName must be provided.')
         this.artifactName = artifactName
     }
 
@@ -74,7 +76,7 @@ class ScpTask extends Task {
     void artifactByLocalPath(
             Map<String, String> params,
             @DelegatesTo(value = ScpArtifactByLocalPath, strategy = Closure.DELEGATE_FIRST) Closure c) {
-        Validations.isTrue(artifactName == null, 'either artifactByLocalPath OR artifactName must be provided.')
+        requireTrue(artifactName == null, 'either artifactByLocalPath OR artifactName must be provided.')
         this.localPath = params['localPath']
         def artifactByLocalPath = new ScpArtifactByLocalPath()
         DslScriptHelper.execute(c, artifactByLocalPath)

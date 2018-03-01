@@ -14,7 +14,7 @@ class Stage extends BambooObject {
 
     protected Stage(String name, BambooFacade bambooFacade) {
         super(bambooFacade)
-        this.name = Validations.isNotNullOrEmpty(name, 'name must be specified')
+        this.name = Validations.requireNotNullOrEmpty(name, 'name must be specified')
     }
 
     // for testing
@@ -28,14 +28,14 @@ class Stage extends BambooObject {
      */
     @Deprecated
     protected void name(String name) {
-        this.name = Validations.isNotNullOrEmpty(name, 'name must be specified')
+        this.name = Validations.requireNotNullOrEmpty(name, 'name must be specified')
     }
 
     /**
      * Choose a meaningful description for this plan stage.
      */
     void description(String description) {
-        this.description = Validations.isSafeBambooString(description)
+        this.description = Validations.requireSafeBambooString(description)
     }
 
     /**

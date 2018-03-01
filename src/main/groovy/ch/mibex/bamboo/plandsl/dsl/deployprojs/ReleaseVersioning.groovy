@@ -20,7 +20,7 @@ class ReleaseVersioning extends BambooObject {
 
     ReleaseVersioning(String nextReleaseVersion, BambooFacade bambooFacade) {
         super(bambooFacade)
-        Validations.isNotNullOrEmpty(nextReleaseVersion, 'nextReleaseVersion must be specified')
+        Validations.requireNotNullOrEmpty(nextReleaseVersion, 'nextReleaseVersion must be specified')
         this.nextReleaseVersion = nextReleaseVersion
     }
 

@@ -29,8 +29,8 @@ class HipChatNotification extends NotificationType {
                         String apiToken, String room,
                         BambooFacade bambooFacade) {
         super(NOTIFICATION_RECIPIENT_TYPE, event, bambooFacade)
-        this.apiToken = Validations.isNotNullOrEmpty(apiToken, 'apiToken must not be empty')
-        this.room = Validations.isNotNullOrEmpty(room, 'room must not be empty')
+        this.apiToken = Validations.requireNotNullOrEmpty(apiToken, 'apiToken must not be empty')
+        this.room = Validations.requireNotNullOrEmpty(room, 'room must not be empty')
     }
 
     /**

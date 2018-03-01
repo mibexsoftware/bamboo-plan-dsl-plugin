@@ -27,8 +27,8 @@ class NodeJsTask extends Task {
      */
     NodeJsTask(String executable, String script, BambooFacade bambooFacade) {
         super(bambooFacade, TASK_ID)
-        this.executable = Validations.isNotNullOrEmpty(executable, 'executable must not be empty')
-        this.script = Validations.isNotNullOrEmpty(script, 'script must not be empty')
+        this.executable = Validations.requireNotNullOrEmpty(executable, 'executable must not be empty')
+        this.script = Validations.requireNotNullOrEmpty(script, 'script must not be empty')
     }
 
     /**

@@ -24,9 +24,9 @@ class HerokuDeployWarTask extends Task {
 
     HerokuDeployWarTask(String apiKey, String appName, String warFile, BambooFacade bambooFacade) {
         super(bambooFacade, TASK_ID)
-        this.apiKey = Validations.isNotNullOrEmpty(apiKey, 'apiKey must not be empty')
-        this.appName = Validations.isNotNullOrEmpty(appName, 'appName must not be empty')
-        this.warFile = Validations.isNotNullOrEmpty(warFile, 'warFile must not be empty')
+        this.apiKey = Validations.requireNotNullOrEmpty(apiKey, 'apiKey must not be empty')
+        this.appName = Validations.requireNotNullOrEmpty(appName, 'appName must not be empty')
+        this.warFile = Validations.requireNotNullOrEmpty(warFile, 'warFile must not be empty')
     }
 
     /**

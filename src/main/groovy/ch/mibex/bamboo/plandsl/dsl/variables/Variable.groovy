@@ -15,7 +15,7 @@ class Variable {
     }
 
     Variable(String key, String value) {
-        Validations.isNotNullOrEmpty(key, 'key must be specified')
+        Validations.requireNotNullOrEmpty(key, 'key must be specified')
         this.key = key
         this.value = value
     }

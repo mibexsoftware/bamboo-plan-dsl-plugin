@@ -72,7 +72,7 @@ class Dependencies extends BambooObject {
      */
     @Deprecated
     void dependency(String planKey) {
-        Validations.isNotNullOrEmpty(planKey, 'Dependency plan key must not be empty')
+        Validations.requireNotNullOrEmpty(planKey, 'Dependency plan key must not be empty')
         def dependency = new Dependency(planKey, bambooFacade)
         dependencies << dependency
     }

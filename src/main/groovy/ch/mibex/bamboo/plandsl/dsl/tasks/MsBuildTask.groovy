@@ -27,8 +27,8 @@ class MsBuildTask extends Task {
      */
     MsBuildTask(String executable, String projectFile, BambooFacade bambooFacade) {
         super(bambooFacade, TASK_ID)
-        this.executable = Validations.isNotNullOrEmpty(executable, 'executable must not be empty')
-        this.projectFile = Validations.isNotNullOrEmpty(projectFile, 'projectFile must not be empty')
+        this.executable = Validations.requireNotNullOrEmpty(executable, 'executable must not be empty')
+        this.projectFile = Validations.requireNotNullOrEmpty(projectFile, 'projectFile must not be empty')
     }
 
     /**

@@ -14,6 +14,13 @@ class TestPlan extends Plan {
     void deprecated() {
     }
 
+    void deprecatedWithOverload(String) {
+    }
+
+    @Deprecated
+    void deprecatedWithOverload() {
+    }
+
     @RequiresBambooVersion(minimumVersion = "5.12")
     void requiresBambooVersion() {
     }

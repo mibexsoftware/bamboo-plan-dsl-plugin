@@ -23,7 +23,7 @@ class AfterSuccessfulDeploymentTrigger extends DeploymentTriggerType {
 
     AfterSuccessfulDeploymentTrigger(String triggeringEnvironment, BambooFacade bambooFacade) {
         super(bambooFacade)
-        this.triggeringEnvironment = Validations.isNotNullOrEmpty(triggeringEnvironment,
+        this.triggeringEnvironment = Validations.requireNotNullOrEmpty(triggeringEnvironment,
                 'triggeringEnvironment must not be empty')
     }
 

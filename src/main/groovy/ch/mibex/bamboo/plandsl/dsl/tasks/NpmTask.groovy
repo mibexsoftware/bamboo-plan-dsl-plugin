@@ -27,8 +27,8 @@ class NpmTask extends Task {
      */
     NpmTask(String executable, String command, BambooFacade bambooFacade) {
         super(bambooFacade, TASK_ID)
-        this.executable = Validations.isNotNullOrEmpty(executable, 'executable must not be empty')
-        this.command = Validations.isNotNullOrEmpty(command, 'command must not be empty')
+        this.executable = Validations.requireNotNullOrEmpty(executable, 'executable must not be empty')
+        this.command = Validations.requireNotNullOrEmpty(command, 'command must not be empty')
     }
 
     /**

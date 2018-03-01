@@ -35,7 +35,7 @@ class Maven3Task extends Task {
 
     Maven3Task(String goal, BambooFacade bambooFacade) {
         super(bambooFacade, TASK_ID)
-        this.goal = Validations.isNotNullOrEmpty(goal, 'Goal must not be empty')
+        this.goal = Validations.requireNotNullOrEmpty(goal, 'Goal must not be empty')
     }
 
     /**

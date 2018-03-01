@@ -89,7 +89,7 @@ class AutoBranchManagement extends BambooObject {
      * @param days number of days after plan branches get deleted.
      */
     void deletePlanBranchesAfterDays(int days) {
-        Validations.isTrue(days >= 0, 'deletePlanBranchesAfterDays must be greater than zero')
+        Validations.requireTrue(days >= 0, 'deletePlanBranchesAfterDays must be greater than zero')
         if (days == 0) {
             deletedBranchesStrategy = DeletedBranchesStrategy.DELETE_PLAN_BRANCHES_WITH_DAILY_CLEANUP
         } else {

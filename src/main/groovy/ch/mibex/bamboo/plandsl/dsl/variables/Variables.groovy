@@ -19,7 +19,7 @@ class Variables extends BambooObject {
     }
 
     void variable(String key, String value) {
-        Validations.isNotNullOrEmpty(key, 'Variable key must not be empty')
+        Validations.requireNotNullOrEmpty(key, 'Variable key must not be empty')
         def variable = new Variable(key, value)
         variables << variable
     }

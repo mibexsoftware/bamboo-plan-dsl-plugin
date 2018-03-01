@@ -4,7 +4,7 @@ import ch.mibex.bamboo.plandsl.dsl.BambooFacade
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
-import static ch.mibex.bamboo.plandsl.dsl.Validations.isNotNullOrEmpty
+import static ch.mibex.bamboo.plandsl.dsl.Validations.requireNotNullOrEmpty
 
 @EqualsAndHashCode(includeFields=true, excludes = ['metaClass'], callSuper = true)
 @ToString(includeFields=true)
@@ -27,12 +27,12 @@ class DeployPluginTask extends Task {
     DeployPluginTask(String deployArtifactName, ProductType productType, String deployURL,
                      String deployUsername, String deployPasswordVariable, BambooFacade bambooFacade) {
         super(bambooFacade, TASK_ID)
-        this.deployArtifactName = isNotNullOrEmpty(deployArtifactName, 'deployArtifactName must be specified')
-        this.productType = isNotNullOrEmpty(productType, 'productType must be specified')
-        this.deployURL = isNotNullOrEmpty(deployURL, 'deployURL must be specified')
-        this.deployUsername = isNotNullOrEmpty(deployUsername, 'deployUsername must be specified')
+        this.deployArtifactName = requireNotNullOrEmpty(deployArtifactName, 'deployArtifactName must be specified')
+        this.productType = requireNotNullOrEmpty(productType, 'productType must be specified')
+        this.deployURL = requireNotNullOrEmpty(deployURL, 'deployURL must be specified')
+        this.deployUsername = requireNotNullOrEmpty(deployUsername, 'deployUsername must be specified')
         this.deployPasswordVariable =
-                isNotNullOrEmpty(deployPasswordVariable, 'deployPasswordVariable must be specified')
+                requireNotNullOrEmpty(deployPasswordVariable, 'deployPasswordVariable must be specified')
     }
 
     //for tests

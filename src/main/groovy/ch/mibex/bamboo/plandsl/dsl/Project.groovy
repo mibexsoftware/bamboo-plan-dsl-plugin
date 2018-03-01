@@ -32,8 +32,8 @@ class Project extends BambooObject {
     }
 
     private void projectKey(String key) {
-        Validations.isNotNullOrEmpty(key, 'a project key must be specified')
-        Validations.isTrue(
+        Validations.requireNotNullOrEmpty(key, 'a project key must be specified')
+        Validations.requireTrue(
                 key ==~ /[A-Z0-9]{2,}/,
                 'a project key must consist of 2 or more upper case alphanumeric characters'
         )
@@ -51,7 +51,7 @@ class Project extends BambooObject {
     }
 
     private void projectName(String name) {
-        Validations.isNotNullOrEmpty(name, 'a project name must be specified')
+        Validations.requireNotNullOrEmpty(name, 'a project name must be specified')
         this.name = name
     }
 

@@ -35,8 +35,8 @@ class Environment extends BambooObject {
 
     Environment(String name, Long id, BambooFacade bambooFacade) {
         super(bambooFacade)
-        Validations.isNotNullOrEmpty(name, 'environment name must be specified')
-        Validations.isValidBambooEntityName(name, 'environment name must not contain special characters.')
+        Validations.requireNotNullOrEmpty(name, 'environment name must be specified')
+        Validations.requireValidBambooEntityName(name, 'environment name must not contain special characters.')
         this.name = name
         this.id = id
     }
@@ -49,7 +49,7 @@ class Environment extends BambooObject {
      * @param description A description for this environment
      */
     void description(String description) {
-        Validations.isSafeBambooString(description)
+        Validations.requireSafeBambooString(description)
         this.description = description
     }
 
