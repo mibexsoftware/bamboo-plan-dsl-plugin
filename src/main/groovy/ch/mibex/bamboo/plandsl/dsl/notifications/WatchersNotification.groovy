@@ -12,10 +12,12 @@ class WatchersNotification extends NotificationType {
 
     // just for testing:
     protected WatchersNotification() {
+        super(NOTIFICATION_RECIPIENT_TYPE)
     }
 
     // single-arg ctor necessary for !watchers
     protected WatchersNotification(String e) {
+        super(NOTIFICATION_RECIPIENT_TYPE)
     }
 
     WatchersNotification(Notifications.NotificationEvent event, BambooFacade bambooFacade) {

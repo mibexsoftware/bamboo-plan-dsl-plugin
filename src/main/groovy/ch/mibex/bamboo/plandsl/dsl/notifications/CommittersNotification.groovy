@@ -16,6 +16,7 @@ class CommittersNotification extends NotificationType {
 
     // for testing:
     protected CommittersNotification() {
+        super(NOTIFICATION_RECIPIENT_TYPE)
     }
 
     @Override

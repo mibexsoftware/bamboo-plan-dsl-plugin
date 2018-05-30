@@ -12,6 +12,7 @@ class UserNotification extends NotificationType {
 
     // just for testing:
     protected UserNotification() {
+        super(NOTIFICATION_RECIPIENT_TYPE)
     }
 
     UserNotification(Notifications.NotificationEvent event, BambooFacade bambooFacade) {

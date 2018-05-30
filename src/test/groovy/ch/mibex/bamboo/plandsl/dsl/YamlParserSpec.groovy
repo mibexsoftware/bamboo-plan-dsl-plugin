@@ -449,6 +449,7 @@ class YamlParserSpec extends Specification {
                 address: 'test@test.com'
         )
         project.plans[0].notifications.notifications[1] == new CommittersNotification(
+                notificationRecipientType: CommittersNotification.NOTIFICATION_RECIPIENT_TYPE,
                 event: Notifications.NotificationEvent.CHANGE_OF_BUILD_STATUS
         )
         project.plans[0].notifications.notifications[2] == new CustomNotification(
@@ -463,30 +464,37 @@ class YamlParserSpec extends Specification {
                 ]
         )
         project.plans[0].notifications.notifications[3] == new HipChatNotification(
+                notificationRecipientType: HipChatNotification.NOTIFICATION_RECIPIENT_TYPE,
                 apiToken: 'HIPTOKEN',
                 event: Notifications.NotificationEvent.AFTER_X_BUILD_FAILURES,
                 room: 'MYROOM',
                 notify: true
         )
         project.plans[0].notifications.notifications[4] == new GroupNotification(
+                notificationRecipientType: GroupNotification.NOTIFICATION_RECIPIENT_TYPE,
                 event: Notifications.NotificationEvent.COMMENT_ADDED,
                 group: 'mygroup'
         )
         project.plans[0].notifications.notifications[5] == new ImAddressNotification(
+                notificationRecipientType: ImAddressNotification.NOTIFICATION_RECIPIENT_TYPE,
                 event: Notifications.NotificationEvent.CHANGE_OF_RESPONSIBILITIES,
                 instantMessagingAddress: 'MyAddress'
         )
         project.plans[0].notifications.notifications[6] == new ResponsibleUsersNotification(
+                notificationRecipientType: ResponsibleUsersNotification.NOTIFICATION_RECIPIENT_TYPE,
                 event: Notifications.NotificationEvent.ALL_JOBS_COMPLETED
         )
         project.plans[0].notifications.notifications[7] == new StashLegacyNotification(
+                notificationRecipientType: StashLegacyNotification.NOTIFICATION_RECIPIENT_TYPE,
                 event: Notifications.NotificationEvent.CHANGE_OF_JOB_STATUS
         )
         project.plans[0].notifications.notifications[8] == new UserNotification(
+                notificationRecipientType: UserNotification.NOTIFICATION_RECIPIENT_TYPE,
                 event: Notifications.NotificationEvent.FAILED_JOBS_AND_FIRST_SUCCESSFUL,
                 user: 'bob'
         )
         project.plans[0].notifications.notifications[9] == new WatchersNotification(
+                notificationRecipientType: WatchersNotification.NOTIFICATION_RECIPIENT_TYPE,
                 event: Notifications.NotificationEvent.FIRST_FAILED_JOB_FOR_PLAN
         )
         project.plans[0].triggers.triggers[0] == new BitbucketServerTrigger(repositories: ['REPO1', 'REPO2'])

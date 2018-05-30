@@ -11,10 +11,12 @@ class StashLegacyNotification extends NotificationType {
 
     // just for testing
     protected StashLegacyNotification() {
+        super(NOTIFICATION_RECIPIENT_TYPE)
     }
 
     // single-arg ctor necessary for !stashLegacy
     protected StashLegacyNotification(String e) {
+        super(NOTIFICATION_RECIPIENT_TYPE)
     }
 
     StashLegacyNotification(Notifications.NotificationEvent event, BambooFacade bambooFacade) {

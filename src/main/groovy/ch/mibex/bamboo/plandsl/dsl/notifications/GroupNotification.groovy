@@ -13,6 +13,7 @@ class GroupNotification extends NotificationType {
 
     // just for testing:
     protected GroupNotification() {
+        super(NOTIFICATION_RECIPIENT_TYPE)
     }
 
     GroupNotification(Notifications.NotificationEvent event, BambooFacade bambooFacade) {

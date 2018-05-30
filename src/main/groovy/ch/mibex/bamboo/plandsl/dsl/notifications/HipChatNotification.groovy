@@ -14,7 +14,9 @@ class HipChatNotification extends NotificationType {
     private String room
     private boolean notify
 
-    protected HipChatNotification() {}
+    protected HipChatNotification() {
+        super(NOTIFICATION_RECIPIENT_TYPE)
+    }
 
     /**
      * @deprecated use {@link #HipChatNotification(Notifications.NotificationEvent, String, String, BambooFacade)}

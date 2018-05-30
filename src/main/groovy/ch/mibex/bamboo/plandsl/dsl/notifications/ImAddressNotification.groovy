@@ -12,6 +12,7 @@ class ImAddressNotification extends NotificationType {
 
     // just for testing:
     protected ImAddressNotification() {
+        super(NOTIFICATION_RECIPIENT_TYPE)
     }
 
     ImAddressNotification(Notifications.NotificationEvent event, BambooFacade bambooFacade) {
