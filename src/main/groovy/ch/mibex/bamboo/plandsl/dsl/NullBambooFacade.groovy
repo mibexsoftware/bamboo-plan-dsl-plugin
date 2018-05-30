@@ -28,7 +28,7 @@ class NullBambooFacade implements BambooFacade {
         String getAt(String key) {
             String value = env[key]
             if (!value) {
-                throw new IllegalArgumentException("No environment variable found for '$key'")
+                throw new IllegalArgumentException("No environment variable found for '$key' in ${env.keySet().join(",")}")
             }
             value
         }

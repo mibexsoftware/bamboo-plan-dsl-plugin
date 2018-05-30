@@ -9,15 +9,17 @@ class StrictBambooEnvironment implements BambooEnvironment {
 
     @Override
     String getAt(String key) {
-        def value = variableContext[key]
-        Validations.requireNotNullOrEmpty(value, "No environment variable found for '$key'")
-        value
+        return getFromEnv(key)
     }
 
     @Override
     String call(String key) {
+        return getFromEnv(key)
+    }
+
+    private void getFromEnv(String key) {
         def value = variableContext[key]
-        Validations.requireNotNullOrEmpty(value, "No environment variable found for '$key'")
+        Validations.requireNotNullOrEmpty(value, "No environment variable found for '$key' in ${variableContext.keySet().join(",")}")
         value
     }
 }
