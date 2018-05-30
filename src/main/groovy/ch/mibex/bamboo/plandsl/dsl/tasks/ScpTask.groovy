@@ -94,7 +94,7 @@ class ScpTask extends Task {
     }
 
     @Override
-    protected def Map<String, String> getConfig(Map<Object, Object> context) {
+    protected Map<String, String> getConfig(Map<Object, Object> context) {
         def config = [:]
         config.put('host', host)
         config.put('username', userName)
@@ -103,7 +103,7 @@ class ScpTask extends Task {
             config.put('localPath', localPath)
             config.put('useAntPattern', artifactLocalPath.useAntPatternsToSelectFiles.toString())
         } else if (artifactName) {
-            def artifactId = getArtifactId(context, artifactName)
+            def artifactId = getArtifactId(context, artifactName, true)
             config.put('artifactToScp', artifactId)
         }
         config.put('remotePath', remotePath)
