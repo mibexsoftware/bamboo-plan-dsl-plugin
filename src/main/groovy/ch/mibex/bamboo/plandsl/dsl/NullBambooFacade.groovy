@@ -27,10 +27,8 @@ class NullBambooFacade implements BambooFacade {
         @Override
         String getAt(String key) {
             String value = env[key]
-            if (!value) {
-                throw new IllegalArgumentException("No environment variable found for '$key' in ${env.keySet().join(",")}")
-            }
-            value
+            Validations.requireNotNullOrEmpty(value,
+                    "No env variable found for '$key' in ${env.keySet().join(',')}")
         }
 
         @Override
