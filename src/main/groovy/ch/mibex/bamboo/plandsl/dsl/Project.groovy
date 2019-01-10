@@ -9,6 +9,7 @@ import groovy.transform.ToString
 class Project extends BambooObject {
     private String key
     private String name
+    private String description
     private List<Plan> plans = []
     private Permissions projectPermissions = new Permissions(bambooFacade)
     private Permissions planPermissions = new Permissions(bambooFacade)
@@ -53,6 +54,15 @@ class Project extends BambooObject {
     private void projectName(String name) {
         Validations.requireNotNullOrEmpty(name, 'a project name must be specified')
         this.name = name
+    }
+
+    /**
+     * Specifies the description of  the mandatory name of the project.
+     *
+     */
+    void description(String description) {
+        Validations.requireNotNullOrEmpty(description, 'a project description must be specified')
+        this.description = description
     }
 
     /**
