@@ -61,7 +61,7 @@ class Project extends BambooObject {
      *
      */
     void description(String description) {
-        Validations.requireNotNullOrEmpty(description, 'a project description must be specified')
+        Validations.requireNotNullOrEmpty(this.description, 'a project description must be specified') 
         this.description = description
     }
 
