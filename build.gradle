@@ -45,7 +45,7 @@ task groovydocsJar(type: Jar, dependsOn: 'groovydoc') {
 }
 
 codenarc {
-    toolVersion = '0.25.2'
+    toolVersion = '1.0'
     configFile = file('config/codenarc/rules.groovy')
     sourceSets = [project.sourceSets.main] // currently restricted to src/main/groovy/** files
 }

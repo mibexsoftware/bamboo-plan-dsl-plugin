@@ -43,7 +43,7 @@ class YamlParser {
         Constructor constructor = new EnvConstructor(bambooFacade)
         addTypeAliases(constructor)
         def yaml = new Yaml(constructor)
-        yaml.setBeanAccess(BeanAccess.FIELD)
+        yaml.beanAccess = BeanAccess.FIELD
         String str = removeDuplicateNesting(yaml, input)
         yaml.loadAs(str, YamlDsl).project
     }
