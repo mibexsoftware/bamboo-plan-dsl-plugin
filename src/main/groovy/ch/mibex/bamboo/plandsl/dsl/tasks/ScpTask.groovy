@@ -103,7 +103,7 @@ class ScpTask extends Task {
             config.put('localPath', localPath)
             config.put('useAntPattern', artifactLocalPath.useAntPatternsToSelectFiles.toString())
         } else if (artifactName) {
-            def artifactId = getArtifactId(context, artifactName, true)
+            def artifactId = getArtifactId(context, artifactName, false)
             config.put('artifactToScp', artifactId)
         }
         config.put('remotePath', remotePath)
