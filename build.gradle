@@ -45,9 +45,10 @@ task groovydocsJar(type: Jar, dependsOn: 'groovydoc') {
 }
 
 codenarc {
-    toolVersion = '0.25.2'
+    toolVersion = '2.1.0'
     configFile = file('config/codenarc/rules.groovy')
     sourceSets = [project.sourceSets.main] // currently restricted to src/main/groovy/** files
+    maxPriority3Violations = 1000
 }
 
 repositories {
@@ -59,7 +60,7 @@ repositories {
 dependencies {
     astCompile "org.codehaus.groovy:groovy-all:${groovyVersion}"
     compile "org.codehaus.groovy:groovy-all:${groovyVersion}"
-    compile group: 'org.apache.ant', name: 'ant', version: '1.8.2'
-    compile group: 'org.yaml', name: 'snakeyaml', version: '1.18'
+    compile group: 'org.apache.ant', name: 'ant', version: '1.10.9'
+    compile group: 'org.yaml', name: 'snakeyaml', version: '1.28'
     testCompile('org.spockframework:spock-core:1.0-groovy-2.4')
 }

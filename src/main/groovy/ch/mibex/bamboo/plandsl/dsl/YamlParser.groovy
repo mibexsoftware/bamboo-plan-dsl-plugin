@@ -328,7 +328,7 @@ class YamlParser {
             @Override
             Object construct(org.yaml.snakeyaml.nodes.Node node) {
                 if (!(node instanceof ScalarNode)) {
-                    throw new IllegalArgumentException('Non-scalar !env: ' + node.toString())
+                    throw new IllegalArgumentException('Non-scalar !env: ' + node)
                 }
                 String key = (String) constructScalar(node)
                 bambooFacade.variableContext[key]
@@ -340,7 +340,7 @@ class YamlParser {
             @Override
             Object construct(org.yaml.snakeyaml.nodes.Node node) {
                 if (!(node instanceof ScalarNode)) {
-                    throw new IllegalArgumentException('Non-scalar !encrypt: ' + node.toString())
+                    throw new IllegalArgumentException('Non-scalar !encrypt: ' + node)
                 }
                 String text = (String) constructScalar(node)
                 bambooFacade.encrypt(text)

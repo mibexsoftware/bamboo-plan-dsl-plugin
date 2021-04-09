@@ -12,6 +12,9 @@ ruleset {
         exclude 'TrailingComma'
         // we don't care
         exclude 'NoDef'
+
+        exclude 'CompileStatic'
+        exclude 'NoDouble'
     }
 
     ruleset('rulesets/design.xml') {
