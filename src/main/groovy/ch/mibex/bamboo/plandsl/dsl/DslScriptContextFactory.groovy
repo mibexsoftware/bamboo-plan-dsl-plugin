@@ -56,9 +56,9 @@ class DslScriptContextFactory {
 
     private static List<String> collectFilesForAntPattern(File rootDir, String target) {
         def fileSet = new FileSet()
-        fileSet.setDir(rootDir)
+        fileSet.dir = rootDir
         PatternSet.NameEntry include = fileSet.createInclude()
-        include.setName(target)
+        include.name = target
         def ds = fileSet.getDirectoryScanner(new org.apache.tools.ant.Project())
         ds.includedFiles.toList()
     }
